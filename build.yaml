@@ -1,0 +1,20 @@
+# Read about `build.yaml` at https://pub.dartlang.org/packages/build_config
+targets:
+  $default:
+    builders:
+      freezed:
+        enabled: true
+        generate_for:
+          exclude:
+            - test
+            - example
+          include:
+            - test
+
+builders:
+  jsonWidgetBuilder:
+    import: "package:nstack/json_widget.dart"
+    builder_factories: ["jsonWidgetBuilder"]
+    build_extensions: {".json": [".dart"]}
+    build_to: source
+    auto_apply: dependents

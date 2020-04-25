@@ -1,0 +1,12 @@
+{
+  "name": "Container",
+  "params": {
+    "color": "#Color(0xFF22DD11)",
+    "child": {
+      "name": "Text",
+      "params": {
+        "0": "Hello, World"
+      }
+    }
+  }
+}
