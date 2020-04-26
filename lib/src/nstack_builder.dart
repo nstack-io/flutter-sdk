@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:build/build.dart';
 
-/// A builder which outputs widgets from json.
+/// A builder which outputs a 'nstack.dart' file. This file provides a NStack instance and all bundled translations.
 class NstackBuilder implements Builder {
   const NstackBuilder();
 
