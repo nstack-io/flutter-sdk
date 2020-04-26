@@ -18,6 +18,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await Nstack.platformVersion, '42');
+    expect(await NStack.platformVersion, '42');
   });
 }
