@@ -28,6 +28,9 @@ class NstackBuilder implements Builder {
     output.writeln("final NStack nstack = NStack.instance(\"$rojectId\", \"$apiKey\", _bundledTranslations);");
     output.writeln("");
     output.writeln('''
+// TODO: Generate type safe section key constants...  
+    
+// App bundled translations. NStack falls back to this data initially and if user clears app data.
 final _bundledTranslations = {
   'en_EN':'{"data":{"section1":{"key1":"value80493753","key2":"value2"}},"meta":{"language":{"id":56,"name":"English","locale":"en_EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":447,"slug":"mobile"}}}',
   'fr-BE': '{"data":{"section1":{"key1":"valeur1","key2":"valeur2"}},"meta":{"language":{"id":54,"name":"French (Belgian)","locale":"fr-BE","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":447,"slug":"mobile"}}}',
