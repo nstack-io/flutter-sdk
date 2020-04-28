@@ -69,13 +69,13 @@ ArgResults parseArguments(List<String> arguments) {
     return result;
   } on Error catch (e) {
     exit_with(
-        'Invalid command input. see spider --help for info.', e.stackTrace);
+        'Invalid command input. see nstacktooling --help for info.', e.stackTrace);
     return null;
   }
 }
 
-/// Called when no command is passed for spider
-/// Process available options for spider executable
+/// Called when no command is passed for nstacktooling
+/// Process available options for nstacktooling executable
 void processArgs(List<String> arguments) {
   if (arguments.contains('--help')) {
     printHelp();
@@ -128,4 +128,4 @@ NSTACK:
   see nstacktooling --help for more available commands.
 ''';
 
-const String ERROR_COMMAND_NOT_FOUND = 'No command found. Use NStack --help to see available commands';
+const String ERROR_COMMAND_NOT_FOUND = 'No command found. Use nstacktooling --help to see available commands';
