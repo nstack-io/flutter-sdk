@@ -1,0 +1,3 @@
+library nstacktooling;
+
+class NStackTooling {}
