@@ -7,7 +7,7 @@ Activate from pub.dev:
 `pub global activate nstacktooling`
 
 Activate from git:
-` pub global activate -sgit <Git URL>`
+`pub global activate -sgit <Git URL>`
 
 Activate locally:
 `pub global activate --source path <path>`
