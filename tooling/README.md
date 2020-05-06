@@ -1,7 +1,7 @@
 # NStack Flutter Tooling
 
 ## Installation
-This is package is an independent library. There is no need to add it to your Flutter project since it's intended to work as a global command line tool.
+This package is an independent library. There is no need to add it to your Flutter project since it's intended to work as a global command line tool.
 
 Activate from pub.dev:
 `pub global activate nstacktooling`
@@ -12,6 +12,7 @@ Activate from git:
 Activate locally:
 `pub global activate --source path <path>`
 
-
 Run following command to see help:
 `nstacktooling --help`
+
+or `pub global run nstacktooling:main --help` when testing locally
