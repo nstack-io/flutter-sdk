@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nstack_example/nstack.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(NStackWidget(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -10,10 +11,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('NStack Demo'),
+          title: Text(context.localization.test.title),
         ),
         body: Center(
-          child: Text('TODO'),
+          child: Text(context.localization.defaultSection.hi),
         ),
       ),
     );
