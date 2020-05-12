@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:build/build.dart';
 import 'package:nstack/src/nstack_repository.dart';
 
