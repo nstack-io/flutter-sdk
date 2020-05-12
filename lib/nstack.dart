@@ -1,17 +1,25 @@
-class NStack {
-  final String _projectId;
-  final String _apiKey;
-  final Map<String, String> _bundledTranslations;
+import 'package:nstack/nstack_config.dart';
 
-  NStack._(this._projectId, this._apiKey, this._bundledTranslations);
+import 'language.dart';
 
-  static NStack _instance;
+class NStack<T> {
+  final List<Language> availableLanguages;
+  final NStackConfig config;
+  final Map<String, String> bundledTranslations;
+  final T localization;
 
-  static NStack instance(String projectId, String apiKey,
-      Map<String, String> bundledTranslations) {
-    if (_instance == null) {
-      _instance = NStack._(projectId, apiKey, bundledTranslations);
-    }
-    return _instance;
+  NStack({
+    this.config,
+    this.availableLanguages,
+    this.localization,
+    this.bundledTranslations
+  });
+
+  Language defaultLanguage() {
+    return availableLanguages.where((element) => element.isDefault).first;
+  }
+
+  Language bestFitLanguage() {
+    return availableLanguages.where((element) => element.isBestFit).first;
   }
 }
