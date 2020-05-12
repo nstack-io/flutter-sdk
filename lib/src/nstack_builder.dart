@@ -181,7 +181,7 @@ class NStackWidget extends InheritedWidget {
     await _writeLocalizationJSON(languages, repository, output);
 
     output.writeln('''
-	final NStack nstack = NStack<Localization>(
+	final NStack<Localization> nstack = NStack<Localization>(
 	  config: NStackConfig(projectId: "$projectId", apiKey: "$apiKey"),
 	  localization: Localization.fallback(),
 	  availableLanguages: _languages,
