@@ -194,6 +194,10 @@ class NStackWidget extends InheritedWidget {
 	@override
 	bool updateShouldNotify(NStackWidget oldWidget) => nstack != oldWidget.nstack;
 }
+
+extension NStackWidgetExtension on BuildContext {
+	Localization get localization => NStackWidget.of(this).localization;
+}
     ''');
   }
 
