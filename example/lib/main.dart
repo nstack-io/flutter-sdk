@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
+      home: NStackInitWidget(child: Scaffold(
         appBar: AppBar(
           title: Text(context.localization.test.title),
         ),
@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
           child: Text(context.localization.defaultSection.hi),
         ),
       ),
+    ),
     );
   }
 }
