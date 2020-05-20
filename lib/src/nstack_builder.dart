@@ -104,16 +104,9 @@ class NstackBuilder implements Builder {
       if(section == "default") section = "defaultSection";
       var classSection = section.toString().replaceRange(0, 1, section.toString().substring(0, 1).toUpperCase());
 
-      output.writeln("\t$classSection $section;");
+      output.writeln("\t$classSection _$section;");
+      output.writeln("\t$classSection get $section => _$section;");
     });
-
-    // Make constructor Localization({...})
-    var constructorArgs = "";
-    languageJson.forEach((section, keys) {
-      if(section == "default") section = "defaultSection";
-      constructorArgs += "this.$section,";
-    });
-    output.writeln("\tLocalization({$constructorArgs});");
 
     // Make fallback() class method
     output.writeln("\tLocalization.fallback() {");
@@ -121,7 +114,7 @@ class NstackBuilder implements Builder {
       var cleanedSection = section;
       if(cleanedSection == "default") cleanedSection = "defaultSection";
       var uppercaseCleanedSection = cleanedSection.toString().replaceRange(0, 1, cleanedSection.toString().substring(0, 1).toUpperCase());
-      output.writeln("\t\t$cleanedSection = $uppercaseCleanedSection();");
+      output.writeln("\t\t_$cleanedSection = $uppercaseCleanedSection();");
     });
     output.writeln("\t}");
 
@@ -132,7 +125,7 @@ class NstackBuilder implements Builder {
       var cleanedSection = section;
       if(cleanedSection == "default") cleanedSection = "defaultSection";
       var uppercaseCleanedSection = cleanedSection.toString().replaceRange(0, 1, cleanedSection.toString().substring(0, 1).toUpperCase());
-      output.writeln("\t\t$cleanedSection = $uppercaseCleanedSection.fromJson(json['$section']);");
+      output.writeln("\t\t_$cleanedSection = $uppercaseCleanedSection.fromJson(json['$section']);");
     });
     output.writeln("\t\treturn this;");
     output.writeln("\t}");
@@ -150,7 +143,8 @@ class NstackBuilder implements Builder {
 
       // Actual String key = "value";
       keys.forEach((k, v) {
-        output.writeln("\tString $k = \"$v\";");
+        output.writeln("\tString _$k = \"$v\";");
+        output.writeln("\tString get $k => _$k;");
       });
 
       // Fallback constructor
@@ -159,7 +153,7 @@ class NstackBuilder implements Builder {
       output.writeln("\t$uppercaseSection.fromJson(Map<String, dynamic> json) {");
       // Each field in Section class
       keys.forEach((k, v) {
-        output.writeln("\t\t$k = json['$k'];");
+        output.writeln("\t\t_$k = json['$k'];");
       });
       output.writeln("\t}");
       output.writeln("}");
