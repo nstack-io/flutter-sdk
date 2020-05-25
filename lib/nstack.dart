@@ -4,19 +4,17 @@ import 'package:flutter/services.dart';
 import 'package:get_version/get_version.dart';
 import 'package:nstack/models/nstack_appopen_data.dart';
 import 'package:nstack/models/nstack_config.dart';
+import 'package:nstack/src/repository.dart';
 import 'package:nstack/src/nstack_repository.dart';
 import 'package:uuid/uuid.dart';
 import 'models/language.dart';
 import 'partial/localization_fromjson.dart';
 import 'dart:convert';
 
-class NStack<T extends LocalizationRootNode> {
-  final List<Language> availableLanguages;
+class NStack<T> {
   final NStackConfig config;
-  final Map<String, String> bundledTranslations;
   final BuildContext context;
   T localization;
-  final Function updateLocalization;
 
   final String prefsKeyLastUpdated = "nstack_last_updated";
   final String prefsKeyGuid = "nstack_guid";
@@ -28,11 +26,13 @@ class NStack<T extends LocalizationRootNode> {
   NStack({
     this.config,
     this.context,
-    this.availableLanguages,
     this.localization,
-    this.bundledTranslations,
-    this.updateLocalization
-  });
+    availableLanguages,
+    bundledTranslations,
+    pickedLanguageLocale
+  }) {
+    Repository().setupLocalization(bundledTranslations, availableLanguages, pickedLanguageLocale);
+  }
 
   Future _setupAppOpenData() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -95,7 +95,8 @@ class NStack<T extends LocalizationRootNode> {
         // Updating...
         print("NStack --> Fetching best fit language: " + bestFitLanguage['language']['locale']);
         var bestFitLanguageResponse = await _repository.fetchLocalizationForLanguage(bestFitLanguage);
-        localization = localization.fromJson(json.decode(bestFitLanguageResponse)["data"]);
+        //localization = localization.fromJson(json.decode(bestFitLanguageResponse)["data"]);
+        Repository().updateLocalization(bestFitLanguageResponse['data'], bestFitLanguage['language']['locale']);
 
         // Update cache for key
         prefs.setString(nstackKey, bestFitLanguageResponse);
@@ -107,7 +108,8 @@ class NStack<T extends LocalizationRootNode> {
         if(prefs.containsKey(nstackKey)) {
           print("NStack --> Using cache for best fit language: " + bestFitLanguage['language']['locale']);
           var cachedResponse = json.decode(prefs.getString(nstackKey));
-          localization = localization.fromJson(cachedResponse['data']);
+          //localization = localization.fromJson(cachedResponse['data']);
+          Repository().updateLocalization(cachedResponse['data'], bestFitLanguage['language']['locale']);
         // No cache, default values (this shouldn't happen, should_update should be true)
         } else {
           print("NStack --> WARNING: No cache found for best fit language: " + bestFitLanguage['language']['locale']);
@@ -121,14 +123,6 @@ class NStack<T extends LocalizationRootNode> {
       print("NStack --> App Open failed because of: " + err.toString());
       return AppOpenResult.failed;
     }
-  }
-
-  Language defaultLanguage() {
-    return availableLanguages.where((element) => element.isDefault).first;
-  }
-
-  Language bestFitLanguage() {
-    return availableLanguages.where((element) => element.isBestFit).first;
   }
 }
 
