@@ -19,6 +19,8 @@ First, install [build_runner] and [NStack] by adding them to your `pubspec.yaml`
 # pubspec.yaml
 dependencies:
   nstack:
+    git:
+      url: git://github.com/nstack-io/flutter-sdk.git
 
 dev_dependencies:
   build_runner:
@@ -31,7 +33,7 @@ This installs two packages:
 
 ## Run the generator
 
-Create a `nstack.json` file that holds your NStack details:
+Create a `nstack.json` file under `/lib` that holds your NStack details:
 
 ```json
 {
