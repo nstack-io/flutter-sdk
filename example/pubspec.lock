@@ -315,8 +315,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "4b07530c88cb54d68547d6d7471344b48dc8fe64"
-      url: "git@github.com:nstack-io/flutter-sdk.git"
+      resolved-ref: "537bd03d6ad2ffe45eac3536102ebcaa17d04327"
+      url: "git://github.com/nstack-io/flutter-sdk.git"
     source: git
     version: "0.0.1"
   package_config:
