@@ -5,8 +5,6 @@ import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/models/section_key.dart';
 import 'package:nstack/nstack.dart';
 import 'package:nstack/partial/section_key_delegate.dart';
-import 'package:nstack/widgets/nstack_internal_widget.dart';
-export 'package:nstack/widgets/nstack_init_widget.dart';
 
 // Update this file by running:
 // - `flutter pub pub run build_runner build`, if your package depends on Flutter
@@ -72,13 +70,52 @@ final _nstack = NStack<Localization>(
 		bundledTranslations: _bundledTranslations
 );
 
-class NStackWidget extends NStackWidgetInternal {
-	NStackWidget({Key key, @required Widget child})
-			: assert(child != null),
-				super(nstack: _nstack, key: key, child: child);
+class NStackWidget extends InheritedWidget {
+  final NStack<Localization> nstack = _nstack;
+
+  NStackWidget({Key key, @required Widget child})
+      : assert(child != null),
+        super(key: key, child: child);
+
+  static NStack of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<NStackWidget>().nstack;
+
+  @override
+  bool updateShouldNotify(NStackWidget oldWidget) =>
+      nstack != oldWidget.nstack;
 }
 
 extension NStackWidgetExtension on BuildContext {
-	Localization get localization => NStackWidgetInternal.of(this).localization;
+	Localization get localization => NStackWidget.of(this).localization;
+}
+
+class NStackInitWidget extends StatefulWidget {
+  final Widget child;
+
+  const NStackInitWidget({Key key, Widget child})
+      : child = child,
+        super(key: key);
+
+  @override
+  _NStackInitState createState() => _NStackInitState();
+}
+
+class _NStackInitState extends State<NStackInitWidget> {
+  static bool _initialized = false;
+
+  void setupNStack(BuildContext context) {
+    final locale = Localizations.localeOf(context);
+    final nstack = NStackWidget.of(context);
+    nstack.appOpen(locale);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_initialized) {
+      setupNStack(context);
+      _initialized = true;
+    }
+    return widget.child;
+  }
 }
 
