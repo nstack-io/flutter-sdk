@@ -313,9 +313,11 @@ packages:
   nstack:
     dependency: "direct main"
     description:
-      path: ".."
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "4b07530c88cb54d68547d6d7471344b48dc8fe64"
+      url: "git@github.com:nstack-io/flutter-sdk.git"
+    source: git
     version: "0.0.1"
   package_config:
     dependency: transitive
