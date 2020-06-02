@@ -38,13 +38,13 @@ Create a `nstack.json` file under `/lib` that holds your NStack details:
 ```json
 {
   "nstack_project_id": "YOUR_PROJECT_ID",
-  "nstack_api_key": "YOUR_API_KEY"
+  "nstack_api_key": "YOUR_REST_API_KEY"
 }
 ```
 
 Now, depending on your use case you have two possibilities to run the generator:
 
-- `flutter pub pub run build_runner build`, if your package depends on Flutter
+- `flutter pub run build_runner build`, if your package depends on Flutter
 - `pub run build_runner build` otherwise
 
 A successful execution generates your project tailored `nstack.dart` file.\
