@@ -35,14 +35,15 @@ class NstackBuilder implements Builder {
       }
 
       repository.updateHeaders(projectId, apiKey);
-    } catch (err) {
-      print(err);
+    } catch (e, s) {
+      print(e);
+      print(s);
     }
 
     _writeHeader(output);
 
     try {
-      var languages = await repository.fetchAvailableLanguages();
+      final languages = await repository.fetchAvailableLanguages();
 
       // Find default
       defaultLanguage = languages.where((element) => element['language']['is_default'] == true).first;
@@ -50,7 +51,7 @@ class NstackBuilder implements Builder {
 
       // Fetch localization for default language
       print("Fetching default localization from: " + defaultLanguage['url'].toString());
-      var defaultLanguageJson = await repository.fetchLocalizationForLanguage(defaultLanguage);
+      final defaultLanguageJson = await repository.fetchLocalizationForLanguage(defaultLanguage);
 
       print("Creating Localization class...");
       _writeLocalization(defaultLanguageJson, output);
@@ -66,8 +67,9 @@ class NstackBuilder implements Builder {
 
       print("Creating NStackWidget...");
       _writeNStackWidget(output);
-    } catch (err) {
-      print(err);
+    } catch (e, s) {
+      print(e);
+      print(s);
     }
 
     await buildStep.writeAsString(outputId, output.toString());

@@ -55,8 +55,9 @@ class NStackRepository {
 			} else {
 				print("NStack --> App Open failed: " + appOpenResponse.reasonPhrase + " - " + appOpenResponse.body + " - " + requestBody.toString());
 			}
-		} catch (err) {
-			print(err);
+		} catch (e, s) {
+			print(e);
+			print(s);
 		}
 	}
 
@@ -70,8 +71,9 @@ class NStackRepository {
 			print("Fetched " + languages['data'].length.toString() + " languages...");
 
 			return languages['data'];
-		} catch (err) {
-			print(err);
+		} catch (e, s) {
+			print(e);
+			print(s);
 			return json.decode("{\"data\":[]}");
 		}
 	}
