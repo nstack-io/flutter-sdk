@@ -67,7 +67,7 @@ final _nstack = NStack<Localization>(
 		config: _config,
 		localization: Localization(),
 		availableLanguages: _languages,
-		bundledTranslations: _bundledTranslations
+		bundledTranslations: _bundledTranslations,
 );
 
 class NStackWidget extends InheritedWidget {
