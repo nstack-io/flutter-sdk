@@ -20,9 +20,15 @@ class LocalizeIndex {
     return LocalizeIndex(
       id: json['id'],
       url: json['url'],
-      lastUpdatedAt: (json['last_updated_at'] as String)?.let((it) => DateTime.parse(it)),
+      lastUpdatedAt:
+          (json['last_updated_at'] as String)?.let((it) => DateTime.parse(it)),
       shouldUpdate: json['should_update'] ?? false,
       language: (json['language'] as Map)?.let((it) => Language.fromJson(it)),
     );
+  }
+
+  @override
+  String toString() {
+    return 'LocalizeIndex(id: $id, url $url, lastUpdatedAt: $lastUpdatedAt, shouldUpdate: $shouldUpdate, language: $language)';
   }
 }
