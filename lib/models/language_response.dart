@@ -1,9 +1,9 @@
-class LanguageResponse {
+class LocalizationData {
   final Map<String, dynamic> data;
 
-  LanguageResponse(this.data);
+  LocalizationData(this.data);
 
-  factory LanguageResponse.fromJson(Map json) {
-    return LanguageResponse(json['data']);
+  factory LocalizationData.fromJson(Map json) {
+    return LocalizationData(json['data']);
   }
 }

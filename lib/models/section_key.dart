@@ -3,5 +3,5 @@ class SectionKey {
 	final String keyName;
 	final String fallbackValue;
 
-	SectionKey(this.sectionName, this.keyName, this.fallbackValue);
+	const SectionKey(this.sectionName, this.keyName, this.fallbackValue);
 }

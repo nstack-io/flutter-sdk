@@ -101,10 +101,10 @@ class NStack<T> {
         final String bestFitLanguageResponse =
             await _repository.fetchLocalizationForLanguage(bestFitLanguage);
         //localization = localization.fromJson(json.decode(bestFitLanguageResponse)["data"]);
-        final languageJson =
-            LanguageResponse.fromJson(jsonDecode(bestFitLanguageResponse));
+        final translationJson =
+            LocalizationData.fromJson(jsonDecode(bestFitLanguageResponse));
         Repository().updateLocalization(
-            languageJson.data, bestFitLanguage.language.locale);
+            translationJson.data, bestFitLanguage.language.locale);
 
         // Update cache for key
         prefs.setString(nstackKey, bestFitLanguageResponse);
@@ -115,7 +115,7 @@ class NStack<T> {
         if (prefs.containsKey(nstackKey)) {
           print('NStack --> Using cache for best fit language: ${bestFitLanguage.language.locale}');
           final cachedResponse = json.decode(prefs.getString(nstackKey));
-          final languageResponse = LanguageResponse.fromJson(cachedResponse);
+          final languageResponse = LocalizationData.fromJson(cachedResponse);
           //localization = localization.fromJson(cachedResponse['data']);
           Repository().updateLocalization(
               languageResponse.data, bestFitLanguage.language.locale);
