@@ -117,8 +117,9 @@ class NStack<T> {
       print("NStack --> Updated localization...");
 
       return AppOpenResult.success;
-    } catch(err) {
-      print("NStack --> App Open failed because of: " + err.toString());
+    } catch (e, s) {
+      print("NStack --> App Open failed because of: " + e.toString());
+      print(s);
       return AppOpenResult.failed;
     }
   }
