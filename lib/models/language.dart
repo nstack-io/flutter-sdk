@@ -1,12 +1,12 @@
 class Language {
-  int id;
-  String name;
-  String locale;
-  String direction;
-  bool isDefault;
-  bool isBestFit;
+  final int id;
+  final String name;
+  final String locale;
+  final String direction;
+  final bool isDefault;
+  final bool isBestFit;
 
-  Language({
+  const Language({
     this.id,
     this.name,
     this.locale,

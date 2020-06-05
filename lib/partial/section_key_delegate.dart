@@ -1,7 +1,10 @@
+import 'package:nstack/models/text_info.dart';
+import 'package:nstack/src/repository.dart';
 
-import '../models/section_key.dart';
-import '../src/repository.dart';
+abstract class SectionKeyDelegate {
+  final String sectionKey;
 
-class SectionKeyDelegate {
-	String get(SectionKey sectionKey) => Repository().getSectionKeyValue(sectionKey);
+  const SectionKeyDelegate(this.sectionKey);
+
+	String get(TextInfo textInfo) => LocalizationRepository().getSectionKeyValue(sectionKey, textInfo);
 }

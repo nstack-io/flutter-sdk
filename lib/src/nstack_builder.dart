@@ -5,6 +5,9 @@ import 'package:build/build.dart';
 import 'package:nstack/models/language.dart';
 import 'package:nstack/models/language_response.dart';
 import 'package:nstack/models/localize_index.dart';
+import 'package:nstack/models/nstack_config.dart';
+import 'package:nstack/other/extensions.dart';
+import 'package:nstack/other/reserved_kwywords.dart';
 import 'package:nstack/src/nstack_repository.dart';
 
 /// A builder which outputs a 'nstack.dart' file. This file provides a NStack instance, type safe section key accessors and all bundled translations.
@@ -13,36 +16,28 @@ class NstackBuilder implements Builder {
 
   @override
   FutureOr<void> build(BuildStep buildStep) async {
-    NStackRepository repository = NStackRepository();
-
     /// Read the input source and parse it as JSON.
-    Map<String, Object> input;
-    String projectId;
-    String apiKey;
     final AssetId outputId = buildStep.inputId.changeExtension('.dart');
-    LocalizeIndex defaultLanguage;
     final StringBuffer output = StringBuffer();
 
-    try {
-      input = json.decode(await buildStep.readAsString(buildStep.inputId));
-      projectId = input['nstack_project_id']; // TODO: Validate.
-      apiKey = input['nstack_api_key']; // TODO: Validate.
+    // Read nstack.json file
+    final Map<String, Object> input =
+    json.decode(await buildStep.readAsString(buildStep.inputId));
 
-      if (projectId.isEmpty) {
-        print('ERROR in nstack.json -> "nstack_project_id" not set');
-        return;
-      }
+    final String projectId = input['nstack_project_id']; // TODO: Validate.
+    final String apiKey = input['nstack_api_key']; // TODO: Validate.
 
-      if (apiKey.isEmpty) {
-        print('ERROR in nstack.json -> "nstack_api_key" not set');
-        return;
-      }
+    throwIf(projectId.isNullOrBlank,
+        () => ArgumentError('"nstack_project_id" not set'));
+    throwIf(apiKey.isNullOrBlank,
+        () => ArgumentError('"nstack_api_key" not set'));
 
-      repository.updateHeaders(projectId, apiKey);
-    } catch (e, s) {
-      print(e);
-      print(s);
-    }
+    final config = NStackConfig(
+      projectId: projectId,
+      apiKey: apiKey,
+    );
+
+    final repository = NStackRepository(config);
 
     _writeHeader(output);
 
@@ -50,16 +45,18 @@ class NstackBuilder implements Builder {
       final languages = await repository.fetchAvailableLanguages();
 
       // Find the default language
-      defaultLanguage =
-          languages.where((it) => it.language.isDefault == true).first;
+      LocalizeIndex defaultLanguage =
+        languages
+          .where((it) => it.language.isDefault == true)
+          .first;
       print('Found the default Language: ${defaultLanguage.language}');
 
       // Fetch localization for default language
       print('Fetching default localization from: ${defaultLanguage.url}');
       final localizationResponse =
-          await repository.fetchLocalizationForLanguage(defaultLanguage);
+      await repository.fetchLocalizationForLanguage(defaultLanguage);
       final localizationData =
-          LocalizationData.fromJson(jsonDecode(localizationResponse));
+      LocalizationData.fromJson(jsonDecode(localizationResponse));
 
       print('Creating Localization class...');
       _writeLocalization(localizationData, output);
@@ -90,7 +87,7 @@ class NstackBuilder implements Builder {
 import 'package:flutter/widgets.dart';
 import 'package:nstack/models/language.dart';
 import 'package:nstack/models/nstack_config.dart';
-import 'package:nstack/models/section_key.dart';
+import 'package:nstack/models/text_info.dart';
 import 'package:nstack/nstack.dart';
 import 'package:nstack/partial/section_key_delegate.dart';
 
@@ -111,13 +108,13 @@ import 'package:nstack/partial/section_key_delegate.dart';
       // Default is a keyword
       if (section == 'default') section = 'defaultSection';
       final classSection = section
-          .toString()
-          .replaceRange(0, 1, section.toString().substring(0, 1).toUpperCase());
+        .toString()
+        .replaceRange(0, 1, section.toString().substring(0, 1).toUpperCase());
 
-      output.writeln('\t_$classSection _$section = _$classSection();');
-      output.writeln('\t_$classSection get $section => _$section;');
+      output.writeln('\tfinal $section = const _$classSection();');
     });
-
+    output.writeln('');
+    output.writeln('\tconst Localization();');
     output.writeln('''
 }
 ''');
@@ -126,17 +123,24 @@ import 'package:nstack/partial/section_key_delegate.dart';
   void _writeSections(LocalizationData localization, StringBuffer output) {
     final languageJson = localization.data;
     languageJson.forEach((sectionKey, keys) {
-      if (sectionKey == 'default') sectionKey = 'defaultSection';
+      // Check if the section key is using a reserved keyword
+      String adjustedSectionKey = DartKeywords.isReserved(sectionKey)
+      // Append 'Section' to the name of the original sectionKey
+        ? '${sectionKey}Section'
+      // Use the original sectionKey
+        : sectionKey;
 
-      final uppercaseSection = sectionKey.toString().replaceRange(
-          0, 1, sectionKey.toString().substring(0, 1).toUpperCase());
-      output.writeln('class _$uppercaseSection extends SectionKeyDelegate {');
+      final camelCaseClassName = adjustedSectionKey.replaceRange(
+        0, 1, sectionKey.substring(0, 1).toUpperCase());
+      output.writeln('class _$camelCaseClassName extends SectionKeyDelegate {');
+      output.writeln('\tconst _$camelCaseClassName(): super(\'$sectionKey\');');
+      output.writeln('');
 
       // Actual String key = 'value';
       keys.forEach((stringKey, stringValue) {
         //output.writeln('\tString _$k = \'$v\';');
         output.writeln(
-            '\tString get $stringKey => get(SectionKey(\'$sectionKey\', \'$stringKey\', \'$stringValue\'));');
+          '\tString get $stringKey => get(const TextInfo(\'$stringKey\', \'$stringValue\'));');
       });
       output.writeln('''
 }
@@ -144,23 +148,24 @@ import 'package:nstack/partial/section_key_delegate.dart';
     });
   }
 
-  void _writeNStackConfig(
-    String projectId,
+  void _writeNStackConfig(String projectId,
     String apiKey,
-    StringBuffer output,
-  ) {
+    StringBuffer output,) {
     output.writeln('''
-final _config = NStackConfig(projectId: '$projectId', apiKey: '$apiKey');
+const _config = NStackConfig(projectId: '$projectId', apiKey: '$apiKey');
     ''');
   }
 
   void _writeLanguageList(List<LocalizeIndex> languages, StringBuffer output) {
-    output.writeln('final _languages = [');
+    output.writeln('const _languages = [');
 
     languages.forEach((localizeIndex) {
       Language language = localizeIndex.language;
       output.writeln(
-          '\tLanguage(id: ${language.id}, locale: \'${language.locale}\', direction: \'${language.direction}\', isDefault: ${language.isDefault}, isBestFit: ${language.isBestFit}),');
+        '\tLanguage(id: ${language.id}, locale: \'${language
+          .locale}\', direction: \'${language
+          .direction}\', isDefault: ${language.isDefault}, isBestFit: ${language
+          .isBestFit}),');
     });
 
     output.writeln('''
@@ -168,18 +173,16 @@ final _config = NStackConfig(projectId: '$projectId', apiKey: '$apiKey');
 ''');
   }
 
-  Future _writeBundledTranslations(
-    List<LocalizeIndex> languages,
+  Future _writeBundledTranslations(List<LocalizeIndex> languages,
     NStackRepository repository,
-    StringBuffer output,
-  ) async {
+    StringBuffer output,) async {
     output.writeln('''
-final _bundledTranslations = {''');
+const _bundledTranslations = {''');
 
     await Future.forEach<LocalizeIndex>(languages, (localizeIndex) async {
       final locale = localizeIndex.language.locale;
       final content =
-          (await repository.fetchLocalizationForLanguage(localizeIndex));
+      (await repository.fetchLocalizationForLanguage(localizeIndex));
       output.writeln('\t\'$locale\': \'$content\',');
     });
 
@@ -192,9 +195,9 @@ final _bundledTranslations = {''');
     output.writeln('''
 final _nstack = NStack<Localization>(
 		config: _config,
-		localization: Localization(),
+		localization: const Localization(),
 		availableLanguages: _languages,
-		bundledTranslations: _bundledTranslations
+		bundledTranslations: _bundledTranslations,
 );
 ''');
   }
@@ -259,7 +262,8 @@ class _NStackInitState extends State<NStackInitWidget> {
   }
 
   @override
-  Map<String, List<String>> get buildExtensions => const {
-        '.json': ['.dart']
-      };
+  Map<String, List<String>> get buildExtensions =>
+    const {
+      '.json': ['.dart']
+    };
 }

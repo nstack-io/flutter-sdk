@@ -2,23 +2,21 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/nstack_appopen_data.dart';
+import 'package:nstack/models/nstack_config.dart';
 
 class NStackRepository {
-  NStackRepository();
+  final _baseUrl = 'https://nstack.io/api/v2';
 
-  final headers = {
+  final NStackConfig _config;
+
+  Map<String, String> get _headers => {
     'Accept-Language': 'en-US',
-    'X-Application-Id': '',
-    'X-Rest-Api-Key': '',
+    'X-Application-Id': _config.projectId,
+    'X-Rest-Api-Key': _config.apiKey,
     'N-Meta': 'android;local;1.0;1.0;nstackbuilder'
   };
 
-  final baseUrl = 'https://nstack.io/api/v2';
-
-  void updateHeaders(String appId, String apiKey) {
-    headers['X-Application-Id'] = appId;
-    headers['X-Rest-Api-Key'] = apiKey;
-  }
+  const NStackRepository(this._config);
 
   dynamic postAppOpen({
     String acceptHeader,
@@ -26,7 +24,7 @@ class NStackRepository {
     bool devMode,
     bool testMode,
   }) async {
-    headers['Accept-Language'] = acceptHeader;
+    _headers['Accept-Language'] = acceptHeader;
 
     final requestBody = <String, String>{
       'platform': appOpenData.platform,
@@ -40,8 +38,8 @@ class NStackRepository {
       print('NStack --> App Open sending: ${requestBody.toString()}');
 
       final appOpenResponse = await http.post(
-        '$baseUrl/open?dev=$devMode&test=$testMode',
-        headers: headers,
+        '$_baseUrl/open?dev=$devMode&test=$testMode',
+        headers: _headers,
         body: requestBody,
       );
 
@@ -61,8 +59,8 @@ class NStackRepository {
   Future<List<LocalizeIndex>> fetchAvailableLanguages() async {
     try {
       final response = await http.get(
-        '$baseUrl/content/localize/resources/platforms/mobile?dev=true',
-        headers: headers,
+        '$_baseUrl/content/localize/resources/platforms/mobile?dev=true',
+        headers: _headers,
       );
       final Map languagesJson = json.decode(response.body);
       final List<LocalizeIndex> languagesList =
@@ -79,6 +77,6 @@ class NStackRepository {
   }
 
   Future<String> fetchLocalizationForLanguage(LocalizeIndex language) async {
-    return (await http.get(language.url, headers: headers)).body;
+    return (await http.get(language.url, headers: _headers)).body;
   }
 }

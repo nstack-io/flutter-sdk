@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart';
+
 class NStackAppOpenData {
   final String platform = "android";
   final String guid;
@@ -5,10 +7,10 @@ class NStackAppOpenData {
   final String oldVersion;
   final String lastUpdated;
 
-  NStackAppOpenData({
-    this.guid,
-    this.version,
-    this.oldVersion,
-    this.lastUpdated,
+  const NStackAppOpenData({
+    @required this.guid,
+    @required this.version,
+    @required this.oldVersion,
+    @required this.lastUpdated,
   });
 }

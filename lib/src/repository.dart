@@ -1,14 +1,16 @@
-import '../models/language.dart';
-import '../models/section_key.dart';
+import 'package:nstack/models/language.dart';
+import 'package:nstack/models/text_info.dart';
+
 import 'dart:convert';
 
-class Repository {
+class LocalizationRepository {
   // Factory
-  static final Repository _instance = Repository._internal();
+  static final LocalizationRepository _instance =
+      LocalizationRepository._internal();
 
-  factory Repository() => _instance;
+  factory LocalizationRepository() => _instance;
 
-  Repository._internal();
+  LocalizationRepository._internal();
 
   // Internal state
   Map<String, dynamic> _sectionsMap;
@@ -16,14 +18,18 @@ class Repository {
   List<Language> _availableLanguages;
   Language _pickedLanguage;
 
-  void setupLocalization(Map<String, String> bundledTranslations,
-      List<Language> availableLanguages, String pickedLanguageLocale) {
+  void setupLocalization(
+    Map<String, String> bundledTranslations,
+    List<Language> availableLanguages,
+    String pickedLanguageLocale,
+  ) {
     this._bundledTranslations = bundledTranslations;
     this._availableLanguages = availableLanguages;
     this._pickedLanguage = availableLanguages.firstWhere(
-      (element) => element.locale == pickedLanguageLocale,
-      orElse: () =>
-          availableLanguages.firstWhere((element) => element.isDefault),
+      (language) => language.locale == pickedLanguageLocale,
+      orElse: () => availableLanguages.firstWhere(
+        (language) => language.isDefault,
+      ),
     );
 
     _setupInternalMap();
@@ -38,7 +44,7 @@ class Repository {
     _sectionsMap = localizationJson;
   }
 
-  _setupInternalMap() {
+  void _setupInternalMap() {
     try {
       _sectionsMap =
           json.decode(_bundledTranslations[_pickedLanguage.locale])['data'];
@@ -47,7 +53,7 @@ class Repository {
     }
   }
 
-  String getSectionKeyValue(SectionKey sectionKey) =>
-      _sectionsMap[sectionKey.sectionName][sectionKey.keyName] ??
-      sectionKey.fallbackValue;
+  String getSectionKeyValue(String sectionKey, TextInfo textInfo) {
+    return _sectionsMap[sectionKey][textInfo.key] ?? textInfo.fallbackValue;
+  }
 }
