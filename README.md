@@ -46,11 +46,11 @@ Now, depending on your use case you have two possibilities to run the generator:
 
 If your package depends on Flutter execute:
 ```console
-flutter pub run build_runner build
+foo@bar:~$ flutter pub run build_runner build
 ```
 Otherwise execute:
 ```console
-pub run build_runner build
+foo@bar:~$ pub run build_runner build
 ```
 
 A successful execution generates your project tailored `nstack.dart` file.\
@@ -60,7 +60,7 @@ See example below on how to use your NStack instance.
 To run a persistent build server that watches `nstack.json` to automatically trigger rebuilds execute:
 
 ```console
-flutter pub run build_runner watch
+foo@bar:~$ flutter pub run build_runner watch
 ``` 
 
 Now increment the `"version"` number and save (⌘s) to trigger an update.
