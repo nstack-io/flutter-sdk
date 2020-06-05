@@ -16,7 +16,6 @@ To use [NStack], you will need your typical [build_runner] setup.\
 First, install [build_runner] and [NStack] by adding them to your `pubspec.yaml` file:
 
 ```yaml
-# pubspec.yaml
 dependencies:
   nstack:
     git:
@@ -37,18 +36,35 @@ Create a `nstack.json` file under `/lib` that holds your NStack details:
 
 ```json
 {
+  "version": 1,
   "nstack_project_id": "YOUR_PROJECT_ID",
-  "nstack_api_key": "YOUR_API_KEY"
+  "nstack_api_key": "YOUR_REST_API_KEY"
 }
 ```
 
 Now, depending on your use case you have two possibilities to run the generator:
 
-- `flutter pub pub run build_runner build`, if your package depends on Flutter
-- `pub run build_runner build` otherwise
+If your package depends on Flutter execute:
+```console
+flutter pub run build_runner build
+```
+Otherwise execute:
+```console
+pub run build_runner build
+```
 
 A successful execution generates your project tailored `nstack.dart` file.\
 See example below on how to use your NStack instance.
+
+### Incremental updates
+To run a persistent build server that watches `nstack.json` to automatically trigger rebuilds execute:
+
+```console
+flutter pub run build_runner watch
+``` 
+
+Now increment the `"version"` number and save (⌘s) to trigger an update.
+
 
 ## Example
 
