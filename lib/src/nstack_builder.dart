@@ -219,16 +219,6 @@ class NStackWidget extends InheritedWidget {
       nstack != oldWidget.nstack;
 }
 
-/// Allows to access the Nstack Localization using the BuildContext
-extension NStackWidgetExtension on BuildContext {
-	Localization get localization => NStackWidget.of(this).localization;
-}
-
-/// Allows to access the Nstack Localization from StatefulWidget's State
-extension NStackStateExtension<T extends StatefulWidget> on State<T> {
-	Localization get localization => context.localization;
-}
-
 class NStackInitWidget extends StatefulWidget {
   final Widget child;
 
@@ -257,6 +247,16 @@ class _NStackInitState extends State<NStackInitWidget> {
     }
     return widget.child;
   }
+}
+
+/// Allows to access the Nstack Localization using the BuildContext
+extension NStackWidgetExtension on BuildContext {
+	Localization get localization => NStackWidget.of(this).localization;
+}
+
+/// Allows to access the Nstack Localization from StatefulWidget's State
+extension NStackStateExtension<T extends StatefulWidget> on State<T> {
+	Localization get localization => context.localization;
 }
 ''');
   }
