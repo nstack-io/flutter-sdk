@@ -1,90 +1,77 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/nstack_appopen_data.dart';
+import 'package:nstack/models/nstack_config.dart';
 
 class NStackRepository {
+  final _baseUrl = 'https://nstack.io/api/v2';
 
-	NStackRepository();
+  final NStackConfig _config;
 
-	final headers = {
-		'Accept-Language'   : 'en-US',
-		'X-Application-Id'  : '',
-		'X-Rest-Api-Key'    : '',
-		'N-Meta'            : 'android;local;1.0;1.0;nstackbuilder'
-	};
+  Map<String, String> get _headers => {
+        'Accept-Language': 'en-US',
+        'X-Application-Id': _config.projectId,
+        'X-Rest-Api-Key': _config.apiKey,
+        'N-Meta': 'android;local;1.0;1.0;nstackbuilder'
+      };
 
-	final baseUrl = "https://nstack.io/api/v2";
+  const NStackRepository(this._config);
 
-	void updateHeaders(
-		String appId,
-		String apiKey
-	) {
-		headers['X-Application-Id'] = appId;
-		headers['X-Rest-Api-Key'] = apiKey;
-	}
+  dynamic postAppOpen({
+    String acceptHeader,
+    NStackAppOpenData appOpenData,
+    bool devMode,
+    bool testMode,
+  }) async {
+    _headers['Accept-Language'] = acceptHeader;
 
-	dynamic postAppOpen({
-		String acceptHeader,
-		NStackAppOpenData appOpenData,
-		bool devMode,
-		bool testMode
-	}) async {
-		headers['Accept-Language'] = acceptHeader;
+    final requestBody = <String, String>{
+      'platform': appOpenData.platform,
+      'guid': appOpenData.guid,
+      'version': appOpenData.version,
+      'old_version': appOpenData.oldVersion,
+      'last_updated': appOpenData.lastUpdated
+    };
 
-		var requestBody = <String, String>{
-			'platform': appOpenData.platform,
-			'guid': appOpenData.guid,
-			'version': appOpenData.version,
-			'old_version': appOpenData.oldVersion,
-			'last_updated': appOpenData.lastUpdated
-		};
+    print('NStack --> App Open sending: ${requestBody.toString()}');
 
-		try {
-			print("NStack --> App Open sending: " + requestBody.toString());
+    final appOpenResponse = await http.post(
+      '$_baseUrl/open?dev=$devMode&test=$testMode',
+      headers: _headers,
+      body: requestBody,
+    );
 
-			var appOpenResponse = await http.post(
-				"$baseUrl/open?dev=$devMode&test=$testMode",
-				headers: headers,
-				body: requestBody,
-			);
+    if (appOpenResponse.statusCode == 200) {
+      print('NStack --> App Open fetched: ${appOpenResponse.body}');
+      return json.decode(appOpenResponse.body);
+    } else {
+      print(
+          'NStack --> App Open failed: ${appOpenResponse.reasonPhrase} - ${appOpenResponse.body} - ${requestBody.toString()}');
+    }
+  }
 
+  Future<List<LocalizeIndex>> fetchAvailableLanguages() async {
+    try {
+      final response = await http.get(
+        '$_baseUrl/content/localize/resources/platforms/mobile?dev=true',
+        headers: _headers,
+      );
+      final Map languagesJson = json.decode(response.body);
+      final List<LocalizeIndex> languagesList =
+          (languagesJson['data'] as List<dynamic>)
+              .map((it) => LocalizeIndex.fromJson(it))
+              .toList();
+      print('Fetched ${languagesList.length} languages.');
+      return languagesList;
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return [];
+    }
+  }
 
-			if(appOpenResponse.statusCode == 200) {
-				print("NStack --> App Open fetched: " + appOpenResponse.body);
-				return json.decode(appOpenResponse.body);
-			} else {
-				print("NStack --> App Open failed: " + appOpenResponse.reasonPhrase + " - " + appOpenResponse.body + " - " + requestBody.toString());
-			}
-		} catch (e, s) {
-			print(e);
-			print(s);
-		}
-	}
-
-	dynamic fetchAvailableLanguages() async {
-		try {
-			var languagesResponse = await http.get(
-				"$baseUrl/content/localize/resources/platforms/mobile?dev=true",
-				headers: headers
-			);
-			var languages = json.decode(languagesResponse.body);
-			print("Fetched " + languages['data'].length.toString() + " languages...");
-
-			return languages['data'];
-		} catch (e, s) {
-			print(e);
-			print(s);
-			return json.decode("{\"data\":[]}");
-		}
-	}
-
-	dynamic fetchLocalizationForLanguage(dynamic language) async {
-		try {
-			return (await http.get(language['url'], headers: headers)).body;
-		} catch(err) {
-			print(err);
-		}
-		return {};
-	}
-
+  Future<String> fetchLocalizationForLanguage(LocalizeIndex language) async {
+    return (await http.get(language.url, headers: _headers)).body;
+  }
 }
