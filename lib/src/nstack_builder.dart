@@ -87,7 +87,6 @@ class NstackBuilder implements Builder {
 import 'package:flutter/widgets.dart';
 import 'package:nstack/models/language.dart';
 import 'package:nstack/models/nstack_config.dart';
-import 'package:nstack/models/text_info.dart';
 import 'package:nstack/nstack.dart';
 import 'package:nstack/partial/section_key_delegate.dart';
 
@@ -140,7 +139,7 @@ import 'package:nstack/partial/section_key_delegate.dart';
       keys.forEach((stringKey, stringValue) {
         //output.writeln('\tString _$k = \'$v\';');
         output.writeln(
-          '\tString get $stringKey => get(const TextInfo(\'$stringKey\', \'$stringValue\'));');
+          '\tString get $stringKey => get(\'$stringKey\', \'$stringValue\');');
       });
       output.writeln('''
 }

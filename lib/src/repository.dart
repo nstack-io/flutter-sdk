@@ -1,5 +1,4 @@
 import 'package:nstack/models/language.dart';
-import 'package:nstack/models/text_info.dart';
 
 import 'dart:convert';
 
@@ -53,7 +52,7 @@ class LocalizationRepository {
     }
   }
 
-  String getSectionKeyValue(String sectionKey, TextInfo textInfo) {
-    return _sectionsMap[sectionKey][textInfo.key] ?? textInfo.fallbackValue;
+  String getSectionKeyValue(String sectionKey, String textKey, String fallbackText) {
+    return _sectionsMap[sectionKey][textKey] ?? fallbackText;
   }
 }

@@ -10,11 +10,11 @@ class NStackRepository {
   final NStackConfig _config;
 
   Map<String, String> get _headers => {
-    'Accept-Language': 'en-US',
-    'X-Application-Id': _config.projectId,
-    'X-Rest-Api-Key': _config.apiKey,
-    'N-Meta': 'android;local;1.0;1.0;nstackbuilder'
-  };
+        'Accept-Language': 'en-US',
+        'X-Application-Id': _config.projectId,
+        'X-Rest-Api-Key': _config.apiKey,
+        'N-Meta': 'android;local;1.0;1.0;nstackbuilder'
+      };
 
   const NStackRepository(this._config);
 
@@ -34,25 +34,20 @@ class NStackRepository {
       'last_updated': appOpenData.lastUpdated
     };
 
-    try {
-      print('NStack --> App Open sending: ${requestBody.toString()}');
+    print('NStack --> App Open sending: ${requestBody.toString()}');
 
-      final appOpenResponse = await http.post(
-        '$_baseUrl/open?dev=$devMode&test=$testMode',
-        headers: _headers,
-        body: requestBody,
-      );
+    final appOpenResponse = await http.post(
+      '$_baseUrl/open?dev=$devMode&test=$testMode',
+      headers: _headers,
+      body: requestBody,
+    );
 
-      if (appOpenResponse.statusCode == 200) {
-        print('NStack --> App Open fetched: ${appOpenResponse.body}');
-        return json.decode(appOpenResponse.body);
-      } else {
-        print(
-            'NStack --> App Open failed: ${appOpenResponse.reasonPhrase} - ${appOpenResponse.body} - ${requestBody.toString()}');
-      }
-    } catch (e, s) {
-      print(e);
-      print(s);
+    if (appOpenResponse.statusCode == 200) {
+      print('NStack --> App Open fetched: ${appOpenResponse.body}');
+      return json.decode(appOpenResponse.body);
+    } else {
+      print(
+          'NStack --> App Open failed: ${appOpenResponse.reasonPhrase} - ${appOpenResponse.body} - ${requestBody.toString()}');
     }
   }
 

@@ -3,7 +3,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:nstack/models/language.dart';
 import 'package:nstack/models/nstack_config.dart';
-import 'package:nstack/models/text_info.dart';
 import 'package:nstack/nstack.dart';
 import 'package:nstack/partial/section_key_delegate.dart';
 
@@ -22,35 +21,35 @@ class Localization {
 class _DefaultSection extends SectionKeyDelegate {
 	const _DefaultSection(): super('default');
 
-	String get hi => get(const TextInfo('hi', 'Hej'));
-	String get cancel => get(const TextInfo('cancel', 'Annuller'));
-	String get no => get(const TextInfo('no', 'nej'));
-	String get yes => get(const TextInfo('yes', 'Ja'));
-	String get edit => get(const TextInfo('edit', 'Redigere'));
-	String get next => get(const TextInfo('next', 'Næste'));
-	String get on => get(const TextInfo('on', 'Tændt'));
-	String get off => get(const TextInfo('off', 'af'));
-	String get ok => get(const TextInfo('ok', 'Ok'));
+	String get hi => get('hi', 'Hej');
+	String get cancel => get('cancel', 'Annuller');
+	String get no => get('no', 'nej');
+	String get yes => get('yes', 'Ja');
+	String get edit => get('edit', 'Redigere');
+	String get next => get('next', 'Næste');
+	String get on => get('on', 'Tændt');
+	String get off => get('off', 'af');
+	String get ok => get('ok', 'Ok');
 }
 
 class _Error extends SectionKeyDelegate {
 	const _Error(): super('error');
 
-	String get errorRandom => get(const TextInfo('errorRandom', 'Helt tilfældig fejl'));
-	String get errorTitle => get(const TextInfo('errorTitle', 'Fejl'));
-	String get authenticationError => get(const TextInfo('authenticationError', 'Login er udløbet, login venligst ind igen.'));
-	String get connectionError => get(const TextInfo('connectionError', 'Ingen eller dårlig forbindelse, prøv igen!'));
-	String get unknownError => get(const TextInfo('unknownError', 'Ukendt fejl, prøv igen.'));
+	String get errorRandom => get('errorRandom', 'Helt tilfældig fejl');
+	String get errorTitle => get('errorTitle', 'Fejl');
+	String get authenticationError => get('authenticationError', 'Login er udløbet, login venligst ind igen.');
+	String get connectionError => get('connectionError', 'Ingen eller dårlig forbindelse, prøv igen!');
+	String get unknownError => get('unknownError', 'Ukendt fejl, prøv igen.');
 }
 
 class _Test extends SectionKeyDelegate {
 	const _Test(): super('test');
 
-	String get title => get(const TextInfo('title', 'NStack Demo'));
-	String get message => get(const TextInfo('message', 'Bacon ipsum dolor amet magna meatball jerky in, shank sunt do burgdoggen spare ribs. Lorem boudin eiusmod short ribs pastrami. Sausage bresaola do turkey, dolor qui tail ground round culpa boudin nulla minim sunt beef ribs ham. Cillum in pastrami adipisicing swine lorem, velit sunt meatloaf bresaola short loin fugiat tri-tip boudin.'));
-	String get subTitle => get(const TextInfo('subTitle', 'Subtitle demo'));
-	String get on => get(const TextInfo('on', 'on'));
-	String get off => get(const TextInfo('off', 'off'));
+	String get title => get('title', 'NStack Demo');
+	String get message => get('message', 'Bacon ipsum dolor amet magna meatball jerky in, shank sunt do burgdoggen spare ribs. Lorem boudin eiusmod short ribs pastrami. Sausage bresaola do turkey, dolor qui tail ground round culpa boudin nulla minim sunt beef ribs ham. Cillum in pastrami adipisicing swine lorem, velit sunt meatloaf bresaola short loin fugiat tri-tip boudin.');
+	String get subTitle => get('subTitle', 'Subtitle demo');
+	String get on => get('on', 'on');
+	String get off => get('off', 'off');
 }
 
 const _config = NStackConfig(projectId: 'bOdrNuZd4syxuAz6gyCb3xwBCjA8U4h4IcQI', apiKey: 'X0ENl5QpKI51tS9CzKSt1PGwfZeq2gBMTU58');
