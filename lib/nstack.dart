@@ -11,6 +11,7 @@ import 'package:nstack/src/repository.dart';
 import 'package:nstack/src/nstack_repository.dart';
 import 'package:uuid/uuid.dart';
 import 'dart:convert';
+import 'package:flutter/foundation.dart' as Foundation;
 
 class NStack<T> {
   final NStackConfig config;
@@ -80,7 +81,7 @@ class NStack<T> {
       final Map<String, dynamic> result = await _repository.postAppOpen(
         acceptHeader: locale.toLanguageTag(),
         appOpenData: _appOpenData,
-        devMode: false,
+        devMode: Foundation.kDebugMode,
         testMode: false,
       );
 

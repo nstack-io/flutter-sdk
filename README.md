@@ -20,7 +20,7 @@ dependencies:
   nstack:
     git:
       url: git://github.com/nstack-io/flutter-sdk.git
-      ref: v0.1.1
+      ref: v0.1.3
 
 dev_dependencies:
   build_runner:
