@@ -61,7 +61,7 @@ See example below on how to use your NStack instance.
 To run a persistent build server that watches `nstack.json` to automatically trigger rebuilds execute:
 
 ```console
-foo@bar:~$ flutter pub run build_runner watch
+foo@bar:~$ flutter pub run build_runner watch --delete-conflicting-outputs
 ``` 
 
 Now increment the `"version"` number and save (⌘s) to trigger an update.

@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart';
+
 class RateReminder {
   final String title;
   final String body;
@@ -7,12 +9,12 @@ class RateReminder {
   final String link;
 
   RateReminder({
-    this.title,
-    this.body,
-    this.yesButton,
-    this.laterButton,
-    this.noButton,
-    this.link,
+    @required this.title,
+    @required this.body,
+    @required this.yesButton,
+    @required this.laterButton,
+    @required this.noButton,
+    @required this.link,
   });
 
   factory RateReminder.fromJson(Map json) {

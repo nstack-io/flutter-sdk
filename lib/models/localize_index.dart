@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'package:nstack/models/language.dart';
 import 'package:nstack/other/extensions.dart';
 
@@ -9,11 +10,11 @@ class LocalizeIndex {
   final Language language;
 
   LocalizeIndex({
-    this.id,
-    this.url,
-    this.lastUpdatedAt,
-    this.shouldUpdate,
-    this.language,
+    @required this.id,
+    @required this.url,
+    @required this.lastUpdatedAt,
+    @required this.shouldUpdate,
+    @required this.language,
   });
 
   factory LocalizeIndex.fromJson(Map json) {

@@ -55,10 +55,10 @@ class _Test extends SectionKeyDelegate {
 const _config = NStackConfig(projectId: 'bOdrNuZd4syxuAz6gyCb3xwBCjA8U4h4IcQI', apiKey: 'X0ENl5QpKI51tS9CzKSt1PGwfZeq2gBMTU58');
     
 const _languages = [
-	Language(id: 6, locale: 'da-DK', direction: 'LRM', isDefault: true, isBestFit: false),
-	Language(id: 11, locale: 'en-GB', direction: 'LRM', isDefault: false, isBestFit: true),
-	Language(id: 15, locale: 'es-MX', direction: 'LRM', isDefault: false, isBestFit: false),
-	Language(id: 20, locale: 'fr-FR', direction: 'LRM', isDefault: false, isBestFit: false),
+	Language(id: 6, name: 'Danish', locale: 'da-DK', direction: 'LRM', isDefault: true, isBestFit: false),
+	Language(id: 11, name: 'English (UK)', locale: 'en-GB', direction: 'LRM', isDefault: false, isBestFit: true),
+	Language(id: 15, name: 'Spanish (Mexico)', locale: 'es-MX', direction: 'LRM', isDefault: false, isBestFit: false),
+	Language(id: 20, name: 'French (France)', locale: 'fr-FR', direction: 'LRM', isDefault: false, isBestFit: false),
 ];
 
 const _bundledTranslations = {
@@ -69,10 +69,11 @@ const _bundledTranslations = {
 };
 
 final _nstack = NStack<Localization>(
-		config: _config,
-		localization: const Localization(),
-		availableLanguages: _languages,
-		bundledTranslations: _bundledTranslations,
+  config: _config,
+  localization: const Localization(),
+  availableLanguages: _languages,
+  bundledTranslations: _bundledTranslations,
+  pickedLanguageLocale: null,
 );
 
 class NStackWidget extends InheritedWidget {
