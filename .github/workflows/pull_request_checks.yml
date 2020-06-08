@@ -18,8 +18,9 @@ jobs:
       - name: Install dependencies /example
         run: flutter pub get
         working-directory: example
-      - name: Build
-        run: flutter build aot --release -t lib/main_production.dart
+      - name: Build example
+        run: flutter build aot --release -t lib/main.dart
+        working-directory: example
       - name: Run analyzer
         run: flutter analyze
       - name: Run analyzer /example
