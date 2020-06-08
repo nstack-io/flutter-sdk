@@ -32,7 +32,7 @@ class AppOpenData {
   factory AppOpenData.fromJson(Map json) {
     return AppOpenData(
       count: json['count'],
-      update: AppUpdate.fromJson(json['update']),
+      update: (json['update'] as Map)?.let((it) => AppUpdate.fromJson(it)),
       localize: (json['localize'] as List)?.let(
         (it) => it.map((e) => LocalizeIndex.fromJson(e)).toList(),
       ),
