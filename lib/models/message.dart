@@ -72,7 +72,10 @@ class MessageLocalization {
   final String okBtn;
   final String urlBtn;
 
-  MessageLocalization({this.okBtn, this.urlBtn});
+  MessageLocalization({
+    @required this.okBtn,
+    @required this.urlBtn,
+  });
 
   factory MessageLocalization.fromJson(Map json) {
     return MessageLocalization(

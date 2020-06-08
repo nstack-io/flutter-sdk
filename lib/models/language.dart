@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart';
+
 class Language {
   final int id;
   final String name;
@@ -7,12 +9,12 @@ class Language {
   final bool isBestFit;
 
   const Language({
-    this.id,
-    this.name,
-    this.locale,
-    this.direction,
-    this.isDefault,
-    this.isBestFit,
+    @required this.id,
+    @required this.name,
+    @required this.locale,
+    @required this.direction,
+    @required this.isDefault,
+    @required this.isBestFit,
   });
 
   factory Language.fromJson(Map<String, dynamic> json) {
