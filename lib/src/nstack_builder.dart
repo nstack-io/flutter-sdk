@@ -101,14 +101,10 @@ import 'package:nstack/partial/section_key_delegate.dart';
     output.writeln('class Localization {');
 
     // Create section fields
-    languageJson.forEach((section, keys) {
-      // Default is a keyword
-      if (section == 'default') section = 'defaultSection';
-      final classSection = section
-          .toString()
-          .replaceRange(0, 1, section.toString().substring(0, 1).toUpperCase());
-
-      output.writeln('\tfinal $section = const _$classSection();');
+    languageJson.forEach((sectionKey, keys) {
+      String className = _getClassNameFromSectionKey(sectionKey);
+      final variableName = '${className[0].toLowerCase()}${className.substring(1)}';
+      output.writeln('\tfinal $variableName = const _$className();');
     });
     output.writeln('');
     output.writeln('\tconst Localization();');
@@ -120,17 +116,10 @@ import 'package:nstack/partial/section_key_delegate.dart';
   void _writeSections(LocalizationData localization, StringBuffer output) {
     final languageJson = localization.data;
     languageJson.forEach((sectionKey, keys) {
-      // Check if the section key is using a reserved keyword
-      String adjustedSectionKey = DartKeywords.isReserved(sectionKey)
-          // Append 'Section' to the name of the original sectionKey
-          ? '${sectionKey}Section'
-          // Use the original sectionKey
-          : sectionKey;
+      String className = _getClassNameFromSectionKey(sectionKey);
 
-      final camelCaseClassName = adjustedSectionKey.replaceRange(
-          0, 1, sectionKey.substring(0, 1).toUpperCase());
-      output.writeln('class _$camelCaseClassName extends SectionKeyDelegate {');
-      output.writeln('\tconst _$camelCaseClassName(): super(\'$sectionKey\');');
+      output.writeln('class _$className extends SectionKeyDelegate {');
+      output.writeln('\tconst _$className(): super(\'$sectionKey\');');
       output.writeln('');
 
       // Actual String key = 'value';
@@ -143,6 +132,19 @@ import 'package:nstack/partial/section_key_delegate.dart';
 }
 ''');
     });
+  }
+
+  /// Returns a CamelCase class name from the Localization section key
+  String _getClassNameFromSectionKey(String sectionKey) {
+    // Check if the section key is using a reserved keyword
+    final adjustedSectionKey = DartKeywords.isReserved(sectionKey)
+        // Append 'Section' to the name of the original sectionKey
+        ? '${sectionKey}Section'
+        // Use the original sectionKey
+        : sectionKey;
+    // Format the name to CamelCase
+    return adjustedSectionKey.replaceRange(
+        0, 1, sectionKey.substring(0, 1).toUpperCase());
   }
 
   void _writeNStackConfig(
@@ -193,10 +195,11 @@ const _bundledTranslations = {''');
   void _writeNStack(StringBuffer output) async {
     output.writeln('''
 final _nstack = NStack<Localization>(
-		config: _config,
-		localization: const Localization(),
-		availableLanguages: _languages,
-		bundledTranslations: _bundledTranslations,
+  config: _config,
+  localization: const Localization(),
+  availableLanguages: _languages,
+  bundledTranslations: _bundledTranslations,
+  pickedLanguageLocale: null,
 );
 ''');
   }

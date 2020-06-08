@@ -69,10 +69,11 @@ const _bundledTranslations = {
 };
 
 final _nstack = NStack<Localization>(
-		config: _config,
-		localization: const Localization(),
-		availableLanguages: _languages,
-		bundledTranslations: _bundledTranslations,
+  config: _config,
+  localization: const Localization(),
+  availableLanguages: _languages,
+  bundledTranslations: _bundledTranslations,
+  pickedLanguageLocale: null,
 );
 
 class NStackWidget extends InheritedWidget {

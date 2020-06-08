@@ -14,7 +14,6 @@ import 'dart:convert';
 
 class NStack<T> {
   final NStackConfig config;
-  final BuildContext context;
   final T localization;
 
   final String prefsKeyLastUpdated = "nstack_last_updated";
@@ -26,7 +25,6 @@ class NStack<T> {
 
   NStack({
     @required this.config,
-    @required this.context,
     @required this.localization,
     @required List<Language> availableLanguages,
     @required Map<String, String> bundledTranslations,
