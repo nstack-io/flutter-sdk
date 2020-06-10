@@ -7,7 +7,7 @@ import 'package:nstack/models/language_response.dart';
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/other/extensions.dart';
-import 'package:nstack/other/reserved_kwywords.dart';
+import 'package:nstack/other/reserved_keywords.dart';
 import 'package:nstack/src/nstack_repository.dart';
 
 /// A builder which outputs a 'nstack.dart' file. This file provides a NStack instance, type safe section key accessors and all bundled translations.
@@ -103,7 +103,8 @@ import 'package:nstack/partial/section_key_delegate.dart';
     // Create section fields
     languageJson.forEach((sectionKey, keys) {
       String className = _getClassNameFromSectionKey(sectionKey);
-      final variableName = '${className[0].toLowerCase()}${className.substring(1)}';
+      final variableName =
+          '${className[0].toLowerCase()}${className.substring(1)}';
       output.writeln('\tfinal $variableName = const _$className();');
     });
     output.writeln('');
@@ -115,16 +116,17 @@ import 'package:nstack/partial/section_key_delegate.dart';
 
   void _writeSections(LocalizationData localization, StringBuffer output) {
     final languageJson = localization.data;
-    languageJson.forEach((sectionKey, keys) {
+    languageJson.forEach((sectionKey, translations) {
       String className = _getClassNameFromSectionKey(sectionKey);
 
       output.writeln('class _$className extends SectionKeyDelegate {');
       output.writeln('\tconst _$className(): super(\'$sectionKey\');');
       output.writeln('');
 
-      // Actual String key = 'value';
-      keys.forEach((stringKey, stringValue) {
-        //output.writeln('\tString _$k = \'$v\';');
+      (translations as Map)
+          .cast<String, String>()
+          .forEach((stringKey, stringValue) {
+        stringValue = _escapeSpecialCharacters(stringValue);
         output.writeln(
             '\tString get $stringKey => get(\'$stringKey\', \'$stringValue\');');
       });
@@ -132,6 +134,14 @@ import 'package:nstack/partial/section_key_delegate.dart';
 }
 ''');
     });
+  }
+
+  /// Escapes single quote, double quote and dollar sign with \', \", \$
+  String _escapeSpecialCharacters(String stringValue) {
+    return stringValue
+        .replaceAll("'", "\\'")
+        .replaceAll('"', '\\"')
+        .replaceAll('\$', '\\\$');
   }
 
   /// Returns a CamelCase class name from the Localization section key
@@ -182,8 +192,10 @@ const _bundledTranslations = {''');
 
     await Future.forEach<LocalizeIndex>(languages, (localizeIndex) async {
       final locale = localizeIndex.language.locale;
-      final content =
+      var content =
           (await repository.fetchLocalizationForLanguage(localizeIndex));
+      // Escape ' and $ characters with \' and \$
+      content = _escapeSpecialCharacters(content);
       output.writeln('\t\'$locale\': \'$content\',');
     });
 
