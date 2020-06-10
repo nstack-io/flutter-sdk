@@ -126,9 +126,7 @@ import 'package:nstack/partial/section_key_delegate.dart';
       (translations as Map)
           .cast<String, String>()
           .forEach((stringKey, stringValue) {
-        // Escape ' and $ characters with \' and \$
-        stringValue =
-            stringValue.replaceAll("'", "\\'").replaceAll('\$', '\\\$');
+        stringValue = _escapeSpecialCharacters(stringValue);
         output.writeln(
             '\tString get $stringKey => get(\'$stringKey\', \'$stringValue\');');
       });
@@ -136,6 +134,14 @@ import 'package:nstack/partial/section_key_delegate.dart';
 }
 ''');
     });
+  }
+
+  /// Escapes single quote, double quote and dollar sign with \', \", \$
+  String _escapeSpecialCharacters(String stringValue) {
+    return stringValue
+        .replaceAll("'", "\\'")
+        .replaceAll('"', '\\"')
+        .replaceAll('\$', '\\\$');
   }
 
   /// Returns a CamelCase class name from the Localization section key
@@ -189,7 +195,7 @@ const _bundledTranslations = {''');
       var content =
           (await repository.fetchLocalizationForLanguage(localizeIndex));
       // Escape ' and $ characters with \' and \$
-      content = content.replaceAll("'", "\\'").replaceAll('\$', '\\\$');
+      content = _escapeSpecialCharacters(content);
       output.writeln('\t\'$locale\': \'$content\',');
     });
 

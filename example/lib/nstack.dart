@@ -28,7 +28,7 @@ class _Test extends SectionKeyDelegate {
 
 	String get testDollarSign => get('testDollarSign', '\$testing');
 	String get testSingleQuotationMark => get('testSingleQuotationMark', '\'testing\'');
-	String get testDoubleQuotationMark => get('testDoubleQuotationMark', '"testing"');
+	String get testDoubleQuotationMark => get('testDoubleQuotationMark', '\"testing\"');
 }
 
 const _config = NStackConfig(projectId: 'h6wJremI2TGFM88gbLkdyljWQuwf2hxhxvCH', apiKey: 'zp2S18H32b67eYAbRQh94tVw76ZzaKKXlHjd');
@@ -38,7 +38,7 @@ const _languages = [
 ];
 
 const _bundledTranslations = {
-	'en-EN': '{"data":{"default":{"title":"NStack SDK Demo"},"test":{"testDollarSign":"\$testing","testSingleQuotationMark":"\'testing\'","testDoubleQuotationMark":"\"testing\""}},"meta":{"language":{"id":56,"name":"English","locale":"en-EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}',
+	'en-EN': '{\"data\":{\"default\":{\"title\":\"NStack SDK Demo\"},\"test\":{\"testDollarSign\":\"\$testing\",\"testSingleQuotationMark\":\"\'testing\'\",\"testDoubleQuotationMark\":\"\\"testing\\"\"}},\"meta\":{\"language\":{\"id\":56,\"name\":\"English\",\"locale\":\"en-EN\",\"direction\":\"LRM\",\"is_default\":false,\"is_best_fit\":false},\"platform\":{\"id\":515,\"slug\":\"mobile\"}}}',
 };
 
 final _nstack = NStack<Localization>(
