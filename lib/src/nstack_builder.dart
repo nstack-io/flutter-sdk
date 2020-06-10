@@ -103,7 +103,8 @@ import 'package:nstack/partial/section_key_delegate.dart';
     // Create section fields
     languageJson.forEach((sectionKey, keys) {
       String className = _getClassNameFromSectionKey(sectionKey);
-      final variableName = '${className[0].toLowerCase()}${className.substring(1)}';
+      final variableName =
+          '${className[0].toLowerCase()}${className.substring(1)}';
       output.writeln('\tfinal $variableName = const _$className();');
     });
     output.writeln('');
@@ -122,12 +123,14 @@ import 'package:nstack/partial/section_key_delegate.dart';
       output.writeln('\tconst _$className(): super(\'$sectionKey\');');
       output.writeln('');
 
-      (translations as Map<String, String>).forEach((stringKey, stringValue) {
+      (translations as Map)
+          .cast<String, String>()
+          .forEach((stringKey, stringValue) {
         // Replace ' and $ characters with \' and \$
         stringValue =
             stringValue.replaceAll("'", "\\'").replaceAll('\$', '\\\$');
         output.writeln(
-            '\tString get $stringKey => get(\'$stringKey\', \'${stringValue}\');');
+            '\tString get $stringKey => get(\'$stringKey\', \'$stringValue\');');
       });
       output.writeln('''
 }
