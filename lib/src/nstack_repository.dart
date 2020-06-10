@@ -72,8 +72,6 @@ class NStackRepository {
   }
 
   Future<String> fetchLocalizationForLanguage(LocalizeIndex language) async {
-    final body = (await http.get(language.url, headers: _headers)).body;
-    // Escape ' and $ characters with \' and \$
-    return body.replaceAll("'", "\\'").replaceAll('\$', '\\\$');
+    return (await http.get(language.url, headers: _headers)).body;
   }
 }
