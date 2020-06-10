@@ -11,10 +11,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: NStackInitWidget(child: Scaffold(
         appBar: AppBar(
-          title: Text(context.localization.test.title),
+          title: Text(context.localization.defaultSection.title),
         ),
         body: Center(
-          child: Text(context.localization.defaultSection.hi),
+          child: Text(context.localization.test.testDoubleQuotationMark),
         ),
       ),
     ),
