@@ -7,7 +7,7 @@ import 'package:nstack/models/language_response.dart';
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/other/extensions.dart';
-import 'package:nstack/other/reserved_kwywords.dart';
+import 'package:nstack/other/reserved_keywords.dart';
 import 'package:nstack/src/nstack_repository.dart';
 
 /// A builder which outputs a 'nstack.dart' file. This file provides a NStack instance, type safe section key accessors and all bundled translations.
