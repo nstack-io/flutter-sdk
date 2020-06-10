@@ -126,9 +126,6 @@ import 'package:nstack/partial/section_key_delegate.dart';
       (translations as Map)
           .cast<String, String>()
           .forEach((stringKey, stringValue) {
-        // Replace ' and $ characters with \' and \$
-        stringValue =
-            stringValue.replaceAll("'", "\\'").replaceAll('\$', '\\\$');
         output.writeln(
             '\tString get $stringKey => get(\'$stringKey\', \'$stringValue\');');
       });
