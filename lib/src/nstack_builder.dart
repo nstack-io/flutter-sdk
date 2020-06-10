@@ -127,7 +127,7 @@ import 'package:nstack/partial/section_key_delegate.dart';
         stringValue =
             stringValue.replaceAll("'", "\\'").replaceAll('\$', '\\\$');
         output.writeln(
-            '\tString get $stringKey => get(\'$stringKey\', \'${stringValue}\');');
+            '\tString get $stringKey => get(\'$stringKey\', \'$stringValue\');');
       });
       output.writeln('''
 }
