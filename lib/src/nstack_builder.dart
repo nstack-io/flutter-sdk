@@ -115,18 +115,19 @@ import 'package:nstack/partial/section_key_delegate.dart';
 
   void _writeSections(LocalizationData localization, StringBuffer output) {
     final languageJson = localization.data;
-    languageJson.forEach((sectionKey, keys) {
+    languageJson.forEach((sectionKey, translations) {
       String className = _getClassNameFromSectionKey(sectionKey);
 
       output.writeln('class _$className extends SectionKeyDelegate {');
       output.writeln('\tconst _$className(): super(\'$sectionKey\');');
       output.writeln('');
 
-      // Actual String key = 'value';
-      keys.forEach((stringKey, stringValue) {
-        //output.writeln('\tString _$k = \'$v\';');
+      (translations as Map<String, String>).forEach((stringKey, stringValue) {
+        // Replace ' and $ characters with \' and \$
+        stringValue =
+            stringValue.replaceAll("'", "\\'").replaceAll('\$', '\\\$');
         output.writeln(
-            '\tString get $stringKey => get(\'$stringKey\', \'$stringValue\');');
+            '\tString get $stringKey => get(\'$stringKey\', \'${stringValue}\');');
       });
       output.writeln('''
 }
