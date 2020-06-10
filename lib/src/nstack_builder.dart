@@ -126,6 +126,9 @@ import 'package:nstack/partial/section_key_delegate.dart';
       (translations as Map)
           .cast<String, String>()
           .forEach((stringKey, stringValue) {
+        // Escape ' and $ characters with \' and \$
+        stringValue =
+            stringValue.replaceAll("'", "\\'").replaceAll('\$', '\\\$');
         output.writeln(
             '\tString get $stringKey => get(\'$stringKey\', \'$stringValue\');');
       });
@@ -183,8 +186,10 @@ const _bundledTranslations = {''');
 
     await Future.forEach<LocalizeIndex>(languages, (localizeIndex) async {
       final locale = localizeIndex.language.locale;
-      final content =
+      var content =
           (await repository.fetchLocalizationForLanguage(localizeIndex));
+      // Escape ' and $ characters with \' and \$
+      content = content.replaceAll("'", "\\'").replaceAll('\$', '\\\$');
       output.writeln('\t\'$locale\': \'$content\',');
     });
 
