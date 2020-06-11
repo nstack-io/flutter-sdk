@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:cross_local_storage/cross_local_storage.dart';
+import 'package:flutter/foundation.dart' as Foundation;
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_version/get_version.dart';
@@ -7,11 +11,9 @@ import 'package:nstack/models/language.dart';
 import 'package:nstack/models/language_response.dart';
 import 'package:nstack/models/nstack_appopen_data.dart';
 import 'package:nstack/models/nstack_config.dart';
-import 'package:nstack/src/repository.dart';
 import 'package:nstack/src/nstack_repository.dart';
+import 'package:nstack/src/repository.dart';
 import 'package:uuid/uuid.dart';
-import 'dart:convert';
-import 'package:flutter/foundation.dart' as Foundation;
 
 class NStack<T> {
   final NStackConfig config;
@@ -44,6 +46,7 @@ class NStack<T> {
     String projectVersion;
     String guid;
     String lastUpdated;
+    String platform;
 
     try {
       projectVersion = await GetVersion.projectVersion;
@@ -65,7 +68,16 @@ class NStack<T> {
       prefs.setString(prefsKeyLastUpdated, lastUpdated);
     }
 
+    if (Platform.isAndroid) {
+      platform = 'android';
+    } else if (Platform.isIOS) {
+      platform = 'ios';
+    } else {
+      platform = 'flutter';
+    }
+
     _appOpenData = NStackAppOpenData(
+      platform: platform,
       guid: guid,
       lastUpdated: lastUpdated,
       oldVersion: projectVersion,
