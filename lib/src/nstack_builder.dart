@@ -141,7 +141,8 @@ import 'package:nstack/partial/section_key_delegate.dart';
     return stringValue
         .replaceAll("'", "\\'")
         .replaceAll('"', '\\"')
-        .replaceAll('\$', '\\\$');
+        .replaceAll('\$', '\\\$')
+        .replaceAll('\n', '\\n');
   }
 
   /// Returns a CamelCase class name from the Localization section key

@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
           title: Text(context.localization.defaultSection.title),
         ),
         body: Center(
-          child: Text(context.localization.test.testDoubleQuotationMark),
+          child: Text(context.localization.test.testMultipleLines),
         ),
       ),
     ),

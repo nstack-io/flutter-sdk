@@ -1,6 +1,6 @@
-import 'package:nstack/models/language.dart';
-
 import 'dart:convert';
+
+import 'package:nstack/models/language.dart';
 
 class LocalizationRepository {
   // Factory
@@ -35,7 +35,9 @@ class LocalizationRepository {
   }
 
   void updateLocalization(
-      Map<String, dynamic> localizationJson, String bestFitLocale) {
+    Map<String, dynamic> localizationJson,
+    String bestFitLocale,
+  ) {
     this._pickedLanguage = _availableLanguages.firstWhere(
       (element) => element.locale == bestFitLocale,
       orElse: () => this._pickedLanguage,
@@ -47,12 +49,23 @@ class LocalizationRepository {
     try {
       _sectionsMap =
           json.decode(_bundledTranslations[_pickedLanguage.locale])['data'];
-    } catch (err) {
-      print('_setupInternalMap() failed --> ${err.toString()}');
+    } catch (e, s) {
+      print(e);
+      print(s);
     }
   }
 
-  String getSectionKeyValue(String sectionKey, String textKey, String fallbackText) {
-    return _sectionsMap[sectionKey][textKey] ?? fallbackText;
+  String getSectionKeyValue(
+    String sectionKey,
+    String textKey,
+    String fallbackText,
+  ) {
+    try {
+      return _sectionsMap[sectionKey][textKey] ?? fallbackText;
+    } catch (e, s) {
+      print(e);
+      print(s);
+      return fallbackText;
+    }
   }
 }
