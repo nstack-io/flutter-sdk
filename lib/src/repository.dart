@@ -49,8 +49,9 @@ class LocalizationRepository {
     try {
       _sectionsMap =
           json.decode(_bundledTranslations[_pickedLanguage.locale])['data'];
-    } catch (err) {
-      print('_setupInternalMap() failed --> ${err.toString()}');
+    } catch (e, s) {
+      print(e);
+      print(s);
     }
   }
 
@@ -61,7 +62,9 @@ class LocalizationRepository {
   ) {
     try {
       return _sectionsMap[sectionKey][textKey] ?? fallbackText;
-    } catch (err) {
+    } catch (e, s) {
+      print(e);
+      print(s);
       return fallbackText;
     }
   }
