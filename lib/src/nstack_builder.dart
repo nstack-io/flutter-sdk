@@ -128,7 +128,7 @@ import 'package:nstack/partial/section_key_delegate.dart';
           .forEach((stringKey, stringValue) {
         stringValue = _escapeSpecialCharacters(stringValue);
         output.writeln(
-            '\tString get $stringKey => get(\'$stringKey\', \'$stringValue\');');
+            '\tString get $stringKey => get(\'$stringKey\', \"$stringValue\");');
       });
       output.writeln('''
 }
