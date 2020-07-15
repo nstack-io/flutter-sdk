@@ -2,15 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cross_local_storage/cross_local_storage.dart';
+import 'package:data/models/language.dart';
+import 'package:data/models/localization_data.dart';
+import 'package:data/models/nstack_app_open_data.dart';
+import 'package:data/models/nstack_config.dart';
 import 'package:flutter/foundation.dart' as Foundation;
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_version/get_version.dart';
-import 'package:nstack/models/app_open.dart';
-import 'package:nstack/models/language.dart';
-import 'package:nstack/models/language_response.dart';
-import 'package:nstack/models/nstack_appopen_data.dart';
-import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/src/nstack_repository.dart';
 import 'package:nstack/src/repository.dart';
 import 'package:uuid/uuid.dart';
@@ -90,14 +89,13 @@ class NStack<T> {
       await _setupAppOpenData();
 
       print("NStack --> Calling App Open...");
-      final Map<String, dynamic> result = await _repository.postAppOpen(
-        acceptHeader: locale.toLanguageTag(),
-        appOpenData: _appOpenData,
-        devMode: Foundation.kDebugMode,
-        testMode: false,
-      );
-
-      final appOpen = AppOpen.fromJson(result);
+      final appOpen = await _repository
+          .postAppOpen(
+              acceptHeader: locale.toLanguageTag(),
+              appOpenData: _appOpenData,
+              devMode: Foundation.kDebugMode,
+              testMode: false)
+          .catchError((e) => null);
 
       final LocalStorageInterface prefs = await LocalStorage.getInstance();
 
@@ -134,7 +132,9 @@ class NStack<T> {
           final languageResponse = LocalizationData.fromJson(cachedResponse);
           //localization = localization.fromJson(cachedResponse['data']);
           LocalizationRepository().updateLocalization(
-              languageResponse.data, bestFitLanguage.language.locale);
+            languageResponse.data,
+            bestFitLanguage.language.locale,
+          );
           // No cache, default values (this shouldn't happen, should_update should be true)
         } else {
           print(

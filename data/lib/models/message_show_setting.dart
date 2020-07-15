@@ -1,0 +1,4 @@
+enum MessageShowSetting {
+  once,
+  always,
+}

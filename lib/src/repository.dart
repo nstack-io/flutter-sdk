@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:nstack/models/language.dart';
+import 'package:data/models/language.dart';
 
 class LocalizationRepository {
   // Factory
