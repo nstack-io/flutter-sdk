@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:data/models/app_open.dart';
-import 'package:data/models/localize_index.dart';
-import 'package:data/models/localize_index_list.dart';
-import 'package:data/models/nstack_app_open_data.dart';
-import 'package:data/models/nstack_config.dart';
+import 'package:data/entities/app_open.dart';
+import 'package:data/entities/localize_index.dart';
+import 'package:data/entities/localize_index_list.dart';
+import 'package:data/entities/nstack_app_open_data.dart';
+import 'package:data/entities/nstack_config.dart';
 import 'package:http/http.dart' as http;
 
 // TODO: Deprecate

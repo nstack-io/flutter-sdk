@@ -1,4 +1,4 @@
-import 'package:data/models/localize_resource_meta.dart';
+import 'package:data/entities/localize_resource_meta.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'localize_resource.g.dart';

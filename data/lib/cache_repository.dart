@@ -1,4 +1,4 @@
-import 'package:data/models/localize_resource.dart';
+import 'package:data/entities/localize_resource.dart';
 
 abstract class CacheRepository {
   Future<LocalizeResource> setCurrentLocalizationResource(

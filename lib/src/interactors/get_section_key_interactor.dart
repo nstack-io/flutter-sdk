@@ -1,5 +1,5 @@
 import 'package:data/cache_repository.dart';
-import 'package:data/models/localize_resource.dart';
+import 'package:data/entities/localize_resource.dart';
 import 'package:meta/meta.dart';
 import 'package:nstack/src/extensions/localization_resource_extension.dart';
 import 'package:nstack/src/interactors/interactor.dart';

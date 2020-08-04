@@ -1,6 +1,6 @@
-import 'package:data/models/app_open.dart';
-import 'package:data/models/localize_index.dart';
-import 'package:data/models/localize_resource.dart';
+import 'package:data/entities/app_open.dart';
+import 'package:data/entities/localize_index.dart';
+import 'package:data/entities/localize_resource.dart';
 
 abstract class RemoteRepository {
   // POST ​/api​/v2​/open

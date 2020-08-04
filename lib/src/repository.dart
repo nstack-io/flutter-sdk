@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:data/models/language.dart';
+import 'package:data/entities/language.dart';
 
 // TODO: Deprecate
 @Deprecated("Use package:data/local_repository.dart and cache_repository.dart")

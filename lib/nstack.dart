@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cross_local_storage/cross_local_storage.dart';
-import 'package:data/models/language.dart';
-import 'package:data/models/localization_data.dart';
-import 'package:data/models/nstack_app_open_data.dart';
-import 'package:data/models/nstack_config.dart';
+import 'package:data/entities/language.dart';
+import 'package:data/entities/localization_data.dart';
+import 'package:data/entities/nstack_app_open_data.dart';
+import 'package:data/entities/nstack_config.dart';
 import 'package:flutter/foundation.dart' as Foundation;
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';

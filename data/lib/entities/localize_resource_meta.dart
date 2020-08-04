@@ -1,5 +1,5 @@
-import 'package:data/models/language.dart';
-import 'package:data/models/platform.dart';
+import 'package:data/entities/language.dart';
+import 'package:data/entities/platform.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'localize_resource_meta.g.dart';
