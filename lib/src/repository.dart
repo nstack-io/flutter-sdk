@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:data/models/language.dart';
 
+// TODO: Deprecate
+@Deprecated("Use package:data/local_repository.dart and cache_repository.dart")
 class LocalizationRepository {
   // Factory
   static final LocalizationRepository _instance =

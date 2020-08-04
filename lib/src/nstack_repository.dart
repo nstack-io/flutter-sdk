@@ -7,7 +7,8 @@ import 'package:data/models/nstack_app_open_data.dart';
 import 'package:data/models/nstack_config.dart';
 import 'package:http/http.dart' as http;
 
-// TODO: Move to 'data' lib
+// TODO: Deprecate
+@Deprecated("Use package:data/remote_repository.dart")
 class NStackRepository {
   final _baseUrl = 'https://nstack.io/api/v2';
 

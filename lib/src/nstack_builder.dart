@@ -6,9 +6,9 @@ import 'package:data/models/language.dart';
 import 'package:data/models/localization_data.dart';
 import 'package:data/models/localize_index.dart';
 import 'package:data/models/nstack_config.dart';
-import 'package:nstack/other/extensions.dart';
-import 'package:nstack/other/reserved_keywords.dart';
 import 'package:nstack/src/nstack_repository.dart';
+import 'package:nstack/src/other/extensions.dart';
+import 'package:nstack/src/other/reserved_keywords.dart';
 
 /// A builder which outputs a 'nstack.dart' file. This file provides a NStack instance, type safe section key accessors and all bundled translations.
 class NstackBuilder implements Builder {
@@ -86,7 +86,7 @@ import 'package:flutter/widgets.dart';
 import 'package:data/models/language.dart';
 import 'package:data/models/nstack_config.dart';
 import 'package:nstack/nstack.dart';
-import 'package:nstack/partial/section_key_delegate.dart';
+import 'package:nstack/section_key_delegate.dart';
 
 // Update this file by running:
 // - `flutter pub run build_runner build`, if your package depends on Flutter
