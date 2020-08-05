@@ -42,16 +42,16 @@ const _bundledTranslations = {
 	'en-EN': '{\"data\":{\"default\":{\"title\":\"NStack SDK Demo\"},\"test\":{\"testDollarSign\":\"\$testing\",\"testSingleQuotationMark\":\"\'testing\'\",\"testDoubleQuotationMark\":\"\\"testing\\"\",\"testMultipleLines\":\"testing\nmultiple\nlines\"}},\"meta\":{\"language\":{\"id\":56,\"name\":\"English\",\"locale\":\"en-EN\",\"direction\":\"LRM\",\"is_default\":false,\"is_best_fit\":false},\"platform\":{\"id\":515,\"slug\":\"mobile\"}}}',
 };
 
-final _nstack = NStack<Localization>(
+final _localization = const Localization();
+
+final _nstack = NStack(
   config: _config,
-  localization: const Localization(),
   availableLanguages: _languages,
   bundledTranslations: _bundledTranslations,
-  pickedLanguageLocale: null,
 );
 
 class NStackWidget extends InheritedWidget {
-  final NStack<Localization> nstack = _nstack;
+  final NStack nstack = _nstack;
 
   NStackWidget({Key key, @required Widget child})
       : assert(child != null),
@@ -82,9 +82,14 @@ class _NStackInitState extends State<NStackInitWidget> {
   void setupNStack(BuildContext context) {
     final locale = Localizations.localeOf(context);
     final nstack = NStackWidget.of(context);
-    nstack.appOpen(locale);
+    nstack.postAppOpen(locale);
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     if (!_initialized) {
@@ -97,7 +102,7 @@ class _NStackInitState extends State<NStackInitWidget> {
 
 /// Allows to access the Nstack Localization using the BuildContext
 extension NStackWidgetExtension on BuildContext {
-	Localization get localization => NStackWidget.of(this).localization;
+	Localization get localization => _localization;
 }
 
 /// Allows to access the Nstack Localization from StatefulWidget's State

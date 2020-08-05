@@ -12,7 +12,9 @@ NStackAppOpenData _$NStackAppOpenDataFromJson(Map<String, dynamic> json) {
     guid: json['guid'] as String,
     version: json['version'] as String,
     oldVersion: json['old_version'] as String,
-    lastUpdated: json['last_updated'] as String,
+    lastUpdated: json['last_updated'] == null
+        ? null
+        : DateTime.parse(json['last_updated'] as String),
   );
 }
 
@@ -22,5 +24,5 @@ Map<String, dynamic> _$NStackAppOpenDataToJson(NStackAppOpenData instance) =>
       'guid': instance.guid,
       'version': instance.version,
       'old_version': instance.oldVersion,
-      'last_updated': instance.lastUpdated,
+      'last_updated': instance.lastUpdated?.toIso8601String(),
     };

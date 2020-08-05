@@ -248,6 +248,8 @@ class NStackInitWidget extends StatefulWidget {
 class _NStackInitState extends State<NStackInitWidget> {
   static bool _initialized = false;
 
+  // TODO: Call nstack.postAppOpen() from initState()
+  // TODO: Call setState() for successful AppOpen to update translated widgets
   void setupNStack(BuildContext context) {
     final locale = Localizations.localeOf(context);
     final nstack = NStackWidget.of(context);

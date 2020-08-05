@@ -36,7 +36,7 @@ class NStackRepository {
       'guid': appOpenData.guid,
       'version': appOpenData.version,
       'old_version': appOpenData.oldVersion,
-      'last_updated': appOpenData.lastUpdated
+      'last_updated': appOpenData.lastUpdated.toIso8601String()
     };
 
     print('NStack --> App Open sending: ${requestBody.toString()}');

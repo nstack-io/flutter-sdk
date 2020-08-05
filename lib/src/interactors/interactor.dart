@@ -8,6 +8,10 @@
 ///   }
 /// }
 /// ```
-abstract class Interactor<Output> {
+abstract class FutureInteractor<Output> {
   Future<Output> execute();
+}
+
+abstract class Interactor<Output> {
+  Output execute();
 }

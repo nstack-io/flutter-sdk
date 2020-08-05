@@ -11,7 +11,7 @@ class NStackAppOpenData {
   @JsonKey(name: 'old_version')
   final String oldVersion;
   @JsonKey(name: 'last_updated')
-  final String lastUpdated;
+  final DateTime lastUpdated;
 
   const NStackAppOpenData({
     @required this.platform,
