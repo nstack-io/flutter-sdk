@@ -17,10 +17,25 @@ class GetLocalizedSectionKeyInteractor extends Interactor<String> {
   }) {
     try {
       final resource = cacheRepository.getCurrentLocalizationResource();
-      return resource.getLocalizedSectionKey(section, key);
+      if (resource == null) throw AssertionError('''
+        LocalizeResource not found. This should not happen!
+        Current LocalizeResource must be available in cache.
+        ''');
+      final result = resource.getLocalizedSectionKey(section, key);
+      if (result == null) throw AssertionError('Key not found.');
+      return result;
     } catch (error) {
       final resource = cacheRepository.getCurrentFallbackLocalizationResource();
-      return resource.getLocalizedSectionKey(section, key);
+      if (resource == null) throw AssertionError('''
+        LocalizeResource not found. This should not happen!
+        Current fallback (bundled) LocalizeResource must be available in cache.
+        ''');
+      final result = resource.getLocalizedSectionKey(section, key);
+      if (result == null) throw AssertionError('''
+        Key not found. This should not happen!
+        Fallback (bundled) localization resource must contain all keys.
+        ''');
+      return result;
     }
   }
 }
