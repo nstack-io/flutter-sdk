@@ -39,6 +39,9 @@ class NStack {
     // dedicated Dart CLI. This CLI can then bundle translations under an app's
     // assets directory. We then only read from this directory if needed -
     // avoiding huge memory waste on every app start.
+
+    // See https://nstack-io.github.io/docs/docs/app-open.html
+    // We need to run all of this blocking e.g. SplashScreen
   }
 
   Future<AppOpenResult> postAppOpen(Locale locale) async {
