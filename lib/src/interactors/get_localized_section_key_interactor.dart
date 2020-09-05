@@ -15,27 +15,16 @@ class GetLocalizedSectionKeyInteractor extends Interactor<String> {
     String section,
     String key,
   }) {
-    try {
-      final resource = cacheRepository.getCurrentLocalizationResource();
-      if (resource == null) throw AssertionError('''
+    final resource = cacheRepository.getCurrentLocalizationResource();
+    if (resource == null) throw AssertionError('''
         LocalizeResource not found. This should not happen!
-        Current LocalizeResource must be available in cache.
+        Please report this issue to NStack library maintainers.
         ''');
-      final result = resource.getLocalizedSectionKey(section, key);
-      if (result == null) throw AssertionError('Key not found.');
-      return result;
-    } catch (error) {
-      final resource = cacheRepository.getCurrentFallbackLocalizationResource();
-      if (resource == null) throw AssertionError('''
-        LocalizeResource not found. This should not happen!
-        Current fallback (bundled) LocalizeResource must be available in cache.
-        ''');
-      final result = resource.getLocalizedSectionKey(section, key);
-      if (result == null) throw AssertionError('''
-        Key not found. This should not happen!
-        Fallback (bundled) localization resource must contain all keys.
-        ''');
-      return result;
-    }
+    final result = resource.getLocalizedSectionKey(section, key);
+    if (result == null) throw AssertionError('''
+      Key $key in section $section not found. This should not happen!
+      Run NStack's build task to update your bundled localization.
+      ''');
+    return result;
   }
 }

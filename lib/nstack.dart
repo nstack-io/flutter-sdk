@@ -1,4 +1,4 @@
-import 'package:data/entities/language.dart';
+import 'package:data/entities/localize_resource_list.dart';
 import 'package:data/entities/nstack_config.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nstack/src/injection/injector.dart' as Injector;
@@ -13,12 +13,32 @@ class NStack {
 
   NStack({
     @required this.config,
-    // TODO: Remove. Bundled translations provide language info.
-    @required List<Language> availableLanguages,
-    @required Map<String, String> bundledTranslations,
+    // TODO: Remove
+    // See Dart CLI comment below.
+    @required LocalizeResourceList bundledLocalizeResourceList,
     @required Locale locale,
   }) {
     Injector.init(config);
+
+    // TODO: InitLocalizationInteractor
+    // Check if this is the very first app launch
+    // LocalRepository.getHasBundledLocalizeResources() == false
+
+    // If so, call LocalRepository.setLocalization() for every
+    // LocalizeResource in bundledLocalizeResourceList
+
+    // Update our flag from earlier
+    // LocalRepository.setHasBundledLocalizeResources(true)
+
+    // Based on locale call
+    // CacheRepository.setCurrentLocalizationResource()
+
+    // Free memory
+    bundledLocalizeResourceList = null;
+    // This is not ideal. We should ditch our nstack_builder in favour of a
+    // dedicated Dart CLI. This CLI can then bundle translations under an app's
+    // assets directory. We then only read from this directory if needed -
+    // avoiding huge memory waste on every app start.
   }
 
   Future<AppOpenResult> postAppOpen(Locale locale) async {

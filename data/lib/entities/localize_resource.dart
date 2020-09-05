@@ -21,3 +21,7 @@ class LocalizeResource {
     return _$LocalizeResourceToJson(this);
   }
 }
+
+extension LocalizeResourceExtension on LocalizeResource {
+  int get id => meta.language.id;
+}

@@ -10,6 +10,8 @@ void init(NStackConfig config) {
   );
 
   injector.registerSingleton<GetLocalizedSectionKeyInteractor>(
-    GetLocalizedSectionKeyInteractor(),
+    GetLocalizedSectionKeyInteractor(
+      cacheRepository: injector(),
+    ),
   );
 }

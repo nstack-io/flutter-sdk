@@ -1,15 +1,24 @@
 import 'package:data/entities/app_config.dart';
 import 'package:data/entities/language_list.dart';
-import 'package:data/entities/localize_resource_list.dart';
+import 'package:data/entities/localize_resource.dart';
 import 'package:data/entities/runtime_config.dart';
 import 'package:data/entities/timestamp.dart';
 
 abstract class LocalRepository {
-  Future<void> setLocalization(
-    LocalizeResourceList localization,
-  );
 
-  Future<LocalizeResourceList> getLocalization();
+  Future<void> setHasBundledLocalizeResources(bool hasBundledLocalizeResources);
+
+  Future<bool> getHasBundledLocalizeResources();
+
+  // LocalizeResource
+
+  Future<void> setLocalizeResource(LocalizeResource localizeResource);
+
+  Future<LocalizeResource> getLocalizeResource(int localizeResourceId);
+
+  Future<void> deleteLocalizeResource(LocalizeResource localizeResource);
+
+  //
 
   Future<void> setAvailableLanguages(LanguageList languages);
 
