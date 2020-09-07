@@ -16,7 +16,7 @@ packages:
     source: hosted
     version: "0.39.17"
   args:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: args
       url: "https://pub.dartlang.org"
@@ -191,7 +191,7 @@ packages:
     source: hosted
     version: "1.9.3"
   path:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path
       url: "https://pub.dartlang.org"
@@ -352,7 +352,7 @@ packages:
     source: hosted
     version: "0.7.3"
   yaml:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: yaml
       url: "https://pub.dartlang.org"

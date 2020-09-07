@@ -2,7 +2,7 @@ NStack Flutter's command-line application.
 
 For now:
 ```
-dart nstack.dart --help
+dart main.dart --help
 ```
 
 Soon:
