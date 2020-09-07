@@ -84,7 +84,7 @@ class NstackBuilder implements Builder {
 
 import 'package:flutter/widgets.dart';
 import 'package:data/entities/language.dart';
-import 'package:data/entities/nstack_config.dart';
+import 'package:data/entities/config.dart';
 import 'package:nstack/nstack.dart';
 import 'package:nstack/section_key_delegate.dart';
 

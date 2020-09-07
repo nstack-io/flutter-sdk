@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:yaml/yaml.dart';
 
-import '../lib/command.dart';
-import '../lib/doctor_interactor.dart';
+import '../lib/help/help_command.dart';
+import '../lib/doctor/doctor_interactor.dart';
+import '../lib/doctor/doctor_command.dart';
 import '../lib/option.dart';
 
 void main(List<String> arguments) {

@@ -7,7 +7,3 @@ class DoctorCommand {
     this.verbose = false,
   });
 }
-
-class HelpCommand {
-  static const String name = 'help';
-}

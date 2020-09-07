@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'command.dart';
-import 'config.dart';
-import 'interactor.dart';
-
-const nStackConfigPath = 'lib/nstack';
-const nStackConfigFilePath = '$nStackConfigPath/nstack.json';
+import '../config.dart';
+import '../constants.dart';
+import '../interactor.dart';
+import 'doctor_command.dart';
 
 class DoctorInteractor implements FutureInteractor<void> {
   @override
