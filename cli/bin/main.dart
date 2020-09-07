@@ -10,68 +10,68 @@ import 'package:yaml/yaml.dart';
 
 void main(List<String> arguments) {
   if (arguments == null || arguments.isEmpty) {
-    printHelp();
+    _printHelp();
     return;
   }
   // Look for a command
   switch (arguments?.first) {
     case BuildCommand.name:
-      return processBuildCommand(arguments);
+      return _processBuildCommand(arguments);
     case HelpCommand.name:
-      return processHelpCommand(arguments);
+      return _processHelpCommand(arguments);
     case DoctorCommand.name:
-      return processDoctorCommand(arguments);
+      return _processDoctorCommand(arguments);
   }
   // Look for a global option
   if (Option('help').isPresent(arguments)) {
-    return printHelp();
+    return _printHelp();
   }
   if (Option('version').isPresent(arguments)) {
-    return printVersion();
+    return _printVersion();
   }
   // No valid command or option found
-  printUnknownArguments(arguments);
+  _printUnknownArguments(arguments);
 }
 
-void processBuildCommand(List<String> arguments) async {
+void _processBuildCommand(List<String> arguments) async {
   await BuildInteractor().execute(
     command: BuildCommand(),
   );
 }
 
-void processDoctorCommand(List<String> arguments) async {
+void _processDoctorCommand(List<String> arguments) async {
   final verbose = Option('verbose').isPresent(arguments);
   await DoctorInteractor().execute(
     command: DoctorCommand(verbose: verbose),
   );
 }
 
-void processHelpCommand(List<String> arguments) {
+void _processHelpCommand(List<String> arguments) {
   // TODO
   print("Not implemented.");
 }
 
-void printUnknownArguments(List<String> arguments) {
+void _printUnknownArguments(List<String> arguments) {
   if (Option('').isPresent(arguments)) {
-    printUnknownOption(arguments.first);
+    _printUnknownOption(arguments.first);
   } else {
-    printUnknownCommand(arguments.first);
+    _printUnknownCommand(arguments.first);
   }
 }
 
-void printUnknownOption(String option) => print("""
+void _printUnknownOption(String option) => print("""
 Could not find an option with name "$option".
 
 Run 'nstack -h' (or 'nstack <command> -h') for available nstack commands and options.
 """);
 
-void printUnknownCommand(String command) => print("""
+void _printUnknownCommand(String command) => print("""
 Could not find a command with name "$command".
 
 Run 'nstack -h' (or 'nstack <command> -h') for available nstack commands and options.
 """);
 
-void printHelp() => print("""
+void _printHelp() => print("""
 Backend as a Service for Mobile & Web apps.
 www.nstack.io
     
@@ -85,7 +85,7 @@ Run "nstack help <command>" for more information about a command.
 Run "nstack help -v" for verbose help output.
 """);
 
-void printVersion() async {
+void _printVersion() async {
   final version = await File("../pubspec.yaml").readAsString().then((text) {
     Map yaml = loadYaml(text);
     return yaml['version'];
