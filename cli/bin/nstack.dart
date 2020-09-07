@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:yaml/yaml.dart';
 
-import '../lib/help/help_command.dart';
-import '../lib/doctor/doctor_interactor.dart';
+import '../lib/build/build_command.dart';
+import '../lib/build/build_interactor.dart';
 import '../lib/doctor/doctor_command.dart';
+import '../lib/doctor/doctor_interactor.dart';
+import '../lib/help/help_command.dart';
 import '../lib/option.dart';
 
 void main(List<String> arguments) {
@@ -14,6 +16,8 @@ void main(List<String> arguments) {
   }
   // Look for a command
   switch (arguments?.first) {
+    case BuildCommand.name:
+      return processBuildCommand(arguments);
     case HelpCommand.name:
       return processHelpCommand(arguments);
     case DoctorCommand.name:
@@ -28,6 +32,12 @@ void main(List<String> arguments) {
   }
   // No valid command or option found
   printUnknownArguments(arguments);
+}
+
+void processBuildCommand(List<String> arguments) async {
+  await BuildInteractor().execute(
+    command: BuildCommand(),
+  );
 }
 
 void processDoctorCommand(List<String> arguments) async {

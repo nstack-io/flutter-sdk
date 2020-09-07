@@ -1,3 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'constants.dart';
+
 class Config {
   final String id;
   final String key;
@@ -15,4 +20,20 @@ class Config {
         'id': id,
         'key': key,
       };
+}
+
+Future<bool> hasConfigFile({
+  String path = nStackConfigFilePath,
+}) async {
+  return await File(path).exists();
+}
+
+Future<Config> getConfig({
+  String path = nStackConfigFilePath,
+}) async {
+  return File(path).readAsString().then((String content) {
+    return Config.fromJson(jsonDecode(content));
+  }).catchError((e, s) {
+    return null;
+  });
 }
