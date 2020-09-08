@@ -19,12 +19,12 @@ class BuildInteractor implements FutureInteractor<void> {
       'N-Meta': 'android;local;1.0;1.0;nstackbuilder'
     };
 
-    // Fetch localize index resources
+    // Fetch localize-index-resources
     final localizeIndexResources = await http
         .get(localizeIndexResourcesUrl, headers: headers)
         .then((response) => jsonDecode(response.body)['data']);
 
-    // Fetch localize show resources and write them into /assets
+    // Fetch localize-show-resources and write them into /assets
     localizeIndexResources.forEach((indexResource) async {
       final url = indexResource['url'];
       await http.get(url, headers: headers).then((value) async {
