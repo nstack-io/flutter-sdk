@@ -3,6 +3,10 @@ version: 0.0.1
 description: NStack Flutter command-line application.
 # homepage: https://www.example.com
 
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
 environment:
   sdk: '>=2.8.1 <3.0.0'
 
@@ -10,10 +14,12 @@ dependencies:
   path: ^1.7.0
   yaml: ^2.2.1
   args: ^1.6.0
+  data:
+    path: ../data
 
 dev_dependencies:
   pedantic: ^1.9.0
   test: ^1.14.4
 
 executables:
-  nstack: main
+  nstack:

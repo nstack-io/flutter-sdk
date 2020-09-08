@@ -2,11 +2,6 @@ NStack Flutter's command-line application.
 
 For now:
 ```
-dart main.dart --help
-```
-
-Soon:
-```
-pub global activate --source git ...
-nstack --help
+flutter pub global activate --source path .
+flutter pub global run nstack --help
 ```

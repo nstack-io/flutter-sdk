@@ -1,12 +1,13 @@
 import 'dart:io';
 
-import 'package:nstack/src/build/build_command.dart';
-import 'package:nstack/src/build/build_interactor.dart';
-import 'package:nstack/src/doctor/doctor_command.dart';
-import 'package:nstack/src/doctor/doctor_interactor.dart';
-import 'package:nstack/src/help/help_command.dart';
-import 'package:nstack/src/option.dart';
 import 'package:yaml/yaml.dart';
+
+import 'src/build/build_command.dart';
+import 'src/build/build_interactor.dart';
+import 'src/doctor/doctor_command.dart';
+import 'src/doctor/doctor_interactor.dart';
+import 'src/help/help_command.dart';
+import 'src/option.dart';
 
 void main(List<String> arguments) {
   if (arguments == null || arguments.isEmpty) {
