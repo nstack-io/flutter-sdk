@@ -81,6 +81,7 @@ Global options:
     
 Available commands:
   doctor            Show information about your NStack setup.
+  build             Update your NStack setup.
       
 Run "nstack help <command>" for more information about a command.
 Run "nstack help -v" for verbose help output.
