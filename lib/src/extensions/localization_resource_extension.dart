@@ -1,4 +1,4 @@
-import 'package:data/entities/localize_resource.dart';
+import 'package:api/entities/localize_resource.dart';
 
 extension LocalizationResourceExtension on LocalizeResource {
   /// Returns the localized [String] nor [Null].

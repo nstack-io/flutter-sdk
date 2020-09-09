@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:data/entities/runtime_config.dart';
-import 'package:data/local_repository.dart';
+import 'package:api/entities/runtime_config.dart';
 import 'package:device_info/device_info.dart';
 import 'package:get_version/get_version.dart';
 import 'package:meta/meta.dart';
 import 'package:nstack/src/interactors/interactor.dart';
+import 'package:nstack/src/repository/local_repository.dart';
 
 class SetRuntimeConfigInteractor extends FutureInteractor<void> {
   final LocalRepository localRepository;

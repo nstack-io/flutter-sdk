@@ -1,5 +1,5 @@
-import 'package:data/entities/localize_resource_list.dart';
-import 'package:data/entities/nstack_config.dart';
+import 'package:api/entities/localize_resource_list.dart';
+import 'package:api/entities/nstack_config.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nstack/src/injection/injector.dart' as Injector;
 import 'package:nstack/src/injection/injector.dart';

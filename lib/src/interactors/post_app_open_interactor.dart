@@ -1,24 +1,25 @@
 import 'dart:ui';
 
-import 'package:data/cache_repository.dart';
-import 'package:data/entities/localize_index_list.dart';
-import 'package:data/entities/nstack_app_open_data.dart';
-import 'package:data/entities/timestamp.dart';
-import 'package:data/local_repository.dart';
-import 'package:data/remote_repository.dart';
+import 'package:api/entities/localize_index_list.dart';
+import 'package:api/entities/nstack_app_open_data.dart';
+import 'package:api/entities/timestamp.dart';
+import 'package:api/api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:nstack/src/interactors/interactor.dart';
 import 'package:nstack/src/interactors/update_localize_resources_interactor.dart';
+import 'package:nstack/src/repository/cache_repository.dart';
+import 'package:nstack/src/repository/local_repository.dart';
+
 
 class PostAppOpenInteractor extends FutureInteractor<void> {
-  final RemoteRepository remoteRepository;
+  final NStackAPI api;
   final LocalRepository localRepository;
   final CacheRepository cacheRepository;
   final UpdateLocalizeResourcesInteractor updateLocalizeResourcesInteractor;
 
   PostAppOpenInteractor({
-    @required this.remoteRepository,
+    @required this.api,
     @required this.localRepository,
     @required this.cacheRepository,
     @required this.updateLocalizeResourcesInteractor,
@@ -26,7 +27,7 @@ class PostAppOpenInteractor extends FutureInteractor<void> {
 
   @override
   Future<void> execute({@required Locale locale}) async {
-    final appOpen = await remoteRepository.postAppOpen(
+    final appOpen = await api.postAppOpen(
       acceptHeader: locale.toLanguageTag(),
       appOpenData: await appOpenData,
       devMode: kDebugMode,

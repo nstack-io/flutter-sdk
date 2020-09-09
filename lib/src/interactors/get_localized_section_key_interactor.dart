@@ -1,7 +1,7 @@
-import 'package:data/cache_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:nstack/src/extensions/localization_resource_extension.dart';
 import 'package:nstack/src/interactors/interactor.dart';
+import 'package:nstack/src/repository/cache_repository.dart';
 
 class GetLocalizedSectionKeyInteractor extends Interactor<String> {
   final CacheRepository cacheRepository;

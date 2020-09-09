@@ -1,17 +1,17 @@
-import 'package:data/cache_repository.dart';
-import 'package:data/entities/localize_index_list.dart';
-import 'package:data/local_repository.dart';
-import 'package:data/remote_repository.dart';
+import 'package:api/entities/localize_index_list.dart';
+import 'package:api/api.dart';
 import 'package:meta/meta.dart';
 import 'package:nstack/src/interactors/interactor.dart';
+import 'package:nstack/src/repository/cache_repository.dart';
+import 'package:nstack/src/repository/local_repository.dart';
 
 class UpdateLocalizeResourcesInteractor extends FutureInteractor<void> {
-  final RemoteRepository remoteRepository;
+  final NStackAPI api;
   final LocalRepository localRepository;
   final CacheRepository cacheRepository;
 
   UpdateLocalizeResourcesInteractor({
-    @required this.remoteRepository,
+    @required this.api,
     @required this.localRepository,
     @required this.cacheRepository,
   });
@@ -22,7 +22,7 @@ class UpdateLocalizeResourcesInteractor extends FutureInteractor<void> {
   }) async {
     localizeIndexList.data.forEach((item) {
       if (item.shouldUpdate) {
-        remoteRepository.getLocalizationResource(item.id);
+        api.getLocalizationResource(item.id);
         // TODO: localRepository.setLocalization()
         // TODO: cacheRepository.setLocalization()
         // TODO: cacheRepository.setCurrentLocalizationResource()

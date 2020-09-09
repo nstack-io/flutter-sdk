@@ -1,8 +1,8 @@
-import 'package:data/entities/app_config.dart';
-import 'package:data/local_repository.dart';
+import 'package:api/entities/app_config.dart';
 import 'package:get_version/get_version.dart';
 import 'package:meta/meta.dart';
 import 'package:nstack/src/interactors/interactor.dart';
+import 'package:nstack/src/repository/local_repository.dart';
 
 class SetAppConfigInteractor extends FutureInteractor<void> {
   final LocalRepository localRepository;

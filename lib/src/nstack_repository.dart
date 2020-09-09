@@ -1,14 +1,14 @@
 import 'dart:convert';
 
-import 'package:data/entities/app_open.dart';
-import 'package:data/entities/localize_index.dart';
-import 'package:data/entities/localize_index_list.dart';
-import 'package:data/entities/nstack_app_open_data.dart';
-import 'package:data/entities/nstack_config.dart';
+import 'package:api/entities/app_open.dart';
+import 'package:api/entities/localize_index.dart';
+import 'package:api/entities/localize_index_list.dart';
+import 'package:api/entities/nstack_app_open_data.dart';
+import 'package:api/entities/nstack_config.dart';
 import 'package:http/http.dart' as http;
 
 // TODO: Deprecate
-@Deprecated("Use package:data/remote_repository.dart")
+@Deprecated("Use package:api/api.dart")
 class NStackRepository {
   final _baseUrl = 'https://nstack.io/api/v2';
 

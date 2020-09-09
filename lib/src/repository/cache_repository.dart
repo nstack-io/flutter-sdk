@@ -1,5 +1,5 @@
-import 'package:data/entities/language_list.dart';
-import 'package:data/entities/localize_resource.dart';
+import 'package:api/entities/language_list.dart';
+import 'package:api/entities/localize_resource.dart';
 
 abstract class CacheRepository {
   setCurrentLocalizationResource(

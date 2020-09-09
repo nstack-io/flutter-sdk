@@ -1,8 +1,8 @@
-import 'package:data/entities/app_config.dart';
-import 'package:data/entities/language_list.dart';
-import 'package:data/entities/localize_resource.dart';
-import 'package:data/entities/runtime_config.dart';
-import 'package:data/entities/timestamp.dart';
+import 'package:api/entities/app_config.dart';
+import 'package:api/entities/language_list.dart';
+import 'package:api/entities/localize_resource.dart';
+import 'package:api/entities/runtime_config.dart';
+import 'package:api/entities/timestamp.dart';
 
 abstract class LocalRepository {
 

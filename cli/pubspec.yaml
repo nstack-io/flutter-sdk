@@ -1,4 +1,4 @@
-name: nstack
+name: nstack_cli
 version: 0.0.1
 description: NStack Flutter command-line application.
 # homepage: https://www.example.com
@@ -15,8 +15,8 @@ dependencies:
   yaml: ^2.2.1
   args: ^1.6.0
   http: 0.12.2
-  data:
-    path: ../data
+  api:
+    path: ../api
 
 dev_dependencies:
   pedantic: ^1.9.0

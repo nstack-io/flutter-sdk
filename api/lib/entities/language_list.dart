@@ -1,5 +1,6 @@
-import 'package:data/entities/language.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'language.dart';
 
 part 'language_list.g.dart';
 

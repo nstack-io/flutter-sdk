@@ -1,6 +1,7 @@
-import 'package:data/entities/language.dart';
-import 'package:data/entities/platform.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'language.dart';
+import 'platform.dart';
 
 part 'localize_resource_meta.g.dart';
 

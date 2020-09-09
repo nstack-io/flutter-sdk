@@ -1,5 +1,6 @@
-import 'package:data/entities/localize_resource.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'localize_resource.dart';
 
 part 'localize_resource_list.g.dart';
 
