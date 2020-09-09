@@ -1,16 +1,5 @@
-# data
+# nstack_api
 
-A new Flutter project.
+A package abstracting remote data communication logic to NStack backend.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The main reason for this package is to have all NStack backend communication logic in a single shareable place without dependencies to Flutter. This allows us to use `nstack_api` inside `nstack_sdk` and `nstack_cli` package.

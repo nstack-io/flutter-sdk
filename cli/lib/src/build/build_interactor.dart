@@ -12,6 +12,7 @@ class BuildInteractor implements FutureInteractor<void> {
   @override
   Future<void> execute({BuildCommand command}) async {
     final config = await getConfig();
+    // TODO: Use nstack_api
     final headers = {
       'Accept-Language': 'en-US',
       'X-Application-Id': 'h6wJremI2TGFM88gbLkdyljWQuwf2hxhxvCH',
@@ -19,11 +20,13 @@ class BuildInteractor implements FutureInteractor<void> {
       'N-Meta': 'android;local;1.0;1.0;nstackbuilder'
     };
 
+    // TODO: Use nstack_api
     // Fetch localize-index-resources
     final localizeIndexResources = await http
         .get(localizeIndexResourcesUrl, headers: headers)
         .then((response) => jsonDecode(response.body)['data']);
 
+    // TODO: Use nstack_api
     // Fetch localize-show-resources and write them into /assets
     localizeIndexResources.forEach((indexResource) async {
       final url = indexResource['url'];

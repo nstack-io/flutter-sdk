@@ -1,5 +1,5 @@
-name: nstack
-description: Nstack plugin for Flutter.
+name: nstack_sdk
+description: Nstack SDK for Flutter.
 version: 0.1.5
 author: Nodes Agency
 homepage: https://github.com/nstack-io/flutter-sdk
