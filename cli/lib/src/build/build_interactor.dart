@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:nstack/src/constants.dart';
 
 import '../config.dart';
+import '../constants.dart';
 import '../interactor.dart';
 import 'build_command.dart';
 
@@ -42,7 +42,7 @@ class BuildInteractor implements FutureInteractor<void> {
     });
 
     // TODO: Generate NStack instance
-    // Path: lib/nstack/nstack.dart (next to nstack.json)
+    // Path: lib/nstack/nstack_cli.dart (next to nstack.json)
     // Includes:
     //    - NStackWidget
     //    - NStackAppOpenWidget

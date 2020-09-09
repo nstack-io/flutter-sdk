@@ -74,7 +74,7 @@ Use `NStackInitWidget` for submitting [AppOpen] events.
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:nstack_example/nstack.dart';
+import 'package:nstack_example/nstack_cli.dart';
 
 void main() {
   runApp(NStackWidget(child: MyApp()));

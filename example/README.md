@@ -1,3 +1,3 @@
 # nstack_example
 
-Demonstrates how to use the nstack plugin.
+Demonstrates `nstack_sdk` features and serves as a test project.
