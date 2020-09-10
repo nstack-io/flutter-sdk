@@ -348,14 +348,14 @@ packages:
   nstack_api:
     dependency: transitive
     description:
-      path: "../api"
+      path: "../nstack_api"
       relative: true
     source: path
     version: "1.0.0+1"
   nstack_sdk:
     dependency: "direct main"
     description:
-      path: "../sdk"
+      path: "../nstack_sdk"
       relative: true
     source: path
     version: "0.1.5"
