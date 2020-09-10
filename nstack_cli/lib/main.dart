@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:yaml/yaml.dart';
 
-import 'src/build/build_command.dart';
-import 'src/build/build_interactor.dart';
+import 'src/update/update_command.dart';
+import 'src/update/update_interactor.dart';
 import 'src/doctor/doctor_command.dart';
 import 'src/doctor/doctor_interactor.dart';
 import 'src/help/help_command.dart';
@@ -16,8 +16,8 @@ void main(List<String> arguments) {
   }
   // Look for a command
   switch (arguments?.first) {
-    case BuildCommand.name:
-      return _processBuildCommand(arguments);
+    case UpdateCommand.name:
+      return _processUpdateCommand(arguments);
     case HelpCommand.name:
       return _processHelpCommand(arguments);
     case DoctorCommand.name:
@@ -34,9 +34,9 @@ void main(List<String> arguments) {
   _printUnknownArguments(arguments);
 }
 
-void _processBuildCommand(List<String> arguments) async {
-  await BuildInteractor().execute(
-    command: BuildCommand(),
+void _processUpdateCommand(List<String> arguments) async {
+  await UpdateInteractor().execute(
+    command: UpdateCommand(),
   );
 }
 
@@ -81,7 +81,7 @@ Global options:
     
 Available commands:
   doctor            Show information about your NStack setup.
-  build             Update your NStack setup.
+  update            Update your NStack setup.
       
 Run "nstack help <command>" for more information about a command.
 Run "nstack help -v" for verbose help output.
