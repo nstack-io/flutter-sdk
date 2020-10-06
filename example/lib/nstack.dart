@@ -20,26 +20,28 @@ class Localization {
 class _DefaultSection extends SectionKeyDelegate {
 	const _DefaultSection(): super('default');
 
-	String get title => get('title', 'NStack SDK Demo');
+	String get title => get('title', "NStack SDK Demo");
 }
 
 class _Test extends SectionKeyDelegate {
 	const _Test(): super('test');
 
-	String get testDollarSign => get('testDollarSign', '\$testing');
-	String get testSingleQuotationMark => get('testSingleQuotationMark', '\'testing\'');
-	String get testDoubleQuotationMark => get('testDoubleQuotationMark', '\"testing\"');
-	String get testMultipleLines => get('testMultipleLines', 'testing\nmultiple\nlines');
+	String get testDollarSign => get('testDollarSign', "\$testing");
+	String get testSingleQuotationMark => get('testSingleQuotationMark', "\'testing\'");
+	String get testDoubleQuotationMark => get('testDoubleQuotationMark', "\"testing\"");
+	String get testMultipleLines => get('testMultipleLines', "testing\nmultiple\nlines");
 }
 
 const _config = NStackConfig(projectId: 'h6wJremI2TGFM88gbLkdyljWQuwf2hxhxvCH', apiKey: 'zp2S18H32b67eYAbRQh94tVw76ZzaKKXlHjd');
     
 const _languages = [
 	Language(id: 56, name: 'English', locale: 'en-EN', direction: 'LRM', isDefault: true, isBestFit: true),
+	Language(id: 7, name: 'German (Austria)', locale: 'de-AT', direction: 'LRM', isDefault: false, isBestFit: false),
 ];
 
 const _bundledTranslations = {
 	'en-EN': '{\"data\":{\"default\":{\"title\":\"NStack SDK Demo\"},\"test\":{\"testDollarSign\":\"\$testing\",\"testSingleQuotationMark\":\"\'testing\'\",\"testDoubleQuotationMark\":\"\\"testing\\"\",\"testMultipleLines\":\"testing\nmultiple\nlines\"}},\"meta\":{\"language\":{\"id\":56,\"name\":\"English\",\"locale\":\"en-EN\",\"direction\":\"LRM\",\"is_default\":false,\"is_best_fit\":false},\"platform\":{\"id\":515,\"slug\":\"mobile\"}}}',
+	'de-AT': '{\"data\":{\"default\":{\"title\":\"NStack SDK Demo\"},\"test\":{\"testDollarSign\":\"__testDollarSign\",\"testSingleQuotationMark\":\"__testSingleQuotationMark\",\"testDoubleQuotationMark\":\"__testDoubleQuotationMark\",\"testMultipleLines\":\"__testMultipleLines\"}},\"meta\":{\"language\":{\"id\":7,\"name\":\"German (Austria)\",\"locale\":\"de-AT\",\"direction\":\"LRM\",\"is_default\":false,\"is_best_fit\":false},\"platform\":{\"id\":515,\"slug\":\"mobile\"}}}',
 };
 
 final _nstack = NStack<Localization>(
