@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:nstack_api/entities/localize_index_list.dart';
 import 'package:nstack_api/entities/nstack_app_open_data.dart';
 import 'package:nstack_api/entities/timestamp.dart';
-import 'package:nstack_api/api.dart';
+import 'package:nstack_api/nstack_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:nstack_sdk/src/interactors/interactor.dart';

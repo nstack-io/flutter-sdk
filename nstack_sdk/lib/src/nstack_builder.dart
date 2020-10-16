@@ -5,7 +5,7 @@ import 'package:build/build.dart';
 import 'package:nstack_api/entities/language.dart';
 import 'package:nstack_api/entities/localization_data.dart';
 import 'package:nstack_api/entities/localize_index.dart';
-import 'package:nstack_api/entities/nstack_config.dart';
+import 'package:nstack_api/entities/nstack_api_config.dart';
 import 'package:nstack_sdk/src/nstack_repository.dart';
 import 'package:nstack_sdk/src/other/extensions.dart';
 import 'package:nstack_sdk/src/other/reserved_keywords.dart';
@@ -32,9 +32,9 @@ class NstackBuilder implements Builder {
     throwIf(
         apiKey.isNullOrBlank, () => ArgumentError('"nstack_api_key" not set'));
 
-    final config = NStackConfig(
-      projectId: projectId,
-      apiKey: apiKey,
+    final config = NStackApiConfig(
+      applicationId: projectId,
+      restApiKey: apiKey,
     );
 
     final repository = NStackRepository(config);

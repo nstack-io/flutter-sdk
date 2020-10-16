@@ -1,5 +1,5 @@
 import 'package:nstack_api/entities/localize_resource_list.dart';
-import 'package:nstack_api/entities/nstack_config.dart';
+import 'package:nstack_api/entities/nstack_api_config.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nstack_sdk/src/injection/injector.dart' as Injector;
 import 'package:nstack_sdk/src/injection/injector.dart';
@@ -9,7 +9,7 @@ import 'package:nstack_sdk/src/interactors/set_guid_interactor.dart';
 import 'package:nstack_sdk/src/interactors/set_runtime_config_interactor.dart';
 
 class NStack {
-  final NStackConfig config;
+  final NStackApiConfig config;
 
   NStack({
     @required this.config,

@@ -2,7 +2,7 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:nstack_api/entities/language.dart';
-import 'package:nstack_api/entities/nstack_config.dart';
+import 'package:nstack_api/entities/nstack_api_config.dart';
 import 'package:nstack_sdk/nstack.dart';
 import 'package:nstack_sdk/section_key_delegate.dart';
 
@@ -32,7 +32,7 @@ class _Test extends SectionKeyDelegate {
 	String get testMultipleLines => get('testMultipleLines', "testing\nmultiple\nlines");
 }
 
-const _config = NStackConfig(projectId: 'h6wJremI2TGFM88gbLkdyljWQuwf2hxhxvCH', apiKey: 'zp2S18H32b67eYAbRQh94tVw76ZzaKKXlHjd');
+const _config = NStackApiConfig(applicationId: 'h6wJremI2TGFM88gbLkdyljWQuwf2hxhxvCH', restApiKey: 'zp2S18H32b67eYAbRQh94tVw76ZzaKKXlHjd');
     
 const _languages = [
 	Language(id: 56, name: 'English', locale: 'en-EN', direction: 'LRM', isDefault: true, isBestFit: true),

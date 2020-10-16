@@ -4,20 +4,20 @@ import 'package:nstack_api/entities/app_open.dart';
 import 'package:nstack_api/entities/localize_index.dart';
 import 'package:nstack_api/entities/localize_index_list.dart';
 import 'package:nstack_api/entities/nstack_app_open_data.dart';
-import 'package:nstack_api/entities/nstack_config.dart';
+import 'package:nstack_api/entities/nstack_api_config.dart';
 import 'package:http/http.dart' as http;
 
 // TODO: Deprecate
-@Deprecated("Use package:nstack_api/api.dart")
+@Deprecated("Use package:nstack_api/nstack_api.dart")
 class NStackRepository {
   final _baseUrl = 'https://nstack.io/api/v2';
 
-  final NStackConfig _config;
+  final NStackApiConfig _config;
 
   Map<String, String> get _headers => {
         'Accept-Language': 'en-US',
-        'X-Application-Id': _config.projectId,
-        'X-Rest-Api-Key': _config.apiKey,
+        'X-Application-Id': _config.applicationId,
+        'X-Rest-Api-Key': _config.restApiKey,
         'N-Meta': 'android;local;1.0;1.0;nstackbuilder'
       };
 
