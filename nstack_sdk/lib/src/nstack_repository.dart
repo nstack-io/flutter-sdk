@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:nstack_api/entities/app_open.dart';
 import 'package:nstack_api/entities/localize_index.dart';
 import 'package:nstack_api/entities/localize_index_list.dart';
-import 'package:nstack_api/entities/nstack_app_open_data.dart';
+import 'package:nstack_api/entities/app_open_request_body.dart';
 import 'package:nstack_api/entities/nstack_api_config.dart';
 import 'package:http/http.dart' as http;
 
@@ -25,18 +25,18 @@ class NStackRepository {
 
   Future<AppOpen> postAppOpen({
     String acceptHeader,
-    NStackAppOpenData appOpenData,
+    AppOpenRequestBody body,
     bool devMode,
     bool testMode,
   }) async {
     _headers['Accept-Language'] = acceptHeader;
 
     final requestBody = <String, String>{
-      'platform': appOpenData.platform,
-      'guid': appOpenData.guid,
-      'version': appOpenData.version,
-      'old_version': appOpenData.oldVersion,
-      'last_updated': appOpenData.lastUpdated.toIso8601String()
+      'platform': body.platform,
+      'guid': body.guid,
+      'version': body.version,
+      'old_version': body.oldVersion,
+      'last_updated': body.lastUpdated.toIso8601String()
     };
 
     print('NStack --> App Open sending: ${requestBody.toString()}');

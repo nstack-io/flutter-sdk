@@ -1,16 +1,15 @@
 import 'dart:ui';
 
-import 'package:nstack_api/entities/localize_index_list.dart';
-import 'package:nstack_api/entities/nstack_app_open_data.dart';
-import 'package:nstack_api/entities/timestamp.dart';
-import 'package:nstack_api/nstack_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
+import 'package:nstack_api/entities/app_open_request_body.dart';
+import 'package:nstack_api/entities/localize_index_list.dart';
+import 'package:nstack_api/entities/timestamp.dart';
+import 'package:nstack_api/nstack_api.dart';
 import 'package:nstack_sdk/src/interactors/interactor.dart';
 import 'package:nstack_sdk/src/interactors/update_localize_resources_interactor.dart';
 import 'package:nstack_sdk/src/repository/cache_repository.dart';
 import 'package:nstack_sdk/src/repository/local_repository.dart';
-
 
 class PostAppOpenInteractor extends FutureInteractor<void> {
   final NStackAPI api;
@@ -28,10 +27,9 @@ class PostAppOpenInteractor extends FutureInteractor<void> {
   @override
   Future<void> execute({@required Locale locale}) async {
     final appOpen = await api.postAppOpen(
-      acceptHeader: locale.toLanguageTag(),
-      appOpenData: await appOpenData,
-      devMode: kDebugMode,
-      testMode: false,
+      body: await appOpenRequestBody,
+      isDevMode: kDebugMode,
+      isTestMode: false,
     );
 
     // Update all local resources
@@ -49,12 +47,12 @@ class PostAppOpenInteractor extends FutureInteractor<void> {
     );
   }
 
-  Future<NStackAppOpenData> get appOpenData async {
+  Future<AppOpenRequestBody> get appOpenRequestBody async {
     final runtimeConfig = await localRepository.getRuntimeConfig();
     final appConfig = await localRepository.getAppConfig();
     final guid = await localRepository.getGuid();
     final timestamp = await localRepository.getLastAppOpenTimeStamp();
-    return NStackAppOpenData(
+    return AppOpenRequestBody(
       platform: runtimeConfig.platformName,
       guid: guid,
       lastUpdated: timestamp?.time ?? DateTime.utc(1980, 1, 1),

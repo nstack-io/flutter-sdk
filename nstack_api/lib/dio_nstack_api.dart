@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:nstack_api/entities/app_open.dart';
-import 'package:nstack_api/entities/app_open_data.dart';
+import 'package:nstack_api/entities/app_open_request_body.dart';
 import 'package:nstack_api/entities/language_list.dart';
 import 'package:nstack_api/entities/localize_index.dart';
 import 'package:nstack_api/entities/localize_resource.dart';
@@ -38,12 +38,8 @@ class DioNStackApi implements NStackAPI {
   }
 
   @override
-  Future<AppOpen> postAppOpen({
-    String acceptHeader,
-    AppOpenData appOpenData,
-    bool devMode,
-    bool testMode,
-  }) {
+  Future<AppOpen> postAppOpen(
+      {AppOpenRequestBody body, bool isDevMode, bool isTestMode}) {
     // TODO: implement postAppOpen
     throw UnimplementedError();
   }

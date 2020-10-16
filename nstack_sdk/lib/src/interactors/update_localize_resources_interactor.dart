@@ -22,7 +22,7 @@ class UpdateLocalizeResourcesInteractor extends FutureInteractor<void> {
   }) async {
     localizeIndexList.data.forEach((item) {
       if (item.shouldUpdate) {
-        api.getLocalizationResource(item.id);
+        api.getLocalizationResource(id: item.id);
         // TODO: localRepository.setLocalization()
         // TODO: cacheRepository.setLocalization()
         // TODO: cacheRepository.setCurrentLocalizationResource()
