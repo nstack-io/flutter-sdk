@@ -195,9 +195,7 @@ const _bundledTranslations = {''');
       final locale = localizeIndex.language.locale;
       var content =
           (await repository.fetchLocalizationForLanguage(localizeIndex));
-      // Escape ' and $ characters with \' and \$
-      content = _escapeSpecialCharacters(content);
-      output.writeln('\t\'$locale\': \'$content\',');
+      output.writeln('\t\'$locale\': r\'\'\'$content\'\'\',');
     });
 
     output.writeln('''
