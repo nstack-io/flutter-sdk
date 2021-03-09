@@ -1,6 +1,6 @@
 name: nstack
 description: Nstack plugin for Flutter.
-version: 0.1.7
+version: 0.1.8
 author: Nodes Agency
 homepage: https://github.com/nstack-io/flutter-sdk
 
@@ -13,12 +13,12 @@ dependencies:
     sdk: flutter
 
   meta: ^1.2.3
-  http: ^0.12.2
-  build: ^1.5.0
+  http: ^0.13.0
+  build: ^1.6.2
   build_config: ^0.4.2
-  get_version: ^0.2.2
-  cross_local_storage: ^1.1.1
-  uuid: 2.0.4
+  shared_preferences: ^2.0.3
+  package_info: ^2.0.0
+  uuid: ^3.0.1
   dart_style: ^1.3.7
 
 dev_dependencies:

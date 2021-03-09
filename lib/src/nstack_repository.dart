@@ -37,7 +37,7 @@ class NStackRepository {
     print('NStack --> App Open sending: ${requestBody.toString()}');
 
     final appOpenResponse = await http.post(
-      '$_baseUrl/open?dev=$devMode&test=$testMode',
+      Uri.parse('$_baseUrl/open?dev=$devMode&test=$testMode'),
       headers: _headers,
       body: requestBody,
     );
@@ -54,7 +54,7 @@ class NStackRepository {
   Future<List<LocalizeIndex>> fetchAvailableLanguages() async {
     try {
       final response = await http.get(
-        '$_baseUrl/content/localize/resources/platforms/mobile?dev=true',
+          Uri.parse('$_baseUrl/content/localize/resources/platforms/mobile?dev=true'),
         headers: _headers,
       );
       final Map languagesJson = json.decode(response.body);
@@ -72,6 +72,6 @@ class NStackRepository {
   }
 
   Future<String> fetchLocalizationForLanguage(LocalizeIndex language) async {
-    return (await http.get(language.url, headers: _headers)).body;
+    return (await http.get( Uri.parse(language.url), headers: _headers)).body;
   }
 }

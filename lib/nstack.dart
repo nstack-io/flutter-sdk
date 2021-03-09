@@ -1,11 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:cross_local_storage/cross_local_storage.dart';
 import 'package:flutter/foundation.dart' as Foundation;
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:get_version/get_version.dart';
 import 'package:nstack/models/app_open.dart';
 import 'package:nstack/models/language.dart';
 import 'package:nstack/models/language_response.dart';
@@ -13,6 +10,8 @@ import 'package:nstack/models/nstack_appopen_data.dart';
 import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/src/nstack_repository.dart';
 import 'package:nstack/src/repository.dart';
+import 'package:package_info/package_info.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 class NStack<T> {
@@ -42,17 +41,15 @@ class NStack<T> {
 
   Future<void> _setupAppOpenData() async {
     WidgetsFlutterBinding.ensureInitialized();
-    LocalStorageInterface prefs = await LocalStorage.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     String projectVersion;
     String guid;
     String lastUpdated;
     String platform;
 
-    try {
-      projectVersion = await GetVersion.projectVersion;
-    } on PlatformException {
-      projectVersion = '1';
-    }
+    projectVersion = await PackageInfo.fromPlatform()
+        .then((PackageInfo info) => info.version)
+        .catchError((error) => "1");
 
     if (prefs.containsKey(prefsKeyGuid)) {
       guid = prefs.getString(prefsKeyGuid);
@@ -99,7 +96,7 @@ class NStack<T> {
 
       final appOpen = AppOpen.fromJson(result);
 
-      final LocalStorageInterface prefs = await LocalStorage.getInstance();
+      final prefs = await SharedPreferences.getInstance();
 
       // Find best fit
       final bestFitLanguage = appOpen.data.localize
