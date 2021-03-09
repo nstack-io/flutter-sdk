@@ -19,7 +19,7 @@ jobs:
         run: flutter pub get
         working-directory: example
       - name: Build /example
-        run: flutter build aot --release -t lib/main.dart
+        run: flutter build apk --release -t lib/main.dart
         working-directory: example
       - name: Run analyzer
         run: flutter analyze
