@@ -1,8 +1,8 @@
 import 'package:meta/meta.dart';
-import 'package:nstack_api/entities/data_source_strategy.dart';
 import 'package:nstack_api/entities/language.dart';
 import 'package:nstack_api/nstack_api.dart';
 import 'package:nstack_sdk/src/interactors/interactor.dart';
+import 'package:nstack_sdk/src/other/data_source_strategy.dart';
 import 'package:nstack_sdk/src/repository/cache_repository.dart';
 import 'package:nstack_sdk/src/repository/local_repository.dart';
 
