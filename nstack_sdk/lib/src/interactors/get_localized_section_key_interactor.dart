@@ -15,7 +15,7 @@ class GetLocalizedSectionKeyInteractor extends Interactor<String> {
     String section,
     String key,
   }) {
-    final resource = cacheRepository.getCurrentLocalizationResource();
+    final resource = cacheRepository.getLocalizeResource();
     if (resource == null) throw AssertionError('''
         LocalizeResource not found. This should not happen!
         Please report this issue to NStack library maintainers.

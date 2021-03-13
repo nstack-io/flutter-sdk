@@ -1,25 +1,16 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'message_localization.freezed.dart';
 
 part 'message_localization.g.dart';
 
-@JsonSerializable()
-class MessageLocalization {
-  @JsonKey(name: 'ok_btn')
-  final String okBtn;
-  @JsonKey(name: 'url_btn')
-  final String urlBtn;
+@freezed
+abstract class MessageLocalization with _$MessageLocalization {
+  const factory MessageLocalization({
+    @JsonKey(name: 'ok_btn') String okBtn,
+    @JsonKey(name: 'url_btn') String urlBtn,
+  }) = _MessageLocalization;
 
-  const MessageLocalization({
-    @required this.okBtn,
-    @required this.urlBtn,
-  });
-
-  factory MessageLocalization.fromJson(Map<String, dynamic> json) {
-    return _$MessageLocalizationFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$MessageLocalizationToJson(this);
-  }
+  factory MessageLocalization.fromJson(Map<String, dynamic> json) =>
+      _$MessageLocalizationFromJson(json);
 }

@@ -1,46 +1,31 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
-
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:nstack_api/entities/rate_reminder.dart';
+import 'package:nstack_api/entities/terms.dart';
 import 'app_update.dart';
 import 'localize_index.dart';
 import 'message.dart';
-import 'rate_reminder.dart';
-import 'terms.dart';
+
+part 'app_open_data.freezed.dart';
 
 part 'app_open_data.g.dart';
 
-@JsonSerializable()
-class AppOpenData {
-  final int count;
-  final AppUpdate update;
-  final List<LocalizeIndex> localize;
-  final String platform;
+@freezed
+abstract class AppOpenData with _$AppOpenData {
+  const factory AppOpenData({
+  int count,
+  AppUpdate update,
+  List<LocalizeIndex> localize,
+  String platform,
   @JsonKey(name: 'created_at')
-  final DateTime createdAt;
+  DateTime createdAt,
   @JsonKey(name: 'updated_at')
-  final DateTime updatedAt;
-  final Message message;
+  DateTime updatedAt,
+  Message message,
   @JsonKey(name: 'rate_reminder')
-  final RateReminder rateReminder;
-  final List<Terms> terms;
+  RateReminder rateReminder,
+  List<Terms> terms,
+  }) = _AppOpenData;
 
-  const AppOpenData({
-    @required this.count,
-    @required this.update,
-    @required this.localize,
-    @required this.platform,
-    @required this.createdAt,
-    @required this.updatedAt,
-    @required this.message,
-    @required this.rateReminder,
-    @required this.terms,
-  });
-
-  factory AppOpenData.fromJson(Map<String, dynamic> json) {
-    return _$AppOpenDataFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$AppOpenDataToJson(this);
-  }
+  factory AppOpenData.fromJson(Map<String, dynamic> json) =>
+      _$AppOpenDataFromJson(json);
 }

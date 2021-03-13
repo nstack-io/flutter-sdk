@@ -1,25 +1,21 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'dart:html';
+
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'language.dart';
 import 'platform.dart';
 
+part 'localize_resource_meta.freezed.dart';
+
 part 'localize_resource_meta.g.dart';
 
-@JsonSerializable()
-class LocalizeResourceMeta {
-  final Language language;
-  final Platform platform;
+@freezed
+abstract class LocalizeResourceMeta with _$LocalizeResourceMeta {
+  const factory LocalizeResourceMeta({
+    Language language,
+    Platform platform,
+  }) = _LocalizeResourceMeta;
 
-  LocalizeResourceMeta(
-    this.language,
-    this.platform,
-  );
-
-  factory LocalizeResourceMeta.fromJson(Map<String, dynamic> json) {
-    return _$LocalizeResourceMetaFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$LocalizeResourceMetaToJson(this);
-  }
+  factory LocalizeResourceMeta.fromJson(Map<String, dynamic> json) =>
+      _$LocalizeResourceMetaFromJson(json);
 }

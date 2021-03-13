@@ -6,8 +6,8 @@ part of 'n_meta.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-NMeta _$NMetaFromJson(Map<String, dynamic> json) {
-  return NMeta(
+_$_NMeta _$_$_NMetaFromJson(Map<String, dynamic> json) {
+  return _$_NMeta(
     platform: json['platform'] as String,
     environment: json['environment'] as String,
     appVersion: json['app_version'] as String,
@@ -16,7 +16,7 @@ NMeta _$NMetaFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$NMetaToJson(NMeta instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_NMetaToJson(_$_NMeta instance) => <String, dynamic>{
       'platform': instance.platform,
       'environment': instance.environment,
       'app_version': instance.appVersion,

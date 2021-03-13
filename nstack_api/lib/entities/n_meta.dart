@@ -1,34 +1,18 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'n_meta.freezed.dart';
 
 part 'n_meta.g.dart';
 
-@JsonSerializable()
-class NMeta {
-  @JsonKey(name: 'platform')
-  final String platform;
-  @JsonKey(name: 'environment')
-  final String environment;
-  @JsonKey(name: 'app_version')
-  final String appVersion;
-  @JsonKey(name: 'os_version')
-  final String osVersion;
-  @JsonKey(name: 'device')
-  final String device;
+@freezed
+abstract class NMeta with _$NMeta {
+  const factory NMeta({
+    @JsonKey(name: 'platform') String platform,
+    @JsonKey(name: 'environment') String environment,
+    @JsonKey(name: 'app_version') String appVersion,
+    @JsonKey(name: 'os_version') String osVersion,
+    @JsonKey(name: 'device') String device,
+  }) = _NMeta;
 
-  const NMeta({
-    @required this.platform,
-    @required this.environment,
-    @required this.appVersion,
-    @required this.osVersion,
-    @required this.device,
-  });
-
-  factory NMeta.fromJson(Map<String, dynamic> json) {
-    return _$NMetaFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$NMetaToJson(this);
-  }
+  factory NMeta.fromJson(Map<String, dynamic> json) => _$NMetaFromJson(json);
 }

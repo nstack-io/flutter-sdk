@@ -6,8 +6,8 @@ part of 'terms.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Terms _$TermsFromJson(Map<String, dynamic> json) {
-  return Terms(
+_$_Terms _$_$_TermsFromJson(Map<String, dynamic> json) {
+  return _$_Terms(
     id: json['id'] as int,
     type: json['type'] == null
         ? null
@@ -18,7 +18,7 @@ Terms _$TermsFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$TermsToJson(Terms instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_TermsToJson(_$_Terms instance) => <String, dynamic>{
       'id': instance.id,
       'type': instance.type,
       'name': instance.name,

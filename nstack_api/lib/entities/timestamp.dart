@@ -1,21 +1,15 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'timestamp.freezed.dart';
 
 part 'timestamp.g.dart';
 
-@JsonSerializable()
-class Timestamp {
-  final DateTime time;
+@freezed
+abstract class Timestamp with _$Timestamp {
+  const factory Timestamp({
+    DateTime time,
+  }) = _Timestamp;
 
-  const Timestamp({
-    @required this.time,
-  });
-
-  factory Timestamp.fromJson(Map<String, dynamic> json) {
-    return _$TimestampFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$TimestampToJson(this);
-  }
+  factory Timestamp.fromJson(Map<String, dynamic> json) =>
+      _$TimestampFromJson(json);
 }

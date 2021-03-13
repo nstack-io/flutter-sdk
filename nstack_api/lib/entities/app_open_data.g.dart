@@ -6,8 +6,8 @@ part of 'app_open_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AppOpenData _$AppOpenDataFromJson(Map<String, dynamic> json) {
-  return AppOpenData(
+_$_AppOpenData _$_$_AppOpenDataFromJson(Map<String, dynamic> json) {
+  return _$_AppOpenData(
     count: json['count'] as int,
     update: json['update'] == null
         ? null
@@ -37,7 +37,7 @@ AppOpenData _$AppOpenDataFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$AppOpenDataToJson(AppOpenData instance) =>
+Map<String, dynamic> _$_$_AppOpenDataToJson(_$_AppOpenData instance) =>
     <String, dynamic>{
       'count': instance.count,
       'update': instance.update,

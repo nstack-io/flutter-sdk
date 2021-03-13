@@ -1,26 +1,20 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'localize_resource_meta.dart';
 
+part 'localize_resource.freezed.dart';
+
 part 'localize_resource.g.dart';
 
-@JsonSerializable()
-class LocalizeResource {
-  final Map<String, dynamic> data;
-  final LocalizeResourceMeta meta;
+@freezed
+abstract class LocalizeResource with _$LocalizeResource {
+  const factory LocalizeResource({
+    Map<String, dynamic> data,
+    LocalizeResourceMeta meta,
+  }) = _LocalizeResource;
 
-  LocalizeResource(
-    this.data,
-    this.meta,
-  );
-
-  factory LocalizeResource.fromJson(Map<String, dynamic> json) {
-    return _$LocalizeResourceFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$LocalizeResourceToJson(this);
-  }
+  factory LocalizeResource.fromJson(Map<String, dynamic> json) =>
+      _$LocalizeResourceFromJson(json);
 }
 
 extension LocalizeResourceExtension on LocalizeResource {

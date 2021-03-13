@@ -6,8 +6,8 @@ part of 'message.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Message _$MessageFromJson(Map<String, dynamic> json) {
-  return Message(
+_$_Message _$_$_MessageFromJson(Map<String, dynamic> json) {
+  return _$_Message(
     id: json['id'] as int,
     applicationId: json['application_id'] as int,
     showSetting:
@@ -32,7 +32,8 @@ Message _$MessageFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_MessageToJson(_$_Message instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'application_id': instance.applicationId,
       'show_setting': _$MessageShowSettingEnumMap[instance.showSetting],

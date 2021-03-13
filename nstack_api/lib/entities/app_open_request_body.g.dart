@@ -6,8 +6,9 @@ part of 'app_open_request_body.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AppOpenRequestBody _$AppOpenRequestBodyFromJson(Map<String, dynamic> json) {
-  return AppOpenRequestBody(
+_$_AppOpenRequestBody _$_$_AppOpenRequestBodyFromJson(
+    Map<String, dynamic> json) {
+  return _$_AppOpenRequestBody(
     platform: json['platform'] as String,
     guid: json['guid'] as String,
     version: json['version'] as String,
@@ -18,7 +19,8 @@ AppOpenRequestBody _$AppOpenRequestBodyFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$AppOpenRequestBodyToJson(AppOpenRequestBody instance) =>
+Map<String, dynamic> _$_$_AppOpenRequestBodyToJson(
+        _$_AppOpenRequestBody instance) =>
     <String, dynamic>{
       'platform': instance.platform,
       'guid': instance.guid,

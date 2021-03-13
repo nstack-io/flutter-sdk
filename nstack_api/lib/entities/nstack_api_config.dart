@@ -1,25 +1,16 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'nstack_api_config.freezed.dart';
 
 part 'nstack_api_config.g.dart';
 
-@JsonSerializable()
-class NStackApiConfig {
-  @JsonKey(name: 'application_id')
-  final String applicationId;
-  @JsonKey(name: 'rest_api_key')
-  final String restApiKey;
+@freezed
+abstract class NStackApiConfig with _$NStackApiConfig {
+  const factory NStackApiConfig({
+    @JsonKey(name: 'application_id') String applicationId,
+    @JsonKey(name: 'rest_api_key') String restApiKey,
+  }) = _NStackApiConfig;
 
-  const NStackApiConfig({
-    @required this.applicationId,
-    @required this.restApiKey,
-  });
-
-  factory NStackApiConfig.fromJson(Map<String, dynamic> json) {
-    return _$NStackApiConfigFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$NStackApiConfigToJson(this);
-  }
+  factory NStackApiConfig.fromJson(Map<String, dynamic> json) =>
+      _$NStackApiConfigFromJson(json);
 }

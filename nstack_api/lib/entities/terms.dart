@@ -1,32 +1,21 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'terms_type.dart';
 import 'terms_version.dart';
 
+part 'terms.freezed.dart';
+
 part 'terms.g.dart';
 
-@JsonSerializable()
-class Terms {
-  final int id;
-  final TermsType type;
-  final String name;
-  final String slug;
-  final TermsVersion version;
+@freezed
+abstract class Terms with _$Terms {
+  const factory Terms({
+    int id,
+    TermsType type,
+    String name,
+    String slug,
+    TermsVersion version,
+  }) = _Terms;
 
-  const Terms({
-    @required this.id,
-    @required this.type,
-    @required this.name,
-    @required this.slug,
-    @required this.version,
-  });
-
-  factory Terms.fromJson(Map<String, dynamic> json) {
-    return _$TermsFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$TermsToJson(this);
-  }
+  factory Terms.fromJson(Map<String, dynamic> json) => _$TermsFromJson(json);
 }

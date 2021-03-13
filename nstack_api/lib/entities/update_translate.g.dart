@@ -6,8 +6,8 @@ part of 'update_translate.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UpdateTranslate _$UpdateTranslateFromJson(Map<String, dynamic> json) {
-  return UpdateTranslate(
+_$_UpdateTranslate _$_$_UpdateTranslateFromJson(Map<String, dynamic> json) {
+  return _$_UpdateTranslate(
     title: json['title'] as String,
     message: json['message'] as String,
     positiveButton: json['positive_button'] as String,
@@ -15,7 +15,7 @@ UpdateTranslate _$UpdateTranslateFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$UpdateTranslateToJson(UpdateTranslate instance) =>
+Map<String, dynamic> _$_$_UpdateTranslateToJson(_$_UpdateTranslate instance) =>
     <String, dynamic>{
       'title': instance.title,
       'message': instance.message,

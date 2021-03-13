@@ -1,33 +1,22 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'language.freezed.dart';
 
 part 'language.g.dart';
 
-@JsonSerializable()
-class Language {
-  final int id;
-  final String name;
-  final String locale;
-  final String direction;
+@freezed
+abstract class Language with _$Language {
+  const factory Language({
+  int id,
+  String name,
+  String locale,
+  String direction,
   @JsonKey(name: 'is_default')
-  final bool isDefault;
+  bool isDefault,
   @JsonKey(name: 'is_best_fit')
-  final bool isBestFit;
+  bool isBestFit,
+  }) = _Language;
 
-  const Language({
-    @required this.id,
-    @required this.name,
-    @required this.locale,
-    @required this.direction,
-    @required this.isDefault,
-    @required this.isBestFit,
-  });
-
-  factory Language.fromJson(Map<String, dynamic> json) {
-    return _$LanguageFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$LanguageToJson(this);
-  }
+  factory Language.fromJson(Map<String, dynamic> json) =>
+      _$LanguageFromJson(json);
 }

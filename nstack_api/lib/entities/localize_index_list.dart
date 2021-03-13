@@ -1,23 +1,17 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'localize_index.dart';
 
+part 'localize_index_list.freezed.dart';
+
 part 'localize_index_list.g.dart';
 
-@JsonSerializable()
-class LocalizeIndexList {
-  final List<LocalizeIndex> data;
+@freezed
+abstract class LocalizeIndexList with _$LocalizeIndexList {
+  const factory LocalizeIndexList({
+    List<LocalizeIndex> data,
+  }) = _LocalizeIndexList;
 
-  LocalizeIndexList({
-    @required this.data,
-  });
-
-  factory LocalizeIndexList.fromJson(Map<String, dynamic> json) {
-    return _$LocalizeIndexListFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$LocalizeIndexListToJson(this);
-  }
+  factory LocalizeIndexList.fromJson(Map<String, dynamic> json) =>
+      _$LocalizeIndexListFromJson(json);
 }

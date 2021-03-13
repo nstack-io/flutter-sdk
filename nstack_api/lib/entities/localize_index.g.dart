@@ -6,8 +6,8 @@ part of 'localize_index.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-LocalizeIndex _$LocalizeIndexFromJson(Map<String, dynamic> json) {
-  return LocalizeIndex(
+_$_LocalizeIndex _$_$_LocalizeIndexFromJson(Map<String, dynamic> json) {
+  return _$_LocalizeIndex(
     id: json['id'] as int,
     url: json['url'] as String,
     lastUpdatedAt: json['last_updated_at'] == null
@@ -20,7 +20,7 @@ LocalizeIndex _$LocalizeIndexFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$LocalizeIndexToJson(LocalizeIndex instance) =>
+Map<String, dynamic> _$_$_LocalizeIndexToJson(_$_LocalizeIndex instance) =>
     <String, dynamic>{
       'id': instance.id,
       'url': instance.url,

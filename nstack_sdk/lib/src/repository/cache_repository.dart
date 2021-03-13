@@ -1,14 +1,10 @@
-import 'package:nstack_api/entities/language_list.dart';
 import 'package:nstack_api/entities/localize_resource.dart';
 
+/// A in-memory cache for retrieving speed critical data or state.
 abstract class CacheRepository {
-  setCurrentLocalizationResource(
-    LocalizeResource localizationResource,
-  );
+  /// Stores the current [LocalizeResource] which should be presented to a user.
+  void setLocalizeResource(LocalizeResource localizeResource);
 
-  LocalizeResource getCurrentLocalizationResource();
-
-  setAvailableLanguages(LanguageList languages);
-
-  LanguageList getAvailableLanguages();
+  /// Returns the current [LocalizeResource] which should be presented to a user.
+  LocalizeResource getLocalizeResource();
 }

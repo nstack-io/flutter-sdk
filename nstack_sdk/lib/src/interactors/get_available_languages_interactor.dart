@@ -1,7 +1,7 @@
+import 'package:meta/meta.dart';
 import 'package:nstack_api/entities/data_source_strategy.dart';
 import 'package:nstack_api/entities/language.dart';
 import 'package:nstack_api/nstack_api.dart';
-import 'package:meta/meta.dart';
 import 'package:nstack_sdk/src/interactors/interactor.dart';
 import 'package:nstack_sdk/src/repository/cache_repository.dart';
 import 'package:nstack_sdk/src/repository/local_repository.dart';
@@ -24,15 +24,13 @@ class GetAvailableLanguagesInteractor extends FutureInteractor<List<Language>> {
     switch (strategy) {
       case DataSourceStrategy.remote:
         final result = await api.getAvailableLanguages();
-        cacheRepository.setAvailableLanguages(result);
-        localRepository.setAvailableLanguages(result);
+        localRepository.setLanguages(result);
         return result.data;
       case DataSourceStrategy.local:
-        final result = await localRepository.getAvailableLanguages();
+        final result = await localRepository.getLanguages();
         return result.data;
       case DataSourceStrategy.cache:
-        final result = cacheRepository.getAvailableLanguages();
-        return result.data;
+        throw ArgumentError('Unsupported DataSourceStrategy $strategy.');
     }
     throw ArgumentError('Unknown DataSourceStrategy.');
   }

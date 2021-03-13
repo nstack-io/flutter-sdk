@@ -1,23 +1,16 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'app_config.freezed.dart';
 
 part 'app_config.g.dart';
 
-@JsonSerializable()
-class AppConfig {
-  final String version;
-  final String previousVersion;
+@freezed
+abstract class AppConfig with _$AppConfig {
+  const factory AppConfig({
+    String version,
+    String previousVersion,
+  }) = _AppConfig;
 
-  const AppConfig({
-    @required this.version,
-    @required this.previousVersion,
-  });
-
-  factory AppConfig.fromJson(Map<String, dynamic> json) {
-    return _$AppConfigFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$AppConfigToJson(this);
-  }
+  factory AppConfig.fromJson(Map<String, dynamic> json) =>
+      _$AppConfigFromJson(json);
 }

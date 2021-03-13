@@ -6,8 +6,8 @@ part of 'app_update.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AppUpdate _$AppUpdateFromJson(Map<String, dynamic> json) {
-  return AppUpdate(
+_$_AppUpdate _$_$_AppUpdateFromJson(Map<String, dynamic> json) {
+  return _$_AppUpdate(
     newerVersion: json['newer_version'] == null
         ? null
         : UpdateInfo.fromJson(json['newer_version'] as Map<String, dynamic>),
@@ -17,7 +17,8 @@ AppUpdate _$AppUpdateFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$AppUpdateToJson(AppUpdate instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_AppUpdateToJson(_$_AppUpdate instance) =>
+    <String, dynamic>{
       'newer_version': instance.newerVersion,
       'new_in_version': instance.newInVersion,
     };

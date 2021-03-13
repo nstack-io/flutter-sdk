@@ -1,22 +1,16 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:meta/meta.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'app_open_meta.freezed.dart';
 
 part 'app_open_meta.g.dart';
 
-@JsonSerializable()
-class AppOpenMeta {
-  @JsonKey(name: 'accept_language')
-  final String acceptLanguage;
+@freezed
+abstract class AppOpenMeta with _$AppOpenMeta {
+  const factory AppOpenMeta({
+    @JsonKey(name: 'accept_language')
+    String acceptLanguage,
+  }) = _AppOpenMeta;
 
-  const AppOpenMeta({
-    @required this.acceptLanguage,
-  });
-
-  factory AppOpenMeta.fromJson(Map<String, dynamic> json) {
-    return _$AppOpenMetaFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$AppOpenMetaToJson(this);
-  }
+  factory AppOpenMeta.fromJson(Map<String, dynamic> json) =>
+      _$AppOpenMetaFromJson(json);
 }

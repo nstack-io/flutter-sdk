@@ -6,16 +6,16 @@ part of 'language_list.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-LanguageList _$LanguageListFromJson(Map<String, dynamic> json) {
-  return LanguageList(
-    (json['data'] as List)
+_$_LanguageList _$_$_LanguageListFromJson(Map<String, dynamic> json) {
+  return _$_LanguageList(
+    data: (json['data'] as List)
         ?.map((e) =>
             e == null ? null : Language.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
 }
 
-Map<String, dynamic> _$LanguageListToJson(LanguageList instance) =>
+Map<String, dynamic> _$_$_LanguageListToJson(_$_LanguageList instance) =>
     <String, dynamic>{
       'data': instance.data,
     };

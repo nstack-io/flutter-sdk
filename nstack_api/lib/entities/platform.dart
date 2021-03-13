@@ -1,22 +1,16 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'platform.freezed.dart';
 
 part 'platform.g.dart';
 
-@JsonSerializable()
-class Platform {
-  final int id;
-  final String slug;
+@freezed
+abstract class Platform with _$Platform {
+  const factory Platform({
+    int id,
+    String slug,
+  }) = _Platform;
 
-  Platform(
-    this.id,
-    this.slug,
-  );
-
-  factory Platform.fromJson(Map<String, dynamic> json) {
-    return _$PlatformFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$PlatformToJson(this);
-  }
+  factory Platform.fromJson(Map<String, dynamic> json) =>
+      _$PlatformFromJson(json);
 }

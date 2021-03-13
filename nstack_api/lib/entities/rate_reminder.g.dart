@@ -6,8 +6,8 @@ part of 'rate_reminder.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RateReminder _$RateReminderFromJson(Map<String, dynamic> json) {
-  return RateReminder(
+_$_RateReminder _$_$_RateReminderFromJson(Map<String, dynamic> json) {
+  return _$_RateReminder(
     title: json['title'] as String,
     body: json['body'] as String,
     yesButton: json['yes_button'] as String,
@@ -17,7 +17,7 @@ RateReminder _$RateReminderFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$RateReminderToJson(RateReminder instance) =>
+Map<String, dynamic> _$_$_RateReminderToJson(_$_RateReminder instance) =>
     <String, dynamic>{
       'title': instance.title,
       'body': instance.body,

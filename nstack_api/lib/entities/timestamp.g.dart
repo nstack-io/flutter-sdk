@@ -6,12 +6,13 @@ part of 'timestamp.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Timestamp _$TimestampFromJson(Map<String, dynamic> json) {
-  return Timestamp(
+_$_Timestamp _$_$_TimestampFromJson(Map<String, dynamic> json) {
+  return _$_Timestamp(
     time: json['time'] == null ? null : DateTime.parse(json['time'] as String),
   );
 }
 
-Map<String, dynamic> _$TimestampToJson(Timestamp instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_TimestampToJson(_$_Timestamp instance) =>
+    <String, dynamic>{
       'time': instance.time?.toIso8601String(),
     };

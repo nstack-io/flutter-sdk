@@ -1,22 +1,17 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'language.dart';
 
+part 'language_list.freezed.dart';
+
 part 'language_list.g.dart';
 
-@JsonSerializable()
-class LanguageList {
-  final List<Language> data;
+@freezed
+abstract class LanguageList with _$LanguageList {
+  const factory LanguageList({
+    List<Language> data,
+  }) = _LanguageList;
 
-  LanguageList(
-    this.data,
-  );
-
-  factory LanguageList.fromJson(Map<String, dynamic> json) {
-    return _$LanguageListFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$LanguageListToJson(this);
-  }
+  factory LanguageList.fromJson(Map<String, dynamic> json) =>
+      _$LanguageListFromJson(json);
 }

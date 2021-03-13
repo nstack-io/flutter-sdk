@@ -6,8 +6,8 @@ part of 'localize_index_list.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-LocalizeIndexList _$LocalizeIndexListFromJson(Map<String, dynamic> json) {
-  return LocalizeIndexList(
+_$_LocalizeIndexList _$_$_LocalizeIndexListFromJson(Map<String, dynamic> json) {
+  return _$_LocalizeIndexList(
     data: (json['data'] as List)
         ?.map((e) => e == null
             ? null
@@ -16,7 +16,8 @@ LocalizeIndexList _$LocalizeIndexListFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$LocalizeIndexListToJson(LocalizeIndexList instance) =>
+Map<String, dynamic> _$_$_LocalizeIndexListToJson(
+        _$_LocalizeIndexList instance) =>
     <String, dynamic>{
       'data': instance.data,
     };

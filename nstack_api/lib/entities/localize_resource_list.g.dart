@@ -6,9 +6,10 @@ part of 'localize_resource_list.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-LocalizeResourceList _$LocalizeResourceListFromJson(Map<String, dynamic> json) {
-  return LocalizeResourceList(
-    (json['data'] as List)
+_$_LocalizeResourceList _$_$_LocalizeResourceListFromJson(
+    Map<String, dynamic> json) {
+  return _$_LocalizeResourceList(
+    data: (json['data'] as List)
         ?.map((e) => e == null
             ? null
             : LocalizeResource.fromJson(e as Map<String, dynamic>))
@@ -16,8 +17,8 @@ LocalizeResourceList _$LocalizeResourceListFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$LocalizeResourceListToJson(
-        LocalizeResourceList instance) =>
+Map<String, dynamic> _$_$_LocalizeResourceListToJson(
+        _$_LocalizeResourceList instance) =>
     <String, dynamic>{
       'data': instance.data,
     };

@@ -6,8 +6,8 @@ part of 'update_info.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UpdateInfo _$UpdateInfoFromJson(Map<String, dynamic> json) {
-  return UpdateInfo(
+_$_UpdateInfo _$_$_UpdateInfoFromJson(Map<String, dynamic> json) {
+  return _$_UpdateInfo(
     state: json['state'] as String,
     lastId: json['last_id'] as int,
     version: json['version'] as String,
@@ -19,7 +19,7 @@ UpdateInfo _$UpdateInfoFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$UpdateInfoToJson(UpdateInfo instance) =>
+Map<String, dynamic> _$_$_UpdateInfoToJson(_$_UpdateInfo instance) =>
     <String, dynamic>{
       'state': instance.state,
       'last_id': instance.lastId,

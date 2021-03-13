@@ -6,8 +6,8 @@ part of 'app_open.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AppOpen _$AppOpenFromJson(Map<String, dynamic> json) {
-  return AppOpen(
+_$_AppOpen _$_$_AppOpenFromJson(Map<String, dynamic> json) {
+  return _$_AppOpen(
     data: json['data'] == null
         ? null
         : AppOpenData.fromJson(json['data'] as Map<String, dynamic>),
@@ -17,7 +17,8 @@ AppOpen _$AppOpenFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$AppOpenToJson(AppOpen instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_AppOpenToJson(_$_AppOpen instance) =>
+    <String, dynamic>{
       'data': instance.data,
       'meta': instance.meta,
     };

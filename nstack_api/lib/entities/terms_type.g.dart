@@ -6,8 +6,8 @@ part of 'terms_type.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-TermsType _$TermsTypeFromJson(Map<String, dynamic> json) {
-  return TermsType(
+_$_TermsType _$_$_TermsTypeFromJson(Map<String, dynamic> json) {
+  return _$_TermsType(
     id: json['id'] as int,
     version: json['version'] as String,
     name: json['name'] as String,
@@ -18,7 +18,8 @@ TermsType _$TermsTypeFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$TermsTypeToJson(TermsType instance) => <String, dynamic>{
+Map<String, dynamic> _$_$_TermsTypeToJson(_$_TermsType instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'version': instance.version,
       'name': instance.name,
