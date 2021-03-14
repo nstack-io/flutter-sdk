@@ -1,85 +1,87 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
-part of 'language_list.dart';
+part of 'localize_language_list.dart';
 
 // **************************************************************************
 // FreezedGenerator
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-LanguageList _$LanguageListFromJson(Map<String, dynamic> json) {
+LocalizeLanguageList _$LocalizeLanguageListFromJson(Map<String, dynamic> json) {
   return _LanguageList.fromJson(json);
 }
 
 /// @nodoc
-class _$LanguageListTearOff {
-  const _$LanguageListTearOff();
+class _$LocalizeLanguageListTearOff {
+  const _$LocalizeLanguageListTearOff();
 
 // ignore: unused_element
-  _LanguageList call({List<Language> data}) {
+  _LanguageList call({List<LocalizeLanguage> data}) {
     return _LanguageList(
       data: data,
     );
   }
 
 // ignore: unused_element
-  LanguageList fromJson(Map<String, Object> json) {
-    return LanguageList.fromJson(json);
+  LocalizeLanguageList fromJson(Map<String, Object> json) {
+    return LocalizeLanguageList.fromJson(json);
   }
 }
 
 /// @nodoc
 // ignore: unused_element
-const $LanguageList = _$LanguageListTearOff();
+const $LocalizeLanguageList = _$LocalizeLanguageListTearOff();
 
 /// @nodoc
-mixin _$LanguageList {
-  List<Language> get data;
+mixin _$LocalizeLanguageList {
+  List<LocalizeLanguage> get data;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
-  $LanguageListCopyWith<LanguageList> get copyWith;
+  $LocalizeLanguageListCopyWith<LocalizeLanguageList> get copyWith;
 }
 
 /// @nodoc
-abstract class $LanguageListCopyWith<$Res> {
-  factory $LanguageListCopyWith(
-          LanguageList value, $Res Function(LanguageList) then) =
-      _$LanguageListCopyWithImpl<$Res>;
-  $Res call({List<Language> data});
+abstract class $LocalizeLanguageListCopyWith<$Res> {
+  factory $LocalizeLanguageListCopyWith(LocalizeLanguageList value,
+          $Res Function(LocalizeLanguageList) then) =
+      _$LocalizeLanguageListCopyWithImpl<$Res>;
+  $Res call({List<LocalizeLanguage> data});
 }
 
 /// @nodoc
-class _$LanguageListCopyWithImpl<$Res> implements $LanguageListCopyWith<$Res> {
-  _$LanguageListCopyWithImpl(this._value, this._then);
+class _$LocalizeLanguageListCopyWithImpl<$Res>
+    implements $LocalizeLanguageListCopyWith<$Res> {
+  _$LocalizeLanguageListCopyWithImpl(this._value, this._then);
 
-  final LanguageList _value;
+  final LocalizeLanguageList _value;
   // ignore: unused_field
-  final $Res Function(LanguageList) _then;
+  final $Res Function(LocalizeLanguageList) _then;
 
   @override
   $Res call({
     Object data = freezed,
   }) {
     return _then(_value.copyWith(
-      data: data == freezed ? _value.data : data as List<Language>,
+      data: data == freezed ? _value.data : data as List<LocalizeLanguage>,
     ));
   }
 }
 
 /// @nodoc
 abstract class _$LanguageListCopyWith<$Res>
-    implements $LanguageListCopyWith<$Res> {
+    implements $LocalizeLanguageListCopyWith<$Res> {
   factory _$LanguageListCopyWith(
           _LanguageList value, $Res Function(_LanguageList) then) =
       __$LanguageListCopyWithImpl<$Res>;
   @override
-  $Res call({List<Language> data});
+  $Res call({List<LocalizeLanguage> data});
 }
 
 /// @nodoc
-class __$LanguageListCopyWithImpl<$Res> extends _$LanguageListCopyWithImpl<$Res>
+class __$LanguageListCopyWithImpl<$Res>
+    extends _$LocalizeLanguageListCopyWithImpl<$Res>
     implements _$LanguageListCopyWith<$Res> {
   __$LanguageListCopyWithImpl(
       _LanguageList _value, $Res Function(_LanguageList) _then)
@@ -93,7 +95,7 @@ class __$LanguageListCopyWithImpl<$Res> extends _$LanguageListCopyWithImpl<$Res>
     Object data = freezed,
   }) {
     return _then(_LanguageList(
-      data: data == freezed ? _value.data : data as List<Language>,
+      data: data == freezed ? _value.data : data as List<LocalizeLanguage>,
     ));
   }
 }
@@ -108,11 +110,11 @@ class _$_LanguageList implements _LanguageList {
       _$_$_LanguageListFromJson(json);
 
   @override
-  final List<Language> data;
+  final List<LocalizeLanguage> data;
 
   @override
   String toString() {
-    return 'LanguageList(data: $data)';
+    return 'LocalizeLanguageList(data: $data)';
   }
 
   @override
@@ -138,14 +140,14 @@ class _$_LanguageList implements _LanguageList {
   }
 }
 
-abstract class _LanguageList implements LanguageList {
-  const factory _LanguageList({List<Language> data}) = _$_LanguageList;
+abstract class _LanguageList implements LocalizeLanguageList {
+  const factory _LanguageList({List<LocalizeLanguage> data}) = _$_LanguageList;
 
   factory _LanguageList.fromJson(Map<String, dynamic> json) =
       _$_LanguageList.fromJson;
 
   @override
-  List<Language> get data;
+  List<LocalizeLanguage> get data;
   @override
   @JsonKey(ignore: true)
   _$LanguageListCopyWith<_LanguageList> get copyWith;

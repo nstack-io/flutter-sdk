@@ -1,42 +1,34 @@
-import 'package:meta/meta.dart';
 import 'package:nstack_api/entities/app_open.dart';
 import 'package:nstack_api/entities/app_open_request_body.dart';
-import 'package:nstack_api/entities/language_list.dart';
-import 'package:nstack_api/entities/localize_index.dart';
+import 'package:nstack_api/entities/localize_language_list.dart';
+import 'package:nstack_api/entities/localize_index_list.dart';
 import 'package:nstack_api/entities/localize_resource.dart';
-import 'package:nstack_api/entities/nstack_api_config.dart';
 import 'package:nstack_api/nstack_api.dart';
 
+/// TODO: Docs
 class MockNStackApi implements NStackAPI {
-  final NStackApiConfig config;
-
-  MockNStackApi({
-    @required this.config,
-  });
-
   @override
-  Future<LanguageList> getAvailableLanguages() {
-    // TODO: implement getAvailableLanguages
+  Future<LocalizeLanguageList> getLocalizeLanguageList() {
+    // TODO: implement getLanguageList
     throw UnimplementedError();
   }
 
   @override
-  Future<LocalizeIndex> getLocalization() {
-    // TODO: implement getLocalization
+  Future<LocalizeIndexList> getLocalizeIndexList() {
+    // TODO: implement getLocalizeIndexList
     throw UnimplementedError();
   }
 
   @override
-  Future<LocalizeResource> getLocalizationResource({
+  Future<LocalizeResource> getLocalizeResource({
     int id,
   }) {
-    // TODO: implement getLocalizationResource
+    // TODO: implement getLocalizeResource
     throw UnimplementedError();
   }
 
   @override
-  Future<AppOpen> postAppOpen(
-      {AppOpenRequestBody body, bool isDevMode, bool isTestMode}) {
+  Future<AppOpen> postAppOpen({AppOpenRequestBody body}) {
     // TODO: implement postAppOpen
     throw UnimplementedError();
   }

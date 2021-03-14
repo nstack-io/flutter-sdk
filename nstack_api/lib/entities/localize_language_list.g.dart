@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'language_list.dart';
+part of 'localize_language_list.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -9,8 +9,9 @@ part of 'language_list.dart';
 _$_LanguageList _$_$_LanguageListFromJson(Map<String, dynamic> json) {
   return _$_LanguageList(
     data: (json['data'] as List)
-        ?.map((e) =>
-            e == null ? null : Language.fromJson(e as Map<String, dynamic>))
+        ?.map((e) => e == null
+            ? null
+            : LocalizeLanguage.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
 }

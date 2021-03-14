@@ -28,8 +28,6 @@ class PostAppOpenInteractor extends FutureInteractor<void> {
   Future<void> execute({@required Locale locale}) async {
     final appOpen = await api.postAppOpen(
       body: await appOpenRequestBody,
-      isDevMode: kDebugMode,
-      isTestMode: false,
     );
 
     // Update all local resources

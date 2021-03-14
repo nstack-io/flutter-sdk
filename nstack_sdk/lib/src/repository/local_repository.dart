@@ -1,6 +1,6 @@
 import 'package:nstack_api/entities/app_config.dart';
 import 'package:nstack_api/entities/app_open.dart';
-import 'package:nstack_api/entities/language_list.dart';
+import 'package:nstack_api/entities/localize_language_list.dart';
 import 'package:nstack_api/entities/localize_resource.dart';
 import 'package:nstack_api/entities/runtime_config.dart';
 import 'package:nstack_api/entities/timestamp.dart';
@@ -14,10 +14,10 @@ abstract class LocalRepository {
   Future<LocalizeResource> getLocalizeResource(int localizeResourceId);
 
   /// Stores current available languages.
-  Future<void> setLanguages(LanguageList languages);
+  Future<void> setLanguages(LocalizeLanguageList languages);
 
   /// Get current available languages.
-  Future<LanguageList> getLanguages();
+  Future<LocalizeLanguageList> getLanguages();
 
   /// Stores the identifier for this app instance (user device).
   Future<void> setGuid(String guid);

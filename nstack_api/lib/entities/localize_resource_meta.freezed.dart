@@ -17,7 +17,7 @@ class _$LocalizeResourceMetaTearOff {
   const _$LocalizeResourceMetaTearOff();
 
 // ignore: unused_element
-  _LocalizeResourceMeta call({Language language, Platform platform}) {
+  _LocalizeResourceMeta call({LocalizeLanguage language, Platform platform}) {
     return _LocalizeResourceMeta(
       language: language,
       platform: platform,
@@ -36,7 +36,7 @@ const $LocalizeResourceMeta = _$LocalizeResourceMetaTearOff();
 
 /// @nodoc
 mixin _$LocalizeResourceMeta {
-  Language get language;
+  LocalizeLanguage get language;
   Platform get platform;
 
   Map<String, dynamic> toJson();
@@ -49,9 +49,9 @@ abstract class $LocalizeResourceMetaCopyWith<$Res> {
   factory $LocalizeResourceMetaCopyWith(LocalizeResourceMeta value,
           $Res Function(LocalizeResourceMeta) then) =
       _$LocalizeResourceMetaCopyWithImpl<$Res>;
-  $Res call({Language language, Platform platform});
+  $Res call({LocalizeLanguage language, Platform platform});
 
-  $LanguageCopyWith<$Res> get language;
+  $LocalizeLanguageCopyWith<$Res> get language;
   $PlatformCopyWith<$Res> get platform;
 }
 
@@ -70,17 +70,18 @@ class _$LocalizeResourceMetaCopyWithImpl<$Res>
     Object platform = freezed,
   }) {
     return _then(_value.copyWith(
-      language: language == freezed ? _value.language : language as Language,
+      language:
+          language == freezed ? _value.language : language as LocalizeLanguage,
       platform: platform == freezed ? _value.platform : platform as Platform,
     ));
   }
 
   @override
-  $LanguageCopyWith<$Res> get language {
+  $LocalizeLanguageCopyWith<$Res> get language {
     if (_value.language == null) {
       return null;
     }
-    return $LanguageCopyWith<$Res>(_value.language, (value) {
+    return $LocalizeLanguageCopyWith<$Res>(_value.language, (value) {
       return _then(_value.copyWith(language: value));
     });
   }
@@ -103,10 +104,10 @@ abstract class _$LocalizeResourceMetaCopyWith<$Res>
           $Res Function(_LocalizeResourceMeta) then) =
       __$LocalizeResourceMetaCopyWithImpl<$Res>;
   @override
-  $Res call({Language language, Platform platform});
+  $Res call({LocalizeLanguage language, Platform platform});
 
   @override
-  $LanguageCopyWith<$Res> get language;
+  $LocalizeLanguageCopyWith<$Res> get language;
   @override
   $PlatformCopyWith<$Res> get platform;
 }
@@ -128,7 +129,8 @@ class __$LocalizeResourceMetaCopyWithImpl<$Res>
     Object platform = freezed,
   }) {
     return _then(_LocalizeResourceMeta(
-      language: language == freezed ? _value.language : language as Language,
+      language:
+          language == freezed ? _value.language : language as LocalizeLanguage,
       platform: platform == freezed ? _value.platform : platform as Platform,
     ));
   }
@@ -144,7 +146,7 @@ class _$_LocalizeResourceMeta implements _LocalizeResourceMeta {
       _$_$_LocalizeResourceMetaFromJson(json);
 
   @override
-  final Language language;
+  final LocalizeLanguage language;
   @override
   final Platform platform;
 
@@ -184,14 +186,14 @@ class _$_LocalizeResourceMeta implements _LocalizeResourceMeta {
 }
 
 abstract class _LocalizeResourceMeta implements LocalizeResourceMeta {
-  const factory _LocalizeResourceMeta({Language language, Platform platform}) =
-      _$_LocalizeResourceMeta;
+  const factory _LocalizeResourceMeta(
+      {LocalizeLanguage language, Platform platform}) = _$_LocalizeResourceMeta;
 
   factory _LocalizeResourceMeta.fromJson(Map<String, dynamic> json) =
       _$_LocalizeResourceMeta.fromJson;
 
   @override
-  Language get language;
+  LocalizeLanguage get language;
   @override
   Platform get platform;
   @override

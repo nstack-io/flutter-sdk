@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:nstack_api/entities/language.dart';
+import 'package:nstack_api/entities/localize_language.dart';
 
 // TODO: Deprecate
 @Deprecated("Use package:nstack_api/local_repository.dart and cache_repository.dart")
@@ -16,12 +16,12 @@ class LocalizationRepository {
   // Internal state
   Map<String, dynamic> _sectionsMap;
   Map<String, String> _bundledTranslations;
-  List<Language> _availableLanguages;
-  Language _pickedLanguage;
+  List<LocalizeLanguage> _availableLanguages;
+  LocalizeLanguage _pickedLanguage;
 
   void setupLocalization(
     Map<String, String> bundledTranslations,
-    List<Language> availableLanguages,
+    List<LocalizeLanguage> availableLanguages,
     String pickedLanguageLocale,
   ) {
     this._bundledTranslations = bundledTranslations;

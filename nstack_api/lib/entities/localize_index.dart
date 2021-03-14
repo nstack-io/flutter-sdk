@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'language.dart';
+import 'localize_language.dart';
 
 part 'localize_index.freezed.dart';
 
@@ -15,7 +15,7 @@ abstract class LocalizeIndex with _$LocalizeIndex {
   DateTime lastUpdatedAt,
   @JsonKey(name: 'should_update')
   bool shouldUpdate,
-  Language language,
+  LocalizeLanguage language,
   }) = _LocalizeIndex;
 
   factory LocalizeIndex.fromJson(Map<String, dynamic> json) =>

@@ -1,20 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
-part of 'language.dart';
+part of 'localize_language.dart';
 
 // **************************************************************************
 // FreezedGenerator
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-Language _$LanguageFromJson(Map<String, dynamic> json) {
+LocalizeLanguage _$LocalizeLanguageFromJson(Map<String, dynamic> json) {
   return _Language.fromJson(json);
 }
 
 /// @nodoc
-class _$LanguageTearOff {
-  const _$LanguageTearOff();
+class _$LocalizeLanguageTearOff {
+  const _$LocalizeLanguageTearOff();
 
 // ignore: unused_element
   _Language call(
@@ -35,17 +35,17 @@ class _$LanguageTearOff {
   }
 
 // ignore: unused_element
-  Language fromJson(Map<String, Object> json) {
-    return Language.fromJson(json);
+  LocalizeLanguage fromJson(Map<String, Object> json) {
+    return LocalizeLanguage.fromJson(json);
   }
 }
 
 /// @nodoc
 // ignore: unused_element
-const $Language = _$LanguageTearOff();
+const $LocalizeLanguage = _$LocalizeLanguageTearOff();
 
 /// @nodoc
-mixin _$Language {
+mixin _$LocalizeLanguage {
   int get id;
   String get name;
   String get locale;
@@ -57,13 +57,14 @@ mixin _$Language {
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
-  $LanguageCopyWith<Language> get copyWith;
+  $LocalizeLanguageCopyWith<LocalizeLanguage> get copyWith;
 }
 
 /// @nodoc
-abstract class $LanguageCopyWith<$Res> {
-  factory $LanguageCopyWith(Language value, $Res Function(Language) then) =
-      _$LanguageCopyWithImpl<$Res>;
+abstract class $LocalizeLanguageCopyWith<$Res> {
+  factory $LocalizeLanguageCopyWith(
+          LocalizeLanguage value, $Res Function(LocalizeLanguage) then) =
+      _$LocalizeLanguageCopyWithImpl<$Res>;
   $Res call(
       {int id,
       String name,
@@ -74,12 +75,13 @@ abstract class $LanguageCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$LanguageCopyWithImpl<$Res> implements $LanguageCopyWith<$Res> {
-  _$LanguageCopyWithImpl(this._value, this._then);
+class _$LocalizeLanguageCopyWithImpl<$Res>
+    implements $LocalizeLanguageCopyWith<$Res> {
+  _$LocalizeLanguageCopyWithImpl(this._value, this._then);
 
-  final Language _value;
+  final LocalizeLanguage _value;
   // ignore: unused_field
-  final $Res Function(Language) _then;
+  final $Res Function(LocalizeLanguage) _then;
 
   @override
   $Res call({
@@ -102,7 +104,8 @@ class _$LanguageCopyWithImpl<$Res> implements $LanguageCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$LanguageCopyWith<$Res> implements $LanguageCopyWith<$Res> {
+abstract class _$LanguageCopyWith<$Res>
+    implements $LocalizeLanguageCopyWith<$Res> {
   factory _$LanguageCopyWith(_Language value, $Res Function(_Language) then) =
       __$LanguageCopyWithImpl<$Res>;
   @override
@@ -116,7 +119,7 @@ abstract class _$LanguageCopyWith<$Res> implements $LanguageCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$LanguageCopyWithImpl<$Res> extends _$LanguageCopyWithImpl<$Res>
+class __$LanguageCopyWithImpl<$Res> extends _$LocalizeLanguageCopyWithImpl<$Res>
     implements _$LanguageCopyWith<$Res> {
   __$LanguageCopyWithImpl(_Language _value, $Res Function(_Language) _then)
       : super(_value, (v) => _then(v as _Language));
@@ -176,7 +179,7 @@ class _$_Language implements _Language {
 
   @override
   String toString() {
-    return 'Language(id: $id, name: $name, locale: $locale, direction: $direction, isDefault: $isDefault, isBestFit: $isBestFit)';
+    return 'LocalizeLanguage(id: $id, name: $name, locale: $locale, direction: $direction, isDefault: $isDefault, isBestFit: $isBestFit)';
   }
 
   @override
@@ -221,7 +224,7 @@ class _$_Language implements _Language {
   }
 }
 
-abstract class _Language implements Language {
+abstract class _Language implements LocalizeLanguage {
   const factory _Language(
       {int id,
       String name,

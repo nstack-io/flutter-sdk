@@ -11,7 +11,7 @@ _$_LocalizeResourceMeta _$_$_LocalizeResourceMetaFromJson(
   return _$_LocalizeResourceMeta(
     language: json['language'] == null
         ? null
-        : Language.fromJson(json['language'] as Map<String, dynamic>),
+        : LocalizeLanguage.fromJson(json['language'] as Map<String, dynamic>),
     platform: json['platform'] == null
         ? null
         : Platform.fromJson(json['platform'] as Map<String, dynamic>),

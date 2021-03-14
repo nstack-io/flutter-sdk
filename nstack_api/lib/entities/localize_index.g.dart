@@ -16,7 +16,7 @@ _$_LocalizeIndex _$_$_LocalizeIndexFromJson(Map<String, dynamic> json) {
     shouldUpdate: json['should_update'] as bool,
     language: json['language'] == null
         ? null
-        : Language.fromJson(json['language'] as Map<String, dynamic>),
+        : LocalizeLanguage.fromJson(json['language'] as Map<String, dynamic>),
   );
 }
 

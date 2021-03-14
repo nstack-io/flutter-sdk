@@ -22,7 +22,7 @@ class _$LocalizeIndexTearOff {
       String url,
       @JsonKey(name: 'last_updated_at') DateTime lastUpdatedAt,
       @JsonKey(name: 'should_update') bool shouldUpdate,
-      Language language}) {
+      LocalizeLanguage language}) {
     return _LocalizeIndex(
       id: id,
       url: url,
@@ -50,7 +50,7 @@ mixin _$LocalizeIndex {
   DateTime get lastUpdatedAt;
   @JsonKey(name: 'should_update')
   bool get shouldUpdate;
-  Language get language;
+  LocalizeLanguage get language;
 
   Map<String, dynamic> toJson();
   @JsonKey(ignore: true)
@@ -67,9 +67,9 @@ abstract class $LocalizeIndexCopyWith<$Res> {
       String url,
       @JsonKey(name: 'last_updated_at') DateTime lastUpdatedAt,
       @JsonKey(name: 'should_update') bool shouldUpdate,
-      Language language});
+      LocalizeLanguage language});
 
-  $LanguageCopyWith<$Res> get language;
+  $LocalizeLanguageCopyWith<$Res> get language;
 }
 
 /// @nodoc
@@ -97,16 +97,17 @@ class _$LocalizeIndexCopyWithImpl<$Res>
           : lastUpdatedAt as DateTime,
       shouldUpdate:
           shouldUpdate == freezed ? _value.shouldUpdate : shouldUpdate as bool,
-      language: language == freezed ? _value.language : language as Language,
+      language:
+          language == freezed ? _value.language : language as LocalizeLanguage,
     ));
   }
 
   @override
-  $LanguageCopyWith<$Res> get language {
+  $LocalizeLanguageCopyWith<$Res> get language {
     if (_value.language == null) {
       return null;
     }
-    return $LanguageCopyWith<$Res>(_value.language, (value) {
+    return $LocalizeLanguageCopyWith<$Res>(_value.language, (value) {
       return _then(_value.copyWith(language: value));
     });
   }
@@ -124,10 +125,10 @@ abstract class _$LocalizeIndexCopyWith<$Res>
       String url,
       @JsonKey(name: 'last_updated_at') DateTime lastUpdatedAt,
       @JsonKey(name: 'should_update') bool shouldUpdate,
-      Language language});
+      LocalizeLanguage language});
 
   @override
-  $LanguageCopyWith<$Res> get language;
+  $LocalizeLanguageCopyWith<$Res> get language;
 }
 
 /// @nodoc
@@ -157,7 +158,8 @@ class __$LocalizeIndexCopyWithImpl<$Res>
           : lastUpdatedAt as DateTime,
       shouldUpdate:
           shouldUpdate == freezed ? _value.shouldUpdate : shouldUpdate as bool,
-      language: language == freezed ? _value.language : language as Language,
+      language:
+          language == freezed ? _value.language : language as LocalizeLanguage,
     ));
   }
 }
@@ -187,7 +189,7 @@ class _$_LocalizeIndex implements _LocalizeIndex {
   @JsonKey(name: 'should_update')
   final bool shouldUpdate;
   @override
-  final Language language;
+  final LocalizeLanguage language;
 
   @override
   String toString() {
@@ -239,7 +241,7 @@ abstract class _LocalizeIndex implements LocalizeIndex {
       String url,
       @JsonKey(name: 'last_updated_at') DateTime lastUpdatedAt,
       @JsonKey(name: 'should_update') bool shouldUpdate,
-      Language language}) = _$_LocalizeIndex;
+      LocalizeLanguage language}) = _$_LocalizeIndex;
 
   factory _LocalizeIndex.fromJson(Map<String, dynamic> json) =
       _$_LocalizeIndex.fromJson;
@@ -255,7 +257,7 @@ abstract class _LocalizeIndex implements LocalizeIndex {
   @JsonKey(name: 'should_update')
   bool get shouldUpdate;
   @override
-  Language get language;
+  LocalizeLanguage get language;
   @override
   @JsonKey(ignore: true)
   _$LocalizeIndexCopyWith<_LocalizeIndex> get copyWith;

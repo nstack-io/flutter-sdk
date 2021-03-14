@@ -1,27 +1,35 @@
 import 'package:meta/meta.dart';
 import 'package:nstack_api/entities/app_open_request_body.dart';
+import 'package:nstack_api/entities/localize_language_list.dart';
 
 import 'entities/app_open.dart';
-import 'entities/language_list.dart';
-import 'entities/localize_index.dart';
+import 'entities/localize_index_list.dart';
 import 'entities/localize_resource.dart';
 
+/// TODO: Docs
 abstract class NStackAPI {
-  // TODO
-  Future<AppOpen> postAppOpen({
-    @required AppOpenRequestBody body,
-    @required bool isDevMode,
-    @required bool isTestMode,
-  });
+//<editor-fold desc="Localize">
 
-  // TODO
-  Future<LocalizeIndex> getLocalization();
+  // TODO: Docs
+  Future<LocalizeLanguageList> getLocalizeLanguageList();
 
-  // TODO
-  Future<LocalizeResource> getLocalizationResource({
+  // TODO: Docs
+  Future<LocalizeIndexList> getLocalizeIndexList();
+
+  // TODO: Docs
+  Future<LocalizeResource> getLocalizeResource({
     @required int id,
   });
 
-  // TODO
-  Future<LanguageList> getAvailableLanguages();
+//</editor-fold>
+
+//<editor-fold desc="App open">
+
+  // TODO: Docs
+  Future<AppOpen> postAppOpen({
+    @required AppOpenRequestBody body,
+  });
+
+//</editor-fold>
+
 }

@@ -1,12 +1,12 @@
 import 'package:meta/meta.dart';
-import 'package:nstack_api/entities/language.dart';
+import 'package:nstack_api/entities/localize_language.dart';
 import 'package:nstack_api/nstack_api.dart';
 import 'package:nstack_sdk/src/interactors/interactor.dart';
 import 'package:nstack_sdk/src/other/data_source_strategy.dart';
 import 'package:nstack_sdk/src/repository/cache_repository.dart';
 import 'package:nstack_sdk/src/repository/local_repository.dart';
 
-class GetAvailableLanguagesInteractor extends FutureInteractor<List<Language>> {
+class GetAvailableLanguagesInteractor extends FutureInteractor<List<LocalizeLanguage>> {
   final NStackAPI api;
   final LocalRepository localRepository;
   final CacheRepository cacheRepository;
@@ -18,12 +18,12 @@ class GetAvailableLanguagesInteractor extends FutureInteractor<List<Language>> {
   });
 
   @override
-  Future<List<Language>> execute({
+  Future<List<LocalizeLanguage>> execute({
     DataSourceStrategy strategy,
   }) async {
     switch (strategy) {
       case DataSourceStrategy.remote:
-        final result = await api.getAvailableLanguages();
+        final result = await api.getLocalizeLanguageList();
         localRepository.setLanguages(result);
         return result.data;
       case DataSourceStrategy.local:
