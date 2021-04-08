@@ -4,26 +4,26 @@ import 'package:nstack/models/update_info.dart';
 import 'package:nstack/other/extensions.dart';
 
 class AppUpdate {
-  final UpdateInfo newerVersion;
-  final UpdateInfo newInVersion;
+  final UpdateInfo? newerVersion;
+  final UpdateInfo? newInVersion;
 
   AppUpdate({
-    @required this.newerVersion,
-    @required this.newInVersion,
+    required this.newerVersion,
+    required this.newInVersion,
   });
 
   factory AppUpdate.fromJson(Map json) {
     return AppUpdate(
-      newerVersion: (json['newer_version'] as Map)?.let(
+      newerVersion: (json['newer_version'] as Map?)?.let(
         (it) => UpdateInfo.fromJson(it),
       ),
-      newInVersion: (json['new_in_version'] as Map)?.let(
+      newInVersion: (json['new_in_version'] as Map?)?.let(
         (it) => UpdateInfo.fromJson(it),
       ),
     );
   }
 
-  UpdateInfo get update {
+  UpdateInfo? get update {
     return newerVersion ?? newInVersion;
   }
 

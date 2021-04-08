@@ -7,8 +7,8 @@ class AppOpen {
   final AppOpenMeta meta;
 
   AppOpen({
-    @required this.data,
-    @required this.meta,
+    required this.data,
+    required this.meta,
   });
 
   factory AppOpen.fromJson(Map json) {

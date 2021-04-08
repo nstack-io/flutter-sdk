@@ -1,5 +1,5 @@
 class LocalizationData {
-  final Map<String, dynamic> data;
+  final Map<String, dynamic>? data;
 
   LocalizationData(this.data);
 

@@ -12,22 +12,22 @@ class LocalizationRepository {
   LocalizationRepository._internal();
 
   // Internal state
-  Map<String, dynamic> _sectionsMap;
-  Map<String, String> _bundledTranslations;
-  List<Language> _availableLanguages;
-  Language _pickedLanguage;
+  Map<String, dynamic>? _sectionsMap;
+  late Map<String, String> _bundledTranslations;
+  late List<Language?> _availableLanguages;
+  Language? _pickedLanguage;
 
   void setupLocalization(
     Map<String, String> bundledTranslations,
-    List<Language> availableLanguages,
+    List<Language?> availableLanguages,
     String pickedLanguageLocale,
   ) {
     this._bundledTranslations = bundledTranslations;
     this._availableLanguages = availableLanguages;
     this._pickedLanguage = availableLanguages.firstWhere(
-      (language) => language.locale == pickedLanguageLocale,
+      (language) => language!.locale == pickedLanguageLocale,
       orElse: () => availableLanguages.firstWhere(
-        (language) => language.isDefault,
+        (language) => language!.isDefault!,
       ),
     );
 
@@ -35,11 +35,11 @@ class LocalizationRepository {
   }
 
   void updateLocalization(
-    Map<String, dynamic> localizationJson,
-    String bestFitLocale,
+    Map<String, dynamic>? localizationJson,
+    String? bestFitLocale,
   ) {
     this._pickedLanguage = _availableLanguages.firstWhere(
-      (element) => element.locale == bestFitLocale,
+      (element) => element!.locale == bestFitLocale,
       orElse: () => this._pickedLanguage,
     );
     _sectionsMap = localizationJson;
@@ -48,7 +48,7 @@ class LocalizationRepository {
   void _setupInternalMap() {
     try {
       _sectionsMap =
-          json.decode(_bundledTranslations[_pickedLanguage.locale])['data'];
+          json.decode(_bundledTranslations[_pickedLanguage!.locale!]!)['data'];
     } catch (e, s) {
       print(e);
       print(s);
@@ -61,7 +61,7 @@ class LocalizationRepository {
     String fallbackText,
   ) {
     try {
-      return _sectionsMap[sectionKey][textKey] ?? fallbackText;
+      return _sectionsMap![sectionKey][textKey] ?? fallbackText;
     } catch (e, s) {
       print(e);
       print(s);

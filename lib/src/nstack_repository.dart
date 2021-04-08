@@ -9,7 +9,7 @@ class NStackRepository {
 
   final NStackConfig _config;
 
-  Map<String, String> get _headers => {
+  Map<String, String?> get _headers => {
         'Accept-Language': 'en-US',
         'X-Application-Id': _config.projectId,
         'X-Rest-Api-Key': _config.apiKey,
@@ -19,14 +19,14 @@ class NStackRepository {
   const NStackRepository(this._config);
 
   dynamic postAppOpen({
-    String acceptHeader,
-    NStackAppOpenData appOpenData,
-    bool devMode,
-    bool testMode,
+    String? acceptHeader,
+    required NStackAppOpenData appOpenData,
+    bool? devMode,
+    bool? testMode,
   }) async {
     _headers['Accept-Language'] = acceptHeader;
 
-    final requestBody = <String, String>{
+    final requestBody = <String, String?>{
       'platform': appOpenData.platform,
       'guid': appOpenData.guid,
       'version': appOpenData.version,
@@ -38,7 +38,7 @@ class NStackRepository {
 
     final appOpenResponse = await http.post(
       Uri.parse('$_baseUrl/open?dev=$devMode&test=$testMode'),
-      headers: _headers,
+      headers: _headers as Map<String, String>?,
       body: requestBody,
     );
 
@@ -55,7 +55,7 @@ class NStackRepository {
     try {
       final response = await http.get(
           Uri.parse('$_baseUrl/content/localize/resources/platforms/mobile?dev=true'),
-        headers: _headers,
+        headers: _headers as Map<String, String>?,
       );
       final Map languagesJson = json.decode(response.body);
       final List<LocalizeIndex> languagesList =
@@ -72,6 +72,6 @@ class NStackRepository {
   }
 
   Future<String> fetchLocalizationForLanguage(LocalizeIndex language) async {
-    return (await http.get( Uri.parse(language.url), headers: _headers)).body;
+    return (await http.get( Uri.parse(language.url!), headers: _headers as Map<String, String>?)).body;
   }
 }

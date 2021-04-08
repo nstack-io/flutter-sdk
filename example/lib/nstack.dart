@@ -21,6 +21,7 @@ class _DefaultSection extends SectionKeyDelegate {
 	const _DefaultSection(): super('default');
 
 	String get title => get('title', "NStack SDK Demo");
+	String get test => get('test', "test");
 }
 
 class _Test extends SectionKeyDelegate {
@@ -40,8 +41,8 @@ const _languages = [
 ];
 
 const _bundledTranslations = {
-	'en-EN': r'''{"data":{"default":{"title":"NStack SDK Demo"},"test":{"testDollarSign":"$testing","testSingleQuotationMark":"'testing'","testDoubleQuotationMark":"\"testing\"","testMultipleLines":"testing\nmultiple\nlines"}},"meta":{"language":{"id":56,"name":"English","locale":"en-EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
-	'de-AT': r'''{"data":{"default":{"title":"NStack SDK Demo"},"test":{"testDollarSign":"__testDollarSign","testSingleQuotationMark":"__testSingleQuotationMark","testDoubleQuotationMark":"__testDoubleQuotationMark","testMultipleLines":"__testMultipleLines"}},"meta":{"language":{"id":7,"name":"German (Austria)","locale":"de-AT","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
+	'en-EN': r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"$testing","testSingleQuotationMark":"'testing'","testDoubleQuotationMark":"\"testing\"","testMultipleLines":"testing\nmultiple\nlines"}},"meta":{"language":{"id":56,"name":"English","locale":"en-EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
+	'de-AT': r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"__testDollarSign","testSingleQuotationMark":"__testSingleQuotationMark","testDoubleQuotationMark":"__testDoubleQuotationMark","testMultipleLines":"__testMultipleLines"}},"meta":{"language":{"id":7,"name":"German (Austria)","locale":"de-AT","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
 };
 
 final _nstack = NStack<Localization>(
@@ -49,18 +50,18 @@ final _nstack = NStack<Localization>(
   localization: const Localization(),
   availableLanguages: _languages,
   bundledTranslations: _bundledTranslations,
-  pickedLanguageLocale: null,
+  pickedLanguageLocale: '',
 );
 
 class NStackWidget extends InheritedWidget {
   final NStack<Localization> nstack = _nstack;
 
-  NStackWidget({Key key, @required Widget child})
+  NStackWidget({Key? key, required Widget child})
       : assert(child != null),
         super(key: key, child: child);
 
   static NStack of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<NStackWidget>().nstack;
+      context.dependOnInheritedWidgetOfExactType<NStackWidget>()!.nstack;
 
   @override
   bool updateShouldNotify(NStackWidget oldWidget) =>
@@ -70,7 +71,7 @@ class NStackWidget extends InheritedWidget {
 class NStackInitWidget extends StatefulWidget {
   final Widget child;
 
-  const NStackInitWidget({Key key, Widget child})
+  const NStackInitWidget({Key? key, required Widget child})
       : child = child,
         super(key: key);
 
