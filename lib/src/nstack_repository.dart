@@ -22,8 +22,8 @@ class NStackRepository {
   dynamic postAppOpen({
     required String acceptHeader,
     required NStackAppOpenData appOpenData,
-    bool? devMode,
-    bool? testMode,
+    required bool devMode,
+    required bool testMode,
   }) async {
     _headers['Accept-Language'] = acceptHeader;
 
