@@ -20,8 +20,6 @@ class NStack<T> {
 
   final String prefsKeyLastUpdated = "nstack_last_updated";
   final String prefsKeyGuid = "nstack_guid";
-  final String prefsKeyLastBestFitLanguageLocal =
-      "nstack_last_best_fit_language_locale";
 
   final NStackRepository _repository;
 
