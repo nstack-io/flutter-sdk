@@ -1,11 +1,9 @@
-import 'package:meta/meta.dart';
-
 class NStackAppOpenData {
   final String platform;
-  final String? guid;
+  final String guid;
   final String version;
   final String oldVersion;
-  final String? lastUpdated;
+  final String lastUpdated;
 
   const NStackAppOpenData({
     required this.platform,

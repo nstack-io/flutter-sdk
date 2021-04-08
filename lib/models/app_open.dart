@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:nstack/models/app_open_data.dart';
 import 'package:nstack/models/app_open_meta.dart';
 

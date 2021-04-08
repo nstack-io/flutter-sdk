@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 class Terms {
   final int id;
   final TermsType type;

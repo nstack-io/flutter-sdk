@@ -16,7 +16,7 @@ extension MapEx<T, K> on Map<T, K> {
       ?.key;
 
   K? getOrNull(T key) {
-    if (this == null || !this.containsKey(key)) {
+    if (!this.containsKey(key)) {
       return null;
     } else {
       return this[key];

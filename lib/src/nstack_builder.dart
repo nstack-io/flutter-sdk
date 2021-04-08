@@ -21,16 +21,19 @@ class NstackBuilder implements Builder {
     final StringBuffer output = StringBuffer();
 
     // Read nstack.json file
-    final Map<String, Object> input =
+    final Map<String, dynamic> input =
         json.decode(await buildStep.readAsString(buildStep.inputId));
 
-    final String? projectId = input['nstack_project_id'] as String?; // TODO: Validate.
-    final String? apiKey = input['nstack_api_key'] as String?; // TODO: Validate.
+    final String projectId = input['nstack_project_id'] ?? '';
+    final String apiKey = input['nstack_api_key'] ?? '';
 
-    throwIf(projectId.isNullOrBlank,
-        () => ArgumentError('"nstack_project_id" not set'));
-    throwIf(
-        apiKey.isNullOrBlank, () => ArgumentError('"nstack_api_key" not set'));
+    throwIf(projectId.isNullOrBlank, () {
+      return ArgumentError('"nstack_project_id" not set');
+    });
+
+    throwIf(apiKey.isNullOrBlank, () {
+      return ArgumentError('"nstack_api_key" not set');
+    });
 
     final config = NStackConfig(
       projectId: projectId,
@@ -221,8 +224,7 @@ class NStackWidget extends InheritedWidget {
   final NStack<Localization> nstack = _nstack;
 
   NStackWidget({Key? key, required Widget child})
-      : assert(child != null),
-        super(key: key, child: child);
+    : super(key: key, child: child);
 
   static NStack of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<NStackWidget>()!.nstack;

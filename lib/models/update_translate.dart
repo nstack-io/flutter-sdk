@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 class UpdateTranslate {
   final String? title;
   final String? message;

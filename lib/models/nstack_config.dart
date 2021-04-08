@@ -1,8 +1,6 @@
-import 'package:meta/meta.dart';
-
 class NStackConfig {
-  final String? projectId;
-  final String? apiKey;
+  final String projectId;
+  final String apiKey;
 
   const NStackConfig({
     required this.projectId,

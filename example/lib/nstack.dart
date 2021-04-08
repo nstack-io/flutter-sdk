@@ -57,8 +57,7 @@ class NStackWidget extends InheritedWidget {
   final NStack<Localization> nstack = _nstack;
 
   NStackWidget({Key? key, required Widget child})
-      : assert(child != null),
-        super(key: key, child: child);
+    : super(key: key, child: child);
 
   static NStack of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<NStackWidget>()!.nstack;

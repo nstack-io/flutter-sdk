@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 class RateReminder {
   final String? title;
   final String? body;

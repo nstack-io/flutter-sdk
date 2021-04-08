@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:nstack/models/app_update_state.dart';
 import 'package:nstack/models/update_info.dart';
 import 'package:nstack/other/extensions.dart';

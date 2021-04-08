@@ -20,6 +20,8 @@ class NStack<T> {
 
   final String prefsKeyLastUpdated = "nstack_last_updated";
   final String prefsKeyGuid = "nstack_guid";
+  final String prefsKeyLastBestFitLanguageLocal =
+      "nstack_last_best_fit_language_locale";
 
   final NStackRepository _repository;
 
@@ -28,7 +30,7 @@ class NStack<T> {
   NStack({
     required this.config,
     required this.localization,
-    required List<Language?> availableLanguages,
+    required List<Language> availableLanguages,
     required Map<String, String> bundledTranslations,
     required String pickedLanguageLocale,
   }) : _repository = NStackRepository(config) {
@@ -43,24 +45,22 @@ class NStack<T> {
     WidgetsFlutterBinding.ensureInitialized();
     final prefs = await SharedPreferences.getInstance();
     String projectVersion;
-    String? guid;
-    String? lastUpdated;
+    String guid;
+    String lastUpdated;
     String platform;
 
     projectVersion = await PackageInfo.fromPlatform()
         .then((PackageInfo info) => info.version)
         .catchError((error) => "1");
 
-    if (prefs.containsKey(prefsKeyGuid)) {
-      guid = prefs.getString(prefsKeyGuid);
-    } else {
+    guid = prefs.getString(prefsKeyGuid) ?? '';
+    if (guid.isEmpty) {
       guid = Uuid().v1();
       prefs.setString(prefsKeyGuid, guid);
     }
 
-    if (prefs.containsKey(prefsKeyLastUpdated)) {
-      lastUpdated = prefs.getString(prefsKeyLastUpdated);
-    } else {
+    lastUpdated = prefs.getString(prefsKeyLastUpdated) ?? '';
+    if (lastUpdated.isEmpty) {
       lastUpdated = DateTime.utc(1980, 1, 1).toIso8601String();
       prefs.setString(prefsKeyLastUpdated, lastUpdated);
     }
@@ -99,24 +99,28 @@ class NStack<T> {
       final prefs = await SharedPreferences.getInstance();
 
       // Find best fit
-      final bestFitLanguage = appOpen.data.localize!
-          .where((localize) => localize.language!.isBestFit == true)
+      final bestFitLanguage = appOpen.data.localize
+          ?.where((localize) => localize.language!.isBestFit == true)
           .first;
 
-      final nstackKey = 'nstack_lang_${bestFitLanguage.language!.locale}';
+      final nstackKey = 'nstack_lang_${bestFitLanguage?.language?.locale}';
 
       // Fetch from the server or use the cache?
-      if (bestFitLanguage.shouldUpdate == true) {
+      if (bestFitLanguage?.shouldUpdate == true) {
         // Fetch best fit language from the server
         print(
-            'NStack --> Fetching best fit language: ${bestFitLanguage.language!.locale}');
+            'NStack --> Fetching best fit language: ${bestFitLanguage!.language!.locale}');
         final String bestFitLanguageResponse =
-            await _repository.fetchLocalizationForLanguage(bestFitLanguage);
-        //localization = localization.fromJson(json.decode(bestFitLanguageResponse)["data"]);
-        final translationJson =
-            LocalizationData.fromJson(jsonDecode(bestFitLanguageResponse));
+            await _repository.fetchLocalizationForLanguage(
+          bestFitLanguage,
+        );
+        final translationJson = LocalizationData.fromJson(
+          jsonDecode(bestFitLanguageResponse),
+        );
         LocalizationRepository().updateLocalization(
-            translationJson.data, bestFitLanguage.language!.locale);
+          translationJson.data!,
+          bestFitLanguage.language!.locale!,
+        );
 
         // Update cache for key
         prefs.setString(nstackKey, bestFitLanguageResponse);
@@ -126,16 +130,18 @@ class NStack<T> {
         // Using best fit language from the cache
         if (prefs.containsKey(nstackKey)) {
           print(
-              'NStack --> Using cache for best fit language: ${bestFitLanguage.language!.locale}');
+              'NStack --> Using cache for best fit language: ${bestFitLanguage?.language?.locale}');
           final cachedResponse = json.decode(prefs.getString(nstackKey)!);
           final languageResponse = LocalizationData.fromJson(cachedResponse);
           //localization = localization.fromJson(cachedResponse['data']);
           LocalizationRepository().updateLocalization(
-              languageResponse.data, bestFitLanguage.language!.locale);
+            languageResponse.data!,
+            bestFitLanguage!.language!.locale!,
+          );
           // No cache, default values (this shouldn't happen, should_update should be true)
         } else {
           print(
-              'NStack --> WARNING: No cache found for best fit language: ${bestFitLanguage.language!.locale}');
+              'NStack --> WARNING: No cache found for best fit language: ${bestFitLanguage?.language?.locale}');
         }
       }
 

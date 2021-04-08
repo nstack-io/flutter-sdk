@@ -1,12 +1,10 @@
-import 'package:meta/meta.dart';
-
 class Language {
   final int? id;
   final String? name;
   final String? locale;
   final String? direction;
-  final bool? isDefault;
-  final bool? isBestFit;
+  final bool isDefault;
+  final bool isBestFit;
 
   const Language({
     required this.id,

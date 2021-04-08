@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:nstack/models/app_update.dart';
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/message.dart';

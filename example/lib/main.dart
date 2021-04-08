@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nstack_example/nstack.dart';
+import 'nstack.dart';
 
 void main() {
   runApp(NStackWidget(child: MyApp()));

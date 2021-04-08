@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:nstack/other/extensions.dart';
 
 class Message {
