@@ -12,10 +12,10 @@ class LocalizationRepository {
   LocalizationRepository._internal();
 
   // Internal state
-  Map<String, dynamic> _sectionsMap;
-  Map<String, String> _bundledTranslations;
-  List<Language> _availableLanguages;
-  Language _pickedLanguage;
+  Map<String, dynamic>? _sectionsMap;
+  late Map<String, String> _bundledTranslations;
+  late List<Language> _availableLanguages;
+  late Language _pickedLanguage;
 
   void setupLocalization(
     Map<String, String> bundledTranslations,
@@ -48,7 +48,7 @@ class LocalizationRepository {
   void _setupInternalMap() {
     try {
       _sectionsMap =
-          json.decode(_bundledTranslations[_pickedLanguage.locale])['data'];
+          json.decode(_bundledTranslations[_pickedLanguage.locale]!)['data'];
     } catch (e, s) {
       print(e);
       print(s);
@@ -61,7 +61,7 @@ class LocalizationRepository {
     String fallbackText,
   ) {
     try {
-      return _sectionsMap[sectionKey][textKey] ?? fallbackText;
+      return _sectionsMap?[sectionKey][textKey] ?? fallbackText;
     } catch (e, s) {
       print(e);
       print(s);

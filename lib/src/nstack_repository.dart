@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/nstack_appopen_data.dart';
@@ -19,10 +20,10 @@ class NStackRepository {
   const NStackRepository(this._config);
 
   dynamic postAppOpen({
-    String acceptHeader,
-    NStackAppOpenData appOpenData,
-    bool devMode,
-    bool testMode,
+    required String acceptHeader,
+    required NStackAppOpenData appOpenData,
+    required bool devMode,
+    required bool testMode,
   }) async {
     _headers['Accept-Language'] = acceptHeader;
 
@@ -54,7 +55,8 @@ class NStackRepository {
   Future<List<LocalizeIndex>> fetchAvailableLanguages() async {
     try {
       final response = await http.get(
-          Uri.parse('$_baseUrl/content/localize/resources/platforms/mobile?dev=true'),
+        Uri.parse(
+            '$_baseUrl/content/localize/resources/platforms/mobile?dev=true'),
         headers: _headers,
       );
       final Map languagesJson = json.decode(response.body);
@@ -72,6 +74,8 @@ class NStackRepository {
   }
 
   Future<String> fetchLocalizationForLanguage(LocalizeIndex language) async {
-    return (await http.get( Uri.parse(language.url), headers: _headers)).body;
+    return await http
+        .get(Uri.parse(language.url!), headers: _headers)
+        .then((value) => value.body);
   }
 }

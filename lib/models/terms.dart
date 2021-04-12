@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 class Terms {
   final int id;
   final TermsType type;
@@ -8,20 +6,20 @@ class Terms {
   final TermsVersion version;
 
   Terms({
-    @required this.id,
-    @required this.type,
-    @required this.name,
-    @required this.slug,
-    @required this.version,
+    required this.id,
+    required this.type,
+    required this.name,
+    required this.slug,
+    required this.version,
   });
 }
 
 class TermsType {
-  final int id;
-  final String version;
-  final String name;
-  final DateTime publishedAt;
-  final bool hasViewed;
+  final int? id;
+  final String? version;
+  final String? name;
+  final DateTime? publishedAt;
+  final bool? hasViewed;
 
   TermsType({
     this.id,

@@ -1,9 +1,7 @@
-import 'package:meta/meta.dart';
-
 class AppOpenMeta {
-  final String acceptLanguage;
+  final String? acceptLanguage;
 
-  AppOpenMeta({@required this.acceptLanguage});
+  AppOpenMeta({required this.acceptLanguage});
 
   factory AppOpenMeta.fromJson(Map json) {
     return AppOpenMeta(

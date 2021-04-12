@@ -21,16 +21,19 @@ class NstackBuilder implements Builder {
     final StringBuffer output = StringBuffer();
 
     // Read nstack.json file
-    final Map<String, Object> input =
+    final Map<String, dynamic> input =
         json.decode(await buildStep.readAsString(buildStep.inputId));
 
-    final String projectId = input['nstack_project_id']; // TODO: Validate.
-    final String apiKey = input['nstack_api_key']; // TODO: Validate.
+    final String projectId = input['nstack_project_id'] ?? '';
+    final String apiKey = input['nstack_api_key'] ?? '';
 
-    throwIf(projectId.isNullOrBlank,
-        () => ArgumentError('"nstack_project_id" not set'));
-    throwIf(
-        apiKey.isNullOrBlank, () => ArgumentError('"nstack_api_key" not set'));
+    throwIf(projectId.isNullOrBlank, () {
+      return ArgumentError('"nstack_project_id" not set');
+    });
+
+    throwIf(apiKey.isNullOrBlank, () {
+      return ArgumentError('"nstack_api_key" not set');
+    });
 
     final config = NStackConfig(
       projectId: projectId,
@@ -46,7 +49,7 @@ class NstackBuilder implements Builder {
 
       // Find the default language
       LocalizeIndex defaultLanguage =
-          languages.where((it) => it.language.isDefault == true).first;
+          languages.where((it) => it.language!.isDefault == true).first;
       print('Found the default Language: ${defaultLanguage.language}');
 
       // Fetch localization for default language
@@ -95,7 +98,7 @@ import 'package:nstack/partial/section_key_delegate.dart';
   }
 
   void _writeLocalization(LocalizationData localization, StringBuffer output) {
-    final languageJson = localization.data;
+    final languageJson = localization.data!;
 
     // Localization class
     output.writeln('class Localization {');
@@ -115,7 +118,7 @@ import 'package:nstack/partial/section_key_delegate.dart';
   }
 
   void _writeSections(LocalizationData localization, StringBuffer output) {
-    final languageJson = localization.data;
+    final languageJson = localization.data!;
     languageJson.forEach((sectionKey, translations) {
       String className = _getClassNameFromSectionKey(sectionKey);
 
@@ -159,8 +162,8 @@ import 'package:nstack/partial/section_key_delegate.dart';
   }
 
   void _writeNStackConfig(
-    String projectId,
-    String apiKey,
+    String? projectId,
+    String? apiKey,
     StringBuffer output,
   ) {
     output.writeln('''
@@ -172,7 +175,7 @@ const _config = NStackConfig(projectId: '$projectId', apiKey: '$apiKey');
     output.writeln('const _languages = [');
 
     languages.forEach((localizeIndex) {
-      Language language = localizeIndex.language;
+      Language language = localizeIndex.language!;
       output.writeln(
         '\tLanguage(id: ${language.id}, name: \'${language.name}\', locale: \'${language.locale}\', direction: \'${language.direction}\', isDefault: ${language.isDefault}, isBestFit: ${language.isBestFit}),',
       );
@@ -192,7 +195,7 @@ const _config = NStackConfig(projectId: '$projectId', apiKey: '$apiKey');
 const _bundledTranslations = {''');
 
     await Future.forEach<LocalizeIndex>(languages, (localizeIndex) async {
-      final locale = localizeIndex.language.locale;
+      final locale = localizeIndex.language!.locale;
       var content =
           (await repository.fetchLocalizationForLanguage(localizeIndex));
       output.writeln('\t\'$locale\': r\'\'\'$content\'\'\',');
@@ -210,7 +213,7 @@ final _nstack = NStack<Localization>(
   localization: const Localization(),
   availableLanguages: _languages,
   bundledTranslations: _bundledTranslations,
-  pickedLanguageLocale: null,
+  pickedLanguageLocale: '',
 );
 ''');
   }
@@ -220,12 +223,11 @@ final _nstack = NStack<Localization>(
 class NStackWidget extends InheritedWidget {
   final NStack<Localization> nstack = _nstack;
 
-  NStackWidget({Key key, @required Widget child})
-      : assert(child != null),
-        super(key: key, child: child);
+  NStackWidget({Key? key, required Widget child})
+    : super(key: key, child: child);
 
   static NStack of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<NStackWidget>().nstack;
+      context.dependOnInheritedWidgetOfExactType<NStackWidget>()!.nstack;
 
   @override
   bool updateShouldNotify(NStackWidget oldWidget) =>
@@ -235,7 +237,7 @@ class NStackWidget extends InheritedWidget {
 class NStackInitWidget extends StatefulWidget {
   final Widget child;
 
-  const NStackInitWidget({Key key, Widget child})
+  const NStackInitWidget({Key? key, required Widget child})
       : child = child,
         super(key: key);
 
