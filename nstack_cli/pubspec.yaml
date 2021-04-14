@@ -1,6 +1,7 @@
 name: nstack_cli
-version: 0.0.1
 description: NStack Flutter command-line application.
+version: 0.0.1
+author: Monstarlab
 homepage: https://github.com/nstack-io/flutter-sdk
 
 # The following line prevents the package from being accidentally published to

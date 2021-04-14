@@ -1,6 +1,8 @@
-name: nstack_example
-description: Demonstrates how to use the nstack plugin.
+name: nstack_sdk_example
+description: Demonstrates how to use the nstack_sdk plugin.
 version: 1.0.0
+author: Monstarlab
+homepage: https://github.com/nstack-io/flutter-sdk
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -14,7 +16,16 @@ dependencies:
     sdk: flutter
 
   nstack_sdk:
-    path: ../nstack_sdk
+    # When depending on this package from a real application you should use:
+    #   nstack_sdk: ^x.y.z
+    # See https://dart.dev/tools/pub/dependencies#version-constraints
+    # The example app is bundled with the plugin so we use a path dependency on
+    # the parent directory to use the current plugin's version.
+    path: ../
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:

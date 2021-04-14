@@ -8,64 +8,39 @@
 
 See [NStack documentation](https://nstack-io.github.io/docs/docs/guides/flutter/flutter.html) for more information.
 
+
 # How to use
 
 ## Install
 
-To use [NStack], you will need your typical [build_runner] setup.\
-First, install [build_runner] and [NStack] by adding them to your `pubspec.yaml` file:
+:warning: WIP
 
-```yaml
-dependencies:
-  nstack:
-    git:
-      url: git://github.com/nstack-io/flutter-sdk.git
-      ref: v0.1.4
+Note: For now, all instructions below are tailored to the nstack_sdk_example project.
 
-dev_dependencies:
-  build_runner:
+To use [NStack], install our nstack_cli:
+
+```
+$ flutter pub global activate --source path nstack_cli
+$ flutter pub global run nstack_cli --help
 ```
 
-This installs two packages:
-
-- [build_runner], the tool to run code-generators
-- [NStack] SDK, which includes a code generator
-
-## Run the generator
-
-Create a `nstack.json` file under `/lib` that holds your NStack details:
+Create a `nstack.json` file:
 
 ```json
 {
-  "version": 1,
   "nstack_project_id": "YOUR_PROJECT_ID",
   "nstack_api_key": "YOUR_REST_API_KEY"
 }
 ```
 
-Now, depending on your use case you have two possibilities to run the generator:
+Now, execute following command to initialize or update your NStack setup.
 
-If your package depends on Flutter execute:
-```console
-foo@bar:~$ flutter pub run build_runner build
 ```
-Otherwise execute:
-```console
-foo@bar:~$ pub run build_runner build
+$ flutter pub global run nstack_cli update
 ```
 
 A successful execution generates your project tailored `nstack.dart` file.\
 See example below on how to use your NStack instance.
-
-### Incremental updates
-To run a persistent build server that watches `nstack.json` to automatically trigger rebuilds execute:
-
-```console
-foo@bar:~$ flutter pub run build_runner watch --delete-conflicting-outputs
-``` 
-
-Now increment the `"version"` number and save (⌘s) to trigger an update.
-
 
 ## Example
 
@@ -96,6 +71,5 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-[build_runner]: https://pub.dev/packages/build_runner
 [NStack]: https://nstack.io
 [AppOpen]: https://nstack-io.github.io/docs/docs/app-open.html
