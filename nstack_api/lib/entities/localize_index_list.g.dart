@@ -8,11 +8,9 @@ part of 'localize_index_list.dart';
 
 _$_LocalizeIndexList _$_$_LocalizeIndexListFromJson(Map<String, dynamic> json) {
   return _$_LocalizeIndexList(
-    data: (json['data'] as List)
-        ?.map((e) => e == null
-            ? null
-            : LocalizeIndex.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    data: (json['data'] as List<dynamic>?)
+        ?.map((e) => LocalizeIndex.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 

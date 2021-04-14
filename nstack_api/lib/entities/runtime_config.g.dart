@@ -8,9 +8,9 @@ part of 'runtime_config.dart';
 
 _$_RuntimeConfig _$_$_RuntimeConfigFromJson(Map<String, dynamic> json) {
   return _$_RuntimeConfig(
-    platformName: json['platformName'] as String,
-    platformVersion: json['platformVersion'] as String,
-    device: json['device'] as String,
+    platformName: json['platformName'] as String?,
+    platformVersion: json['platformVersion'] as String?,
+    device: json['device'] as String?,
   );
 }
 

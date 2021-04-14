@@ -9,13 +9,13 @@ part 'localize_index.g.dart';
 @freezed
 abstract class LocalizeIndex with _$LocalizeIndex {
   const factory LocalizeIndex({
-  int id,
-  String url,
+  int? id,
+  String? url,
   @JsonKey(name: 'last_updated_at')
-  DateTime lastUpdatedAt,
+  DateTime? lastUpdatedAt,
   @JsonKey(name: 'should_update')
-  bool shouldUpdate,
-  LocalizeLanguage language,
+  bool? shouldUpdate,
+  LocalizeLanguage? language,
   }) = _LocalizeIndex;
 
   factory LocalizeIndex.fromJson(Map<String, dynamic> json) =>

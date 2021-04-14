@@ -10,12 +10,12 @@ import 'src/help/help_command.dart';
 import 'src/option.dart';
 
 void main(List<String> arguments) {
-  if (arguments == null || arguments.isEmpty) {
+  if (arguments.isEmpty) {
     _printHelp();
     return;
   }
   // Look for a command
-  switch (arguments?.first) {
+  switch (arguments.first) {
     case UpdateCommand.name:
       return _processUpdateCommand(arguments);
     case HelpCommand.name:
@@ -49,7 +49,7 @@ void _processDoctorCommand(List<String> arguments) async {
 
 void _processHelpCommand(List<String> arguments) {
   // TODO
-  print("Not implemented.");
+  print('Not implemented.');
 }
 
 void _printUnknownArguments(List<String> arguments) {
@@ -72,7 +72,7 @@ Could not find a command with name "$command".
 Run 'nstack -h' (or 'nstack <command> -h') for available nstack commands and options.
 """);
 
-void _printHelp() => print("""
+void _printHelp() => print('''
 Backend as a Service for Mobile & Web apps.
 www.nstack.io
     
@@ -85,10 +85,10 @@ Available commands:
       
 Run "nstack help <command>" for more information about a command.
 Run "nstack help -v" for verbose help output.
-""");
+''');
 
 void _printVersion() async {
-  final version = await File("../pubspec.yaml").readAsString().then((text) {
+  final version = await File('../pubspec.yaml').readAsString().then((text) {
     Map yaml = loadYaml(text);
     return yaml['version'];
   }).catchError((error) {

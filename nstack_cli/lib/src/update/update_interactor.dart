@@ -3,15 +3,14 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-import '../config.dart';
 import '../constants.dart';
 import '../interactor.dart';
 import 'update_command.dart';
 
 class UpdateInteractor implements FutureInteractor<void> {
   @override
-  Future<void> execute({UpdateCommand command}) async {
-    final config = await getConfig();
+  Future<void> execute({UpdateCommand? command}) async {
+    // final config = await getConfig();
     // TODO: Use nstack_api
     final headers = {
       'Accept-Language': 'en-US',
@@ -23,7 +22,7 @@ class UpdateInteractor implements FutureInteractor<void> {
     // TODO: Use nstack_api
     // Fetch localize-index-resources
     final localizeIndexResources = await http
-        .get(localizeIndexResourcesUrl, headers: headers)
+        .get(Uri.parse(localizeIndexResourcesUrl), headers: headers)
         .then((response) => jsonDecode(response.body)['data']);
 
     // TODO: Use nstack_api

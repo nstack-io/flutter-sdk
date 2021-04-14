@@ -9,11 +9,9 @@ part of 'localize_resource_list.dart';
 _$_LocalizeResourceList _$_$_LocalizeResourceListFromJson(
     Map<String, dynamic> json) {
   return _$_LocalizeResourceList(
-    data: (json['data'] as List)
-        ?.map((e) => e == null
-            ? null
-            : LocalizeResource.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    data: (json['data'] as List<dynamic>?)
+        ?.map((e) => LocalizeResource.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 

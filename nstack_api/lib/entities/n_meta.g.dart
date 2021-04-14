@@ -8,11 +8,11 @@ part of 'n_meta.dart';
 
 _$_NMeta _$_$_NMetaFromJson(Map<String, dynamic> json) {
   return _$_NMeta(
-    platform: json['platform'] as String,
-    environment: json['environment'] as String,
-    appVersion: json['app_version'] as String,
-    osVersion: json['os_version'] as String,
-    device: json['device'] as String,
+    platform: json['platform'] as String?,
+    environment: json['environment'] as String?,
+    appVersion: json['app_version'] as String?,
+    osVersion: json['os_version'] as String?,
+    device: json['device'] as String?,
   );
 }
 

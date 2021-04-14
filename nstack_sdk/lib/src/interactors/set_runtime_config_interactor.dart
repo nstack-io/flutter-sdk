@@ -1,17 +1,16 @@
 import 'dart:io';
 
-import 'package:nstack_api/entities/runtime_config.dart';
 import 'package:device_info/device_info.dart';
-import 'package:get_version/get_version.dart';
-import 'package:meta/meta.dart';
+import 'package:nstack_api/entities/runtime_config.dart';
 import 'package:nstack_sdk/src/interactors/interactor.dart';
 import 'package:nstack_sdk/src/repository/local_repository.dart';
+import 'package:package_info/package_info.dart';
 
 class SetRuntimeConfigInteractor extends FutureInteractor<void> {
   final LocalRepository localRepository;
 
   SetRuntimeConfigInteractor({
-    @required this.localRepository,
+    required this.localRepository,
   });
 
   @override
@@ -35,11 +34,9 @@ class SetRuntimeConfigInteractor extends FutureInteractor<void> {
   }
 
   Future<String> get platformVersion async {
-    try {
-      return await GetVersion.platformVersion;
-    } catch (error) {
-      return 'unknown';
-    }
+    return await PackageInfo.fromPlatform()
+        .then((value) => value.version)
+        .catchError((e) => 'unknown');
   }
 
   Future<String> get device async {

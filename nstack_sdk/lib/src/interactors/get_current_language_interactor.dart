@@ -6,6 +6,7 @@ class GetCurrentLanguageInteractor extends FutureInteractor<LocalizeLanguage> {
 
   @override
   Future<LocalizeLanguage> execute() async {
+    throw UnimplementedError();
     // TODO: Return current bestFit language from last AppOpen response or the default language from bundle.
   }
 }

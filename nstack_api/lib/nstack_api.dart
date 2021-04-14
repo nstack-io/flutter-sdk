@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:nstack_api/entities/app_open_request_body.dart';
 import 'package:nstack_api/entities/localize_language_list.dart';
 
@@ -18,7 +17,7 @@ abstract class NStackAPI {
 
   // TODO: Docs
   Future<LocalizeResource> getLocalizeResource({
-    @required int id,
+    required int id,
   });
 
 //</editor-fold>
@@ -27,7 +26,7 @@ abstract class NStackAPI {
 
   // TODO: Docs
   Future<AppOpen> postAppOpen({
-    @required AppOpenRequestBody body,
+    required AppOpenRequestBody body,
   });
 
 //</editor-fold>

@@ -9,7 +9,7 @@ part 'localize_language_list.g.dart';
 @freezed
 abstract class LocalizeLanguageList with _$LocalizeLanguageList {
   const factory LocalizeLanguageList({
-    List<LocalizeLanguage> data,
+    List<LocalizeLanguage>? data,
   }) = _LanguageList;
 
   factory LocalizeLanguageList.fromJson(Map<String, dynamic> json) =>

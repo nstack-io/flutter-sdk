@@ -9,8 +9,8 @@ part of 'message_localization.dart';
 _$_MessageLocalization _$_$_MessageLocalizationFromJson(
     Map<String, dynamic> json) {
   return _$_MessageLocalization(
-    okBtn: json['ok_btn'] as String,
-    urlBtn: json['url_btn'] as String,
+    okBtn: json['ok_btn'] as String?,
+    urlBtn: json['url_btn'] as String?,
   );
 }
 

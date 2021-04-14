@@ -1,7 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
-import 'package:meta/meta.dart';
 import 'package:nstack_api/entities/app_open_request_body.dart';
 import 'package:nstack_api/entities/localize_index_list.dart';
 import 'package:nstack_api/entities/timestamp.dart';
@@ -11,29 +9,29 @@ import 'package:nstack_sdk/src/interactors/update_localize_resources_interactor.
 import 'package:nstack_sdk/src/repository/cache_repository.dart';
 import 'package:nstack_sdk/src/repository/local_repository.dart';
 
-class PostAppOpenInteractor extends FutureInteractor<void> {
+class PostAppOpenInteractor extends FutureInputInteractor<Locale, void> {
   final NStackAPI api;
   final LocalRepository localRepository;
   final CacheRepository cacheRepository;
   final UpdateLocalizeResourcesInteractor updateLocalizeResourcesInteractor;
 
   PostAppOpenInteractor({
-    @required this.api,
-    @required this.localRepository,
-    @required this.cacheRepository,
-    @required this.updateLocalizeResourcesInteractor,
+    required this.api,
+    required this.localRepository,
+    required this.cacheRepository,
+    required this.updateLocalizeResourcesInteractor,
   });
 
   @override
-  Future<void> execute({@required Locale locale}) async {
+  Future<void> execute(Locale locale) async {
     final appOpen = await api.postAppOpen(
       body: await appOpenRequestBody,
     );
 
     // Update all local resources
     updateLocalizeResourcesInteractor.execute(
-      localizeIndexList: LocalizeIndexList(
-        data: appOpen.data.localize,
+      LocalizeIndexList(
+        data: appOpen.data!.localize,
       ),
     );
 

@@ -8,12 +8,12 @@ part of 'rate_reminder.dart';
 
 _$_RateReminder _$_$_RateReminderFromJson(Map<String, dynamic> json) {
   return _$_RateReminder(
-    title: json['title'] as String,
-    body: json['body'] as String,
-    yesButton: json['yes_button'] as String,
-    laterButton: json['later_button'] as String,
-    noButton: json['no_button'] as String,
-    link: json['link'] as String,
+    title: json['title'] as String?,
+    body: json['body'] as String?,
+    yesButton: json['yes_button'] as String?,
+    laterButton: json['later_button'] as String?,
+    noButton: json['no_button'] as String?,
+    link: json['link'] as String?,
   );
 }
 

@@ -8,8 +8,8 @@ part of 'nstack_api_config.dart';
 
 _$_NStackApiConfig _$_$_NStackApiConfigFromJson(Map<String, dynamic> json) {
   return _$_NStackApiConfig(
-    applicationId: json['application_id'] as String,
-    restApiKey: json['rest_api_key'] as String,
+    applicationId: json['application_id'] as String?,
+    restApiKey: json['rest_api_key'] as String?,
   );
 }
 

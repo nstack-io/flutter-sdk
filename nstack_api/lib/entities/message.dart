@@ -10,24 +10,24 @@ part 'message.g.dart';
 @freezed
 abstract class Message with _$Message {
   const factory Message({
-  int id,
+  int? id,
   @JsonKey(name: 'application_id')
-  int applicationId,
+  int? applicationId,
   @JsonKey(name: 'show_setting')
-  MessageShowSetting showSetting,
+  MessageShowSetting? showSetting,
   @JsonKey(name: 'view_count')
-  int viewCount,
-  String message,
-  String url,
+  int? viewCount,
+  String? message,
+  String? url,
   @JsonKey(name: 'created_at')
-  DateTime createdAt,
+  DateTime? createdAt,
   @JsonKey(name: 'updated_at')
-  DateTime updatedAt,
+  DateTime? updatedAt,
   @JsonKey(name: 'deleted_at')
-  DateTime deletedAt,
+  DateTime? deletedAt,
   @JsonKey(name: 'project_id')
-  int projectId,
-  MessageLocalization localization,
+  int? projectId,
+  MessageLocalization? localization,
   }) = _Message;
 
   factory Message.fromJson(Map<String, dynamic> json) =>

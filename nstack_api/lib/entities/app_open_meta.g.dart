@@ -8,7 +8,7 @@ part of 'app_open_meta.dart';
 
 _$_AppOpenMeta _$_$_AppOpenMetaFromJson(Map<String, dynamic> json) {
   return _$_AppOpenMeta(
-    acceptLanguage: json['accept_language'] as String,
+    acceptLanguage: json['accept_language'] as String?,
   );
 }
 

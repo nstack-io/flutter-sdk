@@ -8,16 +8,14 @@ part of 'app_open_data.dart';
 
 _$_AppOpenData _$_$_AppOpenDataFromJson(Map<String, dynamic> json) {
   return _$_AppOpenData(
-    count: json['count'] as int,
+    count: json['count'] as int?,
     update: json['update'] == null
         ? null
         : AppUpdate.fromJson(json['update'] as Map<String, dynamic>),
-    localize: (json['localize'] as List)
-        ?.map((e) => e == null
-            ? null
-            : LocalizeIndex.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    platform: json['platform'] as String,
+    localize: (json['localize'] as List<dynamic>?)
+        ?.map((e) => LocalizeIndex.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    platform: json['platform'] as String?,
     createdAt: json['created_at'] == null
         ? null
         : DateTime.parse(json['created_at'] as String),
@@ -30,10 +28,9 @@ _$_AppOpenData _$_$_AppOpenDataFromJson(Map<String, dynamic> json) {
     rateReminder: json['rate_reminder'] == null
         ? null
         : RateReminder.fromJson(json['rate_reminder'] as Map<String, dynamic>),
-    terms: (json['terms'] as List)
-        ?.map(
-            (e) => e == null ? null : Terms.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    terms: (json['terms'] as List<dynamic>?)
+        ?.map((e) => Terms.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 

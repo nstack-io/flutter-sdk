@@ -8,7 +8,7 @@ part of 'localize_resource.dart';
 
 _$_LocalizeResource _$_$_LocalizeResourceFromJson(Map<String, dynamic> json) {
   return _$_LocalizeResource(
-    data: json['data'] as Map<String, dynamic>,
+    data: json['data'] as Map<String, dynamic>?,
     meta: json['meta'] == null
         ? null
         : LocalizeResourceMeta.fromJson(json['meta'] as Map<String, dynamic>),

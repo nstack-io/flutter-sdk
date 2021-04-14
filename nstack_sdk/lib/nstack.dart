@@ -11,9 +11,9 @@ class NStack {
   final NStackApiConfig config;
 
   NStack({
-    @required this.config,
+    required this.config,
     // TODO: Remove
-    @required Locale locale,
+    required Locale locale,
   }) {
     Injector.init(config);
 
@@ -45,7 +45,7 @@ class NStack {
     await injector<SetRuntimeConfigInteractor>().execute();
     await injector<SetAppConfigInteractor>().execute();
     return await injector<PostAppOpenInteractor>()
-        .execute(locale: locale)
+        .execute(locale)
         .then((value) => AppOpenResult.success)
         .catchError((error) => AppOpenResult.failed);
   }

@@ -4,8 +4,8 @@ import 'dart:io';
 import 'constants.dart';
 
 class Config {
-  final String id;
-  final String key;
+  final String? id;
+  final String? key;
 
   Config(
     this.id,
@@ -34,6 +34,6 @@ Future<Config> getConfig({
   return File(path).readAsString().then((String content) {
     return Config.fromJson(jsonDecode(content));
   }).catchError((e, s) {
-    return null;
+    return Config('', '');
   });
 }

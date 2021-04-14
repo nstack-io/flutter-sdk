@@ -10,11 +10,11 @@ part 'terms.g.dart';
 @freezed
 abstract class Terms with _$Terms {
   const factory Terms({
-    int id,
-    TermsType type,
-    String name,
-    String slug,
-    TermsVersion version,
+    int? id,
+    TermsType? type,
+    String? name,
+    String? slug,
+    TermsVersion? version,
   }) = _Terms;
 
   factory Terms.fromJson(Map<String, dynamic> json) => _$TermsFromJson(json);

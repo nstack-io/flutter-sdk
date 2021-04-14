@@ -8,8 +8,8 @@ part of 'platform.dart';
 
 _$_Platform _$_$_PlatformFromJson(Map<String, dynamic> json) {
   return _$_Platform(
-    id: json['id'] as int,
-    slug: json['slug'] as String,
+    id: json['id'] as int?,
+    slug: json['slug'] as String?,
   );
 }
 

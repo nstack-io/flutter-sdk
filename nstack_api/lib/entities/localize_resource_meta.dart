@@ -12,8 +12,8 @@ part 'localize_resource_meta.g.dart';
 @freezed
 abstract class LocalizeResourceMeta with _$LocalizeResourceMeta {
   const factory LocalizeResourceMeta({
-    LocalizeLanguage language,
-    Platform platform,
+    LocalizeLanguage? language,
+    Platform? platform,
   }) = _LocalizeResourceMeta;
 
   factory LocalizeResourceMeta.fromJson(Map<String, dynamic> json) =>

@@ -8,13 +8,13 @@ part of 'message.dart';
 
 _$_Message _$_$_MessageFromJson(Map<String, dynamic> json) {
   return _$_Message(
-    id: json['id'] as int,
-    applicationId: json['application_id'] as int,
+    id: json['id'] as int?,
+    applicationId: json['application_id'] as int?,
     showSetting:
         _$enumDecodeNullable(_$MessageShowSettingEnumMap, json['show_setting']),
-    viewCount: json['view_count'] as int,
-    message: json['message'] as String,
-    url: json['url'] as String,
+    viewCount: json['view_count'] as int?,
+    message: json['message'] as String?,
+    url: json['url'] as String?,
     createdAt: json['created_at'] == null
         ? null
         : DateTime.parse(json['created_at'] as String),
@@ -24,7 +24,7 @@ _$_Message _$_$_MessageFromJson(Map<String, dynamic> json) {
     deletedAt: json['deleted_at'] == null
         ? null
         : DateTime.parse(json['deleted_at'] as String),
-    projectId: json['project_id'] as int,
+    projectId: json['project_id'] as int?,
     localization: json['localization'] == null
         ? null
         : MessageLocalization.fromJson(
@@ -47,36 +47,41 @@ Map<String, dynamic> _$_$_MessageToJson(_$_Message instance) =>
       'localization': instance.localization,
     };
 
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
+K _$enumDecode<K, V>(
+  Map<K, V> enumValues,
+  Object? source, {
+  K? unknownValue,
 }) {
   if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
+    throw ArgumentError(
+      'A value must be provided. Supported values: '
+      '${enumValues.values.join(', ')}',
+    );
   }
 
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
+  return enumValues.entries.singleWhere(
+    (e) => e.value == source,
+    orElse: () {
+      if (unknownValue == null) {
+        throw ArgumentError(
+          '`$source` is not one of the supported values: '
+          '${enumValues.values.join(', ')}',
+        );
+      }
+      return MapEntry(unknownValue, enumValues.values.first);
+    },
+  ).key;
 }
 
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
+K? _$enumDecodeNullable<K, V>(
+  Map<K, V> enumValues,
   dynamic source, {
-  T unknownValue,
+  K? unknownValue,
 }) {
   if (source == null) {
     return null;
   }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
 }
 
 const _$MessageShowSettingEnumMap = {

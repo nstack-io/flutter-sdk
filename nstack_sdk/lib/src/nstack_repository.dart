@@ -14,7 +14,7 @@ class NStackRepository {
 
   final NStackApiConfig _config;
 
-  Map<String, String> get _headers => {
+  Map<String, String?> get _headers => {
         'Accept-Language': 'en-US',
         'X-Application-Id': _config.applicationId,
         'X-Rest-Api-Key': _config.restApiKey,
@@ -23,27 +23,27 @@ class NStackRepository {
 
   const NStackRepository(this._config);
 
-  Future<AppOpen> postAppOpen({
-    String acceptHeader,
-    AppOpenRequestBody body,
-    bool devMode,
-    bool testMode,
+  Future<AppOpen?> postAppOpen({
+    String? acceptHeader,
+    required AppOpenRequestBody body,
+    bool? devMode,
+    bool? testMode,
   }) async {
     _headers['Accept-Language'] = acceptHeader;
 
-    final requestBody = <String, String>{
+    final requestBody = <String, String?>{
       'platform': body.platform,
       'guid': body.guid,
       'version': body.version,
       'old_version': body.oldVersion,
-      'last_updated': body.lastUpdated.toIso8601String()
+      'last_updated': body.lastUpdated!.toIso8601String()
     };
 
     print('NStack --> App Open sending: ${requestBody.toString()}');
 
     final appOpenResponse = await http.post(
-      '$_baseUrl/open?dev=$devMode&test=$testMode',
-      headers: _headers,
+      Uri.parse('$_baseUrl/open?dev=$devMode&test=$testMode'),
+      headers: _headers as Map<String, String>?,
       body: requestBody,
     );
 
@@ -57,18 +57,18 @@ class NStackRepository {
     }
   }
 
-  Future<List<LocalizeIndex>> fetchAvailableLanguages() async {
+  Future<List<LocalizeIndex>?> fetchAvailableLanguages() async {
     try {
       final response = await http.get(
-        '$_baseUrl/content/localize/resources/platforms/mobile?dev=true',
-        headers: _headers,
+        Uri.parse('$_baseUrl/content/localize/resources/platforms/mobile?dev=true'),
+        headers: _headers as Map<String, String>?,
       );
 
       final localizeIndexList = LocalizeIndexList.fromJson(
         json.decode(response.body),
       );
 
-      print('Fetched ${localizeIndexList.data.length} languages.');
+      print('Fetched ${localizeIndexList.data!.length} languages.');
       return localizeIndexList.data;
     } catch (e, s) {
       print(e);
@@ -78,6 +78,6 @@ class NStackRepository {
   }
 
   Future<String> fetchLocalizationForLanguage(LocalizeIndex language) async {
-    return (await http.get(language.url, headers: _headers)).body;
+    return (await http.get(Uri.parse(language.url!), headers: _headers as Map<String, String>?)).body;
   }
 }

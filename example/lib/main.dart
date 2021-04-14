@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:nstack_example/nstack.dart';
 
 void main() {
-  runApp(NStackWidget(child: MyApp()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: NStackInitWidget(child: Scaffold(
+      home: Scaffold(
         appBar: AppBar(
-          title: Text(context.localization.defaultSection.title),
+          title: Text("TODO"),
         ),
         body: Center(
-          child: Text(context.localization.test.testMultipleLines),
+          child: Text("TODO: Example"),
         ),
       ),
-    ),
     );
   }
 }

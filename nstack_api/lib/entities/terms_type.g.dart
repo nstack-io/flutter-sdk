@@ -8,13 +8,13 @@ part of 'terms_type.dart';
 
 _$_TermsType _$_$_TermsTypeFromJson(Map<String, dynamic> json) {
   return _$_TermsType(
-    id: json['id'] as int,
-    version: json['version'] as String,
-    name: json['name'] as String,
+    id: json['id'] as int?,
+    version: json['version'] as String?,
+    name: json['name'] as String?,
     publishedAt: json['published_at'] == null
         ? null
         : DateTime.parse(json['published_at'] as String),
-    hasViewed: json['has_viewed'] as bool,
+    hasViewed: json['has_viewed'] as bool?,
   );
 }
 

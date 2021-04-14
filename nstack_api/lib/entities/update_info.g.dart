@@ -8,14 +8,14 @@ part of 'update_info.dart';
 
 _$_UpdateInfo _$_$_UpdateInfoFromJson(Map<String, dynamic> json) {
   return _$_UpdateInfo(
-    state: json['state'] as String,
-    lastId: json['last_id'] as int,
-    version: json['version'] as String,
-    link: json['link'] as String,
+    state: json['state'] as String?,
+    lastId: json['last_id'] as int?,
+    version: json['version'] as String?,
+    link: json['link'] as String?,
     translate: json['translate'] == null
         ? null
         : UpdateTranslate.fromJson(json['translate'] as Map<String, dynamic>),
-    fileUrl: json['file_url'] as String,
+    fileUrl: json['file_url'] as String?,
   );
 }
 

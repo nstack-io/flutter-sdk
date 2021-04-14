@@ -5,11 +5,11 @@ import 'doctor_command.dart';
 
 class DoctorInteractor implements FutureInteractor<void> {
   @override
-  Future<void> execute({DoctorCommand command}) async {
+  Future<void> execute({DoctorCommand? command}) async {
     final config = await getConfig();
     final hasValidConfigFile = await hasConfigFile();
-    final hasValidConfigId = config?.id?.isNotEmpty ?? false;
-    final hasValidConfigKey = config?.key?.isNotEmpty ?? false;
+    final hasValidConfigId = config.id?.isNotEmpty ?? false;
+    final hasValidConfigKey = config.key?.isNotEmpty ?? false;
 
     print('Doctor summary:');
 
@@ -17,7 +17,7 @@ class DoctorInteractor implements FutureInteractor<void> {
       print('[✓] NStack configuration file');
     } else {
       print('[!] NStack configuration file');
-      if (command.verbose && !hasValidConfigFile) {
+      if (command!.verbose && !hasValidConfigFile) {
         print('     • $nStackConfigFilePath not found');
       }
       if (command.verbose && hasValidConfigFile && !hasValidConfigId) {
@@ -32,9 +32,9 @@ class DoctorInteractor implements FutureInteractor<void> {
     if (!hasValidConfigFile) issueCount++;
 
     if (issueCount == 1) {
-      print("Doctor found $issueCount issue.");
+      print('Doctor found $issueCount issue.');
     } else if (issueCount > 1) {
-      print("Doctor found $issueCount issues.");
+      print('Doctor found $issueCount issues.');
     }
   }
 }

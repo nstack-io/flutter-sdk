@@ -8,8 +8,8 @@ part of 'app_config.dart';
 
 _$_AppConfig _$_$_AppConfigFromJson(Map<String, dynamic> json) {
   return _$_AppConfig(
-    version: json['version'] as String,
-    previousVersion: json['previousVersion'] as String,
+    version: json['version'] as String?,
+    previousVersion: json['previousVersion'] as String?,
   );
 }
 

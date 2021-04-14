@@ -41,5 +41,5 @@ abstract class LocalRepository {
   Future<void> setLastAppOpenTimestamp(Timestamp timestamp);
 
   /// Get the timestamp of the last successful [AppOpen] call.
-  Future<Timestamp> getLastAppOpenTimeStamp();
+  Future<Timestamp?> getLastAppOpenTimeStamp();
 }

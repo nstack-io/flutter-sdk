@@ -21,14 +21,14 @@ class MockNStackApi implements NStackAPI {
 
   @override
   Future<LocalizeResource> getLocalizeResource({
-    int id,
+    int? id,
   }) {
     // TODO: implement getLocalizeResource
     throw UnimplementedError();
   }
 
   @override
-  Future<AppOpen> postAppOpen({AppOpenRequestBody body}) {
+  Future<AppOpen> postAppOpen({AppOpenRequestBody? body}) {
     // TODO: implement postAppOpen
     throw UnimplementedError();
   }

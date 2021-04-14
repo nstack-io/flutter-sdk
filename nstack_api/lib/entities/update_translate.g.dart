@@ -8,10 +8,10 @@ part of 'update_translate.dart';
 
 _$_UpdateTranslate _$_$_UpdateTranslateFromJson(Map<String, dynamic> json) {
   return _$_UpdateTranslate(
-    title: json['title'] as String,
-    message: json['message'] as String,
-    positiveButton: json['positive_button'] as String,
-    negativeButton: json['negative_button'] as String,
+    title: json['title'] as String?,
+    message: json['message'] as String?,
+    positiveButton: json['positive_button'] as String?,
+    negativeButton: json['negative_button'] as String?,
   );
 }
 

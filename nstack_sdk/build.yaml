@@ -1,9 +1,0 @@
-# Read about `build.yaml` at https://pub.dartlang.org/packages/build_config
-
-builders:
-  nstackBuilder:
-    import: "package:nstack_sdk/builder.dart"
-    builder_factories: ["nstackBuilder"]
-    build_extensions: {".json": [".dart"]}
-    build_to: source
-    auto_apply: dependents
