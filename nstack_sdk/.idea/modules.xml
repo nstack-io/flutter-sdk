@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/api/api.iml" filepath="$PROJECT_DIR$/api/api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/nstack.iml" filepath="$PROJECT_DIR$/nstack.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/nstack_android.iml" filepath="$PROJECT_DIR$/android/nstack_android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/example/android/nstack_example_android.iml" filepath="$PROJECT_DIR$/example/android/nstack_example_android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tooling/nstack_tooling.iml" filepath="$PROJECT_DIR$/tooling/nstack_tooling.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tooling/tooling.iml" filepath="$PROJECT_DIR$/tooling/tooling.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nstack_sdk.iml" filepath="$PROJECT_DIR$/nstack_sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/nstack_sdk_android.iml" filepath="$PROJECT_DIR$/android/nstack_sdk_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/example/android/nstack_sdk_example_android.iml" filepath="$PROJECT_DIR$/example/android/nstack_sdk_example_android.iml" />
     </modules>
   </component>
 </project>
