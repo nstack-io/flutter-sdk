@@ -13,7 +13,7 @@ See [NStack documentation](https://nstack-io.github.io/docs/docs/guides/flutter/
 
 ## Install
 
-:warning: WIP
+:warning:  WORK IN PROGRESS  :warning:
 
 Note: For now, all instructions below are tailored to the nstack_sdk_example project.
 
