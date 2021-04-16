@@ -15,15 +15,15 @@ See [NStack documentation](https://nstack-io.github.io/docs/docs/guides/flutter/
 
 :warning:  **WORK IN PROGRESS**  :warning:
 
-Note: For now, all instructions below are tailored to the **nstack_sdk_example** project.
+Note: For now, all instructions below are tailored to the [nstack_sdk_example] project.
 
-To use [NStack], install **nstack_cli**:
+To use [NStack], install [nstack_cli]:
 
 ```
 $ flutter pub global activate --source path nstack_cli
 ```
 
-Navigate into the **nstack_sdk_example** project:
+Navigate into the [nstack_sdk_example] project:
 
 ```
 $ cd nstack_sdk/example
@@ -38,7 +38,7 @@ $ flutter pub global run nstack_cli init
 A successful execution generates following files:
 * `assets/nstack/nstack.json` your NStack configuration file
 * `assets/nstack/en-EN.json` a localized resource
-* `assets/nstack/en-EN.json` another localized resource
+* `assets/nstack/de-AT.json` another localized resource
 * TODO: `lib/nstack/nstack.dart` a class holding all keys for accessing localization
 
 ## Example
@@ -73,3 +73,5 @@ class MyApp extends StatelessWidget {
 
 [NStack]: https://nstack.io
 [AppOpen]: https://nstack-io.github.io/docs/docs/app-open.html
+[nstack_cli]: /nstack_cli/README.md
+[nstack_sdk_example]: /nstack_sdk/example/README.md
