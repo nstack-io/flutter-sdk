@@ -16,6 +16,9 @@ class NstackBuilder implements Builder {
 
   @override
   FutureOr<void> build(BuildStep buildStep) async {
+    if (!buildStep.inputId.toString().contains('nstack.json')) {
+      return;
+    }
     /// Read the input source and parse it as JSON.
     final AssetId outputId = buildStep.inputId.changeExtension('.dart');
     final StringBuffer output = StringBuffer();
