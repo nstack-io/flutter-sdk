@@ -15,6 +15,8 @@ import 'init_command.dart';
 class InitInteractor implements FutureInteractor<void> {
   late HttpNStackApi api;
 
+  final JsonEncoder encoder = JsonEncoder.withIndent('  ');
+
   @override
   Future<void> execute({InitCommand? command}) async {
     // TODO: Validate current path. Path needs to be at the root of a Flutter project.
@@ -96,7 +98,7 @@ class InitInteractor implements FutureInteractor<void> {
     final filePath = '$nStackAssetsPath';
     await Directory(filePath).create(recursive: true);
     await File('$filePath/$fileName').writeAsString(
-      jsonEncode(resource.toJson()),
+      encoder.convert(resource.toJson()),
     );
   }
 
@@ -106,7 +108,7 @@ class InitInteractor implements FutureInteractor<void> {
     final fileName = 'nstack.json';
     final filePath = '$nStackAssetsPath';
     await File('$filePath/$fileName').writeAsString(
-      jsonEncode(config.toJson()),
+      encoder.convert(config.toJson()),
     );
   }
 }
