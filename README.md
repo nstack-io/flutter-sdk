@@ -73,5 +73,5 @@ class MyApp extends StatelessWidget {
 
 [NStack]: https://nstack.io
 [AppOpen]: https://nstack-io.github.io/docs/docs/app-open.html
-[nstack_cli]: /nstack_cli/README.md
-[nstack_sdk_example]: /nstack_sdk/example/README.md
+[nstack_cli]: /nstack_cli
+[nstack_sdk_example]: /nstack_sdk/example
