@@ -39,7 +39,7 @@ class HttpNStackApi implements NStackAPI {
     required this.isTestMode,
   });
 
-  Map<String, String?> get _headers => {
+  Map<String, String> get _headers => {
         'Accept-Language': local,
         'X-Application-Id': config.applicationId,
         'X-Rest-Api-Key': config.restApiKey,
@@ -56,7 +56,7 @@ class HttpNStackApi implements NStackAPI {
   Future<LocalizeLanguageList> getLocalizeLanguageList() async {
     final response = await http.get(
       uri('content/localize/resources/platforms/$platform/languages'),
-      headers: _headers as Map<String, String>?,
+      headers: _headers,
     );
     return LocalizeLanguageList.fromJson(
       json.decode(response.body),
@@ -67,7 +67,7 @@ class HttpNStackApi implements NStackAPI {
   Future<LocalizeIndexList> getLocalizeIndexList() async {
     final response = await http.get(
       uri('content/localize/resources/platforms/mobile?dev=$isDevMode'),
-      headers: _headers as Map<String, String>?,
+      headers: _headers,
     );
     return LocalizeIndexList.fromJson(
       json.decode(response.body),
@@ -80,7 +80,7 @@ class HttpNStackApi implements NStackAPI {
   }) async {
     final response = await http.get(
       uri('content/localize/resources/$id'),
-      headers: _headers as Map<String, String>?,
+      headers: _headers,
     );
     return LocalizeResource.fromJson(
       json.decode(response.body),
@@ -97,7 +97,7 @@ class HttpNStackApi implements NStackAPI {
   }) async {
     final response = await http.post(
       uri('open?dev=$isDevMode&test=$isTestMode'),
-      headers: _headers as Map<String, String>?,
+      headers: _headers,
       body: body.toJson(),
     );
     return AppOpen.fromJson(

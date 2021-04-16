@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:nstack_cli/src/init/init_command.dart';
 import 'package:yaml/yaml.dart';
 
+import 'src/init/init_interactor.dart';
 import 'src/update/update_command.dart';
 import 'src/update/update_interactor.dart';
 import 'src/doctor/doctor_command.dart';
@@ -16,6 +18,8 @@ void main(List<String> arguments) {
   }
   // Look for a command
   switch (arguments.first) {
+    case InitCommand.name:
+      return _processInitCommand(arguments);
     case UpdateCommand.name:
       return _processUpdateCommand(arguments);
     case HelpCommand.name:
@@ -32,6 +36,12 @@ void main(List<String> arguments) {
   }
   // No valid command or option found
   _printUnknownArguments(arguments);
+}
+
+void _processInitCommand(List<String> arguments) async {
+  await InitInteractor().execute(
+    command: InitCommand(),
+  );
 }
 
 void _processUpdateCommand(List<String> arguments) async {
@@ -81,7 +91,8 @@ Global options:
     
 Available commands:
   doctor            Show information about your NStack setup.
-  update            Update your NStack setup.
+  init              Set up NStack in your project.
+  update            Update NStack in your project.
       
 Run "nstack help <command>" for more information about a command.
 Run "nstack help -v" for verbose help output.

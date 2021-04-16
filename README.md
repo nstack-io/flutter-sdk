@@ -13,36 +13,36 @@ See [NStack documentation](https://nstack-io.github.io/docs/docs/guides/flutter/
 
 ## Install
 
-:warning:  WORK IN PROGRESS  :warning:
+:warning:  **WORK IN PROGRESS**  :warning:
 
-Note: For now, all instructions below are tailored to the nstack_sdk_example project.
+Note: For now, all instructions below are tailored to the **nstack_sdk_example** project.
 
-To use [NStack], install our nstack_cli:
+To use [NStack], install **nstack_cli**:
 
 ```
 $ flutter pub global activate --source path nstack_cli
-$ flutter pub global run nstack_cli --help
 ```
 
-Create a `nstack.json` file:
-
-```json
-{
-  "nstack_project_id": "YOUR_PROJECT_ID",
-  "nstack_api_key": "YOUR_REST_API_KEY"
-}
-```
-
-Now, execute following command to initialize or update your NStack setup.
+Navigate into the **nstack_sdk_example** project:
 
 ```
-$ flutter pub global run nstack_cli update
+$ cd nstack_sdk/example
 ```
 
-A successful execution generates your project tailored `nstack.dart` file.\
-See example below on how to use your NStack instance.
+Now execute following command to initialize NStack:
+
+```
+$ flutter pub global run nstack_cli init
+```
+
+A successful execution generates following files:
+* `assets/nstack/nstack.json` your NStack configuration file
+* `assets/nstack/en-EN.json` a localized resource
+* `assets/nstack/en-EN.json` another localized resource
+* TODO: `lib/nstack/nstack.dart` a class holding all keys for accessing localization
 
 ## Example
+TODO:
 
 Import your `nstack.dart` file and plant your `NStackWidget` at the root of your application.\
 Use `NStackInitWidget` for submitting [AppOpen] events.
