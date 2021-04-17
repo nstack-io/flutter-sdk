@@ -16,3 +16,9 @@ abstract class NMeta with _$NMeta {
 
   factory NMeta.fromJson(Map<String, dynamic> json) => _$NMetaFromJson(json);
 }
+
+extension NMetaExtensions on NMeta {
+  String get header {
+    return '${platform};${environment};${appVersion};${osVersion};${device}';
+  }
+}

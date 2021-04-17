@@ -1,5 +1,5 @@
-const nStackConfigPath = 'lib/nstack';
-const nStackConfigFilePath = '$nStackConfigPath/nstack.json';
+const nStackLibPath = 'lib/nstack';
+const nStackConfigFilePath = '$nStackLibPath/nstack.json';
 const nStackAssetsPath = 'assets/nstack';
 
 const baseUrl = 'https://nstack.io/api/v2';

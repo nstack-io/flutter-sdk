@@ -1,0 +1,90 @@
+import 'dart:io';
+
+import 'package:nstack_api/entities/localize_resource.dart';
+
+import '../constants.dart';
+import 'dart_keywords.dart';
+
+class LocalizationClassGenerator {
+  final LocalizeResource resource;
+
+  LocalizationClassGenerator(this.resource);
+
+  void run() async {
+    final output = StringBuffer();
+    _writeLocalization(resource, output);
+    _writeSections(resource, output);
+
+    await Directory(nStackLibPath).create(recursive: true);
+    await File('$nStackLibPath/localization.dart').writeAsString(
+      output.toString(),
+    );
+  }
+
+  void _writeLocalization(LocalizeResource resource, StringBuffer output) {
+    final languageJson = resource.data!;
+
+    // Localization class
+    output.writeln('class Localization {');
+
+    // Create section fields
+    languageJson.forEach((sectionKey, keys) {
+      final className = _getClassNameFromSectionKey(sectionKey);
+      final variableName =
+          '${className[0].toLowerCase()}${className.substring(1)}';
+      output.writeln('\tfinal $variableName = const _$className();');
+    });
+    output.writeln('');
+    output.writeln('\tconst Localization();');
+    output.writeln('''
+}
+''');
+  }
+
+  void _writeSections(LocalizeResource resource, StringBuffer output) {
+    final languageJson = resource.data!;
+    languageJson.forEach((sectionKey, translations) {
+      final className = _getClassNameFromSectionKey(sectionKey);
+
+      output.writeln('class _$className extends SectionKeyDelegate {');
+      output.writeln('\tconst _$className(): super(\'$sectionKey\');');
+      output.writeln('');
+
+      (translations as Map)
+          .cast<String, String>()
+          .forEach((stringKey, stringValue) {
+        stringValue = _escapeSpecialCharacters(stringValue);
+        output.writeln(
+            '\tString get $stringKey => get(\'$stringKey\', \"$stringValue\");');
+      });
+      output.writeln('''
+}
+''');
+    });
+  }
+
+  /// Escapes single quote, double quote and dollar sign with \', \", \$
+  String _escapeSpecialCharacters(String stringValue) {
+    return stringValue
+        .replaceAll("'", "\\'")
+        .replaceAll('"', '\\"')
+        .replaceAll('\$', '\\\$')
+        .replaceAll('\n', '\\n');
+  }
+
+  /// Returns a CamelCase class name from the Localization section key
+  String _getClassNameFromSectionKey(String sectionKey) {
+    // Check if the section key is using a reserved keyword
+    final adjustedSectionKey = DartKeywords.isReserved(sectionKey)
+        // Append 'Section' to the name of the original sectionKey
+        ? '${sectionKey}Section'
+        // Use the original sectionKey
+        : sectionKey;
+    // Format the name to CamelCase
+    return adjustedSectionKey.replaceRange(
+      0,
+      1,
+      sectionKey.substring(0, 1).toUpperCase(),
+    );
+  }
+}

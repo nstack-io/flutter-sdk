@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:nstack_api/entities/app_open.dart';
 import 'package:nstack_api/entities/app_open_request_body.dart';
-import 'package:nstack_api/entities/localize_language_list.dart';
 import 'package:nstack_api/entities/localize_index_list.dart';
+import 'package:nstack_api/entities/localize_language_list.dart';
 import 'package:nstack_api/entities/localize_resource.dart';
 import 'package:nstack_api/entities/n_meta.dart';
 import 'package:nstack_api/entities/nstack_api_config.dart';
@@ -18,7 +18,8 @@ class HttpNStackApi implements NStackAPI {
   /// TODO: Docs
   final NMeta meta;
 
-  /// For example 'mobile'. TODO: Docs
+  /// Possible values 'mobile', 'web', 'backend'.
+  /// Note: This differs from [NMeta.platform].
   final String platform;
 
   /// For example 'en-US'. TODO: Docs
@@ -43,8 +44,7 @@ class HttpNStackApi implements NStackAPI {
         'Accept-Language': local,
         'X-Application-Id': config.applicationId,
         'X-Rest-Api-Key': config.restApiKey,
-        'N-Meta':
-            '${meta.platform};${meta.environment};${meta.appVersion};${meta.osVersion};${meta.device}'
+        'N-Meta': meta.header,
       };
 
   // TODO: Check if we can append isDevMode and isTestMode here to all requests.
