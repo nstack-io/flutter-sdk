@@ -39,7 +39,7 @@ A successful execution generates following files:
 * `assets/nstack/nstack.json` your NStack configuration file
 * `assets/nstack/en-EN.json` a localized resource
 * `assets/nstack/de-AT.json` another localized resource
-* TODO: `lib/nstack/nstack.dart` a class holding all keys for accessing localization
+* `lib/nstack/localization.dart` a class holding all keys for accessing localization
 
 ## Example
 TODO:

@@ -47,6 +47,7 @@ class DartKeywords {
     'int',
     'interface',
     'is',
+    'late'
     'library',
     'long',
     'mixin',
@@ -60,6 +61,7 @@ class DartKeywords {
     'private',
     'protected',
     'public',
+    'required'
     'rethrow',
     'return',
     'set',

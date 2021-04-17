@@ -1,21 +1,19 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:nstack_api/entities/localize_index.dart';
 import 'package:nstack_api/entities/localize_index_list.dart';
-import 'package:nstack_api/entities/localize_resource.dart';
 import 'package:nstack_api/entities/n_meta.dart';
 import 'package:nstack_api/entities/nstack_api_config.dart';
 import 'package:nstack_api/http_nstack_api.dart';
+import 'package:nstack_cli/src/code_generation/localization_class_generator.dart';
+import 'package:nstack_cli/src/code_generation/localization_resource_generator.dart';
+import 'package:nstack_cli/src/code_generation/nstack_config_generator.dart';
 
-import '../constants.dart';
 import '../interactor.dart';
 import 'init_command.dart';
 
 class InitInteractor implements FutureInteractor<void> {
   late HttpNStackApi api;
-
-  final JsonEncoder encoder = JsonEncoder.withIndent('  ');
 
   @override
   Future<void> execute({InitCommand? command}) async {
@@ -62,13 +60,12 @@ class InitInteractor implements FutureInteractor<void> {
       }
       // At this point we have a valid NStackApiConfig.
       // Write NStackApiConfig to asset directory.
-      await _writeNStackConfig(config);
+      await NStackConfigGenerator(config).run();
     }).catchError((error, stackTrace) {
       print(error);
       print(stackTrace);
     });
 
-    // TODO: Generate `lib/nstack/nstack.dart`. A class holding all keys for accessing localization.
     // TODO: Add nstack dependency to pubspec.yaml file.
     // TODO: Add asset directory to pubspec.yaml file.
   }
@@ -86,29 +83,14 @@ class InitInteractor implements FutureInteractor<void> {
 
   Future<void> _fetchLocalizedResource(int id) async {
     await api.getLocalizeResource(id: id).then((value) async {
-      await _writeLocalizedResource(value);
+      // Write localized resource into to asset directory.
+      await LocalizationResourceGenerator(value).run();
+      // Write localization class into lib directory.
+      // TODO: https://nodesagency.atlassian.net/browse/NSTACK-321
+      // if (value.meta?.language?.isDefault == true) {
+      if (value.meta?.language?.id == 56) {
+        await LocalizationClassGenerator(value).run();
+      }
     });
-  }
-
-  Future<void> _writeLocalizedResource(
-    LocalizeResource resource,
-  ) async {
-    final locale = resource.meta!.language!.locale;
-    final fileName = '$locale.json';
-    final filePath = '$nStackAssetsPath';
-    await Directory(filePath).create(recursive: true);
-    await File('$filePath/$fileName').writeAsString(
-      encoder.convert(resource.toJson()),
-    );
-  }
-
-  Future<void> _writeNStackConfig(
-    NStackApiConfig config,
-  ) async {
-    final fileName = 'nstack.json';
-    final filePath = '$nStackAssetsPath';
-    await File('$filePath/$fileName').writeAsString(
-      encoder.convert(config.toJson()),
-    );
   }
 }
