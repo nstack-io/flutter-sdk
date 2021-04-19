@@ -12,7 +12,7 @@ class DoctorInteractor implements FutureInteractor<void> {
     final hasConfigId = config.applicationId.isNotEmpty;
     final hasConfigKey = config.restApiKey.isNotEmpty;
 
-    print('Doctor summary:');
+    print('Doctor summary (to see all details, run flutter doctor -verbose):');
 
     if (hasConfigId && hasConfigKey) {
       print('[✓] NStack configuration');
