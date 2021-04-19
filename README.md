@@ -19,19 +19,19 @@ Note: For now, all instructions below are tailored to the [nstack_sdk_example] p
 
 To use [NStack], install [nstack_cli]:
 
-```
+```console
 $ flutter pub global activate --source path nstack_cli
 ```
 
 Navigate into the [nstack_sdk_example] project:
 
-```
+```console
 $ cd nstack_sdk/example
 ```
 
 Now execute following command to initialize NStack:
 
-```
+```console
 $ flutter pub global run nstack_cli init
 ```
 
@@ -40,6 +40,24 @@ A successful execution generates following files:
 * `assets/nstack/en-EN.json` a localized resource
 * `assets/nstack/de-AT.json` another localized resource
 * `lib/nstack/localization.dart` a class holding all keys for accessing localization
+
+Now apply following changes to your `pubspec.yaml` file:
+
+```yaml
+dependencies:
+  nstack:
+    path: ../
+
+flutter:
+  assets:
+    - assets/nstack/
+```
+
+That's it! Execute following command to check your NStack configuration:
+
+```console
+$ flutter pub global run nstack_cli doctor
+```
 
 ## Example
 TODO:

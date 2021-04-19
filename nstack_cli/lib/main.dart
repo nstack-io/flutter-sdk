@@ -62,7 +62,10 @@ void _processUpdateCommand(List<String> arguments) async {
 }
 
 void _processDoctorCommand(List<String> arguments) async {
-  final verbose = Option('verbose').isPresent(arguments);
+  // final verbose = Option('verbose').isPresent(arguments);
+  final verbose = true; // For now always print verbose.
+  // Currently dart pub prints are messing up our output when running -v.
+  // TODO: Revert when nstack_cli gets published to pub.dev
   await DoctorInteractor().execute(
     command: DoctorCommand(verbose: verbose),
   );
