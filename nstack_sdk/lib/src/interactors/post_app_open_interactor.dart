@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:nstack_api/entities/app_open_request_body.dart';
 import 'package:nstack_api/entities/localize_index_list.dart';
+import 'package:nstack_api/entities/nstack_api_headers.dart';
 import 'package:nstack_api/entities/timestamp.dart';
 import 'package:nstack_api/nstack_api.dart';
 import 'package:nstack_sdk/src/interactors/interactor.dart';
@@ -11,12 +12,14 @@ import 'package:nstack_sdk/src/repository/local_repository.dart';
 
 class PostAppOpenInteractor extends FutureInputInteractor<Locale, void> {
   final NStackAPI api;
+  final NStackApiHeaders headers;
   final LocalRepository localRepository;
   final CacheRepository cacheRepository;
   final UpdateLocalizeResourcesInteractor updateLocalizeResourcesInteractor;
 
   PostAppOpenInteractor({
     required this.api,
+    required this.headers,
     required this.localRepository,
     required this.cacheRepository,
     required this.updateLocalizeResourcesInteractor,
@@ -25,18 +28,19 @@ class PostAppOpenInteractor extends FutureInputInteractor<Locale, void> {
   @override
   Future<void> execute(Locale locale) async {
     final appOpen = await api.postAppOpen(
+      headers: headers,
       body: await appOpenRequestBody,
     );
 
     // Update all local resources
-    updateLocalizeResourcesInteractor.execute(
+    await updateLocalizeResourcesInteractor.execute(
       LocalizeIndexList(
         data: appOpen.data!.localize,
       ),
     );
 
     // Update timestamp
-    localRepository.setLastAppOpenTimestamp(
+    await localRepository.setLastAppOpenTimestamp(
       Timestamp(
         time: DateTime.now(),
       ),

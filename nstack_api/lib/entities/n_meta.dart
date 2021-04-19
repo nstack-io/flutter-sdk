@@ -19,6 +19,6 @@ abstract class NMeta with _$NMeta {
 
 extension NMetaExtensions on NMeta {
   String get header {
-    return '${platform};${environment};${appVersion};${osVersion};${device}';
+    return '$platform;$environment;$appVersion;$osVersion;$device';
   }
 }

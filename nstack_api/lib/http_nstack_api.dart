@@ -6,57 +6,26 @@ import 'package:nstack_api/entities/app_open_request_body.dart';
 import 'package:nstack_api/entities/localize_index_list.dart';
 import 'package:nstack_api/entities/localize_language_list.dart';
 import 'package:nstack_api/entities/localize_resource.dart';
-import 'package:nstack_api/entities/n_meta.dart';
-import 'package:nstack_api/entities/nstack_api_config.dart';
+import 'package:nstack_api/entities/nstack_target.dart';
 import 'package:nstack_api/nstack_api.dart';
+
+import 'entities/nstack_api_headers.dart';
 
 /// TODO: Docs
 class HttpNStackApi implements NStackAPI {
-  /// TODO: Docs
-  final NStackApiConfig config;
 
-  /// TODO: Docs
-  final NMeta meta;
-
-  /// Possible values 'mobile', 'web', 'backend'.
-  /// Note: This differs from [NMeta.platform].
-  final String platform;
-
-  /// For example 'en-US'. TODO: Docs
-  final String local;
-
-  /// TODO: Docs
-  final bool isDevMode;
-
-  /// TODO: Docs
-  final bool isTestMode;
-
-  HttpNStackApi({
-    required this.config,
-    required this.meta,
-    required this.platform,
-    required this.local,
-    required this.isDevMode,
-    required this.isTestMode,
-  });
-
-  Map<String, String> get _headers => {
-        'Accept-Language': local,
-        'X-Application-Id': config.applicationId,
-        'X-Rest-Api-Key': config.restApiKey,
-        'N-Meta': meta.header,
-      };
-
-  // TODO: Check if we can append isDevMode and isTestMode here to all requests.
   Uri uri(String path) => Uri.parse('https://nstack.io/api/v2/$path');
 
 //<editor-fold desc="Localize">
 
   @override
-  Future<LocalizeLanguageList> getLocalizeLanguageList() async {
+  Future<LocalizeLanguageList> getLocalizeLanguageList({
+    required NStackApiHeaders headers,
+    required NStackTarget target,
+  }) async {
     final response = await http.get(
-      uri('content/localize/resources/platforms/$platform/languages'),
-      headers: _headers,
+      uri('content/localize/resources/platforms/${target.slug}/languages'),
+      headers: headers.map,
     );
     return LocalizeLanguageList.fromJson(
       json.decode(response.body),
@@ -64,10 +33,13 @@ class HttpNStackApi implements NStackAPI {
   }
 
   @override
-  Future<LocalizeIndexList> getLocalizeIndexList() async {
+  Future<LocalizeIndexList> getLocalizeIndexList({
+    required NStackApiHeaders headers,
+    bool isDevMode = false,
+  }) async {
     final response = await http.get(
       uri('content/localize/resources/platforms/mobile?dev=$isDevMode'),
-      headers: _headers,
+      headers: headers.map,
     );
     return LocalizeIndexList.fromJson(
       json.decode(response.body),
@@ -76,11 +48,12 @@ class HttpNStackApi implements NStackAPI {
 
   @override
   Future<LocalizeResource> getLocalizeResource({
-    int? id,
+    required NStackApiHeaders headers,
+    required int id,
   }) async {
     final response = await http.get(
       uri('content/localize/resources/$id'),
-      headers: _headers,
+      headers: headers.map,
     );
     return LocalizeResource.fromJson(
       json.decode(response.body),
@@ -93,11 +66,14 @@ class HttpNStackApi implements NStackAPI {
 
   @override
   Future<AppOpen> postAppOpen({
+    required NStackApiHeaders headers,
     required AppOpenRequestBody body,
+    bool isDevMode = false,
+    bool isTestMode = false,
   }) async {
     final response = await http.post(
       uri('open?dev=$isDevMode&test=$isTestMode'),
-      headers: _headers,
+      headers: headers.map,
       body: body.toJson(),
     );
     return AppOpen.fromJson(

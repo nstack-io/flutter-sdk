@@ -16,10 +16,12 @@ class GetLocalizedSectionKeyInteractor extends Interactor<String> {
   }) {
     final resource = cacheRepository.getLocalizeResource();
     final result = resource.getLocalizedSectionKey(section, key);
-    if (result == null) throw AssertionError('''
+    if (result == null) {
+      throw AssertionError('''
       Key $key in section $section not found. This should not happen!
       Run NStack's build task to update your bundled localization.
       ''');
+    }
     return result;
   }
 }

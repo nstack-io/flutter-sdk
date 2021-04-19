@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:nstack_api/entities/nstack_api_config.dart';
+import 'package:nstack_cli/src/data/entities/nstack_config.dart';
 
 import '../constants.dart';
 
 class NStackConfigGenerator {
-  final NStackApiConfig config;
+  final NStackConfig config;
 
   NStackConfigGenerator(this.config);
 

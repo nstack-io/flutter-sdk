@@ -3,17 +3,25 @@ import 'dart:io';
 import 'package:nstack_api/entities/localize_index.dart';
 import 'package:nstack_api/entities/localize_index_list.dart';
 import 'package:nstack_api/entities/n_meta.dart';
-import 'package:nstack_api/entities/nstack_api_config.dart';
-import 'package:nstack_api/http_nstack_api.dart';
+import 'package:nstack_api/entities/nstack_api_headers.dart';
+import 'package:nstack_api/nstack_api.dart';
 import 'package:nstack_cli/src/code_generation/localization_class_generator.dart';
 import 'package:nstack_cli/src/code_generation/localization_resource_generator.dart';
 import 'package:nstack_cli/src/code_generation/nstack_config_generator.dart';
+import 'package:nstack_cli/src/data/entities/nstack_config.dart';
 
 import '../interactor.dart';
 import 'init_command.dart';
 
 class InitInteractor implements FutureInteractor<void> {
-  late HttpNStackApi api;
+  final NStackAPI api;
+  final NMeta nMeta;
+  late NStackApiHeaders headers;
+
+  InitInteractor({
+    required this.api,
+    required this.nMeta,
+  });
 
   @override
   Future<void> execute({InitCommand? command}) async {
@@ -33,27 +41,20 @@ class InitInteractor implements FutureInteractor<void> {
       return;
     }
     // Create NStackApiConfig from obtained input.
-    final config = NStackApiConfig(
+    final config = NStackConfig(
       applicationId: applicationId,
       restApiKey: apiKey,
     );
-    // Create NStackApi
-    api = HttpNStackApi(
-      config: config,
-      meta: NMeta(
-        platform: 'android',
-        environment: 'local',
-        appVersion: '1.0',
-        osVersion: '1.0',
-        device: 'nstack_cli',
-      ),
-      local: 'en-US',
-      platform: 'mobile',
-      isDevMode: true,
-      isTestMode: true,
+
+    headers = NStackApiHeaders(
+      acceptLanguage: 'en-US',
+      applicationId: applicationId,
+      restApiKey: apiKey,
+      nMeta: nMeta,
     );
+
     // Fetch indexes of localized resources.
-    await api.getLocalizeIndexList().then((value) async {
+    await api.getLocalizeIndexList(headers: headers).then((value) async {
       if (value.data?.isNotEmpty == true) {
         // Fetch resources and write them into asset directory.
         await _fetchLocalizedResources(value);
@@ -82,7 +83,7 @@ class InitInteractor implements FutureInteractor<void> {
   }
 
   Future<void> _fetchLocalizedResource(int id) async {
-    await api.getLocalizeResource(id: id).then((value) async {
+    await api.getLocalizeResource(headers: headers, id: id).then((value) async {
       // Write localized resource into to asset directory.
       await LocalizationResourceGenerator(value).run();
       // Write localization class into lib directory.

@@ -1,17 +1,22 @@
 import 'dart:io';
 
+import 'package:nstack_api/entities/n_meta.dart';
+import 'package:nstack_api/nstack_api.dart';
 import 'package:nstack_cli/src/init/init_command.dart';
 import 'package:yaml/yaml.dart';
 
-import 'src/init/init_interactor.dart';
-import 'src/update/update_command.dart';
-import 'src/update/update_interactor.dart';
+import 'src/dependency_injection/dependencies.dart';
+import 'src/dependency_injection/injector.dart';
 import 'src/doctor/doctor_command.dart';
 import 'src/doctor/doctor_interactor.dart';
 import 'src/help/help_command.dart';
+import 'src/init/init_interactor.dart';
 import 'src/option.dart';
+import 'src/update/update_command.dart';
+import 'src/update/update_interactor.dart';
 
-void main(List<String> arguments) {
+void main(List<String> arguments) async {
+  await Dependencies.inject();
   if (arguments.isEmpty) {
     _printHelp();
     return;
@@ -39,7 +44,10 @@ void main(List<String> arguments) {
 }
 
 void _processInitCommand(List<String> arguments) async {
-  await InitInteractor().execute(
+  await InitInteractor(
+    api: injector.get<NStackAPI>(),
+    nMeta: injector.get<NMeta>(),
+  ).execute(
     command: InitCommand(),
   );
 }

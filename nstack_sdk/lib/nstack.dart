@@ -1,21 +1,20 @@
-import 'package:nstack_api/entities/nstack_api_config.dart';
 import 'package:flutter/widgets.dart';
-import 'package:nstack_sdk/src/injection/injector.dart' as Injector;
-import 'package:nstack_sdk/src/injection/injector.dart';
+import 'package:nstack_sdk/src/data/entities/nstack_config.dart';
+import 'package:nstack_sdk/src/injection/injector.dart' as injector;
 import 'package:nstack_sdk/src/interactors/post_app_open_interactor.dart';
 import 'package:nstack_sdk/src/interactors/set_app_config_interactor.dart';
 import 'package:nstack_sdk/src/interactors/set_guid_interactor.dart';
 import 'package:nstack_sdk/src/interactors/set_runtime_config_interactor.dart';
 
 class NStack {
-  final NStackApiConfig config;
+  final NStackConfig config;
 
   NStack({
     required this.config,
     // TODO: Remove
     required Locale locale,
   }) {
-    Injector.init(config);
+    injector.init(config);
 
     // TODO: InitLocalizationInteractor
     // Check if this is the very first app launch
@@ -41,10 +40,10 @@ class NStack {
 
   Future<AppOpenResult> postAppOpen(Locale locale) async {
     WidgetsFlutterBinding.ensureInitialized();
-    await injector<SetGuidInteractor>().execute();
-    await injector<SetRuntimeConfigInteractor>().execute();
-    await injector<SetAppConfigInteractor>().execute();
-    return await injector<PostAppOpenInteractor>()
+    await injector.injector.get<SetGuidInteractor>().execute();
+    await injector.injector.get<SetRuntimeConfigInteractor>().execute();
+    await injector.injector.get<SetAppConfigInteractor>().execute();
+    return await injector.injector.get<PostAppOpenInteractor>()
         .execute(locale)
         .then((value) => AppOpenResult.success)
         .catchError((error) => AppOpenResult.failed);

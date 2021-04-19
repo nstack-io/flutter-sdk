@@ -4,15 +4,16 @@ import 'package:nstack_api/entities/app_open.dart';
 import 'package:nstack_api/entities/localize_index.dart';
 import 'package:nstack_api/entities/localize_index_list.dart';
 import 'package:nstack_api/entities/app_open_request_body.dart';
-import 'package:nstack_api/entities/nstack_api_config.dart';
 import 'package:http/http.dart' as http;
 
+import 'data/entities/nstack_config.dart';
+
 // TODO: Deprecate
-@Deprecated("Use package:nstack_api/nstack_api.dart")
+@Deprecated('Use package:nstack_api/nstack_api.dart')
 class NStackRepository {
   final _baseUrl = 'https://nstack.io/api/v2';
 
-  final NStackApiConfig _config;
+  final NStackConfig _config;
 
   Map<String, String?> get _headers => {
         'Accept-Language': 'en-US',

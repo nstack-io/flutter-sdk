@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:nstack_api/entities/localize_language.dart';
 
 // TODO: Deprecate
-@Deprecated("Use package:nstack_api/local_repository.dart and cache_repository.dart")
+@Deprecated('Use package:nstack_api/local_repository.dart and cache_repository.dart')
 class LocalizationRepository {
   // Factory
   static final LocalizationRepository _instance =
@@ -24,9 +24,9 @@ class LocalizationRepository {
     List<LocalizeLanguage?> availableLanguages,
     String pickedLanguageLocale,
   ) {
-    this._bundledTranslations = bundledTranslations;
-    this._availableLanguages = availableLanguages;
-    this._pickedLanguage = availableLanguages.firstWhere(
+    _bundledTranslations = bundledTranslations;
+    _availableLanguages = availableLanguages;
+    _pickedLanguage = availableLanguages.firstWhere(
       (language) => language!.locale == pickedLanguageLocale,
       orElse: () => availableLanguages.firstWhere(
         (language) => language!.isDefault!,
@@ -40,9 +40,9 @@ class LocalizationRepository {
     Map<String, dynamic> localizationJson,
     String bestFitLocale,
   ) {
-    this._pickedLanguage = _availableLanguages.firstWhere(
+    _pickedLanguage = _availableLanguages.firstWhere(
       (element) => element!.locale == bestFitLocale,
-      orElse: () => this._pickedLanguage,
+      orElse: () => _pickedLanguage,
     );
     _sectionsMap = localizationJson;
   }
