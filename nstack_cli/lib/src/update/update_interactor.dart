@@ -1,50 +1,80 @@
-import 'dart:convert';
-import 'dart:io';
+import 'package:nstack_api/entities/localize_index.dart';
+import 'package:nstack_api/entities/localize_index_list.dart';
+import 'package:nstack_api/entities/n_meta.dart';
+import 'package:nstack_api/entities/nstack_api_headers.dart';
+import 'package:nstack_api/nstack_api.dart';
+import 'package:nstack_cli/src/code_generation/localization_class_generator.dart';
+import 'package:nstack_cli/src/code_generation/localization_resource_generator.dart';
+import 'package:nstack_cli/src/code_generation/nstack_config_generator.dart';
+import 'package:nstack_cli/src/data/entities/nstack_config.dart';
+import 'package:nstack_cli/src/update/update_command.dart';
 
-import 'package:http/http.dart' as http;
-
-import '../constants.dart';
 import '../interactor.dart';
-import 'update_command.dart';
 
 class UpdateInteractor implements FutureInteractor<void> {
+  final NStackAPI api;
+  final NMeta nMeta;
+  late NStackApiHeaders headers;
+
+  UpdateInteractor({
+    required this.api,
+    required this.nMeta,
+  });
+
   @override
   Future<void> execute({UpdateCommand? command}) async {
-    // final config = await getConfig();
-    // TODO: Use nstack_api
-    final headers = {
-      'Accept-Language': 'en-US',
-      'X-Application-Id': 'h6wJremI2TGFM88gbLkdyljWQuwf2hxhxvCH',
-      'X-Rest-Api-Key': 'zp2S18H32b67eYAbRQh94tVw76ZzaKKXlHjd',
-      'N-Meta': 'android;local;1.0;1.0;nstackbuilder'
-    };
+    // TODO: Validate current path. Path needs to be at the root of a Flutter project.
 
-    // TODO: Use nstack_api
-    // Fetch localize-index-resources
-    final localizeIndexResources = await http
-        .get(Uri.parse(localizeIndexResourcesUrl), headers: headers)
-        .then((response) => jsonDecode(response.body)['data']);
+    // Obtain nstack config.
+    final config = await getNStackConfig();
+    if (config.restApiKey.isEmpty || config.applicationId.isEmpty) {
+      print(
+          'No NStack configuration found. Did you mean to run nstack_cli init?');
+    }
 
-    // TODO: Use nstack_api
-    // Fetch localize-show-resources and write them into /assets
-    localizeIndexResources.forEach((indexResource) async {
-      final url = indexResource['url'];
-      await http.get(url, headers: headers).then((value) async {
-        final resource = jsonDecode(value.body);
-        final data = jsonEncode(resource['data']);
-        final locale = resource['meta']['language']['locale'].toString();
-        final fileName = '$locale.json';
-        final filePath = '$nStackAssetsPath';
-        await Directory(filePath).create(recursive: true);
-        await File('$filePath/$fileName').writeAsString(data);
-      });
+    headers = NStackApiHeaders(
+      acceptLanguage: 'en-US',
+      applicationId: config.applicationId,
+      restApiKey: config.restApiKey,
+      nMeta: nMeta,
+    );
+
+    // Fetch indexes of localized resources.
+    await api.getLocalizeIndexList(headers: headers).then((value) async {
+      if (value.data?.isNotEmpty == true) {
+        // Fetch resources and write them into asset directory.
+        await _fetchLocalizedResources(value);
+      }
+      // At this point we have a valid NStackApiConfig.
+      // Write NStackApiConfig to asset directory.
+      await NStackConfigGenerator(config).run();
+    }).catchError((error, stackTrace) {
+      print(error);
+      print(stackTrace);
     });
+  }
 
-    // TODO: Generate NStack instance
-    // Path: lib/nstack/nstack_cli.dart (next to nstack.json)
-    // Includes:
-    //    - NStackWidget
-    //    - NStackAppOpenWidget
-    //    - Typesafe Localization section-key accessors
+  Future<void> _fetchLocalizedResources(
+    LocalizeIndexList localizeIndexList,
+  ) async {
+    await Future.forEach<LocalizeIndex>(localizeIndexList.data!, (value) async {
+      await _fetchLocalizedResource(value.id!);
+    }).onError((error, stackTrace) {
+      print(error);
+      print(stackTrace);
+    });
+  }
+
+  Future<void> _fetchLocalizedResource(int id) async {
+    await api.getLocalizeResource(headers: headers, id: id).then((value) async {
+      // Write localized resource into to asset directory.
+      await LocalizationResourceGenerator(value).run();
+      // Write localization class into lib directory.
+      // TODO: https://nodesagency.atlassian.net/browse/NSTACK-321
+      // if (value.meta?.language?.isDefault == true) {
+      if (value.meta?.language?.id == 56) {
+        await LocalizationClassGenerator(value).run();
+      }
+    });
   }
 }

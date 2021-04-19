@@ -1,6 +1,6 @@
 const nStackLibPath = 'lib/nstack';
-const nStackConfigFilePath = '$nStackLibPath/nstack.json';
 const nStackAssetsPath = 'assets/nstack';
+const nStackConfigFilePath = '$nStackAssetsPath/nstack.json';
 
 const baseUrl = 'https://nstack.io/api/v2';
 const localizeIndexResourcesUrl =

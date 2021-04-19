@@ -53,7 +53,10 @@ void _processInitCommand(List<String> arguments) async {
 }
 
 void _processUpdateCommand(List<String> arguments) async {
-  await UpdateInteractor().execute(
+  await UpdateInteractor(
+    api: injector.get<NStackAPI>(),
+    nMeta: injector.get<NMeta>(),
+  ).execute(
     command: UpdateCommand(),
   );
 }

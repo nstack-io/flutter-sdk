@@ -1,4 +1,5 @@
-import '../config.dart';
+import 'package:nstack_cli/src/data/entities/nstack_config.dart';
+
 import '../constants.dart';
 import '../interactor.dart';
 import 'doctor_command.dart';
@@ -6,35 +7,37 @@ import 'doctor_command.dart';
 class DoctorInteractor implements FutureInteractor<void> {
   @override
   Future<void> execute({DoctorCommand? command}) async {
-    final config = await getConfig();
-    final hasValidConfigFile = await hasConfigFile();
-    final hasValidConfigId = config.id?.isNotEmpty ?? false;
-    final hasValidConfigKey = config.key?.isNotEmpty ?? false;
+    final config = await getNStackConfig();
+    final hasConfigFile = await hasNStackConfigFile();
+    final hasConfigId = config.applicationId.isNotEmpty;
+    final hasConfigKey = config.restApiKey.isNotEmpty;
 
     print('Doctor summary:');
 
-    if (hasValidConfigId && hasValidConfigKey) {
-      print('[✓] NStack configuration file');
+    if (hasConfigId && hasConfigKey) {
+      print('[✓] NStack configuration');
     } else {
-      print('[!] NStack configuration file');
-      if (command!.verbose && !hasValidConfigFile) {
+      print('[!] NStack configuration');
+      if (command!.verbose && !hasConfigFile) {
         print('     • $nStackConfigFilePath not found');
       }
-      if (command.verbose && hasValidConfigFile && !hasValidConfigId) {
-        print('     • NStack project id missing or invalid');
+      if (command.verbose && hasConfigFile && !hasConfigId) {
+        print('     • NStack application id missing or invalid');
       }
-      if (command.verbose && hasValidConfigFile && !hasValidConfigKey) {
-        print('     • NStack api key missing or invalid');
+      if (command.verbose && hasConfigFile && !hasConfigKey) {
+        print('     • NStack rest api key missing or invalid');
       }
     }
 
     var issueCount = 0;
-    if (!hasValidConfigFile) issueCount++;
+    if (!hasConfigFile) issueCount++;
 
     if (issueCount == 1) {
-      print('Doctor found $issueCount issue.');
+      print('\nDoctor found $issueCount issue!');
     } else if (issueCount > 1) {
-      print('Doctor found $issueCount issues.');
+      print('\nDoctor found $issueCount issues!');
+    } else {
+      print('\nDoctor found no issues!');
     }
   }
 }
