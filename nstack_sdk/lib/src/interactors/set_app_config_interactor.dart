@@ -1,6 +1,6 @@
 import 'package:nstack_api/entities/app_config.dart';
 import 'package:nstack_sdk/src/interactors/interactor.dart';
-import 'package:nstack_sdk/src/repository/local_repository.dart';
+import 'package:nstack_sdk/src/data/repository/local_repository.dart';
 import 'package:package_info/package_info.dart';
 
 class SetAppConfigInteractor extends FutureInteractor<void> {

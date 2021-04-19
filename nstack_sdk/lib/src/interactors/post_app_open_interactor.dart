@@ -7,8 +7,8 @@ import 'package:nstack_api/entities/timestamp.dart';
 import 'package:nstack_api/nstack_api.dart';
 import 'package:nstack_sdk/src/interactors/interactor.dart';
 import 'package:nstack_sdk/src/interactors/update_localize_resources_interactor.dart';
-import 'package:nstack_sdk/src/repository/cache_repository.dart';
-import 'package:nstack_sdk/src/repository/local_repository.dart';
+import 'package:nstack_sdk/src/data/repository/cache_repository.dart';
+import 'package:nstack_sdk/src/data/repository/local_repository.dart';
 
 class PostAppOpenInteractor extends FutureInputInteractor<Locale, void> {
   final NStackAPI api;

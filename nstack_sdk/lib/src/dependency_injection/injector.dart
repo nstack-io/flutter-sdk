@@ -9,9 +9,9 @@ void init(NStackConfig config) {
     config,
   );
 
-  injector.registerSingleton<GetLocalizedSectionKeyInteractor>(
+/*  injector.registerSingleton<GetLocalizedSectionKeyInteractor>(
     GetLocalizedSectionKeyInteractor(
       cacheRepository: injector(),
     ),
-  );
+  );*/
 }

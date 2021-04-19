@@ -1,5 +1,5 @@
 import 'package:nstack_sdk/src/interactors/interactor.dart';
-import 'package:nstack_sdk/src/repository/local_repository.dart';
+import 'package:nstack_sdk/src/data/repository/local_repository.dart';
 import 'package:uuid/uuid.dart';
 
 class SetGuidInteractor extends FutureInteractor<void> {

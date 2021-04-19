@@ -2,8 +2,8 @@ import 'package:nstack_api/entities/localize_index_list.dart';
 import 'package:nstack_api/entities/nstack_api_headers.dart';
 import 'package:nstack_api/nstack_api.dart';
 import 'package:nstack_sdk/src/interactors/interactor.dart';
-import 'package:nstack_sdk/src/repository/cache_repository.dart';
-import 'package:nstack_sdk/src/repository/local_repository.dart';
+import 'package:nstack_sdk/src/data/repository/cache_repository.dart';
+import 'package:nstack_sdk/src/data/repository/local_repository.dart';
 
 class UpdateLocalizeResourcesInteractor
     extends FutureInputInteractor<LocalizeIndexList, void> {
