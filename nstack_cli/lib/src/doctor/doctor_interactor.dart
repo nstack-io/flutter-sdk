@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:nstack_cli/src/data/entities/nstack_config.dart';
 import 'package:yaml/yaml.dart';
 
-import '../constants.dart';
 import '../interactor.dart';
 import 'doctor_command.dart';
 
@@ -31,7 +30,7 @@ class DoctorInteractor implements FutureInteractor<void> {
     final issues = List<String>.empty(growable: true);
 
     if (!hasConfigFile) {
-      issues.add('$nStackConfigFilePath not found');
+      issues.add('NStack configuration not found. Run nstack_cli init');
     }
     if (hasConfigFile && !hasConfigId) {
       issues.add('NStack application id missing or invalid');
