@@ -45,7 +45,7 @@ Now apply following changes to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  nstack:
+  nstack_sdk:
     path: ../
 
 flutter:
