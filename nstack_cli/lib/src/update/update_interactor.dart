@@ -1,4 +1,3 @@
-import 'package:nstack_api/entities/localize_index.dart';
 import 'package:nstack_api/entities/localize_index_list.dart';
 import 'package:nstack_api/entities/n_meta.dart';
 import 'package:nstack_api/entities/nstack_api_headers.dart';
@@ -11,6 +10,7 @@ import 'package:nstack_cli/src/update/update_command.dart';
 
 import '../interactor.dart';
 
+// TODO CI: Return int error code
 class UpdateInteractor implements FutureInteractor<void> {
   final NStackAPI api;
   final NMeta nMeta;
@@ -42,7 +42,7 @@ class UpdateInteractor implements FutureInteractor<void> {
     // Fetch indexes of localized resources.
     await api.getLocalizeIndexList(headers: headers).then((value) async {
       if (value.data?.isNotEmpty == true) {
-        // Fetch resources and write them into asset directory.
+        // Fetch default language resources and write them into asset directory.
         await _fetchLocalizedResources(value);
       }
       // At this point we have a valid NStackApiConfig.
@@ -55,14 +55,15 @@ class UpdateInteractor implements FutureInteractor<void> {
   }
 
   Future<void> _fetchLocalizedResources(
-    LocalizeIndexList localizeIndexList,
-  ) async {
-    await Future.forEach<LocalizeIndex>(localizeIndexList.data!, (value) async {
-      await _fetchLocalizedResource(value.id!);
-    }).onError((error, stackTrace) {
-      print(error);
-      print(stackTrace);
-    });
+      LocalizeIndexList localizeIndexList,
+      ) async {
+    final defaultLocalizeIndex = localizeIndexList.data
+        ?.firstWhere((element) => element.language?.isDefault == true);
+    if (defaultLocalizeIndex?.id == null) {
+      print('Default language not found. Localization not available.');
+    } else {
+      await _fetchLocalizedResource(defaultLocalizeIndex!.id!);
+    }
   }
 
   Future<void> _fetchLocalizedResource(int id) async {
@@ -70,11 +71,7 @@ class UpdateInteractor implements FutureInteractor<void> {
       // Write localized resource into to asset directory.
       await LocalizationResourceGenerator(value).run();
       // Write localization class into lib directory.
-      // TODO: https://nodesagency.atlassian.net/browse/NSTACK-321
-      // if (value.meta?.language?.isDefault == true) {
-      if (value.meta?.language?.id == 56) {
-        await LocalizationClassGenerator(value).run();
-      }
+      await LocalizationClassGenerator(value).run();
     });
   }
 }

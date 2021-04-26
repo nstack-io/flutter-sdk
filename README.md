@@ -37,8 +37,7 @@ $ flutter pub global run nstack_cli init
 
 A successful execution generates following files:
 * `assets/nstack/nstack.json` your NStack configuration file
-* `assets/nstack/en-EN.json` a localized resource
-* `assets/nstack/de-AT.json` another localized resource
+* `assets/nstack/default_localization.json` your default/fallback localized resource
 * `lib/nstack/localization.dart` a class holding all keys for accessing localization
 
 Now apply following changes to your `pubspec.yaml` file:

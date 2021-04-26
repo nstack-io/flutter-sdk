@@ -6,6 +6,7 @@ import 'package:yaml/yaml.dart';
 import '../interactor.dart';
 import 'doctor_command.dart';
 
+// TODO CI: Return int error code
 class DoctorInteractor implements FutureInteractor<void> {
   @override
   Future<void> execute({DoctorCommand? command}) async {
@@ -23,6 +24,8 @@ class DoctorInteractor implements FutureInteractor<void> {
         pubspecYamlAssets.contains('assets/nstack');
     final hasYamlDependencies =
         pubspecYamlDependencies.containsKey('nstack_sdk');
+
+    // TODO: Check assets/default_localization.json
 
     // print('Doctor summary (to see all details, run nstack_cli doctor --verbose):');
     print('Doctor summary:');

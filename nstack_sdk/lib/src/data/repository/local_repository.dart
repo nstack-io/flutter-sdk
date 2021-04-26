@@ -11,7 +11,7 @@ abstract class LocalRepository {
   Future<void> setLocalizeResource(LocalizeResource localizeResource);
 
   /// Returns the current [LocalizeResource] which should be presented to a user.
-  Future<LocalizeResource> getLocalizeResource(int localizeResourceId);
+  Future<LocalizeResource> getLocalizeResource();
 
   /// Stores current available languages.
   Future<void> setLanguages(LocalizeLanguageList languages);

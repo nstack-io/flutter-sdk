@@ -11,8 +11,7 @@ class LocalizationResourceGenerator {
   LocalizationResourceGenerator(this.resource);
 
   Future<void> run() async {
-    final locale = resource.meta!.language!.locale;
-    final fileName = '$locale.json';
+    final fileName = 'default_localization.json';
     final filePath = '$nStackAssetsPath';
     final encoder = JsonEncoder.withIndent('  ');
     await Directory(filePath).create(recursive: true);
