@@ -63,13 +63,18 @@ class NStack<T> {
       prefs.setString(prefsKeyLastUpdated, lastUpdated);
     }
 
-    if (Platform.isAndroid) {
-      platform = 'android';
-    } else if (Platform.isIOS) {
-      platform = 'ios';
+    if(!Foundation.kIsWeb){
+      if (Platform.isAndroid) {
+        platform = 'android';
+      } else if (Platform.isIOS) {
+        platform = 'ios';
+      } else {
+        platform = 'android';
+      }
     } else {
-      platform = 'flutter';
+      platform = 'web';
     }
+
 
     _appOpenData = NStackAppOpenData(
       platform: platform,
