@@ -69,7 +69,8 @@ class NStack<T> {
       } else if (Platform.isIOS) {
         platform = 'ios';
       } else {
-        platform = 'android';
+        //need to update when new platforms come
+        platform = 'unknown';
       }
     } else {
       platform = 'web';
