@@ -123,7 +123,7 @@ class NStack<T> {
         // Update cache for key
         prefs.setString(nstackKey, bestFitLanguageResponse);
         // Update last_updated for next app open call
-        prefs.setString(prefsKeyLastUpdated, DateTime.now().toIso8601String());
+        prefs.setString(prefsKeyLastUpdated, DateTime.now().toUtc().toIso8601String());
       } else {
         // Using best fit language from the cache
         if (prefs.containsKey(nstackKey)) {
