@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'localize_language_list.dart';
 
@@ -8,6 +8,10 @@ part of 'localize_language_list.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 LocalizeLanguageList _$LocalizeLanguageListFromJson(Map<String, dynamic> json) {
   return _LanguageList.fromJson(json);
 }
@@ -16,30 +20,28 @@ LocalizeLanguageList _$LocalizeLanguageListFromJson(Map<String, dynamic> json) {
 class _$LocalizeLanguageListTearOff {
   const _$LocalizeLanguageListTearOff();
 
-// ignore: unused_element
-  _LanguageList call({List<LocalizeLanguage> data}) {
+  _LanguageList call({List<LocalizeLanguage>? data}) {
     return _LanguageList(
       data: data,
     );
   }
 
-// ignore: unused_element
   LocalizeLanguageList fromJson(Map<String, Object> json) {
     return LocalizeLanguageList.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $LocalizeLanguageList = _$LocalizeLanguageListTearOff();
 
 /// @nodoc
 mixin _$LocalizeLanguageList {
-  List<LocalizeLanguage> get data;
+  List<LocalizeLanguage>? get data => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LocalizeLanguageListCopyWith<LocalizeLanguageList> get copyWith;
+  $LocalizeLanguageListCopyWith<LocalizeLanguageList> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -47,7 +49,7 @@ abstract class $LocalizeLanguageListCopyWith<$Res> {
   factory $LocalizeLanguageListCopyWith(LocalizeLanguageList value,
           $Res Function(LocalizeLanguageList) then) =
       _$LocalizeLanguageListCopyWithImpl<$Res>;
-  $Res call({List<LocalizeLanguage> data});
+  $Res call({List<LocalizeLanguage>? data});
 }
 
 /// @nodoc
@@ -61,10 +63,13 @@ class _$LocalizeLanguageListCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object data = freezed,
+    Object? data = freezed,
   }) {
     return _then(_value.copyWith(
-      data: data == freezed ? _value.data : data as List<LocalizeLanguage>,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<LocalizeLanguage>?,
     ));
   }
 }
@@ -76,7 +81,7 @@ abstract class _$LanguageListCopyWith<$Res>
           _LanguageList value, $Res Function(_LanguageList) then) =
       __$LanguageListCopyWithImpl<$Res>;
   @override
-  $Res call({List<LocalizeLanguage> data});
+  $Res call({List<LocalizeLanguage>? data});
 }
 
 /// @nodoc
@@ -92,25 +97,27 @@ class __$LanguageListCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object data = freezed,
+    Object? data = freezed,
   }) {
     return _then(_LanguageList(
-      data: data == freezed ? _value.data : data as List<LocalizeLanguage>,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<LocalizeLanguage>?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_LanguageList implements _LanguageList {
   const _$_LanguageList({this.data});
 
   factory _$_LanguageList.fromJson(Map<String, dynamic> json) =>
-      _$_$_LanguageListFromJson(json);
+      _$$_LanguageListFromJson(json);
 
   @override
-  final List<LocalizeLanguage> data;
+  final List<LocalizeLanguage>? data;
 
   @override
   String toString() {
@@ -136,19 +143,20 @@ class _$_LanguageList implements _LanguageList {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_LanguageListToJson(this);
+    return _$$_LanguageListToJson(this);
   }
 }
 
 abstract class _LanguageList implements LocalizeLanguageList {
-  const factory _LanguageList({List<LocalizeLanguage> data}) = _$_LanguageList;
+  const factory _LanguageList({List<LocalizeLanguage>? data}) = _$_LanguageList;
 
   factory _LanguageList.fromJson(Map<String, dynamic> json) =
       _$_LanguageList.fromJson;
 
   @override
-  List<LocalizeLanguage> get data;
+  List<LocalizeLanguage>? get data => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$LanguageListCopyWith<_LanguageList> get copyWith;
+  _$LanguageListCopyWith<_LanguageList> get copyWith =>
+      throw _privateConstructorUsedError;
 }

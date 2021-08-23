@@ -7,15 +7,15 @@ part 'rate_reminder.g.dart';
 @freezed
 abstract class RateReminder with _$RateReminder {
   const factory RateReminder({
-  String title,
-  String body,
+  String? title,
+  String? body,
   @JsonKey(name: 'yes_button')
-  String yesButton,
+  String? yesButton,
   @JsonKey(name: 'later_button')
-  String laterButton,
+  String? laterButton,
   @JsonKey(name: 'no_button')
-  String noButton,
-  String link,
+  String? noButton,
+  String? link,
   }) = _RateReminder;
 
   factory RateReminder.fromJson(Map<String, dynamic> json) =>

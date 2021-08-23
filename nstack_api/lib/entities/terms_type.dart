@@ -7,13 +7,13 @@ part 'terms_type.g.dart';
 @freezed
 abstract class TermsType with _$TermsType {
   const factory TermsType({
-  int id,
-  String version,
-  String name,
+  int? id,
+  String? version,
+  String? name,
   @JsonKey(name: 'published_at')
-  DateTime publishedAt,
+  DateTime? publishedAt,
   @JsonKey(name: 'has_viewed')
-  bool hasViewed,
+  bool? hasViewed,
   }) = _TermsType;
 
   factory TermsType.fromJson(Map<String, dynamic> json) =>

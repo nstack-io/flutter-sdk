@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'localize_index_list.dart';
 
@@ -8,6 +8,10 @@ part of 'localize_index_list.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 LocalizeIndexList _$LocalizeIndexListFromJson(Map<String, dynamic> json) {
   return _LocalizeIndexList.fromJson(json);
 }
@@ -16,30 +20,28 @@ LocalizeIndexList _$LocalizeIndexListFromJson(Map<String, dynamic> json) {
 class _$LocalizeIndexListTearOff {
   const _$LocalizeIndexListTearOff();
 
-// ignore: unused_element
-  _LocalizeIndexList call({List<LocalizeIndex> data}) {
+  _LocalizeIndexList call({List<LocalizeIndex>? data}) {
     return _LocalizeIndexList(
       data: data,
     );
   }
 
-// ignore: unused_element
   LocalizeIndexList fromJson(Map<String, Object> json) {
     return LocalizeIndexList.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $LocalizeIndexList = _$LocalizeIndexListTearOff();
 
 /// @nodoc
 mixin _$LocalizeIndexList {
-  List<LocalizeIndex> get data;
+  List<LocalizeIndex>? get data => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LocalizeIndexListCopyWith<LocalizeIndexList> get copyWith;
+  $LocalizeIndexListCopyWith<LocalizeIndexList> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -47,7 +49,7 @@ abstract class $LocalizeIndexListCopyWith<$Res> {
   factory $LocalizeIndexListCopyWith(
           LocalizeIndexList value, $Res Function(LocalizeIndexList) then) =
       _$LocalizeIndexListCopyWithImpl<$Res>;
-  $Res call({List<LocalizeIndex> data});
+  $Res call({List<LocalizeIndex>? data});
 }
 
 /// @nodoc
@@ -61,10 +63,13 @@ class _$LocalizeIndexListCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object data = freezed,
+    Object? data = freezed,
   }) {
     return _then(_value.copyWith(
-      data: data == freezed ? _value.data : data as List<LocalizeIndex>,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<LocalizeIndex>?,
     ));
   }
 }
@@ -76,7 +81,7 @@ abstract class _$LocalizeIndexListCopyWith<$Res>
           _LocalizeIndexList value, $Res Function(_LocalizeIndexList) then) =
       __$LocalizeIndexListCopyWithImpl<$Res>;
   @override
-  $Res call({List<LocalizeIndex> data});
+  $Res call({List<LocalizeIndex>? data});
 }
 
 /// @nodoc
@@ -92,25 +97,27 @@ class __$LocalizeIndexListCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object data = freezed,
+    Object? data = freezed,
   }) {
     return _then(_LocalizeIndexList(
-      data: data == freezed ? _value.data : data as List<LocalizeIndex>,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<LocalizeIndex>?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_LocalizeIndexList implements _LocalizeIndexList {
   const _$_LocalizeIndexList({this.data});
 
   factory _$_LocalizeIndexList.fromJson(Map<String, dynamic> json) =>
-      _$_$_LocalizeIndexListFromJson(json);
+      _$$_LocalizeIndexListFromJson(json);
 
   @override
-  final List<LocalizeIndex> data;
+  final List<LocalizeIndex>? data;
 
   @override
   String toString() {
@@ -136,20 +143,21 @@ class _$_LocalizeIndexList implements _LocalizeIndexList {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_LocalizeIndexListToJson(this);
+    return _$$_LocalizeIndexListToJson(this);
   }
 }
 
 abstract class _LocalizeIndexList implements LocalizeIndexList {
-  const factory _LocalizeIndexList({List<LocalizeIndex> data}) =
+  const factory _LocalizeIndexList({List<LocalizeIndex>? data}) =
       _$_LocalizeIndexList;
 
   factory _LocalizeIndexList.fromJson(Map<String, dynamic> json) =
       _$_LocalizeIndexList.fromJson;
 
   @override
-  List<LocalizeIndex> get data;
+  List<LocalizeIndex>? get data => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$LocalizeIndexListCopyWith<_LocalizeIndexList> get copyWith;
+  _$LocalizeIndexListCopyWith<_LocalizeIndexList> get copyWith =>
+      throw _privateConstructorUsedError;
 }

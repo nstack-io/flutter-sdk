@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'app_open_request_body.dart';
 
@@ -8,6 +8,10 @@ part of 'app_open_request_body.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 AppOpenRequestBody _$AppOpenRequestBodyFromJson(Map<String, dynamic> json) {
   return _AppOpenRequestBody.fromJson(json);
 }
@@ -16,13 +20,12 @@ AppOpenRequestBody _$AppOpenRequestBodyFromJson(Map<String, dynamic> json) {
 class _$AppOpenRequestBodyTearOff {
   const _$AppOpenRequestBodyTearOff();
 
-// ignore: unused_element
   _AppOpenRequestBody call(
-      {String platform,
-      String guid,
-      String version,
-      @JsonKey(name: 'old_version') String oldVersion,
-      @JsonKey(name: 'last_updated') DateTime lastUpdated}) {
+      {String? platform,
+      String? guid,
+      String? version,
+      @JsonKey(name: 'old_version') String? oldVersion,
+      @JsonKey(name: 'last_updated') DateTime? lastUpdated}) {
     return _AppOpenRequestBody(
       platform: platform,
       guid: guid,
@@ -32,29 +35,28 @@ class _$AppOpenRequestBodyTearOff {
     );
   }
 
-// ignore: unused_element
   AppOpenRequestBody fromJson(Map<String, Object> json) {
     return AppOpenRequestBody.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $AppOpenRequestBody = _$AppOpenRequestBodyTearOff();
 
 /// @nodoc
 mixin _$AppOpenRequestBody {
-  String get platform;
-  String get guid;
-  String get version;
+  String? get platform => throw _privateConstructorUsedError;
+  String? get guid => throw _privateConstructorUsedError;
+  String? get version => throw _privateConstructorUsedError;
   @JsonKey(name: 'old_version')
-  String get oldVersion;
+  String? get oldVersion => throw _privateConstructorUsedError;
   @JsonKey(name: 'last_updated')
-  DateTime get lastUpdated;
+  DateTime? get lastUpdated => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AppOpenRequestBodyCopyWith<AppOpenRequestBody> get copyWith;
+  $AppOpenRequestBodyCopyWith<AppOpenRequestBody> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -63,11 +65,11 @@ abstract class $AppOpenRequestBodyCopyWith<$Res> {
           AppOpenRequestBody value, $Res Function(AppOpenRequestBody) then) =
       _$AppOpenRequestBodyCopyWithImpl<$Res>;
   $Res call(
-      {String platform,
-      String guid,
-      String version,
-      @JsonKey(name: 'old_version') String oldVersion,
-      @JsonKey(name: 'last_updated') DateTime lastUpdated});
+      {String? platform,
+      String? guid,
+      String? version,
+      @JsonKey(name: 'old_version') String? oldVersion,
+      @JsonKey(name: 'last_updated') DateTime? lastUpdated});
 }
 
 /// @nodoc
@@ -81,20 +83,33 @@ class _$AppOpenRequestBodyCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object platform = freezed,
-    Object guid = freezed,
-    Object version = freezed,
-    Object oldVersion = freezed,
-    Object lastUpdated = freezed,
+    Object? platform = freezed,
+    Object? guid = freezed,
+    Object? version = freezed,
+    Object? oldVersion = freezed,
+    Object? lastUpdated = freezed,
   }) {
     return _then(_value.copyWith(
-      platform: platform == freezed ? _value.platform : platform as String,
-      guid: guid == freezed ? _value.guid : guid as String,
-      version: version == freezed ? _value.version : version as String,
-      oldVersion:
-          oldVersion == freezed ? _value.oldVersion : oldVersion as String,
-      lastUpdated:
-          lastUpdated == freezed ? _value.lastUpdated : lastUpdated as DateTime,
+      platform: platform == freezed
+          ? _value.platform
+          : platform // ignore: cast_nullable_to_non_nullable
+              as String?,
+      guid: guid == freezed
+          ? _value.guid
+          : guid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      version: version == freezed
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as String?,
+      oldVersion: oldVersion == freezed
+          ? _value.oldVersion
+          : oldVersion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastUpdated: lastUpdated == freezed
+          ? _value.lastUpdated
+          : lastUpdated // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -107,11 +122,11 @@ abstract class _$AppOpenRequestBodyCopyWith<$Res>
       __$AppOpenRequestBodyCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String platform,
-      String guid,
-      String version,
-      @JsonKey(name: 'old_version') String oldVersion,
-      @JsonKey(name: 'last_updated') DateTime lastUpdated});
+      {String? platform,
+      String? guid,
+      String? version,
+      @JsonKey(name: 'old_version') String? oldVersion,
+      @JsonKey(name: 'last_updated') DateTime? lastUpdated});
 }
 
 /// @nodoc
@@ -127,27 +142,39 @@ class __$AppOpenRequestBodyCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object platform = freezed,
-    Object guid = freezed,
-    Object version = freezed,
-    Object oldVersion = freezed,
-    Object lastUpdated = freezed,
+    Object? platform = freezed,
+    Object? guid = freezed,
+    Object? version = freezed,
+    Object? oldVersion = freezed,
+    Object? lastUpdated = freezed,
   }) {
     return _then(_AppOpenRequestBody(
-      platform: platform == freezed ? _value.platform : platform as String,
-      guid: guid == freezed ? _value.guid : guid as String,
-      version: version == freezed ? _value.version : version as String,
-      oldVersion:
-          oldVersion == freezed ? _value.oldVersion : oldVersion as String,
-      lastUpdated:
-          lastUpdated == freezed ? _value.lastUpdated : lastUpdated as DateTime,
+      platform: platform == freezed
+          ? _value.platform
+          : platform // ignore: cast_nullable_to_non_nullable
+              as String?,
+      guid: guid == freezed
+          ? _value.guid
+          : guid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      version: version == freezed
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as String?,
+      oldVersion: oldVersion == freezed
+          ? _value.oldVersion
+          : oldVersion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastUpdated: lastUpdated == freezed
+          ? _value.lastUpdated
+          : lastUpdated // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_AppOpenRequestBody implements _AppOpenRequestBody {
   const _$_AppOpenRequestBody(
       {this.platform,
@@ -157,20 +184,20 @@ class _$_AppOpenRequestBody implements _AppOpenRequestBody {
       @JsonKey(name: 'last_updated') this.lastUpdated});
 
   factory _$_AppOpenRequestBody.fromJson(Map<String, dynamic> json) =>
-      _$_$_AppOpenRequestBodyFromJson(json);
+      _$$_AppOpenRequestBodyFromJson(json);
 
   @override
-  final String platform;
+  final String? platform;
   @override
-  final String guid;
+  final String? guid;
   @override
-  final String version;
+  final String? version;
   @override
   @JsonKey(name: 'old_version')
-  final String oldVersion;
+  final String? oldVersion;
   @override
   @JsonKey(name: 'last_updated')
-  final DateTime lastUpdated;
+  final DateTime? lastUpdated;
 
   @override
   String toString() {
@@ -213,35 +240,36 @@ class _$_AppOpenRequestBody implements _AppOpenRequestBody {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_AppOpenRequestBodyToJson(this);
+    return _$$_AppOpenRequestBodyToJson(this);
   }
 }
 
 abstract class _AppOpenRequestBody implements AppOpenRequestBody {
   const factory _AppOpenRequestBody(
-          {String platform,
-          String guid,
-          String version,
-          @JsonKey(name: 'old_version') String oldVersion,
-          @JsonKey(name: 'last_updated') DateTime lastUpdated}) =
+          {String? platform,
+          String? guid,
+          String? version,
+          @JsonKey(name: 'old_version') String? oldVersion,
+          @JsonKey(name: 'last_updated') DateTime? lastUpdated}) =
       _$_AppOpenRequestBody;
 
   factory _AppOpenRequestBody.fromJson(Map<String, dynamic> json) =
       _$_AppOpenRequestBody.fromJson;
 
   @override
-  String get platform;
+  String? get platform => throw _privateConstructorUsedError;
   @override
-  String get guid;
+  String? get guid => throw _privateConstructorUsedError;
   @override
-  String get version;
+  String? get version => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'old_version')
-  String get oldVersion;
+  String? get oldVersion => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'last_updated')
-  DateTime get lastUpdated;
+  DateTime? get lastUpdated => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$AppOpenRequestBodyCopyWith<_AppOpenRequestBody> get copyWith;
+  _$AppOpenRequestBodyCopyWith<_AppOpenRequestBody> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -7,7 +7,7 @@ class GetLocalizedSectionKeyInteractor extends Interactor<String> {
   final CacheRepository cacheRepository;
 
   GetLocalizedSectionKeyInteractor({
-    @required this.cacheRepository,
+    required this.cacheRepository,
   });
 
   @override

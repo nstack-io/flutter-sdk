@@ -7,8 +7,8 @@ part 'platform.g.dart';
 @freezed
 abstract class Platform with _$Platform {
   const factory Platform({
-    int id,
-    String slug,
+    int? id,
+    String? slug,
   }) = _Platform;
 
   factory Platform.fromJson(Map<String, dynamic> json) =>

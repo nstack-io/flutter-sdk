@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'localize_language.dart';
 
@@ -8,6 +8,10 @@ part of 'localize_language.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 LocalizeLanguage _$LocalizeLanguageFromJson(Map<String, dynamic> json) {
   return _Language.fromJson(json);
 }
@@ -16,14 +20,13 @@ LocalizeLanguage _$LocalizeLanguageFromJson(Map<String, dynamic> json) {
 class _$LocalizeLanguageTearOff {
   const _$LocalizeLanguageTearOff();
 
-// ignore: unused_element
   _Language call(
-      {int id,
-      String name,
-      String locale,
-      String direction,
-      @JsonKey(name: 'is_default') bool isDefault,
-      @JsonKey(name: 'is_best_fit') bool isBestFit}) {
+      {int? id,
+      String? name,
+      String? locale,
+      String? direction,
+      @JsonKey(name: 'is_default') bool? isDefault,
+      @JsonKey(name: 'is_best_fit') bool? isBestFit}) {
     return _Language(
       id: id,
       name: name,
@@ -34,30 +37,29 @@ class _$LocalizeLanguageTearOff {
     );
   }
 
-// ignore: unused_element
   LocalizeLanguage fromJson(Map<String, Object> json) {
     return LocalizeLanguage.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $LocalizeLanguage = _$LocalizeLanguageTearOff();
 
 /// @nodoc
 mixin _$LocalizeLanguage {
-  int get id;
-  String get name;
-  String get locale;
-  String get direction;
+  int? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get locale => throw _privateConstructorUsedError;
+  String? get direction => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_default')
-  bool get isDefault;
+  bool? get isDefault => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_best_fit')
-  bool get isBestFit;
+  bool? get isBestFit => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LocalizeLanguageCopyWith<LocalizeLanguage> get copyWith;
+  $LocalizeLanguageCopyWith<LocalizeLanguage> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -66,12 +68,12 @@ abstract class $LocalizeLanguageCopyWith<$Res> {
           LocalizeLanguage value, $Res Function(LocalizeLanguage) then) =
       _$LocalizeLanguageCopyWithImpl<$Res>;
   $Res call(
-      {int id,
-      String name,
-      String locale,
-      String direction,
-      @JsonKey(name: 'is_default') bool isDefault,
-      @JsonKey(name: 'is_best_fit') bool isBestFit});
+      {int? id,
+      String? name,
+      String? locale,
+      String? direction,
+      @JsonKey(name: 'is_default') bool? isDefault,
+      @JsonKey(name: 'is_best_fit') bool? isBestFit});
 }
 
 /// @nodoc
@@ -85,20 +87,38 @@ class _$LocalizeLanguageCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object name = freezed,
-    Object locale = freezed,
-    Object direction = freezed,
-    Object isDefault = freezed,
-    Object isBestFit = freezed,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? locale = freezed,
+    Object? direction = freezed,
+    Object? isDefault = freezed,
+    Object? isBestFit = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as int,
-      name: name == freezed ? _value.name : name as String,
-      locale: locale == freezed ? _value.locale : locale as String,
-      direction: direction == freezed ? _value.direction : direction as String,
-      isDefault: isDefault == freezed ? _value.isDefault : isDefault as bool,
-      isBestFit: isBestFit == freezed ? _value.isBestFit : isBestFit as bool,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      locale: locale == freezed
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as String?,
+      direction: direction == freezed
+          ? _value.direction
+          : direction // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isDefault: isDefault == freezed
+          ? _value.isDefault
+          : isDefault // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isBestFit: isBestFit == freezed
+          ? _value.isBestFit
+          : isBestFit // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -110,12 +130,12 @@ abstract class _$LanguageCopyWith<$Res>
       __$LanguageCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int id,
-      String name,
-      String locale,
-      String direction,
-      @JsonKey(name: 'is_default') bool isDefault,
-      @JsonKey(name: 'is_best_fit') bool isBestFit});
+      {int? id,
+      String? name,
+      String? locale,
+      String? direction,
+      @JsonKey(name: 'is_default') bool? isDefault,
+      @JsonKey(name: 'is_best_fit') bool? isBestFit});
 }
 
 /// @nodoc
@@ -129,27 +149,44 @@ class __$LanguageCopyWithImpl<$Res> extends _$LocalizeLanguageCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object name = freezed,
-    Object locale = freezed,
-    Object direction = freezed,
-    Object isDefault = freezed,
-    Object isBestFit = freezed,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? locale = freezed,
+    Object? direction = freezed,
+    Object? isDefault = freezed,
+    Object? isBestFit = freezed,
   }) {
     return _then(_Language(
-      id: id == freezed ? _value.id : id as int,
-      name: name == freezed ? _value.name : name as String,
-      locale: locale == freezed ? _value.locale : locale as String,
-      direction: direction == freezed ? _value.direction : direction as String,
-      isDefault: isDefault == freezed ? _value.isDefault : isDefault as bool,
-      isBestFit: isBestFit == freezed ? _value.isBestFit : isBestFit as bool,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      locale: locale == freezed
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as String?,
+      direction: direction == freezed
+          ? _value.direction
+          : direction // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isDefault: isDefault == freezed
+          ? _value.isDefault
+          : isDefault // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isBestFit: isBestFit == freezed
+          ? _value.isBestFit
+          : isBestFit // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_Language implements _Language {
   const _$_Language(
       {this.id,
@@ -160,22 +197,22 @@ class _$_Language implements _Language {
       @JsonKey(name: 'is_best_fit') this.isBestFit});
 
   factory _$_Language.fromJson(Map<String, dynamic> json) =>
-      _$_$_LanguageFromJson(json);
+      _$$_LanguageFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
-  final String name;
+  final String? name;
   @override
-  final String locale;
+  final String? locale;
   @override
-  final String direction;
+  final String? direction;
   @override
   @JsonKey(name: 'is_default')
-  final bool isDefault;
+  final bool? isDefault;
   @override
   @JsonKey(name: 'is_best_fit')
-  final bool isBestFit;
+  final bool? isBestFit;
 
   @override
   String toString() {
@@ -220,36 +257,37 @@ class _$_Language implements _Language {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_LanguageToJson(this);
+    return _$$_LanguageToJson(this);
   }
 }
 
 abstract class _Language implements LocalizeLanguage {
   const factory _Language(
-      {int id,
-      String name,
-      String locale,
-      String direction,
-      @JsonKey(name: 'is_default') bool isDefault,
-      @JsonKey(name: 'is_best_fit') bool isBestFit}) = _$_Language;
+      {int? id,
+      String? name,
+      String? locale,
+      String? direction,
+      @JsonKey(name: 'is_default') bool? isDefault,
+      @JsonKey(name: 'is_best_fit') bool? isBestFit}) = _$_Language;
 
   factory _Language.fromJson(Map<String, dynamic> json) = _$_Language.fromJson;
 
   @override
-  int get id;
+  int? get id => throw _privateConstructorUsedError;
   @override
-  String get name;
+  String? get name => throw _privateConstructorUsedError;
   @override
-  String get locale;
+  String? get locale => throw _privateConstructorUsedError;
   @override
-  String get direction;
+  String? get direction => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'is_default')
-  bool get isDefault;
+  bool? get isDefault => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'is_best_fit')
-  bool get isBestFit;
+  bool? get isBestFit => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$LanguageCopyWith<_Language> get copyWith;
+  _$LanguageCopyWith<_Language> get copyWith =>
+      throw _privateConstructorUsedError;
 }

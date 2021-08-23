@@ -6,19 +6,17 @@ part of 'terms_type.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_TermsType _$_$_TermsTypeFromJson(Map<String, dynamic> json) {
-  return _$_TermsType(
-    id: json['id'] as int,
-    version: json['version'] as String,
-    name: json['name'] as String,
-    publishedAt: json['published_at'] == null
-        ? null
-        : DateTime.parse(json['published_at'] as String),
-    hasViewed: json['has_viewed'] as bool,
-  );
-}
+_$_TermsType _$$_TermsTypeFromJson(Map<String, dynamic> json) => _$_TermsType(
+      id: json['id'] as int?,
+      version: json['version'] as String?,
+      name: json['name'] as String?,
+      publishedAt: json['published_at'] == null
+          ? null
+          : DateTime.parse(json['published_at'] as String),
+      hasViewed: json['has_viewed'] as bool?,
+    );
 
-Map<String, dynamic> _$_$_TermsTypeToJson(_$_TermsType instance) =>
+Map<String, dynamic> _$$_TermsTypeToJson(_$_TermsType instance) =>
     <String, dynamic>{
       'id': instance.id,
       'version': instance.version,

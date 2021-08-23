@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'app_open.dart';
 
@@ -8,6 +8,10 @@ part of 'app_open.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 AppOpen _$AppOpenFromJson(Map<String, dynamic> json) {
   return _AppOpen.fromJson(json);
 }
@@ -16,42 +20,39 @@ AppOpen _$AppOpenFromJson(Map<String, dynamic> json) {
 class _$AppOpenTearOff {
   const _$AppOpenTearOff();
 
-// ignore: unused_element
-  _AppOpen call({AppOpenData data, AppOpenMeta meta}) {
+  _AppOpen call({AppOpenData? data, AppOpenMeta? meta}) {
     return _AppOpen(
       data: data,
       meta: meta,
     );
   }
 
-// ignore: unused_element
   AppOpen fromJson(Map<String, Object> json) {
     return AppOpen.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $AppOpen = _$AppOpenTearOff();
 
 /// @nodoc
 mixin _$AppOpen {
-  AppOpenData get data;
-  AppOpenMeta get meta;
+  AppOpenData? get data => throw _privateConstructorUsedError;
+  AppOpenMeta? get meta => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AppOpenCopyWith<AppOpen> get copyWith;
+  $AppOpenCopyWith<AppOpen> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $AppOpenCopyWith<$Res> {
   factory $AppOpenCopyWith(AppOpen value, $Res Function(AppOpen) then) =
       _$AppOpenCopyWithImpl<$Res>;
-  $Res call({AppOpenData data, AppOpenMeta meta});
+  $Res call({AppOpenData? data, AppOpenMeta? meta});
 
-  $AppOpenDataCopyWith<$Res> get data;
-  $AppOpenMetaCopyWith<$Res> get meta;
+  $AppOpenDataCopyWith<$Res>? get data;
+  $AppOpenMetaCopyWith<$Res>? get meta;
 }
 
 /// @nodoc
@@ -64,31 +65,39 @@ class _$AppOpenCopyWithImpl<$Res> implements $AppOpenCopyWith<$Res> {
 
   @override
   $Res call({
-    Object data = freezed,
-    Object meta = freezed,
+    Object? data = freezed,
+    Object? meta = freezed,
   }) {
     return _then(_value.copyWith(
-      data: data == freezed ? _value.data : data as AppOpenData,
-      meta: meta == freezed ? _value.meta : meta as AppOpenMeta,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as AppOpenData?,
+      meta: meta == freezed
+          ? _value.meta
+          : meta // ignore: cast_nullable_to_non_nullable
+              as AppOpenMeta?,
     ));
   }
 
   @override
-  $AppOpenDataCopyWith<$Res> get data {
+  $AppOpenDataCopyWith<$Res>? get data {
     if (_value.data == null) {
       return null;
     }
-    return $AppOpenDataCopyWith<$Res>(_value.data, (value) {
+
+    return $AppOpenDataCopyWith<$Res>(_value.data!, (value) {
       return _then(_value.copyWith(data: value));
     });
   }
 
   @override
-  $AppOpenMetaCopyWith<$Res> get meta {
+  $AppOpenMetaCopyWith<$Res>? get meta {
     if (_value.meta == null) {
       return null;
     }
-    return $AppOpenMetaCopyWith<$Res>(_value.meta, (value) {
+
+    return $AppOpenMetaCopyWith<$Res>(_value.meta!, (value) {
       return _then(_value.copyWith(meta: value));
     });
   }
@@ -99,12 +108,12 @@ abstract class _$AppOpenCopyWith<$Res> implements $AppOpenCopyWith<$Res> {
   factory _$AppOpenCopyWith(_AppOpen value, $Res Function(_AppOpen) then) =
       __$AppOpenCopyWithImpl<$Res>;
   @override
-  $Res call({AppOpenData data, AppOpenMeta meta});
+  $Res call({AppOpenData? data, AppOpenMeta? meta});
 
   @override
-  $AppOpenDataCopyWith<$Res> get data;
+  $AppOpenDataCopyWith<$Res>? get data;
   @override
-  $AppOpenMetaCopyWith<$Res> get meta;
+  $AppOpenMetaCopyWith<$Res>? get meta;
 }
 
 /// @nodoc
@@ -118,29 +127,34 @@ class __$AppOpenCopyWithImpl<$Res> extends _$AppOpenCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object data = freezed,
-    Object meta = freezed,
+    Object? data = freezed,
+    Object? meta = freezed,
   }) {
     return _then(_AppOpen(
-      data: data == freezed ? _value.data : data as AppOpenData,
-      meta: meta == freezed ? _value.meta : meta as AppOpenMeta,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as AppOpenData?,
+      meta: meta == freezed
+          ? _value.meta
+          : meta // ignore: cast_nullable_to_non_nullable
+              as AppOpenMeta?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_AppOpen implements _AppOpen {
   const _$_AppOpen({this.data, this.meta});
 
   factory _$_AppOpen.fromJson(Map<String, dynamic> json) =>
-      _$_$_AppOpenFromJson(json);
+      _$$_AppOpenFromJson(json);
 
   @override
-  final AppOpenData data;
+  final AppOpenData? data;
   @override
-  final AppOpenMeta meta;
+  final AppOpenMeta? meta;
 
   @override
   String toString() {
@@ -170,20 +184,21 @@ class _$_AppOpen implements _AppOpen {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_AppOpenToJson(this);
+    return _$$_AppOpenToJson(this);
   }
 }
 
 abstract class _AppOpen implements AppOpen {
-  const factory _AppOpen({AppOpenData data, AppOpenMeta meta}) = _$_AppOpen;
+  const factory _AppOpen({AppOpenData? data, AppOpenMeta? meta}) = _$_AppOpen;
 
   factory _AppOpen.fromJson(Map<String, dynamic> json) = _$_AppOpen.fromJson;
 
   @override
-  AppOpenData get data;
+  AppOpenData? get data => throw _privateConstructorUsedError;
   @override
-  AppOpenMeta get meta;
+  AppOpenMeta? get meta => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$AppOpenCopyWith<_AppOpen> get copyWith;
+  _$AppOpenCopyWith<_AppOpen> get copyWith =>
+      throw _privateConstructorUsedError;
 }

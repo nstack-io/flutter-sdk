@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'terms.dart';
 
@@ -8,6 +8,10 @@ part of 'terms.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 Terms _$TermsFromJson(Map<String, dynamic> json) {
   return _Terms.fromJson(json);
 }
@@ -16,13 +20,12 @@ Terms _$TermsFromJson(Map<String, dynamic> json) {
 class _$TermsTearOff {
   const _$TermsTearOff();
 
-// ignore: unused_element
   _Terms call(
-      {int id,
-      TermsType type,
-      String name,
-      String slug,
-      TermsVersion version}) {
+      {int? id,
+      TermsType? type,
+      String? name,
+      String? slug,
+      TermsVersion? version}) {
     return _Terms(
       id: id,
       type: type,
@@ -32,27 +35,25 @@ class _$TermsTearOff {
     );
   }
 
-// ignore: unused_element
   Terms fromJson(Map<String, Object> json) {
     return Terms.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $Terms = _$TermsTearOff();
 
 /// @nodoc
 mixin _$Terms {
-  int get id;
-  TermsType get type;
-  String get name;
-  String get slug;
-  TermsVersion get version;
+  int? get id => throw _privateConstructorUsedError;
+  TermsType? get type => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get slug => throw _privateConstructorUsedError;
+  TermsVersion? get version => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TermsCopyWith<Terms> get copyWith;
+  $TermsCopyWith<Terms> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -60,9 +61,13 @@ abstract class $TermsCopyWith<$Res> {
   factory $TermsCopyWith(Terms value, $Res Function(Terms) then) =
       _$TermsCopyWithImpl<$Res>;
   $Res call(
-      {int id, TermsType type, String name, String slug, TermsVersion version});
+      {int? id,
+      TermsType? type,
+      String? name,
+      String? slug,
+      TermsVersion? version});
 
-  $TermsTypeCopyWith<$Res> get type;
+  $TermsTypeCopyWith<$Res>? get type;
 }
 
 /// @nodoc
@@ -75,27 +80,43 @@ class _$TermsCopyWithImpl<$Res> implements $TermsCopyWith<$Res> {
 
   @override
   $Res call({
-    Object id = freezed,
-    Object type = freezed,
-    Object name = freezed,
-    Object slug = freezed,
-    Object version = freezed,
+    Object? id = freezed,
+    Object? type = freezed,
+    Object? name = freezed,
+    Object? slug = freezed,
+    Object? version = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as int,
-      type: type == freezed ? _value.type : type as TermsType,
-      name: name == freezed ? _value.name : name as String,
-      slug: slug == freezed ? _value.slug : slug as String,
-      version: version == freezed ? _value.version : version as TermsVersion,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as TermsType?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      slug: slug == freezed
+          ? _value.slug
+          : slug // ignore: cast_nullable_to_non_nullable
+              as String?,
+      version: version == freezed
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as TermsVersion?,
     ));
   }
 
   @override
-  $TermsTypeCopyWith<$Res> get type {
+  $TermsTypeCopyWith<$Res>? get type {
     if (_value.type == null) {
       return null;
     }
-    return $TermsTypeCopyWith<$Res>(_value.type, (value) {
+
+    return $TermsTypeCopyWith<$Res>(_value.type!, (value) {
       return _then(_value.copyWith(type: value));
     });
   }
@@ -107,10 +128,14 @@ abstract class _$TermsCopyWith<$Res> implements $TermsCopyWith<$Res> {
       __$TermsCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int id, TermsType type, String name, String slug, TermsVersion version});
+      {int? id,
+      TermsType? type,
+      String? name,
+      String? slug,
+      TermsVersion? version});
 
   @override
-  $TermsTypeCopyWith<$Res> get type;
+  $TermsTypeCopyWith<$Res>? get type;
 }
 
 /// @nodoc
@@ -124,41 +149,55 @@ class __$TermsCopyWithImpl<$Res> extends _$TermsCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object type = freezed,
-    Object name = freezed,
-    Object slug = freezed,
-    Object version = freezed,
+    Object? id = freezed,
+    Object? type = freezed,
+    Object? name = freezed,
+    Object? slug = freezed,
+    Object? version = freezed,
   }) {
     return _then(_Terms(
-      id: id == freezed ? _value.id : id as int,
-      type: type == freezed ? _value.type : type as TermsType,
-      name: name == freezed ? _value.name : name as String,
-      slug: slug == freezed ? _value.slug : slug as String,
-      version: version == freezed ? _value.version : version as TermsVersion,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as TermsType?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      slug: slug == freezed
+          ? _value.slug
+          : slug // ignore: cast_nullable_to_non_nullable
+              as String?,
+      version: version == freezed
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as TermsVersion?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_Terms implements _Terms {
   const _$_Terms({this.id, this.type, this.name, this.slug, this.version});
 
   factory _$_Terms.fromJson(Map<String, dynamic> json) =>
-      _$_$_TermsFromJson(json);
+      _$$_TermsFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
-  final TermsType type;
+  final TermsType? type;
   @override
-  final String name;
+  final String? name;
   @override
-  final String slug;
+  final String? slug;
   @override
-  final TermsVersion version;
+  final TermsVersion? version;
 
   @override
   String toString() {
@@ -197,31 +236,31 @@ class _$_Terms implements _Terms {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_TermsToJson(this);
+    return _$$_TermsToJson(this);
   }
 }
 
 abstract class _Terms implements Terms {
   const factory _Terms(
-      {int id,
-      TermsType type,
-      String name,
-      String slug,
-      TermsVersion version}) = _$_Terms;
+      {int? id,
+      TermsType? type,
+      String? name,
+      String? slug,
+      TermsVersion? version}) = _$_Terms;
 
   factory _Terms.fromJson(Map<String, dynamic> json) = _$_Terms.fromJson;
 
   @override
-  int get id;
+  int? get id => throw _privateConstructorUsedError;
   @override
-  TermsType get type;
+  TermsType? get type => throw _privateConstructorUsedError;
   @override
-  String get name;
+  String? get name => throw _privateConstructorUsedError;
   @override
-  String get slug;
+  String? get slug => throw _privateConstructorUsedError;
   @override
-  TermsVersion get version;
+  TermsVersion? get version => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$TermsCopyWith<_Terms> get copyWith;
+  _$TermsCopyWith<_Terms> get copyWith => throw _privateConstructorUsedError;
 }

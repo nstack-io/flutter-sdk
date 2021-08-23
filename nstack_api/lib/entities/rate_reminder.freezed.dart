@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'rate_reminder.dart';
 
@@ -8,6 +8,10 @@ part of 'rate_reminder.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 RateReminder _$RateReminderFromJson(Map<String, dynamic> json) {
   return _RateReminder.fromJson(json);
 }
@@ -16,14 +20,13 @@ RateReminder _$RateReminderFromJson(Map<String, dynamic> json) {
 class _$RateReminderTearOff {
   const _$RateReminderTearOff();
 
-// ignore: unused_element
   _RateReminder call(
-      {String title,
-      String body,
-      @JsonKey(name: 'yes_button') String yesButton,
-      @JsonKey(name: 'later_button') String laterButton,
-      @JsonKey(name: 'no_button') String noButton,
-      String link}) {
+      {String? title,
+      String? body,
+      @JsonKey(name: 'yes_button') String? yesButton,
+      @JsonKey(name: 'later_button') String? laterButton,
+      @JsonKey(name: 'no_button') String? noButton,
+      String? link}) {
     return _RateReminder(
       title: title,
       body: body,
@@ -34,31 +37,30 @@ class _$RateReminderTearOff {
     );
   }
 
-// ignore: unused_element
   RateReminder fromJson(Map<String, Object> json) {
     return RateReminder.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $RateReminder = _$RateReminderTearOff();
 
 /// @nodoc
 mixin _$RateReminder {
-  String get title;
-  String get body;
+  String? get title => throw _privateConstructorUsedError;
+  String? get body => throw _privateConstructorUsedError;
   @JsonKey(name: 'yes_button')
-  String get yesButton;
+  String? get yesButton => throw _privateConstructorUsedError;
   @JsonKey(name: 'later_button')
-  String get laterButton;
+  String? get laterButton => throw _privateConstructorUsedError;
   @JsonKey(name: 'no_button')
-  String get noButton;
-  String get link;
+  String? get noButton => throw _privateConstructorUsedError;
+  String? get link => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RateReminderCopyWith<RateReminder> get copyWith;
+  $RateReminderCopyWith<RateReminder> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -67,12 +69,12 @@ abstract class $RateReminderCopyWith<$Res> {
           RateReminder value, $Res Function(RateReminder) then) =
       _$RateReminderCopyWithImpl<$Res>;
   $Res call(
-      {String title,
-      String body,
-      @JsonKey(name: 'yes_button') String yesButton,
-      @JsonKey(name: 'later_button') String laterButton,
-      @JsonKey(name: 'no_button') String noButton,
-      String link});
+      {String? title,
+      String? body,
+      @JsonKey(name: 'yes_button') String? yesButton,
+      @JsonKey(name: 'later_button') String? laterButton,
+      @JsonKey(name: 'no_button') String? noButton,
+      String? link});
 }
 
 /// @nodoc
@@ -85,21 +87,38 @@ class _$RateReminderCopyWithImpl<$Res> implements $RateReminderCopyWith<$Res> {
 
   @override
   $Res call({
-    Object title = freezed,
-    Object body = freezed,
-    Object yesButton = freezed,
-    Object laterButton = freezed,
-    Object noButton = freezed,
-    Object link = freezed,
+    Object? title = freezed,
+    Object? body = freezed,
+    Object? yesButton = freezed,
+    Object? laterButton = freezed,
+    Object? noButton = freezed,
+    Object? link = freezed,
   }) {
     return _then(_value.copyWith(
-      title: title == freezed ? _value.title : title as String,
-      body: body == freezed ? _value.body : body as String,
-      yesButton: yesButton == freezed ? _value.yesButton : yesButton as String,
-      laterButton:
-          laterButton == freezed ? _value.laterButton : laterButton as String,
-      noButton: noButton == freezed ? _value.noButton : noButton as String,
-      link: link == freezed ? _value.link : link as String,
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      body: body == freezed
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String?,
+      yesButton: yesButton == freezed
+          ? _value.yesButton
+          : yesButton // ignore: cast_nullable_to_non_nullable
+              as String?,
+      laterButton: laterButton == freezed
+          ? _value.laterButton
+          : laterButton // ignore: cast_nullable_to_non_nullable
+              as String?,
+      noButton: noButton == freezed
+          ? _value.noButton
+          : noButton // ignore: cast_nullable_to_non_nullable
+              as String?,
+      link: link == freezed
+          ? _value.link
+          : link // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -112,12 +131,12 @@ abstract class _$RateReminderCopyWith<$Res>
       __$RateReminderCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String title,
-      String body,
-      @JsonKey(name: 'yes_button') String yesButton,
-      @JsonKey(name: 'later_button') String laterButton,
-      @JsonKey(name: 'no_button') String noButton,
-      String link});
+      {String? title,
+      String? body,
+      @JsonKey(name: 'yes_button') String? yesButton,
+      @JsonKey(name: 'later_button') String? laterButton,
+      @JsonKey(name: 'no_button') String? noButton,
+      String? link});
 }
 
 /// @nodoc
@@ -132,28 +151,44 @@ class __$RateReminderCopyWithImpl<$Res> extends _$RateReminderCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object title = freezed,
-    Object body = freezed,
-    Object yesButton = freezed,
-    Object laterButton = freezed,
-    Object noButton = freezed,
-    Object link = freezed,
+    Object? title = freezed,
+    Object? body = freezed,
+    Object? yesButton = freezed,
+    Object? laterButton = freezed,
+    Object? noButton = freezed,
+    Object? link = freezed,
   }) {
     return _then(_RateReminder(
-      title: title == freezed ? _value.title : title as String,
-      body: body == freezed ? _value.body : body as String,
-      yesButton: yesButton == freezed ? _value.yesButton : yesButton as String,
-      laterButton:
-          laterButton == freezed ? _value.laterButton : laterButton as String,
-      noButton: noButton == freezed ? _value.noButton : noButton as String,
-      link: link == freezed ? _value.link : link as String,
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      body: body == freezed
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String?,
+      yesButton: yesButton == freezed
+          ? _value.yesButton
+          : yesButton // ignore: cast_nullable_to_non_nullable
+              as String?,
+      laterButton: laterButton == freezed
+          ? _value.laterButton
+          : laterButton // ignore: cast_nullable_to_non_nullable
+              as String?,
+      noButton: noButton == freezed
+          ? _value.noButton
+          : noButton // ignore: cast_nullable_to_non_nullable
+              as String?,
+      link: link == freezed
+          ? _value.link
+          : link // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_RateReminder implements _RateReminder {
   const _$_RateReminder(
       {this.title,
@@ -164,23 +199,23 @@ class _$_RateReminder implements _RateReminder {
       this.link});
 
   factory _$_RateReminder.fromJson(Map<String, dynamic> json) =>
-      _$_$_RateReminderFromJson(json);
+      _$$_RateReminderFromJson(json);
 
   @override
-  final String title;
+  final String? title;
   @override
-  final String body;
+  final String? body;
   @override
   @JsonKey(name: 'yes_button')
-  final String yesButton;
+  final String? yesButton;
   @override
   @JsonKey(name: 'later_button')
-  final String laterButton;
+  final String? laterButton;
   @override
   @JsonKey(name: 'no_button')
-  final String noButton;
+  final String? noButton;
   @override
-  final String link;
+  final String? link;
 
   @override
   String toString() {
@@ -225,38 +260,39 @@ class _$_RateReminder implements _RateReminder {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_RateReminderToJson(this);
+    return _$$_RateReminderToJson(this);
   }
 }
 
 abstract class _RateReminder implements RateReminder {
   const factory _RateReminder(
-      {String title,
-      String body,
-      @JsonKey(name: 'yes_button') String yesButton,
-      @JsonKey(name: 'later_button') String laterButton,
-      @JsonKey(name: 'no_button') String noButton,
-      String link}) = _$_RateReminder;
+      {String? title,
+      String? body,
+      @JsonKey(name: 'yes_button') String? yesButton,
+      @JsonKey(name: 'later_button') String? laterButton,
+      @JsonKey(name: 'no_button') String? noButton,
+      String? link}) = _$_RateReminder;
 
   factory _RateReminder.fromJson(Map<String, dynamic> json) =
       _$_RateReminder.fromJson;
 
   @override
-  String get title;
+  String? get title => throw _privateConstructorUsedError;
   @override
-  String get body;
+  String? get body => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'yes_button')
-  String get yesButton;
+  String? get yesButton => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'later_button')
-  String get laterButton;
+  String? get laterButton => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'no_button')
-  String get noButton;
+  String? get noButton => throw _privateConstructorUsedError;
   @override
-  String get link;
+  String? get link => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$RateReminderCopyWith<_RateReminder> get copyWith;
+  _$RateReminderCopyWith<_RateReminder> get copyWith =>
+      throw _privateConstructorUsedError;
 }

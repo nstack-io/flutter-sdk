@@ -6,14 +6,12 @@ part of 'platform.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Platform _$_$_PlatformFromJson(Map<String, dynamic> json) {
-  return _$_Platform(
-    id: json['id'] as int,
-    slug: json['slug'] as String,
-  );
-}
+_$_Platform _$$_PlatformFromJson(Map<String, dynamic> json) => _$_Platform(
+      id: json['id'] as int?,
+      slug: json['slug'] as String?,
+    );
 
-Map<String, dynamic> _$_$_PlatformToJson(_$_Platform instance) =>
+Map<String, dynamic> _$$_PlatformToJson(_$_Platform instance) =>
     <String, dynamic>{
       'id': instance.id,
       'slug': instance.slug,

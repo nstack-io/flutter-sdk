@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'message.dart';
 
@@ -8,6 +8,10 @@ part of 'message.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 Message _$MessageFromJson(Map<String, dynamic> json) {
   return _Message.fromJson(json);
 }
@@ -16,19 +20,18 @@ Message _$MessageFromJson(Map<String, dynamic> json) {
 class _$MessageTearOff {
   const _$MessageTearOff();
 
-// ignore: unused_element
   _Message call(
-      {int id,
-      @JsonKey(name: 'application_id') int applicationId,
-      @JsonKey(name: 'show_setting') MessageShowSetting showSetting,
-      @JsonKey(name: 'view_count') int viewCount,
-      String message,
-      String url,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      @JsonKey(name: 'deleted_at') DateTime deletedAt,
-      @JsonKey(name: 'project_id') int projectId,
-      MessageLocalization localization}) {
+      {int? id,
+      @JsonKey(name: 'application_id') int? applicationId,
+      @JsonKey(name: 'show_setting') MessageShowSetting? showSetting,
+      @JsonKey(name: 'view_count') int? viewCount,
+      String? message,
+      String? url,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      @JsonKey(name: 'deleted_at') DateTime? deletedAt,
+      @JsonKey(name: 'project_id') int? projectId,
+      MessageLocalization? localization}) {
     return _Message(
       id: id,
       applicationId: applicationId,
@@ -44,40 +47,38 @@ class _$MessageTearOff {
     );
   }
 
-// ignore: unused_element
   Message fromJson(Map<String, Object> json) {
     return Message.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $Message = _$MessageTearOff();
 
 /// @nodoc
 mixin _$Message {
-  int get id;
+  int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'application_id')
-  int get applicationId;
+  int? get applicationId => throw _privateConstructorUsedError;
   @JsonKey(name: 'show_setting')
-  MessageShowSetting get showSetting;
+  MessageShowSetting? get showSetting => throw _privateConstructorUsedError;
   @JsonKey(name: 'view_count')
-  int get viewCount;
-  String get message;
-  String get url;
+  int? get viewCount => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  String? get url => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
-  DateTime get createdAt;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
-  DateTime get updatedAt;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'deleted_at')
-  DateTime get deletedAt;
+  DateTime? get deletedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'project_id')
-  int get projectId;
-  MessageLocalization get localization;
+  int? get projectId => throw _privateConstructorUsedError;
+  MessageLocalization? get localization => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $MessageCopyWith<Message> get copyWith;
+  $MessageCopyWith<Message> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -85,19 +86,19 @@ abstract class $MessageCopyWith<$Res> {
   factory $MessageCopyWith(Message value, $Res Function(Message) then) =
       _$MessageCopyWithImpl<$Res>;
   $Res call(
-      {int id,
-      @JsonKey(name: 'application_id') int applicationId,
-      @JsonKey(name: 'show_setting') MessageShowSetting showSetting,
-      @JsonKey(name: 'view_count') int viewCount,
-      String message,
-      String url,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      @JsonKey(name: 'deleted_at') DateTime deletedAt,
-      @JsonKey(name: 'project_id') int projectId,
-      MessageLocalization localization});
+      {int? id,
+      @JsonKey(name: 'application_id') int? applicationId,
+      @JsonKey(name: 'show_setting') MessageShowSetting? showSetting,
+      @JsonKey(name: 'view_count') int? viewCount,
+      String? message,
+      String? url,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      @JsonKey(name: 'deleted_at') DateTime? deletedAt,
+      @JsonKey(name: 'project_id') int? projectId,
+      MessageLocalization? localization});
 
-  $MessageLocalizationCopyWith<$Res> get localization;
+  $MessageLocalizationCopyWith<$Res>? get localization;
 }
 
 /// @nodoc
@@ -110,48 +111,73 @@ class _$MessageCopyWithImpl<$Res> implements $MessageCopyWith<$Res> {
 
   @override
   $Res call({
-    Object id = freezed,
-    Object applicationId = freezed,
-    Object showSetting = freezed,
-    Object viewCount = freezed,
-    Object message = freezed,
-    Object url = freezed,
-    Object createdAt = freezed,
-    Object updatedAt = freezed,
-    Object deletedAt = freezed,
-    Object projectId = freezed,
-    Object localization = freezed,
+    Object? id = freezed,
+    Object? applicationId = freezed,
+    Object? showSetting = freezed,
+    Object? viewCount = freezed,
+    Object? message = freezed,
+    Object? url = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? deletedAt = freezed,
+    Object? projectId = freezed,
+    Object? localization = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as int,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
       applicationId: applicationId == freezed
           ? _value.applicationId
-          : applicationId as int,
+          : applicationId // ignore: cast_nullable_to_non_nullable
+              as int?,
       showSetting: showSetting == freezed
           ? _value.showSetting
-          : showSetting as MessageShowSetting,
-      viewCount: viewCount == freezed ? _value.viewCount : viewCount as int,
-      message: message == freezed ? _value.message : message as String,
-      url: url == freezed ? _value.url : url as String,
-      createdAt:
-          createdAt == freezed ? _value.createdAt : createdAt as DateTime,
-      updatedAt:
-          updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
-      deletedAt:
-          deletedAt == freezed ? _value.deletedAt : deletedAt as DateTime,
-      projectId: projectId == freezed ? _value.projectId : projectId as int,
+          : showSetting // ignore: cast_nullable_to_non_nullable
+              as MessageShowSetting?,
+      viewCount: viewCount == freezed
+          ? _value.viewCount
+          : viewCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      deletedAt: deletedAt == freezed
+          ? _value.deletedAt
+          : deletedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      projectId: projectId == freezed
+          ? _value.projectId
+          : projectId // ignore: cast_nullable_to_non_nullable
+              as int?,
       localization: localization == freezed
           ? _value.localization
-          : localization as MessageLocalization,
+          : localization // ignore: cast_nullable_to_non_nullable
+              as MessageLocalization?,
     ));
   }
 
   @override
-  $MessageLocalizationCopyWith<$Res> get localization {
+  $MessageLocalizationCopyWith<$Res>? get localization {
     if (_value.localization == null) {
       return null;
     }
-    return $MessageLocalizationCopyWith<$Res>(_value.localization, (value) {
+
+    return $MessageLocalizationCopyWith<$Res>(_value.localization!, (value) {
       return _then(_value.copyWith(localization: value));
     });
   }
@@ -163,20 +189,20 @@ abstract class _$MessageCopyWith<$Res> implements $MessageCopyWith<$Res> {
       __$MessageCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int id,
-      @JsonKey(name: 'application_id') int applicationId,
-      @JsonKey(name: 'show_setting') MessageShowSetting showSetting,
-      @JsonKey(name: 'view_count') int viewCount,
-      String message,
-      String url,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      @JsonKey(name: 'deleted_at') DateTime deletedAt,
-      @JsonKey(name: 'project_id') int projectId,
-      MessageLocalization localization});
+      {int? id,
+      @JsonKey(name: 'application_id') int? applicationId,
+      @JsonKey(name: 'show_setting') MessageShowSetting? showSetting,
+      @JsonKey(name: 'view_count') int? viewCount,
+      String? message,
+      String? url,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      @JsonKey(name: 'deleted_at') DateTime? deletedAt,
+      @JsonKey(name: 'project_id') int? projectId,
+      MessageLocalization? localization});
 
   @override
-  $MessageLocalizationCopyWith<$Res> get localization;
+  $MessageLocalizationCopyWith<$Res>? get localization;
 }
 
 /// @nodoc
@@ -190,46 +216,69 @@ class __$MessageCopyWithImpl<$Res> extends _$MessageCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object applicationId = freezed,
-    Object showSetting = freezed,
-    Object viewCount = freezed,
-    Object message = freezed,
-    Object url = freezed,
-    Object createdAt = freezed,
-    Object updatedAt = freezed,
-    Object deletedAt = freezed,
-    Object projectId = freezed,
-    Object localization = freezed,
+    Object? id = freezed,
+    Object? applicationId = freezed,
+    Object? showSetting = freezed,
+    Object? viewCount = freezed,
+    Object? message = freezed,
+    Object? url = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? deletedAt = freezed,
+    Object? projectId = freezed,
+    Object? localization = freezed,
   }) {
     return _then(_Message(
-      id: id == freezed ? _value.id : id as int,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
       applicationId: applicationId == freezed
           ? _value.applicationId
-          : applicationId as int,
+          : applicationId // ignore: cast_nullable_to_non_nullable
+              as int?,
       showSetting: showSetting == freezed
           ? _value.showSetting
-          : showSetting as MessageShowSetting,
-      viewCount: viewCount == freezed ? _value.viewCount : viewCount as int,
-      message: message == freezed ? _value.message : message as String,
-      url: url == freezed ? _value.url : url as String,
-      createdAt:
-          createdAt == freezed ? _value.createdAt : createdAt as DateTime,
-      updatedAt:
-          updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
-      deletedAt:
-          deletedAt == freezed ? _value.deletedAt : deletedAt as DateTime,
-      projectId: projectId == freezed ? _value.projectId : projectId as int,
+          : showSetting // ignore: cast_nullable_to_non_nullable
+              as MessageShowSetting?,
+      viewCount: viewCount == freezed
+          ? _value.viewCount
+          : viewCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      deletedAt: deletedAt == freezed
+          ? _value.deletedAt
+          : deletedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      projectId: projectId == freezed
+          ? _value.projectId
+          : projectId // ignore: cast_nullable_to_non_nullable
+              as int?,
       localization: localization == freezed
           ? _value.localization
-          : localization as MessageLocalization,
+          : localization // ignore: cast_nullable_to_non_nullable
+              as MessageLocalization?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_Message implements _Message {
   const _$_Message(
       {this.id,
@@ -245,37 +294,37 @@ class _$_Message implements _Message {
       this.localization});
 
   factory _$_Message.fromJson(Map<String, dynamic> json) =>
-      _$_$_MessageFromJson(json);
+      _$$_MessageFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   @JsonKey(name: 'application_id')
-  final int applicationId;
+  final int? applicationId;
   @override
   @JsonKey(name: 'show_setting')
-  final MessageShowSetting showSetting;
+  final MessageShowSetting? showSetting;
   @override
   @JsonKey(name: 'view_count')
-  final int viewCount;
+  final int? viewCount;
   @override
-  final String message;
+  final String? message;
   @override
-  final String url;
+  final String? url;
   @override
   @JsonKey(name: 'created_at')
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @override
   @JsonKey(name: 'updated_at')
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
   @override
   @JsonKey(name: 'deleted_at')
-  final DateTime deletedAt;
+  final DateTime? deletedAt;
   @override
   @JsonKey(name: 'project_id')
-  final int projectId;
+  final int? projectId;
   @override
-  final MessageLocalization localization;
+  final MessageLocalization? localization;
 
   @override
   String toString() {
@@ -341,56 +390,57 @@ class _$_Message implements _Message {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_MessageToJson(this);
+    return _$$_MessageToJson(this);
   }
 }
 
 abstract class _Message implements Message {
   const factory _Message(
-      {int id,
-      @JsonKey(name: 'application_id') int applicationId,
-      @JsonKey(name: 'show_setting') MessageShowSetting showSetting,
-      @JsonKey(name: 'view_count') int viewCount,
-      String message,
-      String url,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      @JsonKey(name: 'deleted_at') DateTime deletedAt,
-      @JsonKey(name: 'project_id') int projectId,
-      MessageLocalization localization}) = _$_Message;
+      {int? id,
+      @JsonKey(name: 'application_id') int? applicationId,
+      @JsonKey(name: 'show_setting') MessageShowSetting? showSetting,
+      @JsonKey(name: 'view_count') int? viewCount,
+      String? message,
+      String? url,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      @JsonKey(name: 'deleted_at') DateTime? deletedAt,
+      @JsonKey(name: 'project_id') int? projectId,
+      MessageLocalization? localization}) = _$_Message;
 
   factory _Message.fromJson(Map<String, dynamic> json) = _$_Message.fromJson;
 
   @override
-  int get id;
+  int? get id => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'application_id')
-  int get applicationId;
+  int? get applicationId => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'show_setting')
-  MessageShowSetting get showSetting;
+  MessageShowSetting? get showSetting => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'view_count')
-  int get viewCount;
+  int? get viewCount => throw _privateConstructorUsedError;
   @override
-  String get message;
+  String? get message => throw _privateConstructorUsedError;
   @override
-  String get url;
+  String? get url => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'created_at')
-  DateTime get createdAt;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'updated_at')
-  DateTime get updatedAt;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'deleted_at')
-  DateTime get deletedAt;
+  DateTime? get deletedAt => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'project_id')
-  int get projectId;
+  int? get projectId => throw _privateConstructorUsedError;
   @override
-  MessageLocalization get localization;
+  MessageLocalization? get localization => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$MessageCopyWith<_Message> get copyWith;
+  _$MessageCopyWith<_Message> get copyWith =>
+      throw _privateConstructorUsedError;
 }

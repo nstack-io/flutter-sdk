@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'update_translate.dart';
 
@@ -8,6 +8,10 @@ part of 'update_translate.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 UpdateTranslate _$UpdateTranslateFromJson(Map<String, dynamic> json) {
   return _UpdateTranslate.fromJson(json);
 }
@@ -16,12 +20,11 @@ UpdateTranslate _$UpdateTranslateFromJson(Map<String, dynamic> json) {
 class _$UpdateTranslateTearOff {
   const _$UpdateTranslateTearOff();
 
-// ignore: unused_element
   _UpdateTranslate call(
-      {String title,
-      String message,
-      @JsonKey(name: 'positive_button') String positiveButton,
-      @JsonKey(name: 'negative_button') String negativeButton}) {
+      {String? title,
+      String? message,
+      @JsonKey(name: 'positive_button') String? positiveButton,
+      @JsonKey(name: 'negative_button') String? negativeButton}) {
     return _UpdateTranslate(
       title: title,
       message: message,
@@ -30,28 +33,27 @@ class _$UpdateTranslateTearOff {
     );
   }
 
-// ignore: unused_element
   UpdateTranslate fromJson(Map<String, Object> json) {
     return UpdateTranslate.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $UpdateTranslate = _$UpdateTranslateTearOff();
 
 /// @nodoc
 mixin _$UpdateTranslate {
-  String get title;
-  String get message;
+  String? get title => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
   @JsonKey(name: 'positive_button')
-  String get positiveButton;
+  String? get positiveButton => throw _privateConstructorUsedError;
   @JsonKey(name: 'negative_button')
-  String get negativeButton;
+  String? get negativeButton => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UpdateTranslateCopyWith<UpdateTranslate> get copyWith;
+  $UpdateTranslateCopyWith<UpdateTranslate> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -60,10 +62,10 @@ abstract class $UpdateTranslateCopyWith<$Res> {
           UpdateTranslate value, $Res Function(UpdateTranslate) then) =
       _$UpdateTranslateCopyWithImpl<$Res>;
   $Res call(
-      {String title,
-      String message,
-      @JsonKey(name: 'positive_button') String positiveButton,
-      @JsonKey(name: 'negative_button') String negativeButton});
+      {String? title,
+      String? message,
+      @JsonKey(name: 'positive_button') String? positiveButton,
+      @JsonKey(name: 'negative_button') String? negativeButton});
 }
 
 /// @nodoc
@@ -77,20 +79,28 @@ class _$UpdateTranslateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object title = freezed,
-    Object message = freezed,
-    Object positiveButton = freezed,
-    Object negativeButton = freezed,
+    Object? title = freezed,
+    Object? message = freezed,
+    Object? positiveButton = freezed,
+    Object? negativeButton = freezed,
   }) {
     return _then(_value.copyWith(
-      title: title == freezed ? _value.title : title as String,
-      message: message == freezed ? _value.message : message as String,
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
       positiveButton: positiveButton == freezed
           ? _value.positiveButton
-          : positiveButton as String,
+          : positiveButton // ignore: cast_nullable_to_non_nullable
+              as String?,
       negativeButton: negativeButton == freezed
           ? _value.negativeButton
-          : negativeButton as String,
+          : negativeButton // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -103,10 +113,10 @@ abstract class _$UpdateTranslateCopyWith<$Res>
       __$UpdateTranslateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String title,
-      String message,
-      @JsonKey(name: 'positive_button') String positiveButton,
-      @JsonKey(name: 'negative_button') String negativeButton});
+      {String? title,
+      String? message,
+      @JsonKey(name: 'positive_button') String? positiveButton,
+      @JsonKey(name: 'negative_button') String? negativeButton});
 }
 
 /// @nodoc
@@ -122,27 +132,34 @@ class __$UpdateTranslateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object title = freezed,
-    Object message = freezed,
-    Object positiveButton = freezed,
-    Object negativeButton = freezed,
+    Object? title = freezed,
+    Object? message = freezed,
+    Object? positiveButton = freezed,
+    Object? negativeButton = freezed,
   }) {
     return _then(_UpdateTranslate(
-      title: title == freezed ? _value.title : title as String,
-      message: message == freezed ? _value.message : message as String,
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
       positiveButton: positiveButton == freezed
           ? _value.positiveButton
-          : positiveButton as String,
+          : positiveButton // ignore: cast_nullable_to_non_nullable
+              as String?,
       negativeButton: negativeButton == freezed
           ? _value.negativeButton
-          : negativeButton as String,
+          : negativeButton // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_UpdateTranslate implements _UpdateTranslate {
   const _$_UpdateTranslate(
       {this.title,
@@ -151,18 +168,18 @@ class _$_UpdateTranslate implements _UpdateTranslate {
       @JsonKey(name: 'negative_button') this.negativeButton});
 
   factory _$_UpdateTranslate.fromJson(Map<String, dynamic> json) =>
-      _$_$_UpdateTranslateFromJson(json);
+      _$$_UpdateTranslateFromJson(json);
 
   @override
-  final String title;
+  final String? title;
   @override
-  final String message;
+  final String? message;
   @override
   @JsonKey(name: 'positive_button')
-  final String positiveButton;
+  final String? positiveButton;
   @override
   @JsonKey(name: 'negative_button')
-  final String negativeButton;
+  final String? negativeButton;
 
   @override
   String toString() {
@@ -201,32 +218,33 @@ class _$_UpdateTranslate implements _UpdateTranslate {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_UpdateTranslateToJson(this);
+    return _$$_UpdateTranslateToJson(this);
   }
 }
 
 abstract class _UpdateTranslate implements UpdateTranslate {
   const factory _UpdateTranslate(
-          {String title,
-          String message,
-          @JsonKey(name: 'positive_button') String positiveButton,
-          @JsonKey(name: 'negative_button') String negativeButton}) =
+          {String? title,
+          String? message,
+          @JsonKey(name: 'positive_button') String? positiveButton,
+          @JsonKey(name: 'negative_button') String? negativeButton}) =
       _$_UpdateTranslate;
 
   factory _UpdateTranslate.fromJson(Map<String, dynamic> json) =
       _$_UpdateTranslate.fromJson;
 
   @override
-  String get title;
+  String? get title => throw _privateConstructorUsedError;
   @override
-  String get message;
+  String? get message => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'positive_button')
-  String get positiveButton;
+  String? get positiveButton => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'negative_button')
-  String get negativeButton;
+  String? get negativeButton => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$UpdateTranslateCopyWith<_UpdateTranslate> get copyWith;
+  _$UpdateTranslateCopyWith<_UpdateTranslate> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -32,15 +32,15 @@ class HttpNStackApi implements NStackAPI {
   final bool isTestMode;
 
   HttpNStackApi({
-    @required this.config,
-    @required this.meta,
-    @required this.platform,
-    @required this.local,
-    @required this.isDevMode,
-    @required this.isTestMode,
+    required this.config,
+    required this.meta,
+    required this.platform,
+    required this.local,
+    required this.isDevMode,
+    required this.isTestMode,
   });
 
-  Map<String, String> get _headers => {
+  Map<String, String?> get _headers => {
         'Accept-Language': local,
         'X-Application-Id': config.applicationId,
         'X-Rest-Api-Key': config.restApiKey,
@@ -57,7 +57,7 @@ class HttpNStackApi implements NStackAPI {
   Future<LocalizeLanguageList> getLocalizeLanguageList() async {
     final response = await http.get(
       uri('content/localize/resources/platforms/$platform/languages'),
-      headers: _headers,
+      headers: _headers as Map<String, String>?,
     );
     return LocalizeLanguageList.fromJson(
       json.decode(response.body),
@@ -68,7 +68,7 @@ class HttpNStackApi implements NStackAPI {
   Future<LocalizeIndexList> getLocalizeIndexList() async {
     final response = await http.get(
       uri('content/localize/resources/platforms/mobile?dev=$isDevMode'),
-      headers: _headers,
+      headers: _headers as Map<String, String>?,
     );
     return LocalizeIndexList.fromJson(
       json.decode(response.body),
@@ -77,11 +77,11 @@ class HttpNStackApi implements NStackAPI {
 
   @override
   Future<LocalizeResource> getLocalizeResource({
-    int id,
+    int? id,
   }) async {
     final response = await http.get(
       uri('content/localize/resources/$id'),
-      headers: _headers,
+      headers: _headers as Map<String, String>?,
     );
     return LocalizeResource.fromJson(
       json.decode(response.body),
@@ -94,11 +94,11 @@ class HttpNStackApi implements NStackAPI {
 
   @override
   Future<AppOpen> postAppOpen({
-    @required AppOpenRequestBody body,
+    required AppOpenRequestBody body,
   }) async {
     final response = await http.post(
       uri('open?dev=$isDevMode&test=$isTestMode'),
-      headers: _headers,
+      headers: _headers as Map<String, String>?,
       body: body.toJson(),
     );
     return AppOpen.fromJson(

@@ -8,7 +8,7 @@ part 'localize_resource_list.g.dart';
 
 @freezed
 abstract class LocalizeResourceList with _$LocalizeResourceList {
-  const factory LocalizeResourceList({List<LocalizeResource> data}) =
+  const factory LocalizeResourceList({List<LocalizeResource>? data}) =
       _LocalizeResourceList;
 
   factory LocalizeResourceList.fromJson(Map<String, dynamic> json) =>

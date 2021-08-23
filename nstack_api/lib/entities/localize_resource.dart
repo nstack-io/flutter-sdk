@@ -9,8 +9,8 @@ part 'localize_resource.g.dart';
 @freezed
 abstract class LocalizeResource with _$LocalizeResource {
   const factory LocalizeResource({
-    Map<String, dynamic> data,
-    LocalizeResourceMeta meta,
+    Map<String, dynamic>? data,
+    LocalizeResourceMeta? meta,
   }) = _LocalizeResource;
 
   factory LocalizeResource.fromJson(Map<String, dynamic> json) =>
@@ -18,5 +18,5 @@ abstract class LocalizeResource with _$LocalizeResource {
 }
 
 extension LocalizeResourceExtension on LocalizeResource {
-  int get id => meta.language.id;
+  int? get id => meta!.language!.id;
 }

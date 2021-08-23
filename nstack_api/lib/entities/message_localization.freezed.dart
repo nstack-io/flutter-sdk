@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'message_localization.dart';
 
@@ -8,6 +8,10 @@ part of 'message_localization.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 MessageLocalization _$MessageLocalizationFromJson(Map<String, dynamic> json) {
   return _MessageLocalization.fromJson(json);
 }
@@ -16,36 +20,34 @@ MessageLocalization _$MessageLocalizationFromJson(Map<String, dynamic> json) {
 class _$MessageLocalizationTearOff {
   const _$MessageLocalizationTearOff();
 
-// ignore: unused_element
   _MessageLocalization call(
-      {@JsonKey(name: 'ok_btn') String okBtn,
-      @JsonKey(name: 'url_btn') String urlBtn}) {
+      {@JsonKey(name: 'ok_btn') String? okBtn,
+      @JsonKey(name: 'url_btn') String? urlBtn}) {
     return _MessageLocalization(
       okBtn: okBtn,
       urlBtn: urlBtn,
     );
   }
 
-// ignore: unused_element
   MessageLocalization fromJson(Map<String, Object> json) {
     return MessageLocalization.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $MessageLocalization = _$MessageLocalizationTearOff();
 
 /// @nodoc
 mixin _$MessageLocalization {
   @JsonKey(name: 'ok_btn')
-  String get okBtn;
+  String? get okBtn => throw _privateConstructorUsedError;
   @JsonKey(name: 'url_btn')
-  String get urlBtn;
+  String? get urlBtn => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $MessageLocalizationCopyWith<MessageLocalization> get copyWith;
+  $MessageLocalizationCopyWith<MessageLocalization> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -54,8 +56,8 @@ abstract class $MessageLocalizationCopyWith<$Res> {
           MessageLocalization value, $Res Function(MessageLocalization) then) =
       _$MessageLocalizationCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'ok_btn') String okBtn,
-      @JsonKey(name: 'url_btn') String urlBtn});
+      {@JsonKey(name: 'ok_btn') String? okBtn,
+      @JsonKey(name: 'url_btn') String? urlBtn});
 }
 
 /// @nodoc
@@ -69,12 +71,18 @@ class _$MessageLocalizationCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object okBtn = freezed,
-    Object urlBtn = freezed,
+    Object? okBtn = freezed,
+    Object? urlBtn = freezed,
   }) {
     return _then(_value.copyWith(
-      okBtn: okBtn == freezed ? _value.okBtn : okBtn as String,
-      urlBtn: urlBtn == freezed ? _value.urlBtn : urlBtn as String,
+      okBtn: okBtn == freezed
+          ? _value.okBtn
+          : okBtn // ignore: cast_nullable_to_non_nullable
+              as String?,
+      urlBtn: urlBtn == freezed
+          ? _value.urlBtn
+          : urlBtn // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -87,8 +95,8 @@ abstract class _$MessageLocalizationCopyWith<$Res>
       __$MessageLocalizationCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'ok_btn') String okBtn,
-      @JsonKey(name: 'url_btn') String urlBtn});
+      {@JsonKey(name: 'ok_btn') String? okBtn,
+      @JsonKey(name: 'url_btn') String? urlBtn});
 }
 
 /// @nodoc
@@ -104,33 +112,38 @@ class __$MessageLocalizationCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object okBtn = freezed,
-    Object urlBtn = freezed,
+    Object? okBtn = freezed,
+    Object? urlBtn = freezed,
   }) {
     return _then(_MessageLocalization(
-      okBtn: okBtn == freezed ? _value.okBtn : okBtn as String,
-      urlBtn: urlBtn == freezed ? _value.urlBtn : urlBtn as String,
+      okBtn: okBtn == freezed
+          ? _value.okBtn
+          : okBtn // ignore: cast_nullable_to_non_nullable
+              as String?,
+      urlBtn: urlBtn == freezed
+          ? _value.urlBtn
+          : urlBtn // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_MessageLocalization implements _MessageLocalization {
   const _$_MessageLocalization(
       {@JsonKey(name: 'ok_btn') this.okBtn,
       @JsonKey(name: 'url_btn') this.urlBtn});
 
   factory _$_MessageLocalization.fromJson(Map<String, dynamic> json) =>
-      _$_$_MessageLocalizationFromJson(json);
+      _$$_MessageLocalizationFromJson(json);
 
   @override
   @JsonKey(name: 'ok_btn')
-  final String okBtn;
+  final String? okBtn;
   @override
   @JsonKey(name: 'url_btn')
-  final String urlBtn;
+  final String? urlBtn;
 
   @override
   String toString() {
@@ -161,25 +174,26 @@ class _$_MessageLocalization implements _MessageLocalization {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_MessageLocalizationToJson(this);
+    return _$$_MessageLocalizationToJson(this);
   }
 }
 
 abstract class _MessageLocalization implements MessageLocalization {
   const factory _MessageLocalization(
-      {@JsonKey(name: 'ok_btn') String okBtn,
-      @JsonKey(name: 'url_btn') String urlBtn}) = _$_MessageLocalization;
+      {@JsonKey(name: 'ok_btn') String? okBtn,
+      @JsonKey(name: 'url_btn') String? urlBtn}) = _$_MessageLocalization;
 
   factory _MessageLocalization.fromJson(Map<String, dynamic> json) =
       _$_MessageLocalization.fromJson;
 
   @override
   @JsonKey(name: 'ok_btn')
-  String get okBtn;
+  String? get okBtn => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'url_btn')
-  String get urlBtn;
+  String? get urlBtn => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$MessageLocalizationCopyWith<_MessageLocalization> get copyWith;
+  _$MessageLocalizationCopyWith<_MessageLocalization> get copyWith =>
+      throw _privateConstructorUsedError;
 }

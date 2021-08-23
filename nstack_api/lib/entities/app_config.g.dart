@@ -6,14 +6,12 @@ part of 'app_config.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_AppConfig _$_$_AppConfigFromJson(Map<String, dynamic> json) {
-  return _$_AppConfig(
-    version: json['version'] as String,
-    previousVersion: json['previousVersion'] as String,
-  );
-}
+_$_AppConfig _$$_AppConfigFromJson(Map<String, dynamic> json) => _$_AppConfig(
+      version: json['version'] as String?,
+      previousVersion: json['previousVersion'] as String?,
+    );
 
-Map<String, dynamic> _$_$_AppConfigToJson(_$_AppConfig instance) =>
+Map<String, dynamic> _$$_AppConfigToJson(_$_AppConfig instance) =>
     <String, dynamic>{
       'version': instance.version,
       'previousVersion': instance.previousVersion,

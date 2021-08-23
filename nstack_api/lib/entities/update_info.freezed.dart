@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'update_info.dart';
 
@@ -8,6 +8,10 @@ part of 'update_info.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 UpdateInfo _$UpdateInfoFromJson(Map<String, dynamic> json) {
   return _UpdateInfo.fromJson(json);
 }
@@ -16,14 +20,13 @@ UpdateInfo _$UpdateInfoFromJson(Map<String, dynamic> json) {
 class _$UpdateInfoTearOff {
   const _$UpdateInfoTearOff();
 
-// ignore: unused_element
   _UpdateInfo call(
-      {String state,
-      @JsonKey(name: 'last_id') int lastId,
-      String version,
-      String link,
-      UpdateTranslate translate,
-      @JsonKey(name: 'file_url') String fileUrl}) {
+      {String? state,
+      @JsonKey(name: 'last_id') int? lastId,
+      String? version,
+      String? link,
+      UpdateTranslate? translate,
+      @JsonKey(name: 'file_url') String? fileUrl}) {
     return _UpdateInfo(
       state: state,
       lastId: lastId,
@@ -34,30 +37,29 @@ class _$UpdateInfoTearOff {
     );
   }
 
-// ignore: unused_element
   UpdateInfo fromJson(Map<String, Object> json) {
     return UpdateInfo.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $UpdateInfo = _$UpdateInfoTearOff();
 
 /// @nodoc
 mixin _$UpdateInfo {
-  String get state;
+  String? get state => throw _privateConstructorUsedError;
   @JsonKey(name: 'last_id')
-  int get lastId;
-  String get version;
-  String get link;
-  UpdateTranslate get translate;
+  int? get lastId => throw _privateConstructorUsedError;
+  String? get version => throw _privateConstructorUsedError;
+  String? get link => throw _privateConstructorUsedError;
+  UpdateTranslate? get translate => throw _privateConstructorUsedError;
   @JsonKey(name: 'file_url')
-  String get fileUrl;
+  String? get fileUrl => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UpdateInfoCopyWith<UpdateInfo> get copyWith;
+  $UpdateInfoCopyWith<UpdateInfo> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -66,14 +68,14 @@ abstract class $UpdateInfoCopyWith<$Res> {
           UpdateInfo value, $Res Function(UpdateInfo) then) =
       _$UpdateInfoCopyWithImpl<$Res>;
   $Res call(
-      {String state,
-      @JsonKey(name: 'last_id') int lastId,
-      String version,
-      String link,
-      UpdateTranslate translate,
-      @JsonKey(name: 'file_url') String fileUrl});
+      {String? state,
+      @JsonKey(name: 'last_id') int? lastId,
+      String? version,
+      String? link,
+      UpdateTranslate? translate,
+      @JsonKey(name: 'file_url') String? fileUrl});
 
-  $UpdateTranslateCopyWith<$Res> get translate;
+  $UpdateTranslateCopyWith<$Res>? get translate;
 }
 
 /// @nodoc
@@ -86,31 +88,48 @@ class _$UpdateInfoCopyWithImpl<$Res> implements $UpdateInfoCopyWith<$Res> {
 
   @override
   $Res call({
-    Object state = freezed,
-    Object lastId = freezed,
-    Object version = freezed,
-    Object link = freezed,
-    Object translate = freezed,
-    Object fileUrl = freezed,
+    Object? state = freezed,
+    Object? lastId = freezed,
+    Object? version = freezed,
+    Object? link = freezed,
+    Object? translate = freezed,
+    Object? fileUrl = freezed,
   }) {
     return _then(_value.copyWith(
-      state: state == freezed ? _value.state : state as String,
-      lastId: lastId == freezed ? _value.lastId : lastId as int,
-      version: version == freezed ? _value.version : version as String,
-      link: link == freezed ? _value.link : link as String,
+      state: state == freezed
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastId: lastId == freezed
+          ? _value.lastId
+          : lastId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      version: version == freezed
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as String?,
+      link: link == freezed
+          ? _value.link
+          : link // ignore: cast_nullable_to_non_nullable
+              as String?,
       translate: translate == freezed
           ? _value.translate
-          : translate as UpdateTranslate,
-      fileUrl: fileUrl == freezed ? _value.fileUrl : fileUrl as String,
+          : translate // ignore: cast_nullable_to_non_nullable
+              as UpdateTranslate?,
+      fileUrl: fileUrl == freezed
+          ? _value.fileUrl
+          : fileUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 
   @override
-  $UpdateTranslateCopyWith<$Res> get translate {
+  $UpdateTranslateCopyWith<$Res>? get translate {
     if (_value.translate == null) {
       return null;
     }
-    return $UpdateTranslateCopyWith<$Res>(_value.translate, (value) {
+
+    return $UpdateTranslateCopyWith<$Res>(_value.translate!, (value) {
       return _then(_value.copyWith(translate: value));
     });
   }
@@ -123,15 +142,15 @@ abstract class _$UpdateInfoCopyWith<$Res> implements $UpdateInfoCopyWith<$Res> {
       __$UpdateInfoCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String state,
-      @JsonKey(name: 'last_id') int lastId,
-      String version,
-      String link,
-      UpdateTranslate translate,
-      @JsonKey(name: 'file_url') String fileUrl});
+      {String? state,
+      @JsonKey(name: 'last_id') int? lastId,
+      String? version,
+      String? link,
+      UpdateTranslate? translate,
+      @JsonKey(name: 'file_url') String? fileUrl});
 
   @override
-  $UpdateTranslateCopyWith<$Res> get translate;
+  $UpdateTranslateCopyWith<$Res>? get translate;
 }
 
 /// @nodoc
@@ -146,29 +165,44 @@ class __$UpdateInfoCopyWithImpl<$Res> extends _$UpdateInfoCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object state = freezed,
-    Object lastId = freezed,
-    Object version = freezed,
-    Object link = freezed,
-    Object translate = freezed,
-    Object fileUrl = freezed,
+    Object? state = freezed,
+    Object? lastId = freezed,
+    Object? version = freezed,
+    Object? link = freezed,
+    Object? translate = freezed,
+    Object? fileUrl = freezed,
   }) {
     return _then(_UpdateInfo(
-      state: state == freezed ? _value.state : state as String,
-      lastId: lastId == freezed ? _value.lastId : lastId as int,
-      version: version == freezed ? _value.version : version as String,
-      link: link == freezed ? _value.link : link as String,
+      state: state == freezed
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastId: lastId == freezed
+          ? _value.lastId
+          : lastId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      version: version == freezed
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as String?,
+      link: link == freezed
+          ? _value.link
+          : link // ignore: cast_nullable_to_non_nullable
+              as String?,
       translate: translate == freezed
           ? _value.translate
-          : translate as UpdateTranslate,
-      fileUrl: fileUrl == freezed ? _value.fileUrl : fileUrl as String,
+          : translate // ignore: cast_nullable_to_non_nullable
+              as UpdateTranslate?,
+      fileUrl: fileUrl == freezed
+          ? _value.fileUrl
+          : fileUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_UpdateInfo implements _UpdateInfo {
   const _$_UpdateInfo(
       {this.state,
@@ -179,22 +213,22 @@ class _$_UpdateInfo implements _UpdateInfo {
       @JsonKey(name: 'file_url') this.fileUrl});
 
   factory _$_UpdateInfo.fromJson(Map<String, dynamic> json) =>
-      _$_$_UpdateInfoFromJson(json);
+      _$$_UpdateInfoFromJson(json);
 
   @override
-  final String state;
+  final String? state;
   @override
   @JsonKey(name: 'last_id')
-  final int lastId;
+  final int? lastId;
   @override
-  final String version;
+  final String? version;
   @override
-  final String link;
+  final String? link;
   @override
-  final UpdateTranslate translate;
+  final UpdateTranslate? translate;
   @override
   @JsonKey(name: 'file_url')
-  final String fileUrl;
+  final String? fileUrl;
 
   @override
   String toString() {
@@ -238,37 +272,38 @@ class _$_UpdateInfo implements _UpdateInfo {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_UpdateInfoToJson(this);
+    return _$$_UpdateInfoToJson(this);
   }
 }
 
 abstract class _UpdateInfo implements UpdateInfo {
   const factory _UpdateInfo(
-      {String state,
-      @JsonKey(name: 'last_id') int lastId,
-      String version,
-      String link,
-      UpdateTranslate translate,
-      @JsonKey(name: 'file_url') String fileUrl}) = _$_UpdateInfo;
+      {String? state,
+      @JsonKey(name: 'last_id') int? lastId,
+      String? version,
+      String? link,
+      UpdateTranslate? translate,
+      @JsonKey(name: 'file_url') String? fileUrl}) = _$_UpdateInfo;
 
   factory _UpdateInfo.fromJson(Map<String, dynamic> json) =
       _$_UpdateInfo.fromJson;
 
   @override
-  String get state;
+  String? get state => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'last_id')
-  int get lastId;
+  int? get lastId => throw _privateConstructorUsedError;
   @override
-  String get version;
+  String? get version => throw _privateConstructorUsedError;
   @override
-  String get link;
+  String? get link => throw _privateConstructorUsedError;
   @override
-  UpdateTranslate get translate;
+  UpdateTranslate? get translate => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'file_url')
-  String get fileUrl;
+  String? get fileUrl => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$UpdateInfoCopyWith<_UpdateInfo> get copyWith;
+  _$UpdateInfoCopyWith<_UpdateInfo> get copyWith =>
+      throw _privateConstructorUsedError;
 }

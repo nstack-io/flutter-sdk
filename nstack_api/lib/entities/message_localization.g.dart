@@ -6,15 +6,14 @@ part of 'message_localization.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_MessageLocalization _$_$_MessageLocalizationFromJson(
-    Map<String, dynamic> json) {
-  return _$_MessageLocalization(
-    okBtn: json['ok_btn'] as String,
-    urlBtn: json['url_btn'] as String,
-  );
-}
+_$_MessageLocalization _$$_MessageLocalizationFromJson(
+        Map<String, dynamic> json) =>
+    _$_MessageLocalization(
+      okBtn: json['ok_btn'] as String?,
+      urlBtn: json['url_btn'] as String?,
+    );
 
-Map<String, dynamic> _$_$_MessageLocalizationToJson(
+Map<String, dynamic> _$$_MessageLocalizationToJson(
         _$_MessageLocalization instance) =>
     <String, dynamic>{
       'ok_btn': instance.okBtn,

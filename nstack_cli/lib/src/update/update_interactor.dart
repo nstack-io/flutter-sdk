@@ -23,7 +23,7 @@ class UpdateInteractor implements FutureInteractor<void> {
     // TODO: Use nstack_api
     // Fetch localize-index-resources
     final localizeIndexResources = await http
-        .get(localizeIndexResourcesUrl, headers: headers)
+        .get(Uri.parse(localizeIndexResourcesUrl), headers: headers)
         .then((response) => jsonDecode(response.body)['data']);
 
     // TODO: Use nstack_api

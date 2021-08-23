@@ -6,21 +6,20 @@ part of 'localize_index.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_LocalizeIndex _$_$_LocalizeIndexFromJson(Map<String, dynamic> json) {
-  return _$_LocalizeIndex(
-    id: json['id'] as int,
-    url: json['url'] as String,
-    lastUpdatedAt: json['last_updated_at'] == null
-        ? null
-        : DateTime.parse(json['last_updated_at'] as String),
-    shouldUpdate: json['should_update'] as bool,
-    language: json['language'] == null
-        ? null
-        : LocalizeLanguage.fromJson(json['language'] as Map<String, dynamic>),
-  );
-}
+_$_LocalizeIndex _$$_LocalizeIndexFromJson(Map<String, dynamic> json) =>
+    _$_LocalizeIndex(
+      id: json['id'] as int?,
+      url: json['url'] as String?,
+      lastUpdatedAt: json['last_updated_at'] == null
+          ? null
+          : DateTime.parse(json['last_updated_at'] as String),
+      shouldUpdate: json['should_update'] as bool?,
+      language: json['language'] == null
+          ? null
+          : LocalizeLanguage.fromJson(json['language'] as Map<String, dynamic>),
+    );
 
-Map<String, dynamic> _$_$_LocalizeIndexToJson(_$_LocalizeIndex instance) =>
+Map<String, dynamic> _$$_LocalizeIndexToJson(_$_LocalizeIndex instance) =>
     <String, dynamic>{
       'id': instance.id,
       'url': instance.url,

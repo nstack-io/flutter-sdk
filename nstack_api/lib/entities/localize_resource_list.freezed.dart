@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'localize_resource_list.dart';
 
@@ -8,6 +8,10 @@ part of 'localize_resource_list.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 LocalizeResourceList _$LocalizeResourceListFromJson(Map<String, dynamic> json) {
   return _LocalizeResourceList.fromJson(json);
 }
@@ -16,30 +20,28 @@ LocalizeResourceList _$LocalizeResourceListFromJson(Map<String, dynamic> json) {
 class _$LocalizeResourceListTearOff {
   const _$LocalizeResourceListTearOff();
 
-// ignore: unused_element
-  _LocalizeResourceList call({List<LocalizeResource> data}) {
+  _LocalizeResourceList call({List<LocalizeResource>? data}) {
     return _LocalizeResourceList(
       data: data,
     );
   }
 
-// ignore: unused_element
   LocalizeResourceList fromJson(Map<String, Object> json) {
     return LocalizeResourceList.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $LocalizeResourceList = _$LocalizeResourceListTearOff();
 
 /// @nodoc
 mixin _$LocalizeResourceList {
-  List<LocalizeResource> get data;
+  List<LocalizeResource>? get data => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LocalizeResourceListCopyWith<LocalizeResourceList> get copyWith;
+  $LocalizeResourceListCopyWith<LocalizeResourceList> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -47,7 +49,7 @@ abstract class $LocalizeResourceListCopyWith<$Res> {
   factory $LocalizeResourceListCopyWith(LocalizeResourceList value,
           $Res Function(LocalizeResourceList) then) =
       _$LocalizeResourceListCopyWithImpl<$Res>;
-  $Res call({List<LocalizeResource> data});
+  $Res call({List<LocalizeResource>? data});
 }
 
 /// @nodoc
@@ -61,10 +63,13 @@ class _$LocalizeResourceListCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object data = freezed,
+    Object? data = freezed,
   }) {
     return _then(_value.copyWith(
-      data: data == freezed ? _value.data : data as List<LocalizeResource>,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<LocalizeResource>?,
     ));
   }
 }
@@ -76,7 +81,7 @@ abstract class _$LocalizeResourceListCopyWith<$Res>
           $Res Function(_LocalizeResourceList) then) =
       __$LocalizeResourceListCopyWithImpl<$Res>;
   @override
-  $Res call({List<LocalizeResource> data});
+  $Res call({List<LocalizeResource>? data});
 }
 
 /// @nodoc
@@ -92,25 +97,27 @@ class __$LocalizeResourceListCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object data = freezed,
+    Object? data = freezed,
   }) {
     return _then(_LocalizeResourceList(
-      data: data == freezed ? _value.data : data as List<LocalizeResource>,
+      data: data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as List<LocalizeResource>?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_LocalizeResourceList implements _LocalizeResourceList {
   const _$_LocalizeResourceList({this.data});
 
   factory _$_LocalizeResourceList.fromJson(Map<String, dynamic> json) =>
-      _$_$_LocalizeResourceListFromJson(json);
+      _$$_LocalizeResourceListFromJson(json);
 
   @override
-  final List<LocalizeResource> data;
+  final List<LocalizeResource>? data;
 
   @override
   String toString() {
@@ -137,20 +144,21 @@ class _$_LocalizeResourceList implements _LocalizeResourceList {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_LocalizeResourceListToJson(this);
+    return _$$_LocalizeResourceListToJson(this);
   }
 }
 
 abstract class _LocalizeResourceList implements LocalizeResourceList {
-  const factory _LocalizeResourceList({List<LocalizeResource> data}) =
+  const factory _LocalizeResourceList({List<LocalizeResource>? data}) =
       _$_LocalizeResourceList;
 
   factory _LocalizeResourceList.fromJson(Map<String, dynamic> json) =
       _$_LocalizeResourceList.fromJson;
 
   @override
-  List<LocalizeResource> get data;
+  List<LocalizeResource>? get data => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$LocalizeResourceListCopyWith<_LocalizeResourceList> get copyWith;
+  _$LocalizeResourceListCopyWith<_LocalizeResourceList> get copyWith =>
+      throw _privateConstructorUsedError;
 }

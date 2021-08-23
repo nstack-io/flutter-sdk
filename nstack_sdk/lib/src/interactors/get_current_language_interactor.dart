@@ -1,7 +1,7 @@
 import 'package:nstack_api/entities/localize_language.dart';
 import 'package:nstack_sdk/src/interactors/interactor.dart';
 
-class GetCurrentLanguageInteractor extends FutureInteractor<LocalizeLanguage> {
+class GetCurrentLanguageInteractor extends Interactor<Future<LocalizeLanguage>> {
   GetCurrentLanguageInteractor();
 
   @override

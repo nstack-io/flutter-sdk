@@ -7,14 +7,14 @@ part 'localize_language.g.dart';
 @freezed
 abstract class LocalizeLanguage with _$LocalizeLanguage {
   const factory LocalizeLanguage({
-  int id,
-  String name,
-  String locale,
-  String direction,
+  int? id,
+  String? name,
+  String? locale,
+  String? direction,
   @JsonKey(name: 'is_default')
-  bool isDefault,
+  bool? isDefault,
   @JsonKey(name: 'is_best_fit')
-  bool isBestFit,
+  bool? isBestFit,
   }) = _Language;
 
   factory LocalizeLanguage.fromJson(Map<String, dynamic> json) =>

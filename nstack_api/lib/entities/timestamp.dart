@@ -7,7 +7,7 @@ part 'timestamp.g.dart';
 @freezed
 abstract class Timestamp with _$Timestamp {
   const factory Timestamp({
-    DateTime time,
+    DateTime? time,
   }) = _Timestamp;
 
   factory Timestamp.fromJson(Map<String, dynamic> json) =>

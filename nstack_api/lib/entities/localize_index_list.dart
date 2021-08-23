@@ -9,7 +9,7 @@ part 'localize_index_list.g.dart';
 @freezed
 abstract class LocalizeIndexList with _$LocalizeIndexList {
   const factory LocalizeIndexList({
-    List<LocalizeIndex> data,
+    List<LocalizeIndex>? data,
   }) = _LocalizeIndexList;
 
   factory LocalizeIndexList.fromJson(Map<String, dynamic> json) =>

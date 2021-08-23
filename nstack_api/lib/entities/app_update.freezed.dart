@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'app_update.dart';
 
@@ -8,6 +8,10 @@ part of 'app_update.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 AppUpdate _$AppUpdateFromJson(Map<String, dynamic> json) {
   return _AppUpdate.fromJson(json);
 }
@@ -16,36 +20,34 @@ AppUpdate _$AppUpdateFromJson(Map<String, dynamic> json) {
 class _$AppUpdateTearOff {
   const _$AppUpdateTearOff();
 
-// ignore: unused_element
   _AppUpdate call(
-      {@JsonKey(name: 'newer_version') UpdateInfo newerVersion,
-      @JsonKey(name: 'new_in_version') UpdateInfo newInVersion}) {
+      {@JsonKey(name: 'newer_version') UpdateInfo? newerVersion,
+      @JsonKey(name: 'new_in_version') UpdateInfo? newInVersion}) {
     return _AppUpdate(
       newerVersion: newerVersion,
       newInVersion: newInVersion,
     );
   }
 
-// ignore: unused_element
   AppUpdate fromJson(Map<String, Object> json) {
     return AppUpdate.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $AppUpdate = _$AppUpdateTearOff();
 
 /// @nodoc
 mixin _$AppUpdate {
   @JsonKey(name: 'newer_version')
-  UpdateInfo get newerVersion;
+  UpdateInfo? get newerVersion => throw _privateConstructorUsedError;
   @JsonKey(name: 'new_in_version')
-  UpdateInfo get newInVersion;
+  UpdateInfo? get newInVersion => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AppUpdateCopyWith<AppUpdate> get copyWith;
+  $AppUpdateCopyWith<AppUpdate> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -53,11 +55,11 @@ abstract class $AppUpdateCopyWith<$Res> {
   factory $AppUpdateCopyWith(AppUpdate value, $Res Function(AppUpdate) then) =
       _$AppUpdateCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'newer_version') UpdateInfo newerVersion,
-      @JsonKey(name: 'new_in_version') UpdateInfo newInVersion});
+      {@JsonKey(name: 'newer_version') UpdateInfo? newerVersion,
+      @JsonKey(name: 'new_in_version') UpdateInfo? newInVersion});
 
-  $UpdateInfoCopyWith<$Res> get newerVersion;
-  $UpdateInfoCopyWith<$Res> get newInVersion;
+  $UpdateInfoCopyWith<$Res>? get newerVersion;
+  $UpdateInfoCopyWith<$Res>? get newInVersion;
 }
 
 /// @nodoc
@@ -70,35 +72,39 @@ class _$AppUpdateCopyWithImpl<$Res> implements $AppUpdateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object newerVersion = freezed,
-    Object newInVersion = freezed,
+    Object? newerVersion = freezed,
+    Object? newInVersion = freezed,
   }) {
     return _then(_value.copyWith(
       newerVersion: newerVersion == freezed
           ? _value.newerVersion
-          : newerVersion as UpdateInfo,
+          : newerVersion // ignore: cast_nullable_to_non_nullable
+              as UpdateInfo?,
       newInVersion: newInVersion == freezed
           ? _value.newInVersion
-          : newInVersion as UpdateInfo,
+          : newInVersion // ignore: cast_nullable_to_non_nullable
+              as UpdateInfo?,
     ));
   }
 
   @override
-  $UpdateInfoCopyWith<$Res> get newerVersion {
+  $UpdateInfoCopyWith<$Res>? get newerVersion {
     if (_value.newerVersion == null) {
       return null;
     }
-    return $UpdateInfoCopyWith<$Res>(_value.newerVersion, (value) {
+
+    return $UpdateInfoCopyWith<$Res>(_value.newerVersion!, (value) {
       return _then(_value.copyWith(newerVersion: value));
     });
   }
 
   @override
-  $UpdateInfoCopyWith<$Res> get newInVersion {
+  $UpdateInfoCopyWith<$Res>? get newInVersion {
     if (_value.newInVersion == null) {
       return null;
     }
-    return $UpdateInfoCopyWith<$Res>(_value.newInVersion, (value) {
+
+    return $UpdateInfoCopyWith<$Res>(_value.newInVersion!, (value) {
       return _then(_value.copyWith(newInVersion: value));
     });
   }
@@ -111,13 +117,13 @@ abstract class _$AppUpdateCopyWith<$Res> implements $AppUpdateCopyWith<$Res> {
       __$AppUpdateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'newer_version') UpdateInfo newerVersion,
-      @JsonKey(name: 'new_in_version') UpdateInfo newInVersion});
+      {@JsonKey(name: 'newer_version') UpdateInfo? newerVersion,
+      @JsonKey(name: 'new_in_version') UpdateInfo? newInVersion});
 
   @override
-  $UpdateInfoCopyWith<$Res> get newerVersion;
+  $UpdateInfoCopyWith<$Res>? get newerVersion;
   @override
-  $UpdateInfoCopyWith<$Res> get newInVersion;
+  $UpdateInfoCopyWith<$Res>? get newInVersion;
 }
 
 /// @nodoc
@@ -131,37 +137,38 @@ class __$AppUpdateCopyWithImpl<$Res> extends _$AppUpdateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object newerVersion = freezed,
-    Object newInVersion = freezed,
+    Object? newerVersion = freezed,
+    Object? newInVersion = freezed,
   }) {
     return _then(_AppUpdate(
       newerVersion: newerVersion == freezed
           ? _value.newerVersion
-          : newerVersion as UpdateInfo,
+          : newerVersion // ignore: cast_nullable_to_non_nullable
+              as UpdateInfo?,
       newInVersion: newInVersion == freezed
           ? _value.newInVersion
-          : newInVersion as UpdateInfo,
+          : newInVersion // ignore: cast_nullable_to_non_nullable
+              as UpdateInfo?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_AppUpdate implements _AppUpdate {
   const _$_AppUpdate(
       {@JsonKey(name: 'newer_version') this.newerVersion,
       @JsonKey(name: 'new_in_version') this.newInVersion});
 
   factory _$_AppUpdate.fromJson(Map<String, dynamic> json) =>
-      _$_$_AppUpdateFromJson(json);
+      _$$_AppUpdateFromJson(json);
 
   @override
   @JsonKey(name: 'newer_version')
-  final UpdateInfo newerVersion;
+  final UpdateInfo? newerVersion;
   @override
   @JsonKey(name: 'new_in_version')
-  final UpdateInfo newInVersion;
+  final UpdateInfo? newInVersion;
 
   @override
   String toString() {
@@ -193,25 +200,27 @@ class _$_AppUpdate implements _AppUpdate {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_AppUpdateToJson(this);
+    return _$$_AppUpdateToJson(this);
   }
 }
 
 abstract class _AppUpdate implements AppUpdate {
   const factory _AppUpdate(
-      {@JsonKey(name: 'newer_version') UpdateInfo newerVersion,
-      @JsonKey(name: 'new_in_version') UpdateInfo newInVersion}) = _$_AppUpdate;
+          {@JsonKey(name: 'newer_version') UpdateInfo? newerVersion,
+          @JsonKey(name: 'new_in_version') UpdateInfo? newInVersion}) =
+      _$_AppUpdate;
 
   factory _AppUpdate.fromJson(Map<String, dynamic> json) =
       _$_AppUpdate.fromJson;
 
   @override
   @JsonKey(name: 'newer_version')
-  UpdateInfo get newerVersion;
+  UpdateInfo? get newerVersion => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'new_in_version')
-  UpdateInfo get newInVersion;
+  UpdateInfo? get newInVersion => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$AppUpdateCopyWith<_AppUpdate> get copyWith;
+  _$AppUpdateCopyWith<_AppUpdate> get copyWith =>
+      throw _privateConstructorUsedError;
 }

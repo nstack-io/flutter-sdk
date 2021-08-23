@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'app_open_data.dart';
 
@@ -8,6 +8,10 @@ part of 'app_open_data.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 AppOpenData _$AppOpenDataFromJson(Map<String, dynamic> json) {
   return _AppOpenData.fromJson(json);
 }
@@ -16,17 +20,16 @@ AppOpenData _$AppOpenDataFromJson(Map<String, dynamic> json) {
 class _$AppOpenDataTearOff {
   const _$AppOpenDataTearOff();
 
-// ignore: unused_element
   _AppOpenData call(
-      {int count,
-      AppUpdate update,
-      List<LocalizeIndex> localize,
-      String platform,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      Message message,
-      @JsonKey(name: 'rate_reminder') RateReminder rateReminder,
-      List<Terms> terms}) {
+      {int? count,
+      AppUpdate? update,
+      List<LocalizeIndex>? localize,
+      String? platform,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      Message? message,
+      @JsonKey(name: 'rate_reminder') RateReminder? rateReminder,
+      List<Terms>? terms}) {
     return _AppOpenData(
       count: count,
       update: update,
@@ -40,34 +43,33 @@ class _$AppOpenDataTearOff {
     );
   }
 
-// ignore: unused_element
   AppOpenData fromJson(Map<String, Object> json) {
     return AppOpenData.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $AppOpenData = _$AppOpenDataTearOff();
 
 /// @nodoc
 mixin _$AppOpenData {
-  int get count;
-  AppUpdate get update;
-  List<LocalizeIndex> get localize;
-  String get platform;
+  int? get count => throw _privateConstructorUsedError;
+  AppUpdate? get update => throw _privateConstructorUsedError;
+  List<LocalizeIndex>? get localize => throw _privateConstructorUsedError;
+  String? get platform => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
-  DateTime get createdAt;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
-  DateTime get updatedAt;
-  Message get message;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  Message? get message => throw _privateConstructorUsedError;
   @JsonKey(name: 'rate_reminder')
-  RateReminder get rateReminder;
-  List<Terms> get terms;
+  RateReminder? get rateReminder => throw _privateConstructorUsedError;
+  List<Terms>? get terms => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AppOpenDataCopyWith<AppOpenData> get copyWith;
+  $AppOpenDataCopyWith<AppOpenData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -76,19 +78,19 @@ abstract class $AppOpenDataCopyWith<$Res> {
           AppOpenData value, $Res Function(AppOpenData) then) =
       _$AppOpenDataCopyWithImpl<$Res>;
   $Res call(
-      {int count,
-      AppUpdate update,
-      List<LocalizeIndex> localize,
-      String platform,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      Message message,
-      @JsonKey(name: 'rate_reminder') RateReminder rateReminder,
-      List<Terms> terms});
+      {int? count,
+      AppUpdate? update,
+      List<LocalizeIndex>? localize,
+      String? platform,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      Message? message,
+      @JsonKey(name: 'rate_reminder') RateReminder? rateReminder,
+      List<Terms>? terms});
 
-  $AppUpdateCopyWith<$Res> get update;
-  $MessageCopyWith<$Res> get message;
-  $RateReminderCopyWith<$Res> get rateReminder;
+  $AppUpdateCopyWith<$Res>? get update;
+  $MessageCopyWith<$Res>? get message;
+  $RateReminderCopyWith<$Res>? get rateReminder;
 }
 
 /// @nodoc
@@ -101,61 +103,85 @@ class _$AppOpenDataCopyWithImpl<$Res> implements $AppOpenDataCopyWith<$Res> {
 
   @override
   $Res call({
-    Object count = freezed,
-    Object update = freezed,
-    Object localize = freezed,
-    Object platform = freezed,
-    Object createdAt = freezed,
-    Object updatedAt = freezed,
-    Object message = freezed,
-    Object rateReminder = freezed,
-    Object terms = freezed,
+    Object? count = freezed,
+    Object? update = freezed,
+    Object? localize = freezed,
+    Object? platform = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? message = freezed,
+    Object? rateReminder = freezed,
+    Object? terms = freezed,
   }) {
     return _then(_value.copyWith(
-      count: count == freezed ? _value.count : count as int,
-      update: update == freezed ? _value.update : update as AppUpdate,
+      count: count == freezed
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int?,
+      update: update == freezed
+          ? _value.update
+          : update // ignore: cast_nullable_to_non_nullable
+              as AppUpdate?,
       localize: localize == freezed
           ? _value.localize
-          : localize as List<LocalizeIndex>,
-      platform: platform == freezed ? _value.platform : platform as String,
-      createdAt:
-          createdAt == freezed ? _value.createdAt : createdAt as DateTime,
-      updatedAt:
-          updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
-      message: message == freezed ? _value.message : message as Message,
+          : localize // ignore: cast_nullable_to_non_nullable
+              as List<LocalizeIndex>?,
+      platform: platform == freezed
+          ? _value.platform
+          : platform // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as Message?,
       rateReminder: rateReminder == freezed
           ? _value.rateReminder
-          : rateReminder as RateReminder,
-      terms: terms == freezed ? _value.terms : terms as List<Terms>,
+          : rateReminder // ignore: cast_nullable_to_non_nullable
+              as RateReminder?,
+      terms: terms == freezed
+          ? _value.terms
+          : terms // ignore: cast_nullable_to_non_nullable
+              as List<Terms>?,
     ));
   }
 
   @override
-  $AppUpdateCopyWith<$Res> get update {
+  $AppUpdateCopyWith<$Res>? get update {
     if (_value.update == null) {
       return null;
     }
-    return $AppUpdateCopyWith<$Res>(_value.update, (value) {
+
+    return $AppUpdateCopyWith<$Res>(_value.update!, (value) {
       return _then(_value.copyWith(update: value));
     });
   }
 
   @override
-  $MessageCopyWith<$Res> get message {
+  $MessageCopyWith<$Res>? get message {
     if (_value.message == null) {
       return null;
     }
-    return $MessageCopyWith<$Res>(_value.message, (value) {
+
+    return $MessageCopyWith<$Res>(_value.message!, (value) {
       return _then(_value.copyWith(message: value));
     });
   }
 
   @override
-  $RateReminderCopyWith<$Res> get rateReminder {
+  $RateReminderCopyWith<$Res>? get rateReminder {
     if (_value.rateReminder == null) {
       return null;
     }
-    return $RateReminderCopyWith<$Res>(_value.rateReminder, (value) {
+
+    return $RateReminderCopyWith<$Res>(_value.rateReminder!, (value) {
       return _then(_value.copyWith(rateReminder: value));
     });
   }
@@ -169,22 +195,22 @@ abstract class _$AppOpenDataCopyWith<$Res>
       __$AppOpenDataCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int count,
-      AppUpdate update,
-      List<LocalizeIndex> localize,
-      String platform,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      Message message,
-      @JsonKey(name: 'rate_reminder') RateReminder rateReminder,
-      List<Terms> terms});
+      {int? count,
+      AppUpdate? update,
+      List<LocalizeIndex>? localize,
+      String? platform,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      Message? message,
+      @JsonKey(name: 'rate_reminder') RateReminder? rateReminder,
+      List<Terms>? terms});
 
   @override
-  $AppUpdateCopyWith<$Res> get update;
+  $AppUpdateCopyWith<$Res>? get update;
   @override
-  $MessageCopyWith<$Res> get message;
+  $MessageCopyWith<$Res>? get message;
   @override
-  $RateReminderCopyWith<$Res> get rateReminder;
+  $RateReminderCopyWith<$Res>? get rateReminder;
 }
 
 /// @nodoc
@@ -199,39 +225,59 @@ class __$AppOpenDataCopyWithImpl<$Res> extends _$AppOpenDataCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object count = freezed,
-    Object update = freezed,
-    Object localize = freezed,
-    Object platform = freezed,
-    Object createdAt = freezed,
-    Object updatedAt = freezed,
-    Object message = freezed,
-    Object rateReminder = freezed,
-    Object terms = freezed,
+    Object? count = freezed,
+    Object? update = freezed,
+    Object? localize = freezed,
+    Object? platform = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? message = freezed,
+    Object? rateReminder = freezed,
+    Object? terms = freezed,
   }) {
     return _then(_AppOpenData(
-      count: count == freezed ? _value.count : count as int,
-      update: update == freezed ? _value.update : update as AppUpdate,
+      count: count == freezed
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int?,
+      update: update == freezed
+          ? _value.update
+          : update // ignore: cast_nullable_to_non_nullable
+              as AppUpdate?,
       localize: localize == freezed
           ? _value.localize
-          : localize as List<LocalizeIndex>,
-      platform: platform == freezed ? _value.platform : platform as String,
-      createdAt:
-          createdAt == freezed ? _value.createdAt : createdAt as DateTime,
-      updatedAt:
-          updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
-      message: message == freezed ? _value.message : message as Message,
+          : localize // ignore: cast_nullable_to_non_nullable
+              as List<LocalizeIndex>?,
+      platform: platform == freezed
+          ? _value.platform
+          : platform // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as Message?,
       rateReminder: rateReminder == freezed
           ? _value.rateReminder
-          : rateReminder as RateReminder,
-      terms: terms == freezed ? _value.terms : terms as List<Terms>,
+          : rateReminder // ignore: cast_nullable_to_non_nullable
+              as RateReminder?,
+      terms: terms == freezed
+          ? _value.terms
+          : terms // ignore: cast_nullable_to_non_nullable
+              as List<Terms>?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_AppOpenData implements _AppOpenData {
   const _$_AppOpenData(
       {this.count,
@@ -245,29 +291,29 @@ class _$_AppOpenData implements _AppOpenData {
       this.terms});
 
   factory _$_AppOpenData.fromJson(Map<String, dynamic> json) =>
-      _$_$_AppOpenDataFromJson(json);
+      _$$_AppOpenDataFromJson(json);
 
   @override
-  final int count;
+  final int? count;
   @override
-  final AppUpdate update;
+  final AppUpdate? update;
   @override
-  final List<LocalizeIndex> localize;
+  final List<LocalizeIndex>? localize;
   @override
-  final String platform;
+  final String? platform;
   @override
   @JsonKey(name: 'created_at')
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @override
   @JsonKey(name: 'updated_at')
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
   @override
-  final Message message;
+  final Message? message;
   @override
   @JsonKey(name: 'rate_reminder')
-  final RateReminder rateReminder;
+  final RateReminder? rateReminder;
   @override
-  final List<Terms> terms;
+  final List<Terms>? terms;
 
   @override
   String toString() {
@@ -324,47 +370,48 @@ class _$_AppOpenData implements _AppOpenData {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_AppOpenDataToJson(this);
+    return _$$_AppOpenDataToJson(this);
   }
 }
 
 abstract class _AppOpenData implements AppOpenData {
   const factory _AppOpenData(
-      {int count,
-      AppUpdate update,
-      List<LocalizeIndex> localize,
-      String platform,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      Message message,
-      @JsonKey(name: 'rate_reminder') RateReminder rateReminder,
-      List<Terms> terms}) = _$_AppOpenData;
+      {int? count,
+      AppUpdate? update,
+      List<LocalizeIndex>? localize,
+      String? platform,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      Message? message,
+      @JsonKey(name: 'rate_reminder') RateReminder? rateReminder,
+      List<Terms>? terms}) = _$_AppOpenData;
 
   factory _AppOpenData.fromJson(Map<String, dynamic> json) =
       _$_AppOpenData.fromJson;
 
   @override
-  int get count;
+  int? get count => throw _privateConstructorUsedError;
   @override
-  AppUpdate get update;
+  AppUpdate? get update => throw _privateConstructorUsedError;
   @override
-  List<LocalizeIndex> get localize;
+  List<LocalizeIndex>? get localize => throw _privateConstructorUsedError;
   @override
-  String get platform;
+  String? get platform => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'created_at')
-  DateTime get createdAt;
+  DateTime? get createdAt => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'updated_at')
-  DateTime get updatedAt;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
   @override
-  Message get message;
+  Message? get message => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'rate_reminder')
-  RateReminder get rateReminder;
+  RateReminder? get rateReminder => throw _privateConstructorUsedError;
   @override
-  List<Terms> get terms;
+  List<Terms>? get terms => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$AppOpenDataCopyWith<_AppOpenData> get copyWith;
+  _$AppOpenDataCopyWith<_AppOpenData> get copyWith =>
+      throw _privateConstructorUsedError;
 }

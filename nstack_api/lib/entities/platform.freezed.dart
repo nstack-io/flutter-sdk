@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'platform.dart';
 
@@ -8,6 +8,10 @@ part of 'platform.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 Platform _$PlatformFromJson(Map<String, dynamic> json) {
   return _Platform.fromJson(json);
 }
@@ -16,39 +20,37 @@ Platform _$PlatformFromJson(Map<String, dynamic> json) {
 class _$PlatformTearOff {
   const _$PlatformTearOff();
 
-// ignore: unused_element
-  _Platform call({int id, String slug}) {
+  _Platform call({int? id, String? slug}) {
     return _Platform(
       id: id,
       slug: slug,
     );
   }
 
-// ignore: unused_element
   Platform fromJson(Map<String, Object> json) {
     return Platform.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $Platform = _$PlatformTearOff();
 
 /// @nodoc
 mixin _$Platform {
-  int get id;
-  String get slug;
+  int? get id => throw _privateConstructorUsedError;
+  String? get slug => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $PlatformCopyWith<Platform> get copyWith;
+  $PlatformCopyWith<Platform> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $PlatformCopyWith<$Res> {
   factory $PlatformCopyWith(Platform value, $Res Function(Platform) then) =
       _$PlatformCopyWithImpl<$Res>;
-  $Res call({int id, String slug});
+  $Res call({int? id, String? slug});
 }
 
 /// @nodoc
@@ -61,12 +63,18 @@ class _$PlatformCopyWithImpl<$Res> implements $PlatformCopyWith<$Res> {
 
   @override
   $Res call({
-    Object id = freezed,
-    Object slug = freezed,
+    Object? id = freezed,
+    Object? slug = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as int,
-      slug: slug == freezed ? _value.slug : slug as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      slug: slug == freezed
+          ? _value.slug
+          : slug // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -76,7 +84,7 @@ abstract class _$PlatformCopyWith<$Res> implements $PlatformCopyWith<$Res> {
   factory _$PlatformCopyWith(_Platform value, $Res Function(_Platform) then) =
       __$PlatformCopyWithImpl<$Res>;
   @override
-  $Res call({int id, String slug});
+  $Res call({int? id, String? slug});
 }
 
 /// @nodoc
@@ -90,29 +98,34 @@ class __$PlatformCopyWithImpl<$Res> extends _$PlatformCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object slug = freezed,
+    Object? id = freezed,
+    Object? slug = freezed,
   }) {
     return _then(_Platform(
-      id: id == freezed ? _value.id : id as int,
-      slug: slug == freezed ? _value.slug : slug as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      slug: slug == freezed
+          ? _value.slug
+          : slug // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_Platform implements _Platform {
   const _$_Platform({this.id, this.slug});
 
   factory _$_Platform.fromJson(Map<String, dynamic> json) =>
-      _$_$_PlatformFromJson(json);
+      _$$_PlatformFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
-  final String slug;
+  final String? slug;
 
   @override
   String toString() {
@@ -142,20 +155,21 @@ class _$_Platform implements _Platform {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_PlatformToJson(this);
+    return _$$_PlatformToJson(this);
   }
 }
 
 abstract class _Platform implements Platform {
-  const factory _Platform({int id, String slug}) = _$_Platform;
+  const factory _Platform({int? id, String? slug}) = _$_Platform;
 
   factory _Platform.fromJson(Map<String, dynamic> json) = _$_Platform.fromJson;
 
   @override
-  int get id;
+  int? get id => throw _privateConstructorUsedError;
   @override
-  String get slug;
+  String? get slug => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$PlatformCopyWith<_Platform> get copyWith;
+  _$PlatformCopyWith<_Platform> get copyWith =>
+      throw _privateConstructorUsedError;
 }

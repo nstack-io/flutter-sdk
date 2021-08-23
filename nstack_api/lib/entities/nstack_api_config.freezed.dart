@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'nstack_api_config.dart';
 
@@ -8,6 +8,10 @@ part of 'nstack_api_config.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 NStackApiConfig _$NStackApiConfigFromJson(Map<String, dynamic> json) {
   return _NStackApiConfig.fromJson(json);
 }
@@ -16,36 +20,34 @@ NStackApiConfig _$NStackApiConfigFromJson(Map<String, dynamic> json) {
 class _$NStackApiConfigTearOff {
   const _$NStackApiConfigTearOff();
 
-// ignore: unused_element
   _NStackApiConfig call(
-      {@JsonKey(name: 'application_id') String applicationId,
-      @JsonKey(name: 'rest_api_key') String restApiKey}) {
+      {@JsonKey(name: 'application_id') String? applicationId,
+      @JsonKey(name: 'rest_api_key') String? restApiKey}) {
     return _NStackApiConfig(
       applicationId: applicationId,
       restApiKey: restApiKey,
     );
   }
 
-// ignore: unused_element
   NStackApiConfig fromJson(Map<String, Object> json) {
     return NStackApiConfig.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $NStackApiConfig = _$NStackApiConfigTearOff();
 
 /// @nodoc
 mixin _$NStackApiConfig {
   @JsonKey(name: 'application_id')
-  String get applicationId;
+  String? get applicationId => throw _privateConstructorUsedError;
   @JsonKey(name: 'rest_api_key')
-  String get restApiKey;
+  String? get restApiKey => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $NStackApiConfigCopyWith<NStackApiConfig> get copyWith;
+  $NStackApiConfigCopyWith<NStackApiConfig> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -54,8 +56,8 @@ abstract class $NStackApiConfigCopyWith<$Res> {
           NStackApiConfig value, $Res Function(NStackApiConfig) then) =
       _$NStackApiConfigCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'application_id') String applicationId,
-      @JsonKey(name: 'rest_api_key') String restApiKey});
+      {@JsonKey(name: 'application_id') String? applicationId,
+      @JsonKey(name: 'rest_api_key') String? restApiKey});
 }
 
 /// @nodoc
@@ -69,15 +71,18 @@ class _$NStackApiConfigCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object applicationId = freezed,
-    Object restApiKey = freezed,
+    Object? applicationId = freezed,
+    Object? restApiKey = freezed,
   }) {
     return _then(_value.copyWith(
       applicationId: applicationId == freezed
           ? _value.applicationId
-          : applicationId as String,
-      restApiKey:
-          restApiKey == freezed ? _value.restApiKey : restApiKey as String,
+          : applicationId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      restApiKey: restApiKey == freezed
+          ? _value.restApiKey
+          : restApiKey // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -90,8 +95,8 @@ abstract class _$NStackApiConfigCopyWith<$Res>
       __$NStackApiConfigCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'application_id') String applicationId,
-      @JsonKey(name: 'rest_api_key') String restApiKey});
+      {@JsonKey(name: 'application_id') String? applicationId,
+      @JsonKey(name: 'rest_api_key') String? restApiKey});
 }
 
 /// @nodoc
@@ -107,36 +112,38 @@ class __$NStackApiConfigCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object applicationId = freezed,
-    Object restApiKey = freezed,
+    Object? applicationId = freezed,
+    Object? restApiKey = freezed,
   }) {
     return _then(_NStackApiConfig(
       applicationId: applicationId == freezed
           ? _value.applicationId
-          : applicationId as String,
-      restApiKey:
-          restApiKey == freezed ? _value.restApiKey : restApiKey as String,
+          : applicationId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      restApiKey: restApiKey == freezed
+          ? _value.restApiKey
+          : restApiKey // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_NStackApiConfig implements _NStackApiConfig {
   const _$_NStackApiConfig(
       {@JsonKey(name: 'application_id') this.applicationId,
       @JsonKey(name: 'rest_api_key') this.restApiKey});
 
   factory _$_NStackApiConfig.fromJson(Map<String, dynamic> json) =>
-      _$_$_NStackApiConfigFromJson(json);
+      _$$_NStackApiConfigFromJson(json);
 
   @override
   @JsonKey(name: 'application_id')
-  final String applicationId;
+  final String? applicationId;
   @override
   @JsonKey(name: 'rest_api_key')
-  final String restApiKey;
+  final String? restApiKey;
 
   @override
   String toString() {
@@ -168,25 +175,26 @@ class _$_NStackApiConfig implements _NStackApiConfig {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_NStackApiConfigToJson(this);
+    return _$$_NStackApiConfigToJson(this);
   }
 }
 
 abstract class _NStackApiConfig implements NStackApiConfig {
   const factory _NStackApiConfig(
-      {@JsonKey(name: 'application_id') String applicationId,
-      @JsonKey(name: 'rest_api_key') String restApiKey}) = _$_NStackApiConfig;
+      {@JsonKey(name: 'application_id') String? applicationId,
+      @JsonKey(name: 'rest_api_key') String? restApiKey}) = _$_NStackApiConfig;
 
   factory _NStackApiConfig.fromJson(Map<String, dynamic> json) =
       _$_NStackApiConfig.fromJson;
 
   @override
   @JsonKey(name: 'application_id')
-  String get applicationId;
+  String? get applicationId => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'rest_api_key')
-  String get restApiKey;
+  String? get restApiKey => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$NStackApiConfigCopyWith<_NStackApiConfig> get copyWith;
+  _$NStackApiConfigCopyWith<_NStackApiConfig> get copyWith =>
+      throw _privateConstructorUsedError;
 }

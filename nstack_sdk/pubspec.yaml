@@ -4,8 +4,12 @@ version: 0.1.5
 author: Nodes Agency
 homepage: https://github.com/nstack-io/flutter-sdk
 
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
   flutter: ">=1.10.0"
 
 dependencies:
@@ -13,16 +17,12 @@ dependencies:
     sdk: flutter
   nstack_api:
     path: ../nstack_api
-  meta: ^1.1.8
-  http: ^0.12.1
-  build: 1.3.0
-  build_config: ^0.4.2
-  get_version: ^0.2.2
-  device_info: 0.4.2+4
-  cross_local_storage: ^1.1.1
-  get_it: ^4.0.4
-  uuid: 2.0.4
-  dart_style: ^1.3.6
+  package_info: ^2.0.2
+  device_info: ^2.0.2
+  cross_local_storage: ^2.0.1
+  get_it: ^7.2.0
+  uuid: ^3.0.4
+  dart_style: ^2.0.3
 
 dev_dependencies:
   flutter_test:

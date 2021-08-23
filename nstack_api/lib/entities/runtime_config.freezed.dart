@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'runtime_config.dart';
 
@@ -8,6 +8,10 @@ part of 'runtime_config.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 RuntimeConfig _$RuntimeConfigFromJson(Map<String, dynamic> json) {
   return _RuntimeConfig.fromJson(json);
 }
@@ -16,9 +20,8 @@ RuntimeConfig _$RuntimeConfigFromJson(Map<String, dynamic> json) {
 class _$RuntimeConfigTearOff {
   const _$RuntimeConfigTearOff();
 
-// ignore: unused_element
   _RuntimeConfig call(
-      {String platformName, String platformVersion, String device}) {
+      {String? platformName, String? platformVersion, String? device}) {
     return _RuntimeConfig(
       platformName: platformName,
       platformVersion: platformVersion,
@@ -26,25 +29,24 @@ class _$RuntimeConfigTearOff {
     );
   }
 
-// ignore: unused_element
   RuntimeConfig fromJson(Map<String, Object> json) {
     return RuntimeConfig.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $RuntimeConfig = _$RuntimeConfigTearOff();
 
 /// @nodoc
 mixin _$RuntimeConfig {
-  String get platformName;
-  String get platformVersion;
-  String get device;
+  String? get platformName => throw _privateConstructorUsedError;
+  String? get platformVersion => throw _privateConstructorUsedError;
+  String? get device => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RuntimeConfigCopyWith<RuntimeConfig> get copyWith;
+  $RuntimeConfigCopyWith<RuntimeConfig> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -52,7 +54,7 @@ abstract class $RuntimeConfigCopyWith<$Res> {
   factory $RuntimeConfigCopyWith(
           RuntimeConfig value, $Res Function(RuntimeConfig) then) =
       _$RuntimeConfigCopyWithImpl<$Res>;
-  $Res call({String platformName, String platformVersion, String device});
+  $Res call({String? platformName, String? platformVersion, String? device});
 }
 
 /// @nodoc
@@ -66,18 +68,23 @@ class _$RuntimeConfigCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object platformName = freezed,
-    Object platformVersion = freezed,
-    Object device = freezed,
+    Object? platformName = freezed,
+    Object? platformVersion = freezed,
+    Object? device = freezed,
   }) {
     return _then(_value.copyWith(
       platformName: platformName == freezed
           ? _value.platformName
-          : platformName as String,
+          : platformName // ignore: cast_nullable_to_non_nullable
+              as String?,
       platformVersion: platformVersion == freezed
           ? _value.platformVersion
-          : platformVersion as String,
-      device: device == freezed ? _value.device : device as String,
+          : platformVersion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      device: device == freezed
+          ? _value.device
+          : device // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -89,7 +96,7 @@ abstract class _$RuntimeConfigCopyWith<$Res>
           _RuntimeConfig value, $Res Function(_RuntimeConfig) then) =
       __$RuntimeConfigCopyWithImpl<$Res>;
   @override
-  $Res call({String platformName, String platformVersion, String device});
+  $Res call({String? platformName, String? platformVersion, String? device});
 }
 
 /// @nodoc
@@ -105,38 +112,42 @@ class __$RuntimeConfigCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object platformName = freezed,
-    Object platformVersion = freezed,
-    Object device = freezed,
+    Object? platformName = freezed,
+    Object? platformVersion = freezed,
+    Object? device = freezed,
   }) {
     return _then(_RuntimeConfig(
       platformName: platformName == freezed
           ? _value.platformName
-          : platformName as String,
+          : platformName // ignore: cast_nullable_to_non_nullable
+              as String?,
       platformVersion: platformVersion == freezed
           ? _value.platformVersion
-          : platformVersion as String,
-      device: device == freezed ? _value.device : device as String,
+          : platformVersion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      device: device == freezed
+          ? _value.device
+          : device // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_RuntimeConfig implements _RuntimeConfig {
   const _$_RuntimeConfig(
       {this.platformName, this.platformVersion, this.device});
 
   factory _$_RuntimeConfig.fromJson(Map<String, dynamic> json) =>
-      _$_$_RuntimeConfigFromJson(json);
+      _$$_RuntimeConfigFromJson(json);
 
   @override
-  final String platformName;
+  final String? platformName;
   @override
-  final String platformVersion;
+  final String? platformVersion;
   @override
-  final String device;
+  final String? device;
 
   @override
   String toString() {
@@ -171,26 +182,27 @@ class _$_RuntimeConfig implements _RuntimeConfig {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_RuntimeConfigToJson(this);
+    return _$$_RuntimeConfigToJson(this);
   }
 }
 
 abstract class _RuntimeConfig implements RuntimeConfig {
   const factory _RuntimeConfig(
-      {String platformName,
-      String platformVersion,
-      String device}) = _$_RuntimeConfig;
+      {String? platformName,
+      String? platformVersion,
+      String? device}) = _$_RuntimeConfig;
 
   factory _RuntimeConfig.fromJson(Map<String, dynamic> json) =
       _$_RuntimeConfig.fromJson;
 
   @override
-  String get platformName;
+  String? get platformName => throw _privateConstructorUsedError;
   @override
-  String get platformVersion;
+  String? get platformVersion => throw _privateConstructorUsedError;
   @override
-  String get device;
+  String? get device => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$RuntimeConfigCopyWith<_RuntimeConfig> get copyWith;
+  _$RuntimeConfigCopyWith<_RuntimeConfig> get copyWith =>
+      throw _privateConstructorUsedError;
 }

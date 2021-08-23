@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'app_config.dart';
 
@@ -8,6 +8,10 @@ part of 'app_config.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 AppConfig _$AppConfigFromJson(Map<String, dynamic> json) {
   return _AppConfig.fromJson(json);
 }
@@ -16,39 +20,37 @@ AppConfig _$AppConfigFromJson(Map<String, dynamic> json) {
 class _$AppConfigTearOff {
   const _$AppConfigTearOff();
 
-// ignore: unused_element
-  _AppConfig call({String version, String previousVersion}) {
+  _AppConfig call({String? version, String? previousVersion}) {
     return _AppConfig(
       version: version,
       previousVersion: previousVersion,
     );
   }
 
-// ignore: unused_element
   AppConfig fromJson(Map<String, Object> json) {
     return AppConfig.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $AppConfig = _$AppConfigTearOff();
 
 /// @nodoc
 mixin _$AppConfig {
-  String get version;
-  String get previousVersion;
+  String? get version => throw _privateConstructorUsedError;
+  String? get previousVersion => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AppConfigCopyWith<AppConfig> get copyWith;
+  $AppConfigCopyWith<AppConfig> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $AppConfigCopyWith<$Res> {
   factory $AppConfigCopyWith(AppConfig value, $Res Function(AppConfig) then) =
       _$AppConfigCopyWithImpl<$Res>;
-  $Res call({String version, String previousVersion});
+  $Res call({String? version, String? previousVersion});
 }
 
 /// @nodoc
@@ -61,14 +63,18 @@ class _$AppConfigCopyWithImpl<$Res> implements $AppConfigCopyWith<$Res> {
 
   @override
   $Res call({
-    Object version = freezed,
-    Object previousVersion = freezed,
+    Object? version = freezed,
+    Object? previousVersion = freezed,
   }) {
     return _then(_value.copyWith(
-      version: version == freezed ? _value.version : version as String,
+      version: version == freezed
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as String?,
       previousVersion: previousVersion == freezed
           ? _value.previousVersion
-          : previousVersion as String,
+          : previousVersion // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -79,7 +85,7 @@ abstract class _$AppConfigCopyWith<$Res> implements $AppConfigCopyWith<$Res> {
           _AppConfig value, $Res Function(_AppConfig) then) =
       __$AppConfigCopyWithImpl<$Res>;
   @override
-  $Res call({String version, String previousVersion});
+  $Res call({String? version, String? previousVersion});
 }
 
 /// @nodoc
@@ -93,31 +99,34 @@ class __$AppConfigCopyWithImpl<$Res> extends _$AppConfigCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object version = freezed,
-    Object previousVersion = freezed,
+    Object? version = freezed,
+    Object? previousVersion = freezed,
   }) {
     return _then(_AppConfig(
-      version: version == freezed ? _value.version : version as String,
+      version: version == freezed
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as String?,
       previousVersion: previousVersion == freezed
           ? _value.previousVersion
-          : previousVersion as String,
+          : previousVersion // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_AppConfig implements _AppConfig {
   const _$_AppConfig({this.version, this.previousVersion});
 
   factory _$_AppConfig.fromJson(Map<String, dynamic> json) =>
-      _$_$_AppConfigFromJson(json);
+      _$$_AppConfigFromJson(json);
 
   @override
-  final String version;
+  final String? version;
   @override
-  final String previousVersion;
+  final String? previousVersion;
 
   @override
   String toString() {
@@ -149,22 +158,23 @@ class _$_AppConfig implements _AppConfig {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_AppConfigToJson(this);
+    return _$$_AppConfigToJson(this);
   }
 }
 
 abstract class _AppConfig implements AppConfig {
-  const factory _AppConfig({String version, String previousVersion}) =
+  const factory _AppConfig({String? version, String? previousVersion}) =
       _$_AppConfig;
 
   factory _AppConfig.fromJson(Map<String, dynamic> json) =
       _$_AppConfig.fromJson;
 
   @override
-  String get version;
+  String? get version => throw _privateConstructorUsedError;
   @override
-  String get previousVersion;
+  String? get previousVersion => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$AppConfigCopyWith<_AppConfig> get copyWith;
+  _$AppConfigCopyWith<_AppConfig> get copyWith =>
+      throw _privateConstructorUsedError;
 }

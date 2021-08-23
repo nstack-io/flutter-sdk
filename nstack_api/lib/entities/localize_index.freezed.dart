@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'localize_index.dart';
 
@@ -8,6 +8,10 @@ part of 'localize_index.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 LocalizeIndex _$LocalizeIndexFromJson(Map<String, dynamic> json) {
   return _LocalizeIndex.fromJson(json);
 }
@@ -16,13 +20,12 @@ LocalizeIndex _$LocalizeIndexFromJson(Map<String, dynamic> json) {
 class _$LocalizeIndexTearOff {
   const _$LocalizeIndexTearOff();
 
-// ignore: unused_element
   _LocalizeIndex call(
-      {int id,
-      String url,
-      @JsonKey(name: 'last_updated_at') DateTime lastUpdatedAt,
-      @JsonKey(name: 'should_update') bool shouldUpdate,
-      LocalizeLanguage language}) {
+      {int? id,
+      String? url,
+      @JsonKey(name: 'last_updated_at') DateTime? lastUpdatedAt,
+      @JsonKey(name: 'should_update') bool? shouldUpdate,
+      LocalizeLanguage? language}) {
     return _LocalizeIndex(
       id: id,
       url: url,
@@ -32,29 +35,28 @@ class _$LocalizeIndexTearOff {
     );
   }
 
-// ignore: unused_element
   LocalizeIndex fromJson(Map<String, Object> json) {
     return LocalizeIndex.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $LocalizeIndex = _$LocalizeIndexTearOff();
 
 /// @nodoc
 mixin _$LocalizeIndex {
-  int get id;
-  String get url;
+  int? get id => throw _privateConstructorUsedError;
+  String? get url => throw _privateConstructorUsedError;
   @JsonKey(name: 'last_updated_at')
-  DateTime get lastUpdatedAt;
+  DateTime? get lastUpdatedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'should_update')
-  bool get shouldUpdate;
-  LocalizeLanguage get language;
+  bool? get shouldUpdate => throw _privateConstructorUsedError;
+  LocalizeLanguage? get language => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $LocalizeIndexCopyWith<LocalizeIndex> get copyWith;
+  $LocalizeIndexCopyWith<LocalizeIndex> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -63,13 +65,13 @@ abstract class $LocalizeIndexCopyWith<$Res> {
           LocalizeIndex value, $Res Function(LocalizeIndex) then) =
       _$LocalizeIndexCopyWithImpl<$Res>;
   $Res call(
-      {int id,
-      String url,
-      @JsonKey(name: 'last_updated_at') DateTime lastUpdatedAt,
-      @JsonKey(name: 'should_update') bool shouldUpdate,
-      LocalizeLanguage language});
+      {int? id,
+      String? url,
+      @JsonKey(name: 'last_updated_at') DateTime? lastUpdatedAt,
+      @JsonKey(name: 'should_update') bool? shouldUpdate,
+      LocalizeLanguage? language});
 
-  $LocalizeLanguageCopyWith<$Res> get language;
+  $LocalizeLanguageCopyWith<$Res>? get language;
 }
 
 /// @nodoc
@@ -83,31 +85,43 @@ class _$LocalizeIndexCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object url = freezed,
-    Object lastUpdatedAt = freezed,
-    Object shouldUpdate = freezed,
-    Object language = freezed,
+    Object? id = freezed,
+    Object? url = freezed,
+    Object? lastUpdatedAt = freezed,
+    Object? shouldUpdate = freezed,
+    Object? language = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as int,
-      url: url == freezed ? _value.url : url as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
       lastUpdatedAt: lastUpdatedAt == freezed
           ? _value.lastUpdatedAt
-          : lastUpdatedAt as DateTime,
-      shouldUpdate:
-          shouldUpdate == freezed ? _value.shouldUpdate : shouldUpdate as bool,
-      language:
-          language == freezed ? _value.language : language as LocalizeLanguage,
+          : lastUpdatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      shouldUpdate: shouldUpdate == freezed
+          ? _value.shouldUpdate
+          : shouldUpdate // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      language: language == freezed
+          ? _value.language
+          : language // ignore: cast_nullable_to_non_nullable
+              as LocalizeLanguage?,
     ));
   }
 
   @override
-  $LocalizeLanguageCopyWith<$Res> get language {
+  $LocalizeLanguageCopyWith<$Res>? get language {
     if (_value.language == null) {
       return null;
     }
-    return $LocalizeLanguageCopyWith<$Res>(_value.language, (value) {
+
+    return $LocalizeLanguageCopyWith<$Res>(_value.language!, (value) {
       return _then(_value.copyWith(language: value));
     });
   }
@@ -121,14 +135,14 @@ abstract class _$LocalizeIndexCopyWith<$Res>
       __$LocalizeIndexCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int id,
-      String url,
-      @JsonKey(name: 'last_updated_at') DateTime lastUpdatedAt,
-      @JsonKey(name: 'should_update') bool shouldUpdate,
-      LocalizeLanguage language});
+      {int? id,
+      String? url,
+      @JsonKey(name: 'last_updated_at') DateTime? lastUpdatedAt,
+      @JsonKey(name: 'should_update') bool? shouldUpdate,
+      LocalizeLanguage? language});
 
   @override
-  $LocalizeLanguageCopyWith<$Res> get language;
+  $LocalizeLanguageCopyWith<$Res>? get language;
 }
 
 /// @nodoc
@@ -144,29 +158,39 @@ class __$LocalizeIndexCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object url = freezed,
-    Object lastUpdatedAt = freezed,
-    Object shouldUpdate = freezed,
-    Object language = freezed,
+    Object? id = freezed,
+    Object? url = freezed,
+    Object? lastUpdatedAt = freezed,
+    Object? shouldUpdate = freezed,
+    Object? language = freezed,
   }) {
     return _then(_LocalizeIndex(
-      id: id == freezed ? _value.id : id as int,
-      url: url == freezed ? _value.url : url as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String?,
       lastUpdatedAt: lastUpdatedAt == freezed
           ? _value.lastUpdatedAt
-          : lastUpdatedAt as DateTime,
-      shouldUpdate:
-          shouldUpdate == freezed ? _value.shouldUpdate : shouldUpdate as bool,
-      language:
-          language == freezed ? _value.language : language as LocalizeLanguage,
+          : lastUpdatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      shouldUpdate: shouldUpdate == freezed
+          ? _value.shouldUpdate
+          : shouldUpdate // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      language: language == freezed
+          ? _value.language
+          : language // ignore: cast_nullable_to_non_nullable
+              as LocalizeLanguage?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_LocalizeIndex implements _LocalizeIndex {
   const _$_LocalizeIndex(
       {this.id,
@@ -176,20 +200,20 @@ class _$_LocalizeIndex implements _LocalizeIndex {
       this.language});
 
   factory _$_LocalizeIndex.fromJson(Map<String, dynamic> json) =>
-      _$_$_LocalizeIndexFromJson(json);
+      _$$_LocalizeIndexFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
-  final String url;
+  final String? url;
   @override
   @JsonKey(name: 'last_updated_at')
-  final DateTime lastUpdatedAt;
+  final DateTime? lastUpdatedAt;
   @override
   @JsonKey(name: 'should_update')
-  final bool shouldUpdate;
+  final bool? shouldUpdate;
   @override
-  final LocalizeLanguage language;
+  final LocalizeLanguage? language;
 
   @override
   String toString() {
@@ -231,34 +255,35 @@ class _$_LocalizeIndex implements _LocalizeIndex {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_LocalizeIndexToJson(this);
+    return _$$_LocalizeIndexToJson(this);
   }
 }
 
 abstract class _LocalizeIndex implements LocalizeIndex {
   const factory _LocalizeIndex(
-      {int id,
-      String url,
-      @JsonKey(name: 'last_updated_at') DateTime lastUpdatedAt,
-      @JsonKey(name: 'should_update') bool shouldUpdate,
-      LocalizeLanguage language}) = _$_LocalizeIndex;
+      {int? id,
+      String? url,
+      @JsonKey(name: 'last_updated_at') DateTime? lastUpdatedAt,
+      @JsonKey(name: 'should_update') bool? shouldUpdate,
+      LocalizeLanguage? language}) = _$_LocalizeIndex;
 
   factory _LocalizeIndex.fromJson(Map<String, dynamic> json) =
       _$_LocalizeIndex.fromJson;
 
   @override
-  int get id;
+  int? get id => throw _privateConstructorUsedError;
   @override
-  String get url;
+  String? get url => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'last_updated_at')
-  DateTime get lastUpdatedAt;
+  DateTime? get lastUpdatedAt => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'should_update')
-  bool get shouldUpdate;
+  bool? get shouldUpdate => throw _privateConstructorUsedError;
   @override
-  LocalizeLanguage get language;
+  LocalizeLanguage? get language => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$LocalizeIndexCopyWith<_LocalizeIndex> get copyWith;
+  _$LocalizeIndexCopyWith<_LocalizeIndex> get copyWith =>
+      throw _privateConstructorUsedError;
 }

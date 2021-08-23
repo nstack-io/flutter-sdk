@@ -9,8 +9,8 @@ part 'app_open.g.dart';
 @freezed
 abstract class AppOpen with _$AppOpen {
   const factory AppOpen({
-    AppOpenData data,
-    AppOpenMeta meta,
+    AppOpenData? data,
+    AppOpenMeta? meta,
   }) = _AppOpen;
 
   factory AppOpen.fromJson(Map<String, dynamic> json) =>
