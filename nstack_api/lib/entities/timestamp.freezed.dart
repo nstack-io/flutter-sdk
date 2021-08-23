@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'timestamp.dart';
 
@@ -8,6 +8,10 @@ part of 'timestamp.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 Timestamp _$TimestampFromJson(Map<String, dynamic> json) {
   return _Timestamp.fromJson(json);
 }
@@ -16,37 +20,35 @@ Timestamp _$TimestampFromJson(Map<String, dynamic> json) {
 class _$TimestampTearOff {
   const _$TimestampTearOff();
 
-// ignore: unused_element
-  _Timestamp call({DateTime time}) {
+  _Timestamp call({DateTime? time}) {
     return _Timestamp(
       time: time,
     );
   }
 
-// ignore: unused_element
   Timestamp fromJson(Map<String, Object> json) {
     return Timestamp.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $Timestamp = _$TimestampTearOff();
 
 /// @nodoc
 mixin _$Timestamp {
-  DateTime get time;
+  DateTime? get time => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TimestampCopyWith<Timestamp> get copyWith;
+  $TimestampCopyWith<Timestamp> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $TimestampCopyWith<$Res> {
   factory $TimestampCopyWith(Timestamp value, $Res Function(Timestamp) then) =
       _$TimestampCopyWithImpl<$Res>;
-  $Res call({DateTime time});
+  $Res call({DateTime? time});
 }
 
 /// @nodoc
@@ -59,10 +61,13 @@ class _$TimestampCopyWithImpl<$Res> implements $TimestampCopyWith<$Res> {
 
   @override
   $Res call({
-    Object time = freezed,
+    Object? time = freezed,
   }) {
     return _then(_value.copyWith(
-      time: time == freezed ? _value.time : time as DateTime,
+      time: time == freezed
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -73,7 +78,7 @@ abstract class _$TimestampCopyWith<$Res> implements $TimestampCopyWith<$Res> {
           _Timestamp value, $Res Function(_Timestamp) then) =
       __$TimestampCopyWithImpl<$Res>;
   @override
-  $Res call({DateTime time});
+  $Res call({DateTime? time});
 }
 
 /// @nodoc
@@ -87,25 +92,27 @@ class __$TimestampCopyWithImpl<$Res> extends _$TimestampCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object time = freezed,
+    Object? time = freezed,
   }) {
     return _then(_Timestamp(
-      time: time == freezed ? _value.time : time as DateTime,
+      time: time == freezed
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_Timestamp implements _Timestamp {
   const _$_Timestamp({this.time});
 
   factory _$_Timestamp.fromJson(Map<String, dynamic> json) =>
-      _$_$_TimestampFromJson(json);
+      _$$_TimestampFromJson(json);
 
   @override
-  final DateTime time;
+  final DateTime? time;
 
   @override
   String toString() {
@@ -131,19 +138,20 @@ class _$_Timestamp implements _Timestamp {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_TimestampToJson(this);
+    return _$$_TimestampToJson(this);
   }
 }
 
 abstract class _Timestamp implements Timestamp {
-  const factory _Timestamp({DateTime time}) = _$_Timestamp;
+  const factory _Timestamp({DateTime? time}) = _$_Timestamp;
 
   factory _Timestamp.fromJson(Map<String, dynamic> json) =
       _$_Timestamp.fromJson;
 
   @override
-  DateTime get time;
+  DateTime? get time => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$TimestampCopyWith<_Timestamp> get copyWith;
+  _$TimestampCopyWith<_Timestamp> get copyWith =>
+      throw _privateConstructorUsedError;
 }
