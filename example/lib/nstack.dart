@@ -83,9 +83,9 @@ class _NStackInitState extends State<NStackInitWidget> {
   static bool _initialized = false;
 
   void setupNStack(BuildContext context) {
-    final locale = Localizations.localeOf(context);
+    //final locale = Localizations.localeOf(context);
     final nstack = NStackWidget.of(context);
-    nstack.appOpen(locale);
+    nstack.appOpen(Locale("en-UK"));
   }
 
   @override
