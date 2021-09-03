@@ -1,7 +1,7 @@
 name: nstack
 description: Nstack plugin for Flutter.
-version: 0.2.5
-author: Nodes Agency
+version: 0.3.0
+author: Monstarlab
 homepage: https://github.com/nstack-io/flutter-sdk
 
 environment:
