@@ -5,6 +5,7 @@ import 'package:nstack/models/language.dart';
 import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/nstack.dart';
 import 'package:nstack/partial/section_key_delegate.dart';
+import 'package:provider/provider.dart';
 
 // Update this file by running:
 // - `flutter pub run build_runner build`, if your package depends on Flutter
@@ -93,7 +94,7 @@ class _NStackInitState extends State<NStackInitWidget> {
       setupNStack(context);
       _initialized = true;
     }
-    return widget.child;
+    return ChangeNotifierProvider(create: (_) => _nstack, child: widget.child,);
   }
 }
 

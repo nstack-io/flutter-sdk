@@ -14,7 +14,7 @@ import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
-class NStack<T> {
+class NStack<T> with ChangeNotifier {
   final NStackConfig config;
   final T localization;
 
@@ -22,8 +22,11 @@ class NStack<T> {
   final String prefsKeyGuid = "nstack_guid";
 
   final NStackRepository _repository;
-
+  late List<Locale> supportedLocales;
   late NStackAppOpenData _appOpenData;
+
+  Language get activeLanguage => LocalizationRepository().pickedLanguage;
+  Locale get activeLocale => Locale(LocalizationRepository().pickedLanguage.locale!);
 
   NStack({
     required this.config,
@@ -32,6 +35,8 @@ class NStack<T> {
     required Map<String, String> bundledTranslations,
     required String pickedLanguageLocale,
   }) : _repository = NStackRepository(config) {
+    supportedLocales = availableLanguages.map((e) => Locale(e.locale?.split("-")[0] ?? "en", e.locale?.split("-")[1].toUpperCase() ?? "US" )).toList();
+
     LocalizationRepository().setupLocalization(
       bundledTranslations,
       availableLanguages,
@@ -86,6 +91,60 @@ class NStack<T> {
     );
   }
 
+  Future changeLocalizationOffline(Locale locale) async {
+    try {
+      // Direct locale match
+      var localLanguage = LocalizationRepository().availableLanguages.firstWhere(
+          (element) => locale.toLanguageTag().toLowerCase() == (element.locale?.toLowerCase() ?? ""),
+          // Match language part of Locale
+          orElse: () => LocalizationRepository().availableLanguages.firstWhere(
+                  (element) => locale.toLanguageTag().toLowerCase().split("-")[0] == (element.locale?.toLowerCase().split("-")[0] ?? ""),
+                  // Fallback to default from NStack
+                  orElse: () => LocalizationRepository().availableLanguages.firstWhere((element) => element.isDefault)
+          )
+      );
+      LocalizationRepository().switchBundledLocalization(localLanguage.locale!);
+      print("switched!");
+      notifyListeners();
+    } catch (e, s) {
+      print(e);
+      print(s);
+    }
+  }
+
+  Future changeLocalization(Locale locale) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      var availableLanguages = await _repository.fetchAvailableLanguages();
+      var languageFromAPI = availableLanguages.firstWhere(
+              (element) => locale.toLanguageTag().toLowerCase() == (element.language?.locale?.toLowerCase() ?? ""),
+          orElse: () => availableLanguages.firstWhere((element) => element.language?.isDefault ?? false)
+      );
+      print('Language from API: ${languageFromAPI.language?.locale}');
+      var localizationResponse = await _repository.fetchLocalizationForLanguage(languageFromAPI);
+
+      final translationJson = LocalizationData.fromJson(
+        jsonDecode(localizationResponse),
+      );
+      LocalizationRepository().updateLocalization(
+        translationJson.data!,
+        languageFromAPI.language!.locale!,
+      );
+      print('Updated language in repo!');
+
+      // Update cache for key
+      final nstackKey = 'nstack_lang_${languageFromAPI.language?.locale}';
+      prefs.setString(nstackKey, localizationResponse);
+
+      notifyListeners();
+
+      // Update last_updated for next app open call
+      //prefs.setString(prefsKeyLastUpdated, DateTime.now().toUtc().toIso8601String());
+    } catch (e, s) {
+      print(s);
+    }
+  }
+
   Future<AppOpenResult> appOpen(Locale locale) async {
     try {
       await _setupAppOpenData();
@@ -115,7 +174,7 @@ class NStack<T> {
         print(
             'NStack --> Fetching best fit language: ${bestFitLanguage!.language!.locale}');
         final String bestFitLanguageResponse =
-            await _repository.fetchLocalizationForLanguage(
+        await _repository.fetchLocalizationForLanguage(
           bestFitLanguage,
         );
         final translationJson = LocalizationData.fromJson(

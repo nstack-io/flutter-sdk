@@ -17,6 +17,9 @@ class LocalizationRepository {
   late List<Language> _availableLanguages;
   late Language _pickedLanguage;
 
+  Language get pickedLanguage => _pickedLanguage;
+  List<Language> get availableLanguages => _availableLanguages;
+
   void setupLocalization(
     Map<String, String> bundledTranslations,
     List<Language> availableLanguages,
@@ -31,6 +34,14 @@ class LocalizationRepository {
       ),
     );
 
+    _setupInternalMap();
+  }
+
+  void switchBundledLocalization(String bestFitLocale) {
+    this._pickedLanguage = _availableLanguages.firstWhere(
+          (element) => element.locale == bestFitLocale,
+      orElse: () => this._pickedLanguage,
+    );
     _setupInternalMap();
   }
 
