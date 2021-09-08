@@ -151,7 +151,7 @@ class NStack<T> {
             localLanguage.language!.locale!,
           );
           _log("Switched API localization...");
-        } catch (e, s) {
+        } catch (e) {
           // Use bundled localization as fallback
           _log(e.toString());
           _log(
