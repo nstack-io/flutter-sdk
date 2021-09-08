@@ -266,7 +266,7 @@ class NStackState extends State<NStackWidget> {
 	_attemptAppOpen() {
 		try {
 			nstack.appOpen(Localizations.localeOf(context));
-		} catch(s,e) {
+		} catch(e) {
 			print("NStack could not call appOpen() as the NStackWidget is too far up the widget tree.");
 			print("Consider calling NStackScope.of(context).nstack.appOpen(Localizations.localeOf(context)) in a splashscreen or later.");
 		}
