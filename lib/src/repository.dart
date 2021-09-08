@@ -20,9 +20,13 @@ class LocalizationRepository {
   late Language _pickedLanguage;
 
   Language get pickedLanguage => _pickedLanguage;
+
   List<Language> get availableLanguages => _availableLanguages;
+
   List<LocalizeIndex> get localizeIndexes => _availableLocalizeIndexes;
-  String get checksum => _sectionsMap.hashCode.toString() + this.pickedLanguage.id.toString();
+
+  String get checksum =>
+      _sectionsMap.hashCode.toString() + this.pickedLanguage.id.toString();
 
   void setupLocalization(
     Map<String, String> bundledTranslations,
@@ -31,20 +35,21 @@ class LocalizationRepository {
   ) {
     this._bundledTranslations = bundledTranslations;
     this._availableLocalizeIndexes = availableLanguages;
-    this._availableLanguages = availableLanguages.map((e) => e.language!).toList();
+    this._availableLanguages =
+        availableLanguages.map((e) => e.language!).toList();
     this._pickedLanguage = this._availableLanguages.firstWhere(
-      (language) => language.locale == pickedLanguageLocale,
-      orElse: () => this._availableLanguages.firstWhere(
-        (language) => language.isDefault,
-      ),
-    );
+          (language) => language.locale == pickedLanguageLocale,
+          orElse: () => this._availableLanguages.firstWhere(
+                (language) => language.isDefault,
+              ),
+        );
 
     _setupInternalMap();
   }
 
   void switchBundledLocalization(String bestFitLocale) {
     this._pickedLanguage = _availableLanguages.firstWhere(
-          (element) => element.locale == bestFitLocale,
+      (element) => element.locale == bestFitLocale,
       orElse: () => this._pickedLanguage,
     );
     _setupInternalMap();

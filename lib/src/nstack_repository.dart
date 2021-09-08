@@ -81,8 +81,7 @@ class NStackRepository {
 
   Future<String> fetchLocalizationForLanguageId(int languageId) async {
     var response = await http.get(
-      Uri.parse(
-          '$_baseUrl/content/localize/resources/$languageId'),
+      Uri.parse('$_baseUrl/content/localize/resources/$languageId'),
       headers: _headers,
     );
     return response.body;
