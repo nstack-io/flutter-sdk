@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:nstack/models/language.dart';
+import 'package:nstack/models/localize_index.dart';
 
 class LocalizationRepository {
   // Factory
@@ -15,21 +16,25 @@ class LocalizationRepository {
   Map<String, dynamic>? _sectionsMap;
   late Map<String, String> _bundledTranslations;
   late List<Language> _availableLanguages;
+  late List<LocalizeIndex> _availableLocalizeIndexes;
   late Language _pickedLanguage;
 
   Language get pickedLanguage => _pickedLanguage;
   List<Language> get availableLanguages => _availableLanguages;
+  List<LocalizeIndex> get localizeIndexes => _availableLocalizeIndexes;
+  String get checksum => _sectionsMap.hashCode.toString() + this.pickedLanguage.id.toString();
 
   void setupLocalization(
     Map<String, String> bundledTranslations,
-    List<Language> availableLanguages,
+    List<LocalizeIndex> availableLanguages,
     String pickedLanguageLocale,
   ) {
     this._bundledTranslations = bundledTranslations;
-    this._availableLanguages = availableLanguages;
-    this._pickedLanguage = availableLanguages.firstWhere(
+    this._availableLocalizeIndexes = availableLanguages;
+    this._availableLanguages = availableLanguages.map((e) => e.language!).toList();
+    this._pickedLanguage = this._availableLanguages.firstWhere(
       (language) => language.locale == pickedLanguageLocale,
-      orElse: () => availableLanguages.firstWhere(
+      orElse: () => this._availableLanguages.firstWhere(
         (language) => language.isDefault,
       ),
     );
