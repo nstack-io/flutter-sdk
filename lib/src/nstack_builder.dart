@@ -180,10 +180,10 @@ const _config = NStackConfig(projectId: '$projectId', apiKey: '$apiKey');
     output.writeln('final _languages = [');
 
     languages.forEach((localizeIndex) {
-      output.write("LocalizeIndex(id: ${localizeIndex.id}, url: null, lastUpdatedAt: null, shouldUpdate: false,  language: ");
+      output.write("\tLocalizeIndex(id: ${localizeIndex.id}, url: null, lastUpdatedAt: null, shouldUpdate: false,  language: ");
       Language language = localizeIndex.language!;
       output.write(
-        '\tLanguage(id: ${language.id}, name: \'${language.name}\', locale: \'${language.locale}\', direction: \'${language.direction}\', isDefault: ${language.isDefault}, isBestFit: ${language.isBestFit})',
+        'Language(id: ${language.id}, name: \'${language.name}\', locale: \'${language.locale}\', direction: \'${language.direction}\', isDefault: ${language.isDefault}, isBestFit: ${language.isBestFit})',
       );
       output.writeln('),');
     });
@@ -259,9 +259,7 @@ class NStackState extends State<NStackWidget> {
 	final NStack<Localization> nstack = _nstack;
 
 	changeLanguage(Locale locale) async {
-		print("Starting language switch...");
 		await _nstack.changeLocalization(locale);
-		print("Language switch done!");
 		setState(() {});
 	}
 
@@ -271,7 +269,6 @@ class NStackState extends State<NStackWidget> {
 		} catch(s,e) {
 			print("NStack could not call appOpen() as the NStackWidget is too far up the widget tree.");
 			print("Consider calling NStackScope.of(context).nstack.appOpen(Localizations.localeOf(context)) in a splashscreen or later.");
-			//throw e;
 		}
 	}
 
