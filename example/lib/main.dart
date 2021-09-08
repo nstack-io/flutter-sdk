@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nstack/nstack.dart';
-import 'package:provider/provider.dart';
 import 'nstack.dart';
 
 void main() {
