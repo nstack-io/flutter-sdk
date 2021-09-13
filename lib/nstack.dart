@@ -27,6 +27,8 @@ class NStack<T> {
   late NStackAppOpenData _appOpenData;
   final bool debug;
 
+  List<Language> get availableLanguages => LocalizationRepository().availableLanguages;
+
   Language get activeLanguage => LocalizationRepository().pickedLanguage;
 
   Locale get activeLocale =>
