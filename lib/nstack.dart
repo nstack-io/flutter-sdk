@@ -19,8 +19,9 @@ class NStack<T> {
   final NStackConfig config;
   final T localization;
 
-  final String prefsKeyLastUpdated = "nstack_last_updated";
-  final String prefsKeyGuid = "nstack_guid";
+  final String _prefsKeyLastUpdated = "nstack_last_updated";
+  final String _prefsKeyGuid = "nstack_guid";
+  final String _prefsSelectedLocale = "nstack_selected_locale";
 
   final NStackRepository _repository;
   late List<Locale> supportedLocales;
@@ -70,16 +71,16 @@ class NStack<T> {
         .then((PackageInfo info) => info.version)
         .catchError((error) => "1");
 
-    guid = prefs.getString(prefsKeyGuid) ?? '';
+    guid = prefs.getString(_prefsKeyGuid) ?? '';
     if (guid.isEmpty) {
       guid = Uuid().v1();
-      prefs.setString(prefsKeyGuid, guid);
+      prefs.setString(_prefsKeyGuid, guid);
     }
 
-    lastUpdated = prefs.getString(prefsKeyLastUpdated) ?? '';
+    lastUpdated = prefs.getString(_prefsKeyLastUpdated) ?? '';
     if (lastUpdated.isEmpty) {
       lastUpdated = DateTime.utc(1980, 1, 1).toIso8601String();
-      prefs.setString(prefsKeyLastUpdated, lastUpdated);
+      prefs.setString(_prefsKeyLastUpdated, lastUpdated);
     }
 
     if (!Foundation.kIsWeb) {
@@ -162,6 +163,8 @@ class NStack<T> {
               .switchBundledLocalization(localLanguage.language!.locale!);
         }
       }
+
+      prefs.setString(_prefsSelectedLocale, localLanguage.language!.locale!);
     } catch (e, s) {
       _log(e.toString());
       _log(s.toString());
@@ -177,16 +180,23 @@ class NStack<T> {
 
       await _setupAppOpenData();
 
+      // Has user selected a language in the app?
+      final prefs = await SharedPreferences.getInstance();
+      var languageTag = locale.toLanguageTag();
+      if(prefs.containsKey(_prefsSelectedLocale)) {
+        languageTag = prefs.getString(_prefsSelectedLocale) ?? locale.toLanguageTag();
+        _log("NStack --> User has overwritten device locale to: $languageTag");
+      }
+
       _log("NStack --> Calling App Open...");
       final Map<String, dynamic> result = await _repository.postAppOpen(
-        acceptHeader: locale.toLanguageTag(),
+        acceptHeader: languageTag,
         appOpenData: _appOpenData,
         devMode: Foundation.kDebugMode,
         testMode: false,
       );
 
       final appOpen = AppOpen.fromJson(result);
-      final prefs = await SharedPreferences.getInstance();
 
       // Find best fit
       final bestFitLanguage = appOpen.data.localize
@@ -216,7 +226,7 @@ class NStack<T> {
         prefs.setString(nstackKey, bestFitLanguageResponse);
         // Update last_updated for next app open call
         prefs.setString(
-            prefsKeyLastUpdated, DateTime.now().toUtc().toIso8601String());
+            _prefsKeyLastUpdated, DateTime.now().toUtc().toIso8601String());
       } else {
         // Using best fit language from the cache
         if (prefs.containsKey(nstackKey)) {
