@@ -37,6 +37,8 @@ class NStack<T> {
 
   String get checksum => LocalizationRepository().checksum;
 
+  Function? appOpenCompletedCallback;
+
   var _appOpenCalled = false;
 
   NStack(
@@ -206,7 +208,7 @@ class NStack<T> {
       final nstackKey = 'nstack_lang_${bestFitLanguage?.language?.locale}';
 
       // Fetch from the server or use the cache?
-      if (bestFitLanguage?.shouldUpdate == true) {
+      if (bestFitLanguage?.shouldUpdate == true || !prefs.containsKey(nstackKey)) {
         // Fetch best fit language from the server
         _log(
             'NStack --> Fetching best fit language: ${bestFitLanguage!.language!.locale}');
@@ -241,15 +243,19 @@ class NStack<T> {
           );
           // No cache, default values (this shouldn't happen, should_update should be true)
         } else {
-          _log(
-              'NStack --> WARNING: No cache found for best fit language: ${bestFitLanguage?.language?.locale}');
+          _log('NStack --> WARNING: No cache found for best fit language: ${bestFitLanguage?.language?.locale}');
+          LocalizationRepository().switchBundledLocalization(bestFitLanguage!.language!.locale!);
         }
       }
 
       _log('NStack --> Updated localization.');
       _appOpenCalled = true;
+      appOpenCompletedCallback?.call();
       return AppOpenResult.success;
     } catch (e, s) {
+      _appOpenCalled = true;
+      LocalizationRepository().switchBundledLocalization(locale.toLanguageTag());
+      appOpenCompletedCallback?.call();
       _log('NStack --> App Open failed because of: ${e.toString()}');
       _log(s.toString());
       return AppOpenResult.failed;

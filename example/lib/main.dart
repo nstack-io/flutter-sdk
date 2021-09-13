@@ -18,18 +18,20 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // App open!
-    NStackScope.of(context).nstack.appOpen(Localizations.localeOf(context));
+    //NStackScope.of(context).nstack.appOpen(Locale("de-AT"));
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(context.localization.test.testDollarSign),
-      ),
-      body: Center(
-        child: MaterialButton(onPressed: () async => {
-          NStackScope.of(context).changeLanguage(Locale("de-DE"))
-        },
-          child: Text("Selected locale: ${NStackScope.of(context).nstack.activeLanguage.name}")
-          ,),
+    return NStackAppOpen(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(context.localization.test.testDollarSign),
+        ),
+        body: Center(
+          child: MaterialButton(onPressed: () async => {
+            NStackScope.of(context).changeLanguage(Locale("de-DE"))
+          },
+            child: Text("Selected locale: ${NStackScope.of(context).nstack.activeLanguage.name}")
+            ,),
+        ),
       ),
     );
   }

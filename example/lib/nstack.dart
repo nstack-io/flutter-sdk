@@ -91,24 +91,30 @@ class NStackState extends State<NStackWidget> {
 		setState(() {});
 	}
 
-	_attemptAppOpen() {
-		try {
-			nstack.appOpen(Localizations.localeOf(context));
-		} catch(e) {
-			print("NStack could not call appOpen() as the NStackWidget is too far up the widget tree.");
-			print("Consider calling NStackScope.of(context).nstack.appOpen(Localizations.localeOf(context)) in a splashscreen or later.");
-		}
-	}
-
-	@override
-  void initState() {
-    super.initState();
-    _attemptAppOpen();
-  }
-
   @override
   Widget build(BuildContext context) {
 		return NStackScope(child: widget.child, state: this, nstack: this.nstack, checksum: nstack.checksum,);
+  }
+}
+
+class NStackAppOpen extends StatefulWidget {
+  const NStackAppOpen({Key? key, required this.child}) : super(key: key);
+
+  final Widget child;
+
+  @override
+  _NStackAppOpenState createState() => _NStackAppOpenState();
+}
+
+class _NStackAppOpenState extends State<NStackAppOpen> {
+	bool _initializedNStack = false;
+  @override
+  Widget build(BuildContext context) {
+		if(!_initializedNStack) {
+			NStackScope.of(context).nstack.appOpen(Localizations.localeOf(context));
+			_initializedNStack = true;
+		}
+    return widget.child;
   }
 }
 
