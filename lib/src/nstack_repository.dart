@@ -25,7 +25,8 @@ class NStackRepository {
     required bool devMode,
     required bool testMode,
   }) async {
-    _headers['Accept-Language'] = acceptHeader;
+    var mutableHeaders = {..._headers};
+    mutableHeaders['Accept-Language'] = acceptHeader;
 
     final requestBody = <String, String>{
       'platform': appOpenData.platform,
@@ -39,7 +40,7 @@ class NStackRepository {
 
     final appOpenResponse = await http.post(
       Uri.parse('$_baseUrl/open?dev=$devMode&test=$testMode'),
-      headers: _headers,
+      headers: mutableHeaders,
       body: requestBody,
     );
 
