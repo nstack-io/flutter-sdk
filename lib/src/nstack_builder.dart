@@ -262,8 +262,8 @@ class NStackState extends State<NStackWidget> {
 		await _nstack.changeLocalization(locale).whenComplete(() => setState(() {}));
 	}
 
-  Future<void> appOpen(Locale locale) async {
-    await _nstack.appOpen(locale).whenComplete(() => setState(() {}));
+  Future<void> appOpen(Locale locale, {String? platformOverride}) async {
+    await _nstack.appOpen(locale, platformOverride: platformOverride).whenComplete(() => setState(() {}));
   }
 
   @override
@@ -277,10 +277,12 @@ class NStackAppOpen extends StatefulWidget {
     Key? key,
     required this.child,
     this.onComplete,
+    this.platformOverride
   }) : super(key: key);
 
   final Widget child;
   final VoidCallback? onComplete;
+  final String? platformOverride;
 
   @override
   _NStackAppOpenState createState() => _NStackAppOpenState();
@@ -293,7 +295,7 @@ class _NStackAppOpenState extends State<NStackAppOpen> {
   Widget build(BuildContext context) {
     if (!_initializedNStack) {
       NStackScope.of(context)
-          .appOpen(Localizations.localeOf(context))
+          .appOpen(Localizations.localeOf(context), platformOverride: widget.platformOverride)
           .whenComplete(() => widget.onComplete?.call());
       _initializedNStack = true;
     }

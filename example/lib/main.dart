@@ -18,6 +18,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NStackAppOpen(
+      platformOverride: "android",
       child: Scaffold(
         appBar: AppBar(
           title: Text(context.localization.test.testDollarSign),

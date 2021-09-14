@@ -59,7 +59,7 @@ class NStack<T> {
     );
   }
 
-  Future<void> _setupAppOpenData() async {
+  Future<void> _setupAppOpenData(String? platformOverride) async {
     WidgetsFlutterBinding.ensureInitialized();
     final prefs = await SharedPreferences.getInstance();
     String projectVersion;
@@ -97,7 +97,7 @@ class NStack<T> {
     }
 
     _appOpenData = NStackAppOpenData(
-      platform: platform,
+      platform: platformOverride ?? platform,
       guid: guid,
       lastUpdated: lastUpdated,
       oldVersion: projectVersion,
@@ -171,14 +171,14 @@ class NStack<T> {
     }
   }
 
-  Future<AppOpenResult> appOpen(Locale locale) async {
+  Future<AppOpenResult> appOpen(Locale locale, {String? platformOverride}) async {
     try {
       if (_appOpenCalled) {
         _log("NStack.appOpen() has already been called, returning early...");
         return AppOpenResult.success;
       }
 
-      await _setupAppOpenData();
+      await _setupAppOpenData(platformOverride);
 
       // Has user selected a language in the app?
       final prefs = await SharedPreferences.getInstance();
