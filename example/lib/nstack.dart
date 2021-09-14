@@ -29,7 +29,7 @@ class _DefaultSection extends SectionKeyDelegate {
 class _Test extends SectionKeyDelegate {
 	const _Test(): super('test');
 
-	String get testDollarSign => get('testDollarSign', "\$testing");
+	String get testDollarSign => get('testDollarSign', "\$testing change back");
 	String get testSingleQuotationMark => get('testSingleQuotationMark', "\'testing\'");
 	String get testDoubleQuotationMark => get('testDoubleQuotationMark', "\"testing\"");
 	String get testMultipleLines => get('testMultipleLines', "testing\nmultiple\nlines");
@@ -43,7 +43,7 @@ final _languages = [
 ];
 
 const _bundledTranslations = {
-	'en-EN': r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"$testing","testSingleQuotationMark":"'testing'","testDoubleQuotationMark":"\"testing\"","testMultipleLines":"testing\nmultiple\nlines"}},"meta":{"language":{"id":56,"name":"English","locale":"en-EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
+	'en-EN': r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"$testing change back","testSingleQuotationMark":"'testing'","testDoubleQuotationMark":"\"testing\"","testMultipleLines":"testing\nmultiple\nlines"}},"meta":{"language":{"id":56,"name":"English","locale":"en-EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
 	'de-AT': r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"__testDollarSign","testSingleQuotationMark":"__testSingleQuotationMark","testDoubleQuotationMark":"__testDoubleQuotationMark","testMultipleLines":"__testMultipleLines"}},"meta":{"language":{"id":7,"name":"German (Austria)","locale":"de-AT","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
 };
 
@@ -87,9 +87,12 @@ class NStackState extends State<NStackWidget> {
 	final NStack<Localization> nstack = _nstack;
 
 	changeLanguage(Locale locale) async {
-		await _nstack.changeLocalization(locale);
-		setState(() {});
+		await _nstack.changeLocalization(locale).whenComplete(() => setState(() {}));
 	}
+
+  Future<void> appOpen(Locale locale) async {
+    await _nstack.appOpen(locale).whenComplete(() => setState(() {}));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,22 +101,30 @@ class NStackState extends State<NStackWidget> {
 }
 
 class NStackAppOpen extends StatefulWidget {
-  const NStackAppOpen({Key? key, required this.child}) : super(key: key);
+  const NStackAppOpen({
+    Key? key,
+    required this.child,
+    this.onComplete,
+  }) : super(key: key);
 
   final Widget child;
+  final VoidCallback? onComplete;
 
   @override
   _NStackAppOpenState createState() => _NStackAppOpenState();
 }
 
 class _NStackAppOpenState extends State<NStackAppOpen> {
-	bool _initializedNStack = false;
+  bool _initializedNStack = false;
+
   @override
   Widget build(BuildContext context) {
-		if(!_initializedNStack) {
-			NStackScope.of(context).nstack.appOpen(Localizations.localeOf(context));
-			_initializedNStack = true;
-		}
+    if (!_initializedNStack) {
+      NStackScope.of(context)
+          .appOpen(Localizations.localeOf(context))
+          .whenComplete(() => widget.onComplete?.call());
+      _initializedNStack = true;
+    }
     return widget.child;
   }
 }

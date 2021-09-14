@@ -37,8 +37,6 @@ class NStack<T> {
 
   String get checksum => LocalizationRepository().checksum;
 
-  Function? appOpenCompletedCallback;
-
   var _appOpenCalled = false;
 
   NStack(
@@ -250,12 +248,10 @@ class NStack<T> {
 
       _log('NStack --> Updated localization.');
       _appOpenCalled = true;
-      appOpenCompletedCallback?.call();
       return AppOpenResult.success;
     } catch (e, s) {
       _appOpenCalled = true;
       LocalizationRepository().switchBundledLocalization(locale.toLanguageTag());
-      appOpenCompletedCallback?.call();
       _log('NStack --> App Open failed because of: ${e.toString()}');
       _log(s.toString());
       return AppOpenResult.failed;

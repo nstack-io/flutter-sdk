@@ -259,9 +259,12 @@ class NStackState extends State<NStackWidget> {
 	final NStack<Localization> nstack = _nstack;
 
 	changeLanguage(Locale locale) async {
-		await _nstack.changeLocalization(locale);
-		setState(() {});
+		await _nstack.changeLocalization(locale).whenComplete(() => setState(() {}));
 	}
+
+  Future<void> appOpen(Locale locale) async {
+    await _nstack.appOpen(locale).whenComplete(() => setState(() {}));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -270,22 +273,30 @@ class NStackState extends State<NStackWidget> {
 }
 
 class NStackAppOpen extends StatefulWidget {
-  const NStackAppOpen({Key? key, required this.child}) : super(key: key);
+  const NStackAppOpen({
+    Key? key,
+    required this.child,
+    this.onComplete,
+  }) : super(key: key);
 
   final Widget child;
+  final VoidCallback? onComplete;
 
   @override
   _NStackAppOpenState createState() => _NStackAppOpenState();
 }
 
 class _NStackAppOpenState extends State<NStackAppOpen> {
-	bool _initializedNStack = false;
+  bool _initializedNStack = false;
+
   @override
   Widget build(BuildContext context) {
-		if(!_initializedNStack) {
-			NStackScope.of(context).nstack.appOpen(Localizations.localeOf(context));
-			_initializedNStack = true;
-		}
+    if (!_initializedNStack) {
+      NStackScope.of(context)
+          .appOpen(Localizations.localeOf(context))
+          .whenComplete(() => widget.onComplete?.call());
+      _initializedNStack = true;
+    }
     return widget.child;
   }
 }

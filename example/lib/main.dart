@@ -17,9 +17,6 @@ class MyApp extends StatelessWidget {
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // App open!
-    //NStackScope.of(context).nstack.appOpen(Locale("de-AT"));
-
     return NStackAppOpen(
       child: Scaffold(
         appBar: AppBar(
