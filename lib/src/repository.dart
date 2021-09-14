@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
 import 'package:nstack/models/language.dart';
 import 'package:nstack/models/localize_index.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalizationRepository {
   // Factory
@@ -27,6 +29,8 @@ class LocalizationRepository {
 
   String get checksum =>
       _sectionsMap.hashCode.toString() + this.pickedLanguage.id.toString();
+
+  String _prefsKeyPersistedMap = "nstack_persisted_sections_map";
 
   void setupLocalization(
     Map<String, String> bundledTranslations,
@@ -64,12 +68,31 @@ class LocalizationRepository {
       orElse: () => this._pickedLanguage,
     );
     _sectionsMap = localizationJson;
+    _persistInternalMap();
   }
 
-  void _setupInternalMap() {
+  _setupInternalMap() async {
     try {
-      _sectionsMap =
-          json.decode(_bundledTranslations[_pickedLanguage.locale]!)['data'];
+      WidgetsFlutterBinding.ensureInitialized();
+      final prefs = await SharedPreferences.getInstance();
+
+      if(prefs.containsKey(_prefsKeyPersistedMap)) {
+        _sectionsMap = json.decode(prefs.getString(_prefsKeyPersistedMap)!);
+      } else {
+        _sectionsMap = json.decode(_bundledTranslations[_pickedLanguage.locale]!)['data'];
+      }
+    } catch (e, s) {
+      print(e);
+      print(s);
+    }
+  }
+
+  _persistInternalMap() async {
+    try {
+      WidgetsFlutterBinding.ensureInitialized();
+      final prefs = await SharedPreferences.getInstance();
+      var serializedMap = json.encode(_sectionsMap);
+      prefs.setString(_prefsKeyPersistedMap, serializedMap);
     } catch (e, s) {
       print(e);
       print(s);
