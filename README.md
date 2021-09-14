@@ -70,7 +70,7 @@ Now increment the `"version"` number and save (⌘s) to trigger an update.
 ## Example
 
 Import your `nstack.dart` file and plant your `NStackWidget` at the root of your application.\
-Use `NStackInitWidget` for submitting [AppOpen] events.
+Use `NStackAppOpen` for submitting [AppOpen] events.
 
 ```dart
 import 'package:flutter/material.dart';
@@ -84,7 +84,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: NStackInitWidget(
+      home: NStackAppOpen(
         child: Scaffold(
           appBar: AppBar(
             title: Text(context.localization.test.title),
