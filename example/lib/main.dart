@@ -9,15 +9,27 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: NStackInitWidget(child: Scaffold(
+      home: MainScreen(),
+    );
+  }
+}
+
+class MainScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return NStackAppOpen(
+      child: Scaffold(
         appBar: AppBar(
-          title: Text(context.localization.defaultSection.title),
+          title: Text(context.localization.test.testDollarSign),
         ),
         body: Center(
-          child: Text(context.localization.test.testMultipleLines),
+          child: MaterialButton(onPressed: () async => {
+            NStackScope.of(context).changeLanguage(Locale("de-DE"))
+          },
+            child: Text("Selected locale: ${NStackScope.of(context).nstack.activeLanguage.name}")
+            ,),
         ),
       ),
-    ),
     );
   }
 }
