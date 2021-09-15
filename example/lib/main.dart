@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'nstack.dart';
 
 void main() {
@@ -18,16 +19,18 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NStackAppOpen(
+      platformOverride: AppOpenPlatform.android,
       child: Scaffold(
         appBar: AppBar(
           title: Text(context.localization.test.testDollarSign),
         ),
         body: Center(
-          child: MaterialButton(onPressed: () async => {
-            NStackScope.of(context).changeLanguage(Locale("de-DE"))
-          },
-            child: Text("Selected locale: ${NStackScope.of(context).nstack.activeLanguage.name}")
-            ,),
+          child: MaterialButton(
+            onPressed: () async =>
+                {NStackScope.of(context).changeLanguage(Locale("de-DE"))},
+            child: Text(
+                "Selected locale: ${NStackScope.of(context).nstack.activeLanguage.name}"),
+          ),
         ),
       ),
     );

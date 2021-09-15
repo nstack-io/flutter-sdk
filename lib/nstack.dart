@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart' as Foundation;
 import 'package:flutter/widgets.dart';
 import 'package:nstack/models/app_open.dart';
+import 'package:nstack/models/app_open_platform.dart';
 import 'package:nstack/models/language.dart';
 import 'package:nstack/models/language_response.dart';
 import 'package:nstack/models/localize_index.dart';
@@ -28,7 +29,8 @@ class NStack<T> {
   late NStackAppOpenData _appOpenData;
   final bool debug;
 
-  List<Language> get availableLanguages => LocalizationRepository().availableLanguages;
+  List<Language> get availableLanguages =>
+      LocalizationRepository().availableLanguages;
 
   Language get activeLanguage => LocalizationRepository().pickedLanguage;
 
@@ -59,13 +61,13 @@ class NStack<T> {
     );
   }
 
-  Future<void> _setupAppOpenData() async {
+  Future<void> _setupAppOpenData(AppOpenPlatform? platformOverride) async {
     WidgetsFlutterBinding.ensureInitialized();
     final prefs = await SharedPreferences.getInstance();
     String projectVersion;
     String guid;
     String lastUpdated;
-    String platform;
+    AppOpenPlatform platform;
 
     projectVersion = await PackageInfo.fromPlatform()
         .then((PackageInfo info) => info.version)
@@ -85,19 +87,18 @@ class NStack<T> {
 
     if (!Foundation.kIsWeb) {
       if (Platform.isAndroid) {
-        platform = 'android';
+        platform = AppOpenPlatform.android;
       } else if (Platform.isIOS) {
-        platform = 'ios';
+        platform = AppOpenPlatform.ios;
       } else {
-        //need to update when new platforms come
-        platform = 'unknown';
+        platform = AppOpenPlatform.unknown;
       }
     } else {
-      platform = 'web';
+      platform = AppOpenPlatform.web;
     }
 
     _appOpenData = NStackAppOpenData(
-      platform: platform,
+      platform: platformOverride ?? platform,
       guid: guid,
       lastUpdated: lastUpdated,
       oldVersion: projectVersion,
@@ -171,20 +172,24 @@ class NStack<T> {
     }
   }
 
-  Future<AppOpenResult> appOpen(Locale locale) async {
+  Future<AppOpenResult> appOpen(
+    Locale locale, {
+    AppOpenPlatform? platformOverride,
+  }) async {
     try {
       if (_appOpenCalled) {
         _log("NStack.appOpen() has already been called, returning early...");
         return AppOpenResult.success;
       }
 
-      await _setupAppOpenData();
+      await _setupAppOpenData(platformOverride);
 
       // Has user selected a language in the app?
       final prefs = await SharedPreferences.getInstance();
       var languageTag = locale.toLanguageTag();
-      if(prefs.containsKey(_prefsSelectedLocale)) {
-        languageTag = prefs.getString(_prefsSelectedLocale) ?? locale.toLanguageTag();
+      if (prefs.containsKey(_prefsSelectedLocale)) {
+        languageTag =
+            prefs.getString(_prefsSelectedLocale) ?? locale.toLanguageTag();
         _log("NStack --> User has overwritten device locale to: $languageTag");
       }
 
@@ -206,7 +211,8 @@ class NStack<T> {
       final nstackKey = 'nstack_lang_${bestFitLanguage?.language?.locale}';
 
       // Fetch from the server or use the cache?
-      if (bestFitLanguage?.shouldUpdate == true || !prefs.containsKey(nstackKey)) {
+      if (bestFitLanguage?.shouldUpdate == true ||
+          !prefs.containsKey(nstackKey)) {
         // Fetch best fit language from the server
         _log(
             'NStack --> Fetching best fit language: ${bestFitLanguage!.language!.locale}');
@@ -241,8 +247,10 @@ class NStack<T> {
           );
           // No cache, default values (this shouldn't happen, should_update should be true)
         } else {
-          _log('NStack --> WARNING: No cache found for best fit language: ${bestFitLanguage?.language?.locale}');
-          LocalizationRepository().switchBundledLocalization(bestFitLanguage!.language!.locale!);
+          _log(
+              'NStack --> WARNING: No cache found for best fit language: ${bestFitLanguage?.language?.locale}');
+          LocalizationRepository()
+              .switchBundledLocalization(bestFitLanguage!.language!.locale!);
         }
       }
 
@@ -251,7 +259,8 @@ class NStack<T> {
       return AppOpenResult.success;
     } catch (e, s) {
       _appOpenCalled = true;
-      LocalizationRepository().switchBundledLocalization(locale.toLanguageTag());
+      LocalizationRepository()
+          .switchBundledLocalization(locale.toLanguageTag());
       _log('NStack --> App Open failed because of: ${e.toString()}');
       _log(s.toString());
       return AppOpenResult.failed;
