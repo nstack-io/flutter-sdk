@@ -1,5 +1,7 @@
+import 'package:nstack/models/app_open_platform.dart';
+
 class NStackAppOpenData {
-  final String platform;
+  final AppOpenPlatform platform;
   final String guid;
   final String version;
   final String oldVersion;
