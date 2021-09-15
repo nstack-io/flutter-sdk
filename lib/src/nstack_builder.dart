@@ -90,11 +90,14 @@ class NstackBuilder implements Builder {
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nstack/models/app_open_platform.dart';
 import 'package:nstack/models/language.dart';
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/nstack.dart';
 import 'package:nstack/partial/section_key_delegate.dart';
+
+export 'package:nstack/models/app_open_platform.dart';
 
 // Update this file by running:
 // - `flutter pub run build_runner build`, if your package depends on Flutter
@@ -262,7 +265,7 @@ class NStackState extends State<NStackWidget> {
 		await _nstack.changeLocalization(locale).whenComplete(() => setState(() {}));
 	}
 
-  Future<void> appOpen(Locale locale, {String? platformOverride}) async {
+  Future<void> appOpen(Locale locale, {AppOpenPlatform? platformOverride}) async {
     await _nstack.appOpen(locale, platformOverride: platformOverride).whenComplete(() => setState(() {}));
   }
 
@@ -282,7 +285,7 @@ class NStackAppOpen extends StatefulWidget {
 
   final Widget child;
   final VoidCallback? onComplete;
-  final String? platformOverride;
+  final AppOpenPlatform? platformOverride;
 
   @override
   _NStackAppOpenState createState() => _NStackAppOpenState();

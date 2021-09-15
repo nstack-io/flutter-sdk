@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:nstack/models/app_open_platform.dart';
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/nstack_appopen_data.dart';
 import 'package:nstack/models/nstack_config.dart';
@@ -29,7 +30,7 @@ class NStackRepository {
     mutableHeaders['Accept-Language'] = acceptHeader;
 
     final requestBody = <String, String>{
-      'platform': appOpenData.platform,
+      'platform': appOpenData.platform.slug,
       'guid': appOpenData.guid,
       'version': appOpenData.version,
       'old_version': appOpenData.oldVersion,
