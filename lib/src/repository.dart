@@ -71,6 +71,13 @@ class LocalizationRepository {
     _persistInternalMap();
   }
 
+  overridePickedLanguage(String locale) {
+    this._pickedLanguage = _availableLanguages.firstWhere(
+          (element) => element.locale == locale,
+      orElse: () => this._pickedLanguage,
+    );
+  }
+
   _setupInternalMap() async {
     try {
       WidgetsFlutterBinding.ensureInitialized();

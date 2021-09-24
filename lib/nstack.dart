@@ -191,6 +191,7 @@ class NStack<T> {
         languageTag =
             prefs.getString(_prefsSelectedLocale) ?? locale.toLanguageTag();
         _log("NStack --> User has overwritten device locale to: $languageTag");
+        LocalizationRepository().overridePickedLanguage(languageTag);
       }
 
       _log("NStack --> Calling App Open...");
