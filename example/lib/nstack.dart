@@ -32,10 +32,10 @@ class _DefaultSection extends SectionKeyDelegate {
 class _Test extends SectionKeyDelegate {
 	const _Test(): super('test');
 
-	String get testDollarSign => get('testDollarSign', "\$testing again sdfsdf");
+	String get testDollarSign => get('testDollarSign', "\$testing again new");
 	String get testSingleQuotationMark => get('testSingleQuotationMark', "\'testing\'");
 	String get testDoubleQuotationMark => get('testDoubleQuotationMark', "\"testing\"");
-	String get testMultipleLines => get('testMultipleLines', "testing\nmultiple\nlines");
+	String get testMultipleLines => get('testMultipleLines', "testing\nmultiple\nlines\nupdated");
 }
 
 const _config = NStackConfig(projectId: 'h6wJremI2TGFM88gbLkdyljWQuwf2hxhxvCH', apiKey: 'zp2S18H32b67eYAbRQh94tVw76ZzaKKXlHjd');
@@ -46,7 +46,7 @@ final _languages = [
 ];
 
 const _bundledTranslations = {
-	'en-EN': r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"$testing again sdfsdf","testSingleQuotationMark":"'testing'","testDoubleQuotationMark":"\"testing\"","testMultipleLines":"testing\nmultiple\nlines"}},"meta":{"language":{"id":56,"name":"English","locale":"en-EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
+	'en-EN': r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"$testing again new","testSingleQuotationMark":"'testing'","testDoubleQuotationMark":"\"testing\"","testMultipleLines":"testing\nmultiple\nlines\nupdated"}},"meta":{"language":{"id":56,"name":"English","locale":"en-EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
 	'de-AT': r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"__testDollarSign","testSingleQuotationMark":"__testSingleQuotationMark","testDoubleQuotationMark":"__testDoubleQuotationMark","testMultipleLines":"__testMultipleLines"}},"meta":{"language":{"id":7,"name":"German (Austria)","locale":"de-AT","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
 };
 
@@ -88,6 +88,11 @@ class NStackWidget extends StatefulWidget {
 
 class NStackState extends State<NStackWidget> {
 	final NStack<Localization> nstack = _nstack;
+
+  @override
+  void initState() {
+		_nstack.initClientLocale();
+  }
 
 	changeLanguage(Locale locale) async {
 		await _nstack.changeLocalization(locale).whenComplete(() => setState(() {}));
