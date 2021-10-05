@@ -91,6 +91,7 @@ class NStackState extends State<NStackWidget> {
 
   @override
   void initState() {
+    super.initState();
 		_nstack.initClientLocale();
   }
 
