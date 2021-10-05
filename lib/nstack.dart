@@ -41,6 +41,8 @@ class NStack<T> {
 
   var _appOpenCalled = false;
 
+  Locale? clientLocale;
+
   NStack(
       {required this.config,
       required this.localization,
@@ -114,6 +116,8 @@ class NStack<T> {
   /// 4. Fallback to bundled localizations from last build
   Future changeLocalization(Locale locale) async {
     try {
+      clientLocale = locale;
+
       // Direct locale match
       var localLanguage = LocalizationRepository().localizeIndexes.firstWhere(
           (element) =>
@@ -170,6 +174,18 @@ class NStack<T> {
       _log(e.toString());
       _log(s.toString());
     }
+  }
+
+  Future<String?> initClientLocale() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey(_prefsSelectedLocale)) {
+      var languageTag = prefs.getString(_prefsSelectedLocale) ?? clientLocale?.toLanguageTag() ?? '';
+      LocalizationRepository().overridePickedLanguage(languageTag);
+      return languageTag;
+    } else if(clientLocale != null) {
+      return clientLocale!.toLanguageTag();
+    }
+    return null;
   }
 
   Future<AppOpenResult> appOpen(

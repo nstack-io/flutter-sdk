@@ -261,6 +261,11 @@ class NStackWidget extends StatefulWidget {
 class NStackState extends State<NStackWidget> {
 	final NStack<Localization> nstack = _nstack;
 
+  @override
+  void initState() {
+		_nstack.initClientLocale();
+  }
+
 	changeLanguage(Locale locale) async {
 		await _nstack.changeLocalization(locale).whenComplete(() => setState(() {}));
 	}
