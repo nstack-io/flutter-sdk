@@ -41,6 +41,8 @@ class NStack<T> {
 
   var _appOpenCalled = false;
 
+  Locale? clientLocale;
+
   NStack(
       {required this.config,
       required this.localization,
@@ -114,6 +116,8 @@ class NStack<T> {
   /// 4. Fallback to bundled localizations from last build
   Future changeLocalization(Locale locale) async {
     try {
+      clientLocale = locale;
+
       // Direct locale match
       var localLanguage = LocalizationRepository().localizeIndexes.firstWhere(
           (element) =>
@@ -172,6 +176,18 @@ class NStack<T> {
     }
   }
 
+  Future<String?> initClientLocale() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey(_prefsSelectedLocale)) {
+      var languageTag = prefs.getString(_prefsSelectedLocale) ?? clientLocale?.toLanguageTag() ?? '';
+      LocalizationRepository().overridePickedLanguage(languageTag);
+      return languageTag;
+    } else if(clientLocale != null) {
+      return clientLocale!.toLanguageTag();
+    }
+    return null;
+  }
+
   Future<AppOpenResult> appOpen(
     Locale locale, {
     AppOpenPlatform? platformOverride,
@@ -191,6 +207,7 @@ class NStack<T> {
         languageTag =
             prefs.getString(_prefsSelectedLocale) ?? locale.toLanguageTag();
         _log("NStack --> User has overwritten device locale to: $languageTag");
+        LocalizationRepository().overridePickedLanguage(languageTag);
       }
 
       _log("NStack --> Calling App Open...");
