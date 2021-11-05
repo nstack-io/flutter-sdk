@@ -10,10 +10,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: NStackWidget(
+      builder: (context, child) {
+        return NStackWidget(
           platformOverride: AppOpenPlatform.android,
-          child: MainScreen()
-      ),
+          child: child!,
+        );
+      },
+      home: MainScreen(),
     );
   }
 }
