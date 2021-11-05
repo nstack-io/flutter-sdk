@@ -77,8 +77,10 @@ class NStackScope extends InheritedWidget {
 
 class NStackWidget extends StatefulWidget {
   final Widget child;
+  final AppOpenPlatform? platformOverride;
+  final VoidCallback? onComplete;
 
-  const NStackWidget({Key? key, required Widget child})
+  const NStackWidget({Key? key, required Widget child, this.platformOverride, this.onComplete})
       : child = child,
         super(key: key);
 
@@ -88,55 +90,38 @@ class NStackWidget extends StatefulWidget {
 
 class NStackState extends State<NStackWidget> {
 	final NStack<Localization> nstack = _nstack;
+  bool _initializedNStack = false;
+
+  late Future<bool> _nstackInitFuture;
 
   @override
   void initState() {
     super.initState();
-		_nstack.initClientLocale();
+		_nstackInitFuture = _nstack.init();
   }
 
 	changeLanguage(Locale locale) async {
 		await _nstack.changeLocalization(locale).whenComplete(() => setState(() {}));
 	}
 
-  Future<void> appOpen(Locale locale, {AppOpenPlatform? platformOverride}) async {
-    await _nstack.appOpen(locale, platformOverride: platformOverride).whenComplete(() => setState(() {}));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-		return NStackScope(child: widget.child, state: this, nstack: this.nstack, checksum: nstack.checksum,);
-  }
-}
-
-class NStackAppOpen extends StatefulWidget {
-  const NStackAppOpen({
-    Key? key,
-    required this.child,
-    this.onComplete,
-    this.platformOverride
-  }) : super(key: key);
-
-  final Widget child;
-  final VoidCallback? onComplete;
-  final AppOpenPlatform? platformOverride;
-
-  @override
-  _NStackAppOpenState createState() => _NStackAppOpenState();
-}
-
-class _NStackAppOpenState extends State<NStackAppOpen> {
-  bool _initializedNStack = false;
-
   @override
   Widget build(BuildContext context) {
     if (!_initializedNStack) {
-      NStackScope.of(context)
+      _nstack
           .appOpen(Localizations.localeOf(context), platformOverride: widget.platformOverride)
           .whenComplete(() => widget.onComplete?.call());
       _initializedNStack = true;
     }
-    return widget.child;
+
+    return FutureBuilder(
+        future: _nstackInitFuture,
+        builder: (context, snapshot) {
+          if(snapshot.connectionState == ConnectionState.done) {
+            return NStackScope(child: widget.child, state: this, nstack: this.nstack, checksum: nstack.checksum,);
+          } else {
+            return SizedBox();
+          }
+        });
   }
 }
 
