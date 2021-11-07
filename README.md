@@ -20,7 +20,7 @@ dependencies:
   nstack:
     git:
       url: git://github.com/nstack-io/flutter-sdk.git
-      ref: v0.4.1
+      ref: v0.5.0
 
 dev_dependencies:
   build_runner:
@@ -69,8 +69,7 @@ Now increment the `"version"` number and save (⌘s) to trigger an update.
 
 ## Example
 
-Import your `nstack.dart` file and plant your `NStackWidget` at the root of your application.\
-Use `NStackAppOpen` for submitting [AppOpen] events.
+Import your `nstack.dart` file and plant your `NStackWidget` in the builder of your application.
 
 ```dart
 import 'package:flutter/material.dart';
@@ -84,11 +83,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: NStackAppOpen(
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(context.localization.test.title),
-          ),
+      builder: (context, child) {
+        return NStackWidget(
+          child: child!,
+        );
+      },
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text(context.localization.test.title),
         ),
       ),
     );
