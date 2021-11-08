@@ -176,7 +176,16 @@ class NStack<T> {
     }
   }
 
-  Future<String?> initClientLocale() async {
+  Future<bool> init() async {
+    try {
+      await _initClientLocale();
+      return true;
+    } catch(e) {
+      return false;
+    }
+  }
+
+  Future<String?> _initClientLocale() async {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey(_prefsSelectedLocale)) {
       var languageTag = prefs.getString(_prefsSelectedLocale) ?? clientLocale?.toLanguageTag() ?? '';
