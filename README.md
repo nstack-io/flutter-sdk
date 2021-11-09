@@ -76,7 +76,7 @@ import 'package:flutter/material.dart';
 import 'package:nstack_example/nstack.dart';
 
 void main() {
-  runApp(NStackWidget(child: MyApp()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
