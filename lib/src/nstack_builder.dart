@@ -9,6 +9,7 @@ import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/other/extensions.dart';
 import 'package:nstack/other/reserved_keywords.dart';
 import 'package:nstack/src/nstack_repository.dart';
+import 'package:dart_style/dart_style.dart';
 
 /// A builder which outputs a 'nstack.dart' file. This file provides a NStack instance, type safe section key accessors and all bundled translations.
 class NstackBuilder implements Builder {
@@ -81,7 +82,8 @@ class NstackBuilder implements Builder {
       print(s);
     }
 
-    await buildStep.writeAsString(outputId, output.toString());
+    final outputFormatted = DartFormatter().format(output.toString());
+    await buildStep.writeAsString(outputId, outputFormatted);
   }
 
   void _writeHeader(StringBuffer output) {
