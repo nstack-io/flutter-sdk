@@ -112,7 +112,7 @@ class LocalizationRepository {
     String fallbackText,
   ) {
     try {
-      return _sectionsMap?[sectionKey][textKey] ?? fallbackText;
+      return _sectionsMap?[sectionKey]?[textKey] ?? fallbackText;
     } catch (e, s) {
       print(e);
       print(s);
