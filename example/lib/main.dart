@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'nstack.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const ExampleApp());
 }
 
-class MyApp extends StatelessWidget {
+class ExampleApp extends StatelessWidget {
+  const ExampleApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,24 +18,34 @@ class MyApp extends StatelessWidget {
           child: child!,
         );
       },
-      home: MainScreen(),
+      home: const MainScreen(),
     );
   }
 }
 
 class MainScreen extends StatelessWidget {
+  const MainScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final activeLanguage = NStackScope.of(context).nstack.activeLanguage;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(context.localization.test.testDollarSign),
       ),
       body: Center(
         child: MaterialButton(
-          onPressed: () async =>
-              {NStackScope.of(context).changeLanguage(Locale("de-DE"))},
+          onPressed: () {
+            final locale = activeLanguage.locale == 'en-EN'
+                ? const Locale('de-DE')
+                : const Locale('en-EN');
+
+            NStackScope.of(context).changeLanguage(locale);
+          },
           child: Text(
-              "Selected locale: ${NStackScope.of(context).nstack.activeLanguage.name}"),
+            'Selected locale: ${activeLanguage.name}',
+          ),
         ),
       ),
     );
