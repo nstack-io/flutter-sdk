@@ -13,6 +13,7 @@ import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
+/// The core class containing all the NStack features.
 class NStackSdk<TLocalization> {
   final NStackConfig config;
 
@@ -123,8 +124,9 @@ class NStackSdk<TLocalization> {
       return AppOpenResult.success;
     } catch (e, s) {
       _appOpenCalled = true;
-      LocalizationRepository()
-          .switchBundledLocalization(defaultLocale.toLanguageTag());
+      LocalizationRepository().switchBundledLocalization(
+        defaultLocale.toLanguageTag(),
+      );
       _log('NStack --> App Open failed because of: ${e.toString()}');
       _log(s.toString());
       return AppOpenResult.failed;

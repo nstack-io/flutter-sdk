@@ -156,6 +156,62 @@ final _nstackLocalization = NStackLocalization<Localization>(
 ''');
   }
 
+  void _writeNStackConfig(
+    String? projectId,
+    String? apiKey,
+    StringBuffer output,
+  ) {
+    output.writeln('''
+const _config = NStackConfig(projectId: '$projectId', apiKey: '$apiKey',);
+    ''');
+  }
+
+  Future _writeBundledTranslations(
+    List<LocalizeIndex> languages,
+    NStackRepository repository,
+    StringBuffer output,
+  ) async {
+    output.writeln('''
+const _bundledTranslations = {''');
+
+    await Future.forEach<LocalizeIndex>(languages, (localizeIndex) async {
+      final locale = localizeIndex.language!.locale;
+      var content =
+          (await repository.fetchLocalizationForLanguage(localizeIndex));
+      output.writeln('\t\'$locale\': r\'\'\'$content\'\'\',');
+    });
+
+    output.writeln('''
+};
+''');
+  }
+
+  void _writeLanguageList(List<LocalizeIndex> languages, StringBuffer output) {
+    output.writeln(''' 
+/*
+ * 
+ * Languages & Bundled translations
+ * 
+ */
+    
+    ''');
+    output.writeln('final _languages = [');
+
+    languages.forEach((localizeIndex) {
+      output.write(
+          "\tLocalizeIndex(id: ${localizeIndex.id}, url: null, lastUpdatedAt: null, shouldUpdate: false,  language: const ");
+      Language language = localizeIndex.language!;
+      output.write(
+        'Language(id: ${language.id}, name: \'${language.name}\', locale: \'${language.locale}\', direction: \'${language.direction}\', isDefault: ${language.isDefault}, isBestFit: ${language.isBestFit},),',
+      );
+      output.writeln('),');
+    });
+
+    output.writeln('''
+];
+''');
+  }
+
   void _writeLocalization(LocalizationData localization, StringBuffer output) {
     final languageJson = localization.data!;
 
@@ -223,65 +279,13 @@ final _nstackLocalization = NStackLocalization<Localization>(
         ? '${sectionKey}Section'
         // Use the original sectionKey
         : sectionKey;
+
     // Format the name to CamelCase
     return adjustedSectionKey.replaceRange(
-        0, 1, sectionKey.substring(0, 1).toUpperCase());
-  }
-
-  void _writeNStackConfig(
-    String? projectId,
-    String? apiKey,
-    StringBuffer output,
-  ) {
-    output.writeln('''
-const _config = NStackConfig(projectId: '$projectId', apiKey: '$apiKey',);
-    ''');
-  }
-
-  void _writeLanguageList(List<LocalizeIndex> languages, StringBuffer output) {
-    output.writeln(''' 
-/*
- * 
- * Languages & Bundled translations
- * 
- */
-    
-    ''');
-    output.writeln('final _languages = [');
-
-    languages.forEach((localizeIndex) {
-      output.write(
-          "\tLocalizeIndex(id: ${localizeIndex.id}, url: null, lastUpdatedAt: null, shouldUpdate: false,  language: const ");
-      Language language = localizeIndex.language!;
-      output.write(
-        'Language(id: ${language.id}, name: \'${language.name}\', locale: \'${language.locale}\', direction: \'${language.direction}\', isDefault: ${language.isDefault}, isBestFit: ${language.isBestFit},),',
-      );
-      output.writeln('),');
-    });
-
-    output.writeln('''
-];
-''');
-  }
-
-  Future _writeBundledTranslations(
-    List<LocalizeIndex> languages,
-    NStackRepository repository,
-    StringBuffer output,
-  ) async {
-    output.writeln('''
-const _bundledTranslations = {''');
-
-    await Future.forEach<LocalizeIndex>(languages, (localizeIndex) async {
-      final locale = localizeIndex.language!.locale;
-      var content =
-          (await repository.fetchLocalizationForLanguage(localizeIndex));
-      output.writeln('\t\'$locale\': r\'\'\'$content\'\'\',');
-    });
-
-    output.writeln('''
-};
-''');
+      0,
+      1,
+      sectionKey.substring(0, 1).toUpperCase(),
+    );
   }
 
   void _writeNStackWidget(StringBuffer output) async {
@@ -327,11 +331,12 @@ class NStackState extends State<NStackWidget> {
   @override
   void initState() {
     super.initState();
+    
 		_nstackInitFuture = _nstack.init();
   }
 
-	changeLanguage(Locale locale) async {
-		await _nstack.localization.changeLocalization(locale).whenComplete(() => setState(() {}));
+	Future<void> changeLanguage(Locale locale) {
+		return _nstack.localization.changeLocalization(locale).whenComplete(() => setState(() {}));
 	}
 
   @override

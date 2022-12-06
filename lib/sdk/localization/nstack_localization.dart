@@ -10,9 +10,9 @@ import 'package:nstack/src/nstack_repository.dart';
 import 'package:nstack/src/repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// The localization feature of NStack.
 class NStackLocalization<TLocalization> {
   static const _prefsKeyLastUpdated = "nstack_last_updated";
-  static const _prefsKeyGuid = "nstack_guid";
   static const _prefsSelectedLocale = "nstack_selected_locale";
 
   final NStackConfig config;

@@ -184,11 +184,12 @@ class NStackState extends State<NStackWidget> {
   @override
   void initState() {
     super.initState();
+
     _nstackInitFuture = _nstack.init();
   }
 
-  changeLanguage(Locale locale) async {
-    await _nstack.localization
+  Future<void> changeLanguage(Locale locale) {
+    return _nstack.localization
         .changeLocalization(locale)
         .whenComplete(() => setState(() {}));
   }
