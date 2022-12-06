@@ -27,9 +27,9 @@ import 'package:nstack/models/app_open_platform.dart';
 import 'package:nstack/models/language.dart';
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/nstack_config.dart';
-import 'package:nstack/partial/section_key_delegate.dart';
-import 'package:nstack/sdk/localization/nstack_localization.dart';
 import 'package:nstack/sdk/nstack_sdk.dart';
+import 'package:nstack/sdk/localization/nstack_localization.dart';
+import 'package:nstack/partial/section_key_delegate.dart';
 
 export 'package:nstack/models/app_open_platform.dart';
 
@@ -128,7 +128,7 @@ class _Test extends SectionKeyDelegate {
 
   String get testDollarSign => get('testDollarSign', "\$testing again new");
   String get testSingleQuotationMark =>
-      get('testSingleQuotationMark', "'testing'");
+      get('testSingleQuotationMark', "\'testing\'");
   String get testDoubleQuotationMark =>
       get('testDoubleQuotationMark', "\"testing\"");
   String get testMultipleLines =>
