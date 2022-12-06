@@ -16,7 +16,7 @@ class NStackLocalization<TLocalization> {
   static const _prefsSelectedLocale = "nstack_selected_locale";
 
   final NStackConfig config;
-  final TLocalization localization;
+  final TLocalization translations;
   final NStackRepository _repository;
   late List<Locale> supportedLocales;
 
@@ -35,7 +35,7 @@ class NStackLocalization<TLocalization> {
 
   NStackLocalization({
     required this.config,
-    required this.localization,
+    required this.translations,
     required List<LocalizeIndex> availableLanguages,
     required Map<String, String> bundledTranslations,
     required String pickedLanguageLocale,
