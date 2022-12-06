@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:build/build.dart';
+import 'package:dart_style/dart_style.dart';
 import 'package:nstack/models/language.dart';
 import 'package:nstack/models/language_response.dart';
 import 'package:nstack/models/localize_index.dart';
@@ -9,7 +10,6 @@ import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/other/extensions.dart';
 import 'package:nstack/other/reserved_keywords.dart';
 import 'package:nstack/src/nstack_repository.dart';
-import 'package:dart_style/dart_style.dart';
 
 /// A builder which outputs a 'nstack.dart' file. This file provides a NStack instance, type safe section key accessors and all bundled translations.
 class NstackBuilder implements Builder {
@@ -20,6 +20,7 @@ class NstackBuilder implements Builder {
     if (!buildStep.inputId.toString().contains('nstack.json')) {
       return;
     }
+
     /// Read the input source and parse it as JSON.
     final AssetId outputId = buildStep.inputId.changeExtension('.dart');
     final StringBuffer output = StringBuffer();
@@ -117,11 +118,28 @@ import 'package:nstack/nstack.dart';
 import 'package:nstack/partial/section_key_delegate.dart';
 
 export 'package:nstack/models/app_open_platform.dart';
+      ''',
+    );
+  }
 
-// Update this file by running:
-// - `flutter pub run build_runner build`, if your package depends on Flutter
-// - `pub run build_runner build` otherwise
-      ''');
+  void _writeNStack(StringBuffer output) async {
+    output.writeln('''
+
+/*
+ *
+ * NStack Config
+ * 
+ */
+
+final _nstack = NStack<Localization>(
+  config: _config,
+  localization: const Localization(),
+  availableLanguages: _languages,
+  bundledTranslations: _bundledTranslations,
+  pickedLanguageLocale: '',
+  debug: kDebugMode,
+);
+''');
   }
 
   void _writeLocalization(LocalizationData localization, StringBuffer output) {
@@ -202,7 +220,7 @@ export 'package:nstack/models/app_open_platform.dart';
     StringBuffer output,
   ) {
     output.writeln('''
-const _config = NStackConfig(projectId: '$projectId', apiKey: '$apiKey');
+const _config = NStackConfig(projectId: '$projectId', apiKey: '$apiKey',);
     ''');
   }
 
@@ -210,10 +228,11 @@ const _config = NStackConfig(projectId: '$projectId', apiKey: '$apiKey');
     output.writeln('final _languages = [');
 
     languages.forEach((localizeIndex) {
-      output.write("\tLocalizeIndex(id: ${localizeIndex.id}, url: null, lastUpdatedAt: null, shouldUpdate: false,  language: ");
+      output.write(
+          "\tLocalizeIndex(id: ${localizeIndex.id}, url: null, lastUpdatedAt: null, shouldUpdate: false,  language: ");
       Language language = localizeIndex.language!;
       output.write(
-        'Language(id: ${language.id}, name: \'${language.name}\', locale: \'${language.locale}\', direction: \'${language.direction}\', isDefault: ${language.isDefault}, isBestFit: ${language.isBestFit})',
+        'Language(id: ${language.id}, name: \'${language.name}\', locale: \'${language.locale}\', direction: \'${language.direction}\', isDefault: ${language.isDefault}, isBestFit: ${language.isBestFit},),',
       );
       output.writeln('),');
     });
@@ -243,19 +262,6 @@ const _bundledTranslations = {''');
 ''');
   }
 
-  void _writeNStack(StringBuffer output) async {
-    output.writeln('''
-final _nstack = NStack<Localization>(
-  config: _config,
-  localization: const Localization(),
-  availableLanguages: _languages,
-  bundledTranslations: _bundledTranslations,
-  pickedLanguageLocale: '',
-  debug: kDebugMode
-);
-''');
-  }
-
   void _writeNStackWidget(StringBuffer output) async {
     output.writeln('''
 /*
@@ -268,7 +274,7 @@ class NStackScope extends InheritedWidget {
   final NStackState state;
   final String checksum;
 
-  NStackScope({Key? key, required Widget child, required this.state, required this.nstack, required this.checksum})
+  NStackScope({Key? key, required Widget child, required this.state, required this.nstack, required this.checksum,})
     : super(key: key, child: child);
 
   static NStackState of(BuildContext context) =>
@@ -284,9 +290,8 @@ class NStackWidget extends StatefulWidget {
   final AppOpenPlatform? platformOverride;
   final VoidCallback? onComplete;
 
-  const NStackWidget({Key? key, required Widget child, this.platformOverride, this.onComplete})
-      : child = child,
-        super(key: key);
+  const NStackWidget({Key? key, required this.child, this.platformOverride, this.onComplete,})
+      : super(key: key);
 
   @override
   NStackState createState() => NStackState();
@@ -325,7 +330,8 @@ class NStackState extends State<NStackWidget> {
           } else {
             return SizedBox();
           }
-        });
+        },
+      );
   }
 }
 
