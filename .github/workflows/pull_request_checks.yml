@@ -26,8 +26,3 @@ jobs:
       - name: Run analyzer /example
         run: flutter analyze
         working-directory: example
-      - name: Run tests
-        run: flutter test
-      - name: Run tests /example
-        run: flutter test
-        working-directory: example
