@@ -49,6 +49,10 @@ class NstackBuilder implements Builder {
     _writeHeader(output);
 
     try {
+      print('Creating NStack...');
+      _writeNStack(output);
+      _writeNStackConfig(projectId, apiKey, output);
+
       final languages = await repository.fetchAvailableLanguages();
 
       // Find the default language
@@ -69,11 +73,8 @@ class NstackBuilder implements Builder {
       print('Creating NStack section classes...');
       _writeSections(localizationData, output);
 
-      print('Creating NStack...');
-      _writeNStackConfig(projectId, apiKey, output);
       _writeLanguageList(languages, output);
       await _writeBundledTranslations(languages, repository, output);
-      _writeNStack(output);
 
       print('Creating NStackWidget...');
       _writeNStackWidget(output);
