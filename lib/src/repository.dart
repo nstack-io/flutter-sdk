@@ -59,7 +59,7 @@ class LocalizationRepository {
     _setupInternalMap();
   }
 
-  void updateLocalization(
+  Future<void> updateLocalization(
     Map<String, dynamic> localizationJson,
     String bestFitLocale,
   ) {
@@ -68,7 +68,7 @@ class LocalizationRepository {
       orElse: () => this._pickedLanguage,
     );
     _sectionsMap = localizationJson;
-    _persistInternalMap();
+    return _persistInternalMap();
   }
 
   overridePickedLanguage(String locale) {
@@ -95,7 +95,7 @@ class LocalizationRepository {
     }
   }
 
-  _persistInternalMap() async {
+  Future<void> _persistInternalMap() async {
     try {
       WidgetsFlutterBinding.ensureInitialized();
       final prefs = await SharedPreferences.getInstance();
