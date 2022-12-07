@@ -126,6 +126,7 @@ import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/sdk/nstack_sdk.dart';
 import 'package:nstack/src/nstack_repository.dart';
 import 'package:nstack/sdk/localization/nstack_localization.dart';
+import 'package:nstack/sdk/messages/nstack_messages.dart';
 import 'package:nstack/partial/section_key_delegate.dart';
 
 export 'package:nstack/models/app_open_platform.dart';
@@ -158,6 +159,10 @@ final _nstackLocalization = NStackLocalization<Localization>(
   bundledTranslations: _bundledTranslations,
   pickedLanguageLocale: '',
   isDebug: kDebugMode,
+);
+
+final _nstackMessages = NStackMessages(
+  repository: _nstackRepository,
 );
 ''');
   }
