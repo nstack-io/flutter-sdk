@@ -41,7 +41,7 @@ class MainScreen extends StatelessWidget {
                 ? const Locale('de-DE')
                 : const Locale('en-EN');
 
-            NStackScope.of(context).changeLanguage(locale);
+            NStack.localization.changeLocalization(locale);
           },
           child: Text(
             'Selected locale: ${activeLanguage.name}',
