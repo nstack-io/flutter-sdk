@@ -115,6 +115,8 @@ class NstackBuilder implements Builder {
  * `context.localization.yourSection.yourKey`.
  */
 
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nstack/models/app_open_platform.dart';
@@ -328,16 +330,32 @@ class NStackState extends State<NStackWidget> {
 
   late Future<bool> _nstackInitFuture;
 
+  late final StreamSubscription _localeChangedSubscription;
+
   @override
   void initState() {
     super.initState();
     
 		_nstackInitFuture = _nstack.init();
+
+    _localeChangedSubscription = NStack.localization.onLocaleChanged.listen(_onLocaleChanged);
   }
 
+  void _onLocaleChanged(Locale locale) {
+    setState(() {});
+  }
+
+  @Deprecated('Use `NStack.localization.changeLocalization` instead')
 	Future<void> changeLanguage(Locale locale) {
 		return _nstack.localization.changeLocalization(locale).whenComplete(() => setState(() {}));
 	}
+
+  @override
+  void dispose() {
+    _localeChangedSubscription.cancel();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
