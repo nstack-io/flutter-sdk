@@ -313,6 +313,7 @@ const _bundledTranslations = {''');
  * NStack Flutter Widgets
  * 
  */
+/// Allows to access NStack features via a `BuildContext`.
 class NStackScope extends InheritedWidget {
   final NStackState state;
   final String checksum;
@@ -328,6 +329,23 @@ class NStackScope extends InheritedWidget {
       checksum != oldWidget.checksum;
 }
 
+/// Widget that is used for accessing NStack features from the widget tree
+/// & listening for localization changes.
+///
+/// Is required for all the children widgets like [NStackMessageListener]
+///
+/// In your app, use the `builder` property like this:
+/// ```dart
+/// MaterialApp(
+///    ...
+///    builder: (context, child) {
+///      return NStackWidget(
+///        child: child!,
+///       );
+///    },
+///    ...
+/// );
+/// ```
 class NStackWidget extends StatefulWidget {
   final AppOpenPlatform? platformOverride;
   final VoidCallback? onComplete;
@@ -348,7 +366,10 @@ class NStackState extends State<NStackWidget> {
 
   late final StreamSubscription _localeChangedSubscription;
 
+  /// Gets the NStack Localization feature configured for this project.
   NStackLocalization<Localization> get localization => _nstack.localization;
+
+  /// Gets the NStack Message feature configured for this project.
   NStackMessages get messages => _nstack.messages;
 
   @override
@@ -402,6 +423,25 @@ class NStackState extends State<NStackWidget> {
   }
 }
 
+/// Listens for new messages from the NStack Messages feature.
+/// 
+/// In where you want to use it, add this widget:
+/// ```dart
+/// Widget build(BuildContext context) {
+///   return NStackMessageListener(
+///     onMessage: (Message message) {
+///       // Do whatever you want with the received message.
+///       // For example, use NStackMessageDialog to display the message.
+///       showDialog(
+///         context: context,
+///         builder: (context) {
+///           return NStackMessageDialog(message: message);
+///         },
+///     },
+///     child: Scaffold(...),
+///   );
+/// }
+/// ```
 class NStackMessageListener extends StatefulWidget {
   const NStackMessageListener({
     Key? key,
@@ -446,9 +486,23 @@ typedef MessageDialogBuilder = Widget Function(
   Message message,
 );
 
+  /// Default Message Alert Dialog that adapts to the platform and renders the:
+  /// - Message body
+  /// - OK Button 
+  /// - Open URL button (if [Message.url] is provided)
+  /// 
+  /// When the dialog is dismissed, the alert reports that the message is viewed.
+  /// 
+  /// Use it like this:
+  /// ```dart
+  /// NStackMessageDialog.show(
+  ///   context,
+  ///   message: message,
+  ///   /* Other params if needed */
+  /// );
+  /// ```
 class NStackMessageDialog extends StatelessWidget {
-  /// Default Message Alert Dialog.
-  const NStackMessageDialog({
+  const NStackMessageDialog._({
     Key? key,
     required this.message,
     this.onOkPressed,
@@ -456,24 +510,7 @@ class NStackMessageDialog extends StatelessWidget {
     this.okButtonTitle = 'OK',
     this.openUrlButtonTitle = 'Open URL',
     this.dialogTitle = 'Message',
-  })  : _customBuilder = null,
-        super(key: key);
-
-  /// Using this constructor, you can define your own Alert Dialog layout
-  /// by specifying the [builder] parameter.
-  const NStackMessageDialog.customBuilder({
-    Key? key,
-    required this.message,
-
-    /// Custom alert dialog builder.
-    required MessageDialogBuilder builder,
-  })  : onOkPressed = null,
-        onOpenUrlPressed = null,
-        okButtonTitle = '',
-        openUrlButtonTitle = '',
-        dialogTitle = '',
-        _customBuilder = builder,
-        super(key: key);
+  }) : super(key: key);
 
   /// Message that was received.
   final Message message;
@@ -498,25 +535,43 @@ class NStackMessageDialog extends StatelessWidget {
   /// and opens the URL.
   final void Function(Uri uri)? onOpenUrlPressed;
 
-  final MessageDialogBuilder? _customBuilder;
+  /// Displays the dialog.
+  static Future<void> show(
+    BuildContext context, {
+    required Message message,
+    VoidCallback? onOkPressed,
+    void Function(Uri uri)? onOpenUrlPressed,
+    String okButtonTitle = 'OK',
+    String openUrlButtonTitle = 'Open URL',
+    String dialogTitle = 'Message',
+  }) {
+    builder(BuildContext context) {
+      return NStackMessageDialog._(
+        message: message,
+        onOkPressed: onOkPressed,
+        onOpenUrlPressed: onOpenUrlPressed,
+        okButtonTitle: okButtonTitle,
+        openUrlButtonTitle: openUrlButtonTitle,
+        dialogTitle: dialogTitle,
+      );
+    }
+
+    final showDialog = Platform.isIOS
+        ? cupertino.showCupertinoDialog(context: context, builder: builder)
+        : material.showDialog(context: context, builder: builder);
+
+    return showDialog.whenComplete(() {
+      NStack.messages.setMessageViewed(message.id);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final customBuilder = _customBuilder;
-
-    if (customBuilder != null) {
-      return customBuilder(context, message);
-    }
-
     final titleWidget = Text(dialogTitle);
     final messageWidget = Text(message.message);
 
     final okWidget = Text(okButtonTitle);
-    final okAction = onOkPressed ??
-        () {
-          Navigator.of(context).pop();
-          NStackScope.of(context).messages.setMessageViewed(message.id);
-        };
+    final okAction = onOkPressed ?? Navigator.of(context).pop;
 
     final messageUrl = message.url;
     final Uri? uri;
@@ -534,9 +589,7 @@ class NStackMessageDialog extends StatelessWidget {
         : (onOpenUrlPressed != null ? () => onOpenUrlPressed!(uri!) : null) ??
             () {
               launchUrl(uri!);
-
               Navigator.of(context).pop();
-              NStackScope.of(context).messages.setMessageViewed(message.id);
             };
 
     if (Platform.isIOS) {
