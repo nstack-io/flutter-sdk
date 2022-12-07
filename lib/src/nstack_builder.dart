@@ -522,7 +522,7 @@ class NStackMessageDialog extends StatelessWidget {
   final String openUrlButtonTitle;
 
   /// Title of the dialog.
-  final String dialogTitle;
+  final String? dialogTitle;
 
   /// Optional callback when a user presses the OK button.
   ///
@@ -543,7 +543,7 @@ class NStackMessageDialog extends StatelessWidget {
     void Function(Uri uri)? onOpenUrlPressed,
     String okButtonTitle = 'OK',
     String openUrlButtonTitle = 'Open URL',
-    String dialogTitle = 'Message',
+    String? dialogTitle = 'Message',
   }) {
     builder(BuildContext context) {
       return NStackMessageDialog._(
@@ -567,7 +567,7 @@ class NStackMessageDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final titleWidget = Text(dialogTitle);
+    final titleWidget = dialogTitle != null ? Text(dialogTitle!) : null;
     final messageWidget = Text(message.message);
 
     final okWidget = Text(okButtonTitle);
