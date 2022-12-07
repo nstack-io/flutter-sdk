@@ -119,6 +119,8 @@ class NStackSdk<TLocalization> {
       await localization.updateOnAppOpen(appOpen);
       _log('NStack --> Updated localization.');
 
+      messages.onAppOpen(appOpen);
+
       _appOpenCalled = true;
 
       return AppOpenResult.success;
