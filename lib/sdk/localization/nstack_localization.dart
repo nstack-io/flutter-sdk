@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
@@ -15,6 +16,8 @@ class NStackLocalization<TLocalization> {
   static const _prefsKeyLastUpdated = "nstack_last_updated";
   static const _prefsSelectedLocale = "nstack_selected_locale";
 
+  final _onLocaleChanged = StreamController<Locale>.broadcast();
+
   final NStackConfig config;
   final TLocalization translations;
   final NStackRepository _repository;
@@ -30,6 +33,8 @@ class NStackLocalization<TLocalization> {
   Locale get activeLocale => Locale(activeLanguage.locale!);
 
   String get checksum => LocalizationRepository().checksum;
+
+  Stream<Locale> get onLocaleChanged => _onLocaleChanged.stream;
 
   Locale? clientLocale;
 
@@ -51,6 +56,19 @@ class NStackLocalization<TLocalization> {
       availableLanguages,
       pickedLanguageLocale,
     );
+  }
+
+  Future<void> _updateLocaleAndNotify({
+    required Map<String, dynamic> translationData,
+    required String languageLocale,
+    required Locale locale,
+  }) async {
+    await LocalizationRepository().updateLocalization(
+      translationData,
+      languageLocale,
+    );
+
+    _onLocaleChanged.add(locale);
   }
 
   /// Change the localization in the internal map
@@ -76,9 +94,10 @@ class NStackLocalization<TLocalization> {
 
         final languageResponse = LocalizationData.fromJson(cachedResponse);
 
-        LocalizationRepository().updateLocalization(
-          languageResponse.data!,
-          localLanguage.language!.locale!,
+        await _updateLocaleAndNotify(
+          translationData: languageResponse.data!,
+          languageLocale: localLanguage.language!.locale!,
+          locale: locale,
         );
 
         _log("Switched cached localization...");
@@ -94,9 +113,10 @@ class NStackLocalization<TLocalization> {
             jsonDecode(localizationResponse),
           );
 
-          LocalizationRepository().updateLocalization(
-            translationJson.data!,
-            localLanguage.language!.locale!,
+          await _updateLocaleAndNotify(
+            translationData: translationJson.data!,
+            languageLocale: localLanguage.language!.locale!,
+            locale: locale,
           );
 
           _log("Switched API localization...");
