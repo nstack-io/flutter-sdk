@@ -5,8 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:nstack/models/app_open.dart';
 import 'package:nstack/models/app_open_platform.dart';
 import 'package:nstack/models/nstack_appopen_data.dart';
-import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/sdk/localization/nstack_localization.dart';
+import 'package:nstack/sdk/messages/nstack_messages.dart';
 import 'package:nstack/src/nstack_repository.dart';
 import 'package:nstack/src/repository.dart';
 import 'package:package_info/package_info.dart';
@@ -15,8 +15,6 @@ import 'package:uuid/uuid.dart';
 
 /// The core class containing all the NStack features.
 class NStackSdk<TLocalization> {
-  final NStackConfig config;
-
   final String _prefsKeyLastUpdated = "nstack_last_updated";
   final String _prefsKeyGuid = "nstack_guid";
 
@@ -25,14 +23,16 @@ class NStackSdk<TLocalization> {
   final bool isDebug;
 
   final NStackLocalization<TLocalization> localization;
+  final NStackMessages messages;
 
   var _appOpenCalled = false;
 
   NStackSdk({
-    required this.config,
+    required NStackRepository repository,
     required this.isDebug,
     required this.localization,
-  }) : _repository = NStackRepository(config);
+    required this.messages,
+  }) : _repository = repository;
 
   Future<void> _setupAppOpenData(AppOpenPlatform? platformOverride) async {
     WidgetsFlutterBinding.ensureInitialized();

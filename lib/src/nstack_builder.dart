@@ -124,6 +124,7 @@ import 'package:nstack/models/language.dart';
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/sdk/nstack_sdk.dart';
+import 'package:nstack/src/nstack_repository.dart';
 import 'package:nstack/sdk/localization/nstack_localization.dart';
 import 'package:nstack/partial/section_key_delegate.dart';
 
@@ -142,13 +143,16 @@ export 'package:nstack/models/app_open_platform.dart';
  */
 
 final NStack = NStackSdk<Localization>(
-  config: _config,
-  localization: _nstackLocalization,
+  repository: _nstackRepository,
   isDebug: kDebugMode,
+  localization: _nstackLocalization,
+  messages: _nstackMessages,
 );
 
+const _nstackRepository = NStackRepository(_config);
+
 final _nstackLocalization = NStackLocalization<Localization>(
-  config: _config,
+  repository: _nstackRepository,
   translations: const Localization(),
   availableLanguages: _languages,
   bundledTranslations: _bundledTranslations,
