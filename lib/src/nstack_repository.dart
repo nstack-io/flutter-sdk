@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:nstack/models/app_open_platform.dart';
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/nstack_appopen_data.dart';
@@ -88,4 +89,32 @@ class NStackRepository {
     );
     return response.body;
   }
+
+  Future<void> postMessageSeen({
+    required NStackAppOpenData appOpenData,
+    required int messageId,
+  }) async {
+    final requestBody = {
+      'guid': appOpenData.guid,
+      'message_id': messageId.toString(),
+    };
+
+    final url = Uri.parse('$_baseUrl/notify/messages/views');
+
+    final response = await http.post(
+      url,
+      headers: _headers,
+      body: requestBody,
+    );
+
+    if (response.statusCode != 200) {
+      throw NStackApiException(response);
+    }
+  }
+}
+
+class NStackApiException {
+  final Response response;
+
+  NStackApiException(this.response);
 }
