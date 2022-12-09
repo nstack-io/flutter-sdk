@@ -441,13 +441,7 @@ class NStackMessageDialog extends StatelessWidget {
     final okAction = onOkPressed ?? Navigator.of(context).pop;
 
     final messageUrl = message.url;
-    final Uri? uri;
-
-    if (messageUrl != null) {
-      uri = Uri.tryParse(messageUrl);
-    } else {
-      uri = null;
-    }
+    final uri = messageUrl != null ? Uri.tryParse(messageUrl) : null;
 
     final isUriValid = uri != null;
 
