@@ -73,7 +73,7 @@ class LocalizationRepository {
 
   overridePickedLanguage(String locale) {
     this._pickedLanguage = _availableLanguages.firstWhere(
-          (element) => element.locale == locale,
+      (element) => element.locale == locale,
       orElse: () => this._pickedLanguage,
     );
   }
@@ -83,10 +83,11 @@ class LocalizationRepository {
       WidgetsFlutterBinding.ensureInitialized();
       final prefs = await SharedPreferences.getInstance();
 
-      if(prefs.containsKey(_prefsKeyPersistedMap)) {
+      if (prefs.containsKey(_prefsKeyPersistedMap)) {
         _sectionsMap = json.decode(prefs.getString(_prefsKeyPersistedMap)!);
       } else {
-        _sectionsMap = json.decode(_bundledTranslations[_pickedLanguage.locale]!)['data'];
+        _sectionsMap =
+            json.decode(_bundledTranslations[_pickedLanguage.locale]!)['data'];
       }
     } catch (e, s) {
       print(e);
@@ -118,5 +119,29 @@ class LocalizationRepository {
       print(s);
       return fallbackText;
     }
+  }
+
+  LocalizeIndex getLocalizeIndexByLocale(Locale locale) {
+    return localizeIndexes.firstWhere(
+      (element) {
+        final localeTag = locale.toLanguageTag().toLowerCase();
+        final language = element.language?.locale?.toLowerCase() ?? '';
+
+        return localeTag == language;
+      },
+      // Match language part of Locale
+      orElse: () {
+        return localizeIndexes.firstWhere(
+          (element) {
+            final localeTag =
+                locale.toLanguageTag().toLowerCase().split('-')[0];
+            final language =
+                element.language?.locale?.toLowerCase().split('-')[0] ?? '';
+
+            return localeTag == language;
+          },
+        );
+      },
+    );
   }
 }

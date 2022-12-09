@@ -28,7 +28,7 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final activeLanguage = NStackScope.of(context).nstack.activeLanguage;
+    final activeLanguage = context.nstack.localization.activeLanguage;
 
     return Scaffold(
       appBar: AppBar(
