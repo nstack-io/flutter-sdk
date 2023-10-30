@@ -31,6 +31,7 @@ class NstackBuilder implements Builder {
 
     final String projectId = input['nstack_project_id'] ?? '';
     final String apiKey = input['nstack_api_key'] ?? '';
+    final String env = input['nstack_env'] ?? 'prod';
 
     throwIf(projectId.isNullOrBlank, () {
       return ArgumentError('"nstack_project_id" not set');
@@ -40,10 +41,11 @@ class NstackBuilder implements Builder {
       return ArgumentError('"nstack_api_key" not set');
     });
 
-    final config = NStackConfig(
-      projectId: projectId,
-      apiKey: apiKey,
-    );
+    throwIf(env != 'prod' && env != 'stg', () {
+      return ArgumentError('"nstack_env" not set');
+    });
+
+    final config = NStackConfig(projectId: projectId, apiKey: apiKey, env: env);
 
     final repository = NStackRepository(config);
 
@@ -52,7 +54,7 @@ class NstackBuilder implements Builder {
     try {
       print('Creating NStack...');
       _writeNStack(output);
-      _writeNStackConfig(projectId, apiKey, output);
+      _writeNStackConfig(projectId, apiKey, env, output);
 
       final languages = await repository.fetchAvailableLanguages();
 
@@ -161,10 +163,11 @@ final _nstackLocalization = NStackLocalization<Localization>(
   void _writeNStackConfig(
     String? projectId,
     String? apiKey,
+    String? env,
     StringBuffer output,
   ) {
     output.writeln('''
-const _config = NStackConfig(projectId: '$projectId', apiKey: '$apiKey',);
+const _config = NStackConfig(projectId: '$projectId', apiKey: '$apiKey', env: '$env');
     ''');
   }
 

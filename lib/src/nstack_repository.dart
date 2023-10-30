@@ -7,8 +7,7 @@ import 'package:nstack/models/nstack_appopen_data.dart';
 import 'package:nstack/models/nstack_config.dart';
 
 class NStackRepository {
-  final _baseUrl = 'https://nstack.io/api/v2';
-
+  late String _baseUrl;
   final NStackConfig _config;
 
   Map<String, String> get _headers => {
@@ -18,7 +17,12 @@ class NStackRepository {
         'N-Meta': 'android;local;1.0;1.0;nstackbuilder'
       };
 
-  const NStackRepository(this._config);
+  NStackRepository(this._config) {
+    this._baseUrl = 'https://nstack.io/api/v2';
+    if (this._config.env == 'stg') {
+      this._baseUrl = 'https://stg.nstack.io/api/v2';
+    }
+  }
 
   dynamic postAppOpen({
     required String acceptHeader,

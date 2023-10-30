@@ -57,9 +57,9 @@ final _nstackLocalization = NStackLocalization<Localization>(
 );
 
 const _config = NStackConfig(
-  projectId: 'h6wJremI2TGFM88gbLkdyljWQuwf2hxhxvCH',
-  apiKey: 'zp2S18H32b67eYAbRQh94tVw76ZzaKKXlHjd',
-);
+    projectId: 'h6wJremI2TGFM88gbLkdyljWQuwf2hxhxvCH',
+    apiKey: 'zp2S18H32b67eYAbRQh94tVw76ZzaKKXlHjd',
+    env: 'prod');
 
 /*
  * 
