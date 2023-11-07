@@ -19,7 +19,7 @@ class NStackLocalization<TLocalization> {
   final _onLocaleChanged = StreamController<Locale>.broadcast();
 
   final NStackConfig config;
-  final TLocalization translations;
+  final TLocalization assets;
   final NStackRepository _repository;
   late List<Locale> supportedLocales;
 
@@ -40,7 +40,7 @@ class NStackLocalization<TLocalization> {
 
   NStackLocalization({
     required this.config,
-    required this.translations,
+    required this.assets,
     required List<LocalizeIndex> availableLanguages,
     required Map<String, String> bundledTranslations,
     required String pickedLanguageLocale,

@@ -19,6 +19,7 @@ dependencies:
   uuid: ^3.0.4
   dart_style: ^2.0.2
   collection: ^1.15.0
+  template_engine: ^1.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -39,8 +40,7 @@ flutter:
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  #   - assets/templates/nstack_template.mustache
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages

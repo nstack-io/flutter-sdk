@@ -14,7 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 /// The core class containing all the NStack features.
-class NStackSdk<TLocalization> {
+class NStackSdk {
   final NStackConfig config;
 
   final String _prefsKeyLastUpdated = "nstack_last_updated";
@@ -24,7 +24,7 @@ class NStackSdk<TLocalization> {
   late NStackAppOpenData _appOpenData;
   final bool isDebug;
 
-  final NStackLocalization<TLocalization> localization;
+  final NStackLocalization localization;
 
   var _appOpenCalled = false;
 
@@ -82,10 +82,10 @@ class NStackSdk<TLocalization> {
 
   Future<bool> init() async {
     try {
-      final localizationInit = await localization.init();
-
-      return localizationInit;
+      await this.localization.init();
+      return true;
     } catch (e) {
+      _log("NStack initialization failed with error: ${e.toString()}");
       return false;
     }
   }

@@ -28,11 +28,13 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final activeLanguage = context.nstack.localization.activeLanguage;
+    final localization = NStackScope.of(context).localization;
+    final localizationAsset = localization.assets;
+    final activeLanguage = localization.activeLanguage;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.localization.test.testDollarSign),
+        title: Text(localizationAsset.test.testDollarSign),
       ),
       body: Center(
         child: MaterialButton(
@@ -40,8 +42,7 @@ class MainScreen extends StatelessWidget {
             final locale = activeLanguage.locale == 'en-EN'
                 ? const Locale('de-DE')
                 : const Locale('en-EN');
-
-            NStack.localization.changeLocalization(locale);
+            localization.changeLocalization(locale);
           },
           child: Text(
             'Selected locale: ${activeLanguage.name}',
