@@ -39,12 +39,14 @@ class NstackBuilder implements Builder {
       return ArgumentError('"nstack_api_key" not set');
     });
 
-    throwIf(env != 'prod' && env != 'stg', () {
-      return ArgumentError('"nstack_env" not set');
+    throwIf(env != NStackEnv.prod.toString() && env != NStackEnv.stg.toString(),
+        () {
+      return ArgumentError(
+          'Invalid "nstack_env", valid options: ["prod", "stg"]');
     });
 
-    final nstackConfig =
-        NStackConfig(projectId: projectId, apiKey: apiKey, env: env);
+    final nstackConfig = NStackConfig(
+        projectId: projectId, apiKey: apiKey, env: NStackEnv.fromValue(env));
 
     final repository = NStackRepository(nstackConfig);
     final languages = await repository.fetchAvailableLanguages();

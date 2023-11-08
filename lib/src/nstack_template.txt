@@ -37,10 +37,10 @@ export 'package:nstack/models/app_open_platform.dart';
 
 NStackSdk createNStackSdk() {
     // Define your NStackConfig with hardcoded values
-    const config = NStackConfig(
+    var config = NStackConfig(
         projectId: '{{projectId}}',
         apiKey: '{{apiKey}}',
-        env: '{{env}}',
+        env: NStackEnv.fromValue('{{env}}'),
     );
 
     final languages = [

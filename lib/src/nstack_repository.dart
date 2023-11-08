@@ -19,7 +19,7 @@ class NStackRepository {
 
   NStackRepository(this._config) {
     this._baseUrl = 'https://nstack.io/api/v2';
-    if (this._config.env == 'stg') {
+    if (this._config.env == NStackEnv.stg) {
       this._baseUrl = 'https://stg.nstack.io/api/v2';
     }
   }

@@ -36,15 +36,15 @@ import 'package:nstack/partial/section_key_delegate.dart';
 export 'package:nstack/models/app_open_platform.dart';
 
 NStackSdk createNStackSdk() {
-    // Define your NStackConfig with hardcoded values
-    const config = NStackConfig(
-        projectId: 'h6wJremI2TGFM88gbLkdyljWQuwf2hxhxvCH',
-        apiKey: 'zp2S18H32b67eYAbRQh94tVw76ZzaKKXlHjd',
-        env: 'prod',
-    );
+  // Define your NStackConfig with hardcoded values
+  var config = NStackConfig(
+    projectId: 'h6wJremI2TGFM88gbLkdyljWQuwf2hxhxvCH',
+    apiKey: 'zp2S18H32b67eYAbRQh94tVw76ZzaKKXlHjd',
+    env: NStackEnv.fromValue('prod'),
+  );
 
-    final languages = [
-      LocalizeIndex(
+  final languages = [
+    LocalizeIndex(
       id: 1216,
       url: 'https://nstack.io/api/v2/content/localize/resources/1216',
       lastUpdatedAt: DateTime.parse('2021-09-17T18:13:38.000Z'),
@@ -58,7 +58,7 @@ NStackSdk createNStackSdk() {
         isBestFit: true,
       ),
     ),
-LocalizeIndex(
+    LocalizeIndex(
       id: 1270,
       url: 'https://nstack.io/api/v2/content/localize/resources/1270',
       lastUpdatedAt: DateTime.parse('2021-11-10T11:46:52.000Z'),
@@ -72,29 +72,31 @@ LocalizeIndex(
         isBestFit: false,
       ),
     ),
-    ];
+  ];
 
-    const bundledTranslations = {
-      'en-EN': r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"$testing again new","testSingleQuotationMark":"\'testing\'","testDoubleQuotationMark":"\"testing\"","testMultipleLines":"testing\nmultiple\nlines\nupdated"}},"meta":{"language":{"id":56,"name":"English","locale":"en-EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
-'de-AT': r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"\u00a0","testSingleQuotationMark":"__testSingleQuotationMark","testDoubleQuotationMark":"__testDoubleQuotationMark","testMultipleLines":"__testMultipleLines"}},"meta":{"language":{"id":7,"name":"German (Austria)","locale":"de-AT","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
-    };
+  const bundledTranslations = {
+    'en-EN':
+        r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"$testing again new","testSingleQuotationMark":"\'testing\'","testDoubleQuotationMark":"\"testing\"","testMultipleLines":"testing\nmultiple\nlines\nupdated"}},"meta":{"language":{"id":56,"name":"English","locale":"en-EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
+    'de-AT':
+        r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"\u00a0","testSingleQuotationMark":"__testSingleQuotationMark","testDoubleQuotationMark":"__testDoubleQuotationMark","testMultipleLines":"__testMultipleLines"}},"meta":{"language":{"id":7,"name":"German (Austria)","locale":"de-AT","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
+  };
 
-    // Create an instance of NStackLocalization with the predefined values
-    final nstackLocalization = NStackLocalization<LocalizationAsset>(
-        config: config,
-        assets: const LocalizationAsset(),
-        availableLanguages: languages,
-        bundledTranslations: bundledTranslations,
-        pickedLanguageLocale: '',
-        isDebug: kDebugMode,
-    );
+  // Create an instance of NStackLocalization with the predefined values
+  final nstackLocalization = NStackLocalization<LocalizationAsset>(
+    config: config,
+    assets: const LocalizationAsset(),
+    availableLanguages: languages,
+    bundledTranslations: bundledTranslations,
+    pickedLanguageLocale: '',
+    isDebug: kDebugMode,
+  );
 
-    // Return the NStackSdk instance
-    return NStackSdk(
-        config: config,
-        localization: nstackLocalization,
-        isDebug: kDebugMode,
-    );
+  // Return the NStackSdk instance
+  return NStackSdk(
+    config: config,
+    localization: nstackLocalization,
+    isDebug: kDebugMode,
+  );
 }
 
 /*
@@ -104,23 +106,27 @@ LocalizeIndex(
 */
 
 class LocalizationAsset {
-    final defaultSection = const _DefaultSection();
-final test = const _Test();
-    const LocalizationAsset();
+  final defaultSection = const _DefaultSection();
+  final test = const _Test();
+  const LocalizationAsset();
 }
 
 class _DefaultSection extends SectionKeyDelegate {
-        const _DefaultSection() : super('default');
-        String get title => get('title', "NStack SDK Demo");
-String get test => get('test', "test");
-    }
+  const _DefaultSection() : super('default');
+  String get title => get('title', "NStack SDK Demo");
+  String get test => get('test', "test");
+}
+
 class _Test extends SectionKeyDelegate {
-        const _Test() : super('test');
-        String get testDollarSign => get('testDollarSign', "\$testing again new");
-String get testSingleQuotationMark => get('testSingleQuotationMark', "\'testing\'");
-String get testDoubleQuotationMark => get('testDoubleQuotationMark', "\"testing\"");
-String get testMultipleLines => get('testMultipleLines', "testing\nmultiple\nlines\nupdated");
-    }
+  const _Test() : super('test');
+  String get testDollarSign => get('testDollarSign', "\$testing again new");
+  String get testSingleQuotationMark =>
+      get('testSingleQuotationMark', "\'testing\'");
+  String get testDoubleQuotationMark =>
+      get('testDoubleQuotationMark', "\"testing\"");
+  String get testMultipleLines =>
+      get('testMultipleLines', "testing\nmultiple\nlines\nupdated");
+}
 
 /*
  *
