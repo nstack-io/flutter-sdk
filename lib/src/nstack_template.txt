@@ -21,6 +21,12 @@
  * `context.localization.yourSection.yourKey`.
  */
 
+/*
+* Linter Exception
+* The following linter exceptions have been deliberately set for specific reasons:
+*/
+// ignore_for_file: unnecessary_string_escapes
+
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
