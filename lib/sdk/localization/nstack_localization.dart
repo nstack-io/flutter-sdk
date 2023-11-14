@@ -95,7 +95,7 @@ class NStackLocalization<TLocalization> {
         final languageResponse = LocalizationData.fromJson(cachedResponse);
 
         await _updateLocaleAndNotify(
-          translationData: languageResponse.data!,
+          translationData: languageResponse.data,
           languageLocale: localLanguage.language!.locale!,
           locale: locale,
         );
@@ -114,7 +114,7 @@ class NStackLocalization<TLocalization> {
           );
 
           await _updateLocaleAndNotify(
-            translationData: translationJson.data!,
+            translationData: translationJson.data,
             languageLocale: localLanguage.language!.locale!,
             locale: locale,
           );
@@ -193,7 +193,7 @@ class NStackLocalization<TLocalization> {
       );
 
       LocalizationRepository().updateLocalization(
-        translationJson.data!,
+        translationJson.data,
         bestFitLanguage.language!.locale!,
       );
 
@@ -213,7 +213,7 @@ class NStackLocalization<TLocalization> {
         final cachedResponse = json.decode(prefs.getString(nstackKey)!);
         final languageResponse = LocalizationData.fromJson(cachedResponse);
         LocalizationRepository().updateLocalization(
-          languageResponse.data!,
+          languageResponse.data,
           bestFitLanguage!.language!.locale!,
         );
         // No cache, default values (this shouldn't happen, should_update should be true)
