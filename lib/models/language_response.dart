@@ -1,22 +1,38 @@
 class LocalizationData {
-  final Map<String, Map<String, String>>? data;
+  final Map<String, Map<String, String>> data;
 
   LocalizationData(this.data);
 
   factory LocalizationData.fromJson(Map json) {
-    final rawData =
-        json['data'] as Map?; // Cast to Map to ensure we have a map structure
+    final rawData = json['data'];
+
+    // Check if rawData is a Map, if not, log and return empty LocalizationData
+    if (rawData == null || rawData is! Map) {
+      print(
+        'Warning: Expected data to be a Map, but found ${rawData.runtimeType}.',
+      );
+      return LocalizationData({});
+    }
+
     final Map<String, Map<String, String>> castedData = {};
 
-    rawData?.forEach((sectionKey, sectionValue) {
-      if (sectionValue is Map) {
-        // Cast each value to Map<String, dynamic> and then to Map<String, String>
-        castedData[sectionKey as String] = sectionValue.map((key, value) {
-          return MapEntry(key as String, value as String);
+    rawData.forEach((sectionKey, sectionValue) {
+      if (sectionKey is String && sectionValue is Map) {
+        var sectionMap = <String, String>{};
+        sectionValue.forEach((key, value) {
+          if (key is String && value is String) {
+            sectionMap[key] = value;
+          } else {
+            print(
+              'Warning: Expected Key and Value to be String in section $sectionKey, but found Key type: ${key.runtimeType} and Value type: ${value.runtimeType}.',
+            );
+          }
         });
+        castedData[sectionKey] = sectionMap;
       } else {
-        throw FormatException(
-            'Expected a Map for section $sectionKey, got ${sectionValue.runtimeType}.');
+        print(
+          'Warning: Expected Key to be String and Value to be Map in data, but found Key type: ${sectionKey.runtimeType} and Value type: ${sectionValue.runtimeType}.',
+        );
       }
     });
 

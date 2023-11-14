@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:build/build.dart';
+import 'package:dart_style/dart_style.dart';
 import 'package:nstack/models/language_response.dart';
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/nstack_config.dart';
@@ -46,22 +47,30 @@ class NstackBuilder implements Builder {
     });
 
     final nstackConfig = NStackConfig(
-        projectId: projectId, apiKey: apiKey, env: NStackEnv.fromValue(env));
+      projectId: projectId,
+      apiKey: apiKey,
+      env: NStackEnv.fromValue(env),
+    );
 
     final repository = NStackRepository(nstackConfig);
     final languages = await repository.fetchAvailableLanguages();
 
     // Find the default language
-    LocalizeIndex defaultLanguage =
-        languages.where((it) => it.language!.isDefault == true).first;
+    LocalizeIndex defaultLanguage = languages
+        .where(
+          (it) => it.language!.isDefault == true,
+        )
+        .first;
     print('Found the default Language: ${defaultLanguage.language}');
 
     // Fetch localization for default language
     print('Fetching default localization from: ${defaultLanguage.url}');
-    final localizationResponse =
-        await repository.fetchLocalizationForLanguage(defaultLanguage);
-    final localizationData =
-        LocalizationData.fromJson(jsonDecode(localizationResponse));
+    final localizationResponse = await repository.fetchLocalizationForLanguage(
+      defaultLanguage,
+    );
+    final localizationData = LocalizationData.fromJson(
+      jsonDecode(localizationResponse),
+    );
 
     final configs = {
       "projectId": projectId,
@@ -70,18 +79,25 @@ class NstackBuilder implements Builder {
     };
 
     // Generate the data needed for the template
-    final languagesData = prepareLocalizeIndexData(languages);
+    final languagesData = prepareLocalizeIndexData(
+      languages,
+    );
     print(languagesData.toString());
 
-    final translationsData =
-        await prepareTranslationsData(languages, repository);
+    final translationsData = await prepareTranslationsData(
+      languages,
+      repository,
+    );
     print(translationsData);
 
-    final localizationAssetData =
-        prepareLocalizationAssetData(localizationData.data!);
+    final localizationAssetData = prepareLocalizationAssetData(
+      localizationData.data,
+    );
     print(localizationAssetData);
 
-    final sectionsData = prepareSectionsData(localizationData.data!);
+    final sectionsData = prepareSectionsData(
+      localizationData.data,
+    );
     print(sectionsData);
 
     // Render the Mustache template with the data
@@ -98,14 +114,16 @@ class NstackBuilder implements Builder {
         LocalizationAssetListGenerator(values: localizationAssetData),
         SectionListGenerator(values: sectionsData),
       ]));
+
       var template = TextTemplate(templateText);
       var parseResult = engine.parse(template);
       var renderResult = engine.render(parseResult, configs);
       var output = renderResult.text;
-      print(output);
+
+      final outputFormatted = DartFormatter().format(output);
 
       // Write the formatted output to the .dart file
-      await buildStep.writeAsString(outputId, output);
+      await buildStep.writeAsString(outputId, outputFormatted);
     } catch (e) {
       // If there's an error, handle it. For example, the file might not exist or you don't have read permissions.
       print('Error reading the mustache template: $e');
@@ -116,28 +134,52 @@ class NstackBuilder implements Builder {
       List<LocalizeIndex> languages) {
     return languages.map((lang) {
       // Construct the 'language' map and exclude all null values.
-      var languageData = <String, Object>{};
-      if (lang.language?.id != null) languageData['id'] = lang.language!.id!;
-      if (lang.language?.name != null)
+      final languageData = <String, Object>{};
+
+      if (lang.language?.id != null) {
+        languageData['id'] = lang.language!.id!;
+      }
+
+      if (lang.language?.name != null) {
         languageData['name'] = lang.language!.name!;
-      if (lang.language?.locale != null)
+      }
+
+      if (lang.language?.locale != null) {
         languageData['locale'] = lang.language!.locale!;
-      if (lang.language?.direction != null)
+      }
+
+      if (lang.language?.direction != null) {
         languageData['direction'] = lang.language!.direction!;
-      if (lang.language?.isDefault != null)
+      }
+
+      if (lang.language?.isDefault != null) {
         languageData['isDefault'] = lang.language!.isDefault;
-      if (lang.language?.isBestFit != null)
+      }
+
+      if (lang.language?.isBestFit != null) {
         languageData['isBestFit'] = lang.language!.isBestFit;
+      }
 
       // Construct the top-level map and exclude all null values.
-      var resultMap = <String, Object>{
+      final resultMap = <String, Object>{
         'shouldUpdate': lang.shouldUpdate,
       };
-      if (lang.id != null) resultMap['id'] = lang.id!;
-      if (lang.url != null) resultMap['url'] = lang.url!;
-      if (lang.lastUpdatedAt != null)
+
+      if (lang.id != null) {
+        resultMap['id'] = lang.id!;
+      }
+
+      if (lang.url != null) {
+        resultMap['url'] = lang.url!;
+      }
+
+      if (lang.lastUpdatedAt != null) {
         resultMap['lastUpdatedAt'] = lang.lastUpdatedAt!.toIso8601String();
-      if (languageData.isNotEmpty) resultMap['language'] = languageData;
+      }
+
+      if (languageData.isNotEmpty) {
+        resultMap['language'] = languageData;
+      }
 
       return resultMap;
     }).toList();
@@ -147,15 +189,24 @@ class NstackBuilder implements Builder {
     List<LocalizeIndex> languages,
     NStackRepository repository,
   ) async {
-    List<Map<String, Object>> translations = [];
+    final translations = <Map<String, Object>>[];
 
     for (var language in languages) {
-      final locale = language.language!.locale!;
-      final content = await repository.fetchLocalizationForLanguage(language);
-      translations.add({
-        'locale': locale,
-        'content': content.replaceAll('\n', '\\n').replaceAll('\'', '\\\''),
-      });
+      // Check if 'language.language' is null before proceeding
+      if (language.language != null) {
+        final locale = language.language!.locale;
+
+        // Check if 'locale' is null before proceeding
+        if (locale != null) {
+          final content =
+              await repository.fetchLocalizationForLanguage(language);
+
+          translations.add({
+            'locale': locale,
+            'content': content,
+          });
+        }
+      }
     }
 
     return translations;
@@ -164,9 +215,9 @@ class NstackBuilder implements Builder {
   List<Map<String, Object>> prepareLocalizationAssetData(
       Map<String, Map<String, String>> languageJson) {
     return languageJson.keys.map((sectionKey) {
-      String className = getClassNameFromSectionKey(
+      final className = getClassNameFromSectionKey(
           sectionKey); // Implement this function based on your naming convention
-      String variableName =
+      final variableName =
           '${className[0].toLowerCase()}${className.substring(1)}';
       return {
         'variableName': variableName,
@@ -180,7 +231,7 @@ class NstackBuilder implements Builder {
     List<Map<String, Object>> sections = [];
 
     languageJson.forEach((sectionKey, translations) {
-      String className = getClassNameFromSectionKey(sectionKey);
+      final className = getClassNameFromSectionKey(sectionKey);
 
       List<Map<String, String>> translationsList =
           translations.entries.map((e) {

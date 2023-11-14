@@ -76,7 +76,7 @@ NStackSdk createNStackSdk() {
 
   const bundledTranslations = {
     'en-EN':
-        r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"$testing again new","testSingleQuotationMark":"\'testing\'","testDoubleQuotationMark":"\"testing\"","testMultipleLines":"testing\nmultiple\nlines\nupdated"}},"meta":{"language":{"id":56,"name":"English","locale":"en-EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
+        r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"$testing again new","testSingleQuotationMark":"'testing'","testDoubleQuotationMark":"\"testing\"","testMultipleLines":"testing\nmultiple\nlines\nupdated"}},"meta":{"language":{"id":56,"name":"English","locale":"en-EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
     'de-AT':
         r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"\u00a0","testSingleQuotationMark":"__testSingleQuotationMark","testDoubleQuotationMark":"__testDoubleQuotationMark","testMultipleLines":"__testMultipleLines"}},"meta":{"language":{"id":7,"name":"German (Austria)","locale":"de-AT","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
   };
