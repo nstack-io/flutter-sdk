@@ -30,26 +30,20 @@ class NstackBuilder implements Builder {
 
     final String projectId = input['nstack_project_id'] ?? '';
     final String apiKey = input['nstack_api_key'] ?? '';
-    final String env = input['nstack_env'] ?? 'prod';
+    final String env = input['nstack_env'] ?? 'production';
 
-    throwIf(projectId.isNullOrBlank, () {
-      return ArgumentError('"nstack_project_id" not set');
-    });
+    if (projectId.isNullOrBlank) {
+      throw ArgumentError('"nstack_project_id" not set');
+    }
 
-    throwIf(apiKey.isNullOrBlank, () {
-      return ArgumentError('"nstack_api_key" not set');
-    });
-
-    throwIf(env != NStackEnv.prod.toString() && env != NStackEnv.stg.toString(),
-        () {
-      return ArgumentError(
-          'Invalid "nstack_env", valid options: ["prod", "stg"]');
-    });
+    if (apiKey.isNullOrBlank) {
+      throw ArgumentError('"nstack_api_key" not set');
+    }
 
     final nstackConfig = NStackConfig(
       projectId: projectId,
       apiKey: apiKey,
-      env: NStackEnv.fromValue(env),
+      env: NStackEnvironment.fromValue(env),
     );
 
     final repository = NStackRepository(nstackConfig);
@@ -82,26 +76,22 @@ class NstackBuilder implements Builder {
     final languagesData = prepareLocalizeIndexData(
       languages,
     );
-    print(languagesData.toString());
 
     final translationsData = await prepareTranslationsData(
       languages,
       repository,
     );
-    print(translationsData);
 
     final localizationAssetData = prepareLocalizationAssetData(
       localizationData.data,
     );
-    print(localizationAssetData);
 
     final sectionsData = prepareSectionsData(
       localizationData.data,
     );
-    print(sectionsData);
 
-    // Render the Mustache template with the data
-    final assetId = AssetId('nstack', 'lib/src/nstack_template.txt');
+    // Render the template with the data
+    final assetId = AssetId('nstack', 'lib/templates/nstack_template.txt');
 
     try {
       // Read the content of the file into a string.
@@ -126,12 +116,13 @@ class NstackBuilder implements Builder {
       await buildStep.writeAsString(outputId, outputFormatted);
     } catch (e) {
       // If there's an error, handle it. For example, the file might not exist or you don't have read permissions.
-      print('Error reading the mustache template: $e');
+      print('Error reading the template: $e');
     }
   }
 
   List<Map<String, Object>> prepareLocalizeIndexData(
-      List<LocalizeIndex> languages) {
+    List<LocalizeIndex> languages,
+  ) {
     return languages.map((lang) {
       // Construct the 'language' map and exclude all null values.
       final languageData = <String, Object>{};

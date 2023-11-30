@@ -1,27 +1,24 @@
-enum NStackEnv {
-  stg("stg"),
-  prod('prod');
+enum NStackEnvironment {
+  staging,
+  production;
 
-  final String value;
-  const NStackEnv(this.value);
-
-  static final Map<String, NStackEnv> _values = {
-    for (NStackEnv status in NStackEnv.values) status.value: status
-  };
-
-  static NStackEnv fromValue(String value) {
-    return _values[value] ??
-        (throw ArgumentError('Invalid nstack environment value: $value'));
+  static NStackEnvironment fromValue(String value) {
+    switch (value) {
+      case 'staging':
+        return NStackEnvironment.staging;
+      case 'production':
+        return NStackEnvironment.production;
+      default:
+        throw ArgumentError(
+            'Invalid "nstack_env", valid options: ["production", "staging"]');
+    }
   }
-
-  @override
-  String toString() => value;
 }
 
 class NStackConfig {
   final String projectId;
   final String apiKey;
-  final NStackEnv env;
+  final NStackEnvironment env;
 
   const NStackConfig({
     required this.projectId,

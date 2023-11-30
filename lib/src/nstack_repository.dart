@@ -18,9 +18,13 @@ class NStackRepository {
       };
 
   NStackRepository(this._config) {
-    this._baseUrl = 'https://nstack.io/api/v2';
-    if (this._config.env == NStackEnv.stg) {
-      this._baseUrl = 'https://stg.nstack.io/api/v2';
+    switch (_config.env) {
+      case NStackEnvironment.staging:
+        this._baseUrl = 'https://stg.nstack.io/api/v2';
+        break;
+      default:
+        this._baseUrl = 'https://nstack.io/api/v2';
+        break;
     }
   }
 

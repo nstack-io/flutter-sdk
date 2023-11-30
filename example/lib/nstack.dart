@@ -51,7 +51,7 @@ NStackSdk createNStackSdk() {
   var config = NStackConfig(
     projectId: 'h6wJremI2TGFM88gbLkdyljWQuwf2hxhxvCH',
     apiKey: 'zp2S18H32b67eYAbRQh94tVw76ZzaKKXlHjd',
-    env: NStackEnv.fromValue('prod'),
+    env: NStackEnvironment.fromValue('production'),
   );
 
   final languages = [

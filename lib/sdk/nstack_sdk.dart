@@ -81,13 +81,8 @@ class NStackSdk {
   }
 
   Future<bool> init() async {
-    try {
-      await this.localization.init();
-      return true;
-    } catch (e) {
-      _log("NStack initialization failed with error: ${e.toString()}");
-      return false;
-    }
+    final localizationInit = await localization.init();
+    return localizationInit;
   }
 
   Future<AppOpenResult> appOpen(
