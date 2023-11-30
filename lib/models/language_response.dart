@@ -17,23 +17,23 @@ class LocalizationData {
     final Map<String, Map<String, String>> castedData = {};
 
     rawData.forEach((sectionKey, sectionValue) {
-      if (sectionKey is String && sectionValue is Map) {
-        var sectionMap = <String, String>{};
-        sectionValue.forEach((key, value) {
-          if (key is String && value is String) {
-            sectionMap[key] = value;
-          } else {
-            print(
-              'Warning: Expected Key and Value to be String in section $sectionKey, but found Key type: ${key.runtimeType} and Value type: ${value.runtimeType}.',
-            );
-          }
-        });
-        castedData[sectionKey] = sectionMap;
-      } else {
+      if (sectionKey is! String || sectionValue is! Map) {
         print(
           'Warning: Expected Key to be String and Value to be Map in data, but found Key type: ${sectionKey.runtimeType} and Value type: ${sectionValue.runtimeType}.',
         );
+        return;
       }
+      var sectionMap = <String, String>{};
+      sectionValue.forEach((key, value) {
+        if (key is! String && value is! String) {
+          print(
+            'Warning: Expected Key and Value to be String in section $sectionKey, but found Key type: ${key.runtimeType} and Value type: ${value.runtimeType}.',
+          );
+          return;
+        }
+        sectionMap[key] = value;
+      });
+      castedData[sectionKey] = sectionMap;
     });
 
     return LocalizationData(castedData);

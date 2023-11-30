@@ -136,28 +136,26 @@ class NstackBuilder implements Builder {
       // Construct the 'language' map and exclude all null values.
       final languageData = <String, Object>{};
 
-      if (lang.language?.id != null) {
-        languageData['id'] = lang.language!.id!;
-      }
+      if (lang.language != null) {
+        final language = lang.language!;
 
-      if (lang.language?.name != null) {
-        languageData['name'] = lang.language!.name!;
-      }
+        if (language.id != null) {
+          languageData['id'] = language.id!;
+        }
 
-      if (lang.language?.locale != null) {
-        languageData['locale'] = lang.language!.locale!;
-      }
+        if (language.name != null) {
+          languageData['name'] = language.name!;
+        }
 
-      if (lang.language?.direction != null) {
-        languageData['direction'] = lang.language!.direction!;
-      }
+        if (language.locale != null) {
+          languageData['locale'] = language.locale!;
+        }
 
-      if (lang.language?.isDefault != null) {
-        languageData['isDefault'] = lang.language!.isDefault;
-      }
-
-      if (lang.language?.isBestFit != null) {
-        languageData['isBestFit'] = lang.language!.isBestFit;
+        if (language.direction != null) {
+          languageData['direction'] = language.direction!;
+        }
+        languageData['isDefault'] = language.isDefault;
+        languageData['isBestFit'] = language.isBestFit;
       }
 
       // Construct the top-level map and exclude all null values.

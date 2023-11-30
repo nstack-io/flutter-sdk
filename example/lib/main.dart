@@ -28,7 +28,7 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localization = NStackScope.of(context).localization;
+    final localization = context.localization;
     final localizationAsset = localization.assets;
     final activeLanguage = localization.activeLanguage;
 

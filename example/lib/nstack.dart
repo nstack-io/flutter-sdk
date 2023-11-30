@@ -12,13 +12,18 @@
  * 💡 FEATURES
  * 
  * To access the NStack features:
- * - Use the global `NStack` object;
  * - Use the BuildContext extension: `context.nstack`.
  * 
  * 🔤 LOCALIZATION
  * 
  * To access localization in your UI you can use an extension for BuildContexts:
- * `context.localization.yourSection.yourKey`.
+ * `context.localization.assets.yourSection.yourKey`.
+ *
+ * 🛠️ IMPORTANT NOTES FOR SDK USERS
+ * 
+ * The default environment for the NStack SDK is `prod`.
+ * As an SDK user, you typically do not need to set this value.
+ * The `stg` environment is for NStack's internal use and should not be used in your `nstack.json`.
  */
 
 /*
@@ -237,4 +242,34 @@ class NStackState extends State<NStackWidget> {
       },
     );
   }
+}
+
+/*
+ *
+ * NStack Flutter Extensions
+ * 
+ */
+
+/// Allows to access the NStack features using the BuildContext
+extension NStackWidgetExtension on BuildContext {
+  /// NStack SDK of this project.
+  NStackSdk get nstack => NStackScope.of(this)._nstack;
+
+  /// Provides the localization for this NStack project.
+  ///
+  /// Use `localization.changeLocalization` to update language of the app.
+  NStackLocalization<LocalizationAsset> get localization =>
+      nstack.localization as NStackLocalization<LocalizationAsset>;
+}
+
+/// Allows to access the NStack features from StatefulWidget's State
+extension NStackStateExtension<T extends StatefulWidget> on State<T> {
+  /// NStack SDK of this project.
+  NStackSdk get nstack => context.nstack;
+
+  /// Provides the localization for this NStack project.
+  ///
+  /// Use `localization.changeLocalization` to update language of the app.
+  NStackLocalization<LocalizationAsset> get localization =>
+      context.localization;
 }
