@@ -27,10 +27,10 @@ class AppUpdate {
   }
 
   AppUpdateState get state {
-    if (update?.state == "yes") {
+    if (update?.state == 'yes') {
       return AppUpdateState.update;
     }
-    if (update?.state == "force") {
+    if (update?.state == 'force') {
       return AppUpdateState.force;
     }
     if (newInVersion != null) {

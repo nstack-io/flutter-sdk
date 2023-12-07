@@ -10,7 +10,8 @@ enum NStackEnvironment {
         return NStackEnvironment.production;
       default:
         throw ArgumentError(
-            'Invalid "nstack_env", valid options: ["production", "staging"]');
+          'Invalid "nstack_env", valid options: ["production", "staging"]',
+        );
     }
   }
 }

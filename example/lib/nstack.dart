@@ -31,10 +31,11 @@
 * The following linter exceptions have been deliberately set for specific reasons:
 */
 // ignore_for_file: unnecessary_string_escapes
+// ignore_for_file: unused_import
+// ignore_for_file: unnecessary_cast
 
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nstack/models/app_open_platform.dart';
 import 'package:nstack/models/language.dart';
@@ -93,20 +94,18 @@ NStackSdk createNStackSdk() {
   };
 
   // Create an instance of NStackLocalization with the predefined values
-  final nstackLocalization = NStackLocalization<LocalizationAsset>(
+  final nstackLocalization = NStackLocalization<Asset>(
     config: config,
-    assets: const LocalizationAsset(),
-    availableLanguages: languages,
-    bundledTranslations: bundledTranslations,
+    assets: const Asset(),
+    availableLanguages: languages as List<LocalizeIndex>,
+    bundledTranslations: bundledTranslations as Map<String, String>,
     pickedLanguageLocale: '',
-    isDebug: kDebugMode,
   );
 
   // Return the NStackSdk instance
   return NStackSdk(
     config: config,
     localization: nstackLocalization,
-    isDebug: kDebugMode,
   );
 }
 
@@ -116,27 +115,27 @@ NStackSdk createNStackSdk() {
 * 
 */
 
-class LocalizationAsset {
+class Asset {
   final defaultSection = const _DefaultSection();
   final test = const _Test();
-  const LocalizationAsset();
+  const Asset();
 }
 
 class _DefaultSection extends SectionKeyDelegate {
   const _DefaultSection() : super('default');
-  String get title => get('title', "NStack SDK Demo");
-  String get test => get('test', "test");
+  String get title => get('title', 'NStack SDK Demo');
+  String get test => get('test', 'test');
 }
 
 class _Test extends SectionKeyDelegate {
   const _Test() : super('test');
-  String get testDollarSign => get('testDollarSign', "\$testing again new");
+  String get testDollarSign => get('testDollarSign', '\$testing again new');
   String get testSingleQuotationMark =>
-      get('testSingleQuotationMark', "\'testing\'");
+      get('testSingleQuotationMark', '\'testing\'');
   String get testDoubleQuotationMark =>
-      get('testDoubleQuotationMark', "\"testing\"");
+      get('testDoubleQuotationMark', '\"testing\"');
   String get testMultipleLines =>
-      get('testMultipleLines', "testing\nmultiple\nlines\nupdated");
+      get('testMultipleLines', 'testing\nmultiple\nlines\nupdated');
 }
 
 /*
@@ -180,21 +179,30 @@ class NStackWidget extends StatefulWidget {
 }
 
 class NStackState extends State<NStackWidget> {
-  final NStackSdk _nstack = createNStackSdk();
-  late final NStackLocalization<LocalizationAsset> localization;
-  bool _initializedNStack = false;
-
+  late final NStackSdk _nstack;
+  late final NStackLocalization<Asset> localization;
   late Future<bool> _nstackInitFuture;
-
   late final StreamSubscription _localeChangedSubscription;
+  bool _initializedNStack = false;
 
   @override
   void initState() {
     super.initState();
+  }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initializedNStack) {
+      initNStack();
+      _initializedNStack = true;
+    }
+  }
+
+  void initNStack() {
+    _nstack = createNStackSdk();
     _nstackInitFuture = _nstack.init();
-    localization =
-        _nstack.localization as NStackLocalization<LocalizationAsset>;
+    localization = _nstack.localization as NStackLocalization<Asset>;
     _localeChangedSubscription =
         _nstack.localization.onLocaleChanged.listen(_onLocaleChanged);
   }
@@ -221,8 +229,10 @@ class NStackState extends State<NStackWidget> {
   Widget build(BuildContext context) {
     if (!_initializedNStack) {
       _nstack
-          .appOpen(Localizations.localeOf(context),
-              platformOverride: widget.platformOverride)
+          .appOpen(
+            Localizations.localeOf(context),
+            platformOverride: widget.platformOverride,
+          )
           .whenComplete(() => widget.onComplete?.call());
       _initializedNStack = true;
     }
@@ -258,8 +268,8 @@ extension NStackWidgetExtension on BuildContext {
   /// Provides the localization for this NStack project.
   ///
   /// Use `localization.changeLocalization` to update language of the app.
-  NStackLocalization<LocalizationAsset> get localization =>
-      nstack.localization as NStackLocalization<LocalizationAsset>;
+  NStackLocalization<Asset> get localization =>
+      nstack.localization as NStackLocalization<Asset>;
 }
 
 /// Allows to access the NStack features from StatefulWidget's State
@@ -270,6 +280,5 @@ extension NStackStateExtension<T extends StatefulWidget> on State<T> {
   /// Provides the localization for this NStack project.
   ///
   /// Use `localization.changeLocalization` to update language of the app.
-  NStackLocalization<LocalizationAsset> get localization =>
-      context.localization;
+  NStackLocalization<Asset> get localization => context.localization;
 }

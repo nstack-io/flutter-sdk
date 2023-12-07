@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'nstack.dart';
+import 'package:example/nstack.dart';
 
 void main() {
   runApp(const ExampleApp());

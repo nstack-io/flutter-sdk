@@ -2,11 +2,11 @@ import 'package:nstack/models/language.dart';
 import 'package:nstack/other/extensions.dart';
 
 class LocalizeIndex {
-  final int? id;
-  final String? url;
-  final DateTime? lastUpdatedAt;
+  final int id;
+  final String url;
+  final DateTime lastUpdatedAt;
   final bool shouldUpdate;
-  final Language? language;
+  final Language language;
 
   LocalizeIndex({
     required this.id,
@@ -21,9 +21,10 @@ class LocalizeIndex {
       id: json['id'],
       url: json['url'],
       lastUpdatedAt:
-          (json['last_updated_at'] as String?)?.let((it) => DateTime.parse(it)),
-      shouldUpdate: json['should_update'] ?? false,
-      language: (json['language'] as Map?)?.let((it) => Language.fromJson(it as Map<String, dynamic>)),
+          (json['last_updated_at'] as String).let((it) => DateTime.parse(it)),
+      shouldUpdate: json['should_update'],
+      language: (json['language'] as Map)
+          .let((it) => Language.fromJson(it as Map<String, dynamic>)),
     );
   }
 
