@@ -142,7 +142,7 @@ class NstackBuilder implements Builder {
       );
 
       final template = TextTemplate(templateText);
-      final parseResult = engine.parse(template);
+      final parseResult = engine.parseTemplate(template);
       final renderResult = engine.render(parseResult, configs);
       final output = renderResult.text;
       return output;
@@ -292,7 +292,7 @@ class LanguageListGenerator extends ExpressionFunction {
       : super(
           name: 'generateLanguages',
           description: 'This will generates the language list',
-          function: (renderContext, parameters) {
+          function: (position, renderContext, parameters) {
             final output = [];
             final engine = TemplateEngine();
             engine.operatorGroups.add(
@@ -304,9 +304,9 @@ class LanguageListGenerator extends ExpressionFunction {
                 [MakeDateTimeOperator()],
               ),
             );
-            const template = TextTemplate(templateText);
+            final template = TextTemplate(templateText);
 
-            final parseResult = engine.parse(template);
+            final parseResult = engine.parseTemplate(template);
 
             for (final element in values) {
               final filteredElement = <String, Object>{
@@ -314,9 +314,11 @@ class LanguageListGenerator extends ExpressionFunction {
                   if (entry.value != null) entry.key: entry.value!,
               };
               final renderContext = RenderContext(
-                engine,
-                renderAsError: 'null',
+                engine: engine,
+                renderedError: 'null',
                 variables: filteredElement,
+                parsedTemplates: [],
+                templateBeingRendered: template,
               );
               final renderResult = parseResult.render(renderContext);
               output.add(renderResult);
@@ -336,12 +338,12 @@ class BundledTranslationListGenerator extends ExpressionFunction {
       : super(
           name: 'generateBundledTranslations',
           description: 'This will generates the bundled translation list',
-          function: (renderContext, parameters) {
+          function: (position, renderContext, parameters) {
             final output = [];
             final engine = TemplateEngine();
-            const template = TextTemplate(templateText);
+            final template = TextTemplate(templateText);
 
-            final parseResult = engine.parse(template);
+            final parseResult = engine.parseTemplate(template);
 
             for (final element in values) {
               final filteredElement = <String, Object>{
@@ -366,12 +368,12 @@ class LocalizationAssetListGenerator extends ExpressionFunction {
       : super(
           name: 'generateLocalizationAssets',
           description: 'This will generates the localization asset list',
-          function: (renderContext, parameters) {
+          function: (position, renderContext, parameters) {
             final output = [];
             final engine = TemplateEngine();
-            const template = TextTemplate(templateText);
+            final template = TextTemplate(templateText);
 
-            final parseResult = engine.parse(template);
+            final parseResult = engine.parseTemplate(template);
 
             for (final element in values) {
               final filteredElement = <String, Object>{
@@ -401,17 +403,18 @@ class SectionListGenerator extends ExpressionFunction {
       : super(
           name: 'generateSections',
           description: 'This will generates the section list',
-          function: (renderContext, parameters) {
+          function: (position, renderContext, parameters) {
             final output = [];
             final engine = TemplateEngine();
 
-            const sectionListTemplate = TextTemplate(sectionListTemplateText);
-            final sectionListParseResult = engine.parse(sectionListTemplate);
+            final sectionListTemplate = TextTemplate(sectionListTemplateText);
+            final sectionListParseResult =
+                engine.parseTemplate(sectionListTemplate);
 
-            const sectionAttributListTemplate =
+            final sectionAttributListTemplate =
                 TextTemplate(sectionAttributeListTemplateText);
             final sectionAttibuteListParseResult =
-                engine.parse(sectionAttributListTemplate);
+                engine.parseTemplate(sectionAttributListTemplate);
 
             for (final element in values) {
               final sectionAttributListOutput = [];

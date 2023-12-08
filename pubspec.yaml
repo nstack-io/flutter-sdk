@@ -19,7 +19,7 @@ dependencies:
   uuid: ^3.0.4
   dart_style: ^2.0.2
   collection: ^1.15.0
-  template_engine: ^1.0.1
+  template_engine: ^1.1.0
 
 dev_dependencies:
   monstarlab_lints: ^1.0.2
