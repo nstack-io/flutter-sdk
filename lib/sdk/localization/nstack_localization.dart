@@ -9,28 +9,27 @@ import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/src/nstack_repository.dart';
 import 'package:nstack/src/repository.dart';
+import 'package:nstack/utils/log_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// The localization feature of NStack.
 class NStackLocalization<TLocalization> {
-  static const _prefsKeyLastUpdated = "nstack_last_updated";
-  static const _prefsSelectedLocale = "nstack_selected_locale";
+  static const _prefsKeyLastUpdated = 'nstack_last_updated';
+  static const _prefsSelectedLocale = 'nstack_selected_locale';
 
   final _onLocaleChanged = StreamController<Locale>.broadcast();
 
   final NStackConfig config;
-  final TLocalization translations;
+  final TLocalization assets;
   final NStackRepository _repository;
   late List<Locale> supportedLocales;
-
-  final bool isDebug;
 
   List<Language> get availableLanguages =>
       LocalizationRepository().availableLanguages;
 
   Language get activeLanguage => LocalizationRepository().pickedLanguage;
 
-  Locale get activeLocale => Locale(activeLanguage.locale!);
+  Locale get activeLocale => Locale(activeLanguage.locale);
 
   String get checksum => LocalizationRepository().checksum;
 
@@ -40,15 +39,18 @@ class NStackLocalization<TLocalization> {
 
   NStackLocalization({
     required this.config,
-    required this.translations,
+    required this.assets,
     required List<LocalizeIndex> availableLanguages,
     required Map<String, String> bundledTranslations,
     required String pickedLanguageLocale,
-    required this.isDebug,
   }) : _repository = NStackRepository(config) {
     supportedLocales = availableLanguages
-        .map((e) => Locale(e.language?.locale?.split("-")[0] ?? "en",
-            e.language?.locale?.split("-")[1].toUpperCase() ?? "US"))
+        .map(
+          (e) => Locale(
+            e.language.locale.split('-')[0],
+            e.language.locale.split('-')[1].toUpperCase(),
+          ),
+        )
         .toList();
 
     LocalizationRepository().setupLocalization(
@@ -85,7 +87,7 @@ class NStackLocalization<TLocalization> {
           LocalizationRepository().getLocalizeIndexByLocale(locale);
 
       final prefs = await SharedPreferences.getInstance();
-      final prefsKey = 'nstack_lang_${localLanguage.language!.locale}';
+      final prefsKey = 'nstack_lang_${localLanguage.language.locale}';
 
       final cachedLocalization = prefs.getString(prefsKey);
 
@@ -95,18 +97,18 @@ class NStackLocalization<TLocalization> {
         final languageResponse = LocalizationData.fromJson(cachedResponse);
 
         await _updateLocaleAndNotify(
-          translationData: languageResponse.data!,
-          languageLocale: localLanguage.language!.locale!,
+          translationData: languageResponse.data,
+          languageLocale: localLanguage.language.locale,
           locale: locale,
         );
 
-        _log("Switched cached localization...");
+        LogUtil.log('Switched cached localization...');
       } else {
         try {
           final localizationResponse = await _repository
-              .fetchLocalizationForLanguageId(localLanguage.id!);
+              .fetchLocalizationForLanguageId(localLanguage.id);
           // Save in cache
-          prefs.setString(prefsKey, localizationResponse);
+          await prefs.setString(prefsKey, localizationResponse);
 
           // Switch to the language
           final translationJson = LocalizationData.fromJson(
@@ -114,26 +116,30 @@ class NStackLocalization<TLocalization> {
           );
 
           await _updateLocaleAndNotify(
-            translationData: translationJson.data!,
-            languageLocale: localLanguage.language!.locale!,
+            translationData: translationJson.data,
+            languageLocale: localLanguage.language.locale,
             locale: locale,
           );
 
-          _log("Switched API localization...");
+          LogUtil.log('Switched API localization...');
         } catch (e) {
           // Use bundled localization as fallback
-          _log(e.toString());
-          _log(
-              "Switched to bundled localization since we failed updating from API...");
+          LogUtil.log(e.toString());
+          LogUtil.log(
+            'Switched to bundled localization since we failed updating from API...',
+          );
           LocalizationRepository()
-              .switchBundledLocalization(localLanguage.language!.locale!);
+              .switchBundledLocalization(localLanguage.language.locale);
         }
       }
 
-      prefs.setString(_prefsSelectedLocale, localLanguage.language!.locale!);
+      await prefs.setString(
+        _prefsSelectedLocale,
+        localLanguage.language.locale,
+      );
     } catch (e, s) {
-      _log(e.toString());
-      _log(s.toString());
+      LogUtil.log(e);
+      LogUtil.log(s);
     }
   }
 
@@ -160,69 +166,77 @@ class NStackLocalization<TLocalization> {
     return null;
   }
 
-  _log(String message) {
-    if (isDebug) {
-      print(message);
-    }
-  }
-
   Future<void> updateOnAppOpen(AppOpen appOpen) async {
     final prefs = await SharedPreferences.getInstance();
 
-    // Find best fit
-    final bestFitLanguage = appOpen.data.localize
-        ?.where((localize) => localize.language!.isBestFit == true)
-        .first;
+    // Find the best fit language
+    LocalizeIndex? bestFitLanguage;
+    try {
+      bestFitLanguage = appOpen.data.localize?.firstWhere(
+        (e) => e.language.isBestFit,
+      );
+      LogUtil.log('Found the best fit language: ${bestFitLanguage?.language}');
+    } on Exception catch (e) {
+      LogUtil.log('Best fit language not found with error: $e');
+    }
 
-    final nstackKey = 'nstack_lang_${bestFitLanguage?.language?.locale}';
+    if (bestFitLanguage == null) {
+      return;
+    }
+
+    final nstackKey = 'nstack_lang_${bestFitLanguage.language.locale}';
 
     // Fetch from the server or use the cache?
-    if (bestFitLanguage?.shouldUpdate == true ||
-        !prefs.containsKey(nstackKey)) {
+    if (bestFitLanguage.shouldUpdate == true || !prefs.containsKey(nstackKey)) {
       // Fetch best fit language from the server
-      _log(
-        'NStack --> Fetching best fit language: ${bestFitLanguage!.language!.locale}',
+      LogUtil.log(
+        'NStack --> Fetching best fit language: ${bestFitLanguage.language.locale}',
       );
 
-      final bestFitLanguageResponse =
-          await _repository.fetchLocalizationForLanguage(
-        bestFitLanguage,
+      // Fetch localization for default language
+      var translationJson = LocalizationData({});
+      var bestFitLanguageResponse;
+      LogUtil.log(
+        'Fetching default localization from: ${bestFitLanguage.url}',
       );
-      final translationJson = LocalizationData.fromJson(
+      bestFitLanguageResponse = await _repository.fetchLocalizationForLanguage(
+        bestFitLanguage.url,
+      );
+      translationJson = LocalizationData.fromJson(
         jsonDecode(bestFitLanguageResponse),
       );
 
-      LocalizationRepository().updateLocalization(
-        translationJson.data!,
-        bestFitLanguage.language!.locale!,
+      await LocalizationRepository().updateLocalization(
+        translationJson.data,
+        bestFitLanguage.language.locale,
       );
 
       // Update cache for key
-      prefs.setString(nstackKey, bestFitLanguageResponse);
+      await prefs.setString(nstackKey, bestFitLanguageResponse);
       // Update last_updated for next app open call
-      prefs.setString(
+      await prefs.setString(
         _prefsKeyLastUpdated,
         DateTime.now().toUtc().toIso8601String(),
       );
     } else {
       // Using best fit language from the cache
       if (prefs.containsKey(nstackKey)) {
-        _log(
-          'NStack --> Using cache for best fit language: ${bestFitLanguage?.language?.locale}',
+        LogUtil.log(
+          'NStack --> Using cache for best fit language: ${bestFitLanguage.language.locale}',
         );
         final cachedResponse = json.decode(prefs.getString(nstackKey)!);
         final languageResponse = LocalizationData.fromJson(cachedResponse);
-        LocalizationRepository().updateLocalization(
-          languageResponse.data!,
-          bestFitLanguage!.language!.locale!,
+        await LocalizationRepository().updateLocalization(
+          languageResponse.data,
+          bestFitLanguage.language.locale,
         );
         // No cache, default values (this shouldn't happen, should_update should be true)
       } else {
-        _log(
-          'NStack --> WARNING: No cache found for best fit language: ${bestFitLanguage?.language?.locale}',
+        LogUtil.log(
+          'NStack --> WARNING: No cache found for best fit language: ${bestFitLanguage.language.locale}',
         );
         LocalizationRepository().switchBundledLocalization(
-          bestFitLanguage!.language!.locale!,
+          bestFitLanguage.language.locale,
         );
       }
     }
@@ -235,7 +249,9 @@ class NStackLocalization<TLocalization> {
     final languageTag = prefs.getString(_prefsSelectedLocale);
 
     if (languageTag != null) {
-      _log("NStack --> User has overwritten device locale to: $languageTag");
+      LogUtil.log(
+        'NStack --> User has overwritten device locale to: $languageTag',
+      );
       LocalizationRepository().overridePickedLanguage(languageTag);
     }
 

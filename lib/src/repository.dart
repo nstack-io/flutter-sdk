@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:nstack/models/language.dart';
 import 'package:nstack/models/localize_index.dart';
+import 'package:nstack/utils/log_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalizationRepository {
@@ -28,33 +29,32 @@ class LocalizationRepository {
   List<LocalizeIndex> get localizeIndexes => _availableLocalizeIndexes;
 
   String get checksum =>
-      _sectionsMap.hashCode.toString() + this.pickedLanguage.id.toString();
+      _sectionsMap.hashCode.toString() + pickedLanguage.id.toString();
 
-  String _prefsKeyPersistedMap = "nstack_persisted_sections_map";
+  final _prefsKeyPersistedMap = 'nstack_persisted_sections_map';
 
   void setupLocalization(
     Map<String, String> bundledTranslations,
     List<LocalizeIndex> availableLanguages,
     String pickedLanguageLocale,
   ) {
-    this._bundledTranslations = bundledTranslations;
-    this._availableLocalizeIndexes = availableLanguages;
-    this._availableLanguages =
-        availableLanguages.map((e) => e.language!).toList();
-    this._pickedLanguage = this._availableLanguages.firstWhere(
-          (language) => language.locale == pickedLanguageLocale,
-          orElse: () => this._availableLanguages.firstWhere(
-                (language) => language.isDefault,
-              ),
-        );
+    _bundledTranslations = bundledTranslations;
+    _availableLocalizeIndexes = availableLanguages;
+    _availableLanguages = availableLanguages.map((e) => e.language).toList();
+    _pickedLanguage = _availableLanguages.firstWhere(
+      (language) => language.locale == pickedLanguageLocale,
+      orElse: () => _availableLanguages.firstWhere(
+        (language) => language.isDefault,
+      ),
+    );
 
     _setupInternalMap();
   }
 
   void switchBundledLocalization(String bestFitLocale) {
-    this._pickedLanguage = _availableLanguages.firstWhere(
+    _pickedLanguage = _availableLanguages.firstWhere(
       (element) => element.locale == bestFitLocale,
-      orElse: () => this._pickedLanguage,
+      orElse: () => _pickedLanguage,
     );
     _setupInternalMap();
   }
@@ -63,22 +63,22 @@ class LocalizationRepository {
     Map<String, dynamic> localizationJson,
     String bestFitLocale,
   ) {
-    this._pickedLanguage = _availableLanguages.firstWhere(
+    _pickedLanguage = _availableLanguages.firstWhere(
       (element) => element.locale == bestFitLocale,
-      orElse: () => this._pickedLanguage,
+      orElse: () => _pickedLanguage,
     );
     _sectionsMap = localizationJson;
     return _persistInternalMap();
   }
 
-  overridePickedLanguage(String locale) {
-    this._pickedLanguage = _availableLanguages.firstWhere(
+  void overridePickedLanguage(String locale) {
+    _pickedLanguage = _availableLanguages.firstWhere(
       (element) => element.locale == locale,
-      orElse: () => this._pickedLanguage,
+      orElse: () => _pickedLanguage,
     );
   }
 
-  _setupInternalMap() async {
+  Future<void> _setupInternalMap() async {
     try {
       WidgetsFlutterBinding.ensureInitialized();
       final prefs = await SharedPreferences.getInstance();
@@ -90,8 +90,8 @@ class LocalizationRepository {
             json.decode(_bundledTranslations[_pickedLanguage.locale]!)['data'];
       }
     } catch (e, s) {
-      print(e);
-      print(s);
+      LogUtil.log(e);
+      LogUtil.log(s);
     }
   }
 
@@ -100,10 +100,10 @@ class LocalizationRepository {
       WidgetsFlutterBinding.ensureInitialized();
       final prefs = await SharedPreferences.getInstance();
       var serializedMap = json.encode(_sectionsMap);
-      prefs.setString(_prefsKeyPersistedMap, serializedMap);
+      await prefs.setString(_prefsKeyPersistedMap, serializedMap);
     } catch (e, s) {
-      print(e);
-      print(s);
+      LogUtil.log(e);
+      LogUtil.log(s);
     }
   }
 
@@ -115,8 +115,8 @@ class LocalizationRepository {
     try {
       return _sectionsMap?[sectionKey][textKey] ?? fallbackText;
     } catch (e, s) {
-      print(e);
-      print(s);
+      LogUtil.log(e);
+      LogUtil.log(s);
       return fallbackText;
     }
   }
@@ -125,7 +125,7 @@ class LocalizationRepository {
     return localizeIndexes.firstWhere(
       (element) {
         final localeTag = locale.toLanguageTag().toLowerCase();
-        final language = element.language?.locale?.toLowerCase() ?? '';
+        final language = element.language.locale.toLowerCase();
 
         return localeTag == language;
       },
@@ -136,7 +136,7 @@ class LocalizationRepository {
             final localeTag =
                 locale.toLanguageTag().toLowerCase().split('-')[0];
             final language =
-                element.language?.locale?.toLowerCase().split('-')[0] ?? '';
+                element.language.locale.toLowerCase().split('-')[0];
 
             return localeTag == language;
           },

@@ -1,6 +1,5 @@
 import 'dart:io';
-
-import 'package:flutter/foundation.dart' as Foundation;
+import 'package:flutter/src/foundation/constants.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nstack/models/app_open.dart';
 import 'package:nstack/models/app_open_platform.dart';
@@ -9,28 +8,27 @@ import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/sdk/localization/nstack_localization.dart';
 import 'package:nstack/src/nstack_repository.dart';
 import 'package:nstack/src/repository.dart';
+import 'package:nstack/utils/log_util.dart';
 import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 /// The core class containing all the NStack features.
-class NStackSdk<TLocalization> {
+class NStackSdk {
   final NStackConfig config;
 
-  final String _prefsKeyLastUpdated = "nstack_last_updated";
-  final String _prefsKeyGuid = "nstack_guid";
+  final String _prefsKeyLastUpdated = 'nstack_last_updated';
+  final String _prefsKeyGuid = 'nstack_guid';
 
   final NStackRepository _repository;
   late NStackAppOpenData _appOpenData;
-  final bool isDebug;
 
-  final NStackLocalization<TLocalization> localization;
+  final NStackLocalization localization;
 
   var _appOpenCalled = false;
 
   NStackSdk({
     required this.config,
-    required this.isDebug,
     required this.localization,
   }) : _repository = NStackRepository(config);
 
@@ -45,21 +43,21 @@ class NStackSdk<TLocalization> {
 
     projectVersion = await PackageInfo.fromPlatform()
         .then((PackageInfo info) => info.version)
-        .catchError((error) => "1");
+        .catchError((error) => '1');
 
     guid = prefs.getString(_prefsKeyGuid) ?? '';
     if (guid.isEmpty) {
-      guid = Uuid().v1();
-      prefs.setString(_prefsKeyGuid, guid);
+      guid = const Uuid().v1();
+      await prefs.setString(_prefsKeyGuid, guid);
     }
 
     lastUpdated = prefs.getString(_prefsKeyLastUpdated) ?? '';
     if (lastUpdated.isEmpty) {
       lastUpdated = DateTime.utc(1980, 1, 1).toIso8601String();
-      prefs.setString(_prefsKeyLastUpdated, lastUpdated);
+      await prefs.setString(_prefsKeyLastUpdated, lastUpdated);
     }
 
-    if (!Foundation.kIsWeb) {
+    if (!kIsWeb) {
       if (Platform.isAndroid) {
         platform = AppOpenPlatform.android;
       } else if (Platform.isIOS) {
@@ -81,13 +79,8 @@ class NStackSdk<TLocalization> {
   }
 
   Future<bool> init() async {
-    try {
-      final localizationInit = await localization.init();
-
-      return localizationInit;
-    } catch (e) {
-      return false;
-    }
+    final localizationInit = await localization.init();
+    return localizationInit;
   }
 
   Future<AppOpenResult> appOpen(
@@ -96,7 +89,9 @@ class NStackSdk<TLocalization> {
   }) async {
     try {
       if (_appOpenCalled) {
-        _log("NStack.appOpen() has already been called, returning early...");
+        LogUtil.log(
+          'NStack.appOpen() has already been called, returning early...',
+        );
         return AppOpenResult.success;
       }
 
@@ -106,18 +101,18 @@ class NStackSdk<TLocalization> {
           await localization.getUserSelectedLanguageTag() ??
               defaultLocale.toLanguageTag();
 
-      _log("NStack --> Calling App Open...");
+      LogUtil.log('NStack --> Calling App Open...');
       final result = await _repository.postAppOpen(
         acceptHeader: selectedLanguageTag,
         appOpenData: _appOpenData,
-        devMode: Foundation.kDebugMode,
+        devMode: kDebugMode,
         testMode: false,
       );
 
       final appOpen = AppOpen.fromJson(result);
 
       await localization.updateOnAppOpen(appOpen);
-      _log('NStack --> Updated localization.');
+      LogUtil.log('NStack --> Updated localization.');
 
       _appOpenCalled = true;
 
@@ -127,15 +122,9 @@ class NStackSdk<TLocalization> {
       LocalizationRepository().switchBundledLocalization(
         defaultLocale.toLanguageTag(),
       );
-      _log('NStack --> App Open failed because of: ${e.toString()}');
-      _log(s.toString());
+      LogUtil.log('NStack --> App Open failed because of: ${e.toString()}');
+      LogUtil.log(s.toString());
       return AppOpenResult.failed;
-    }
-  }
-
-  _log(String message) {
-    if (isDebug) {
-      print(message);
     }
   }
 }

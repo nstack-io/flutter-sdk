@@ -3,13 +3,14 @@ import 'dart:convert';
 
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
-import 'package:nstack/models/language.dart';
 import 'package:nstack/models/language_response.dart';
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/other/extensions.dart';
 import 'package:nstack/other/reserved_keywords.dart';
 import 'package:nstack/src/nstack_repository.dart';
+import 'package:nstack/utils/log_util.dart';
+import 'package:template_engine/template_engine.dart';
 
 /// A builder which outputs a 'nstack.dart' file. This file provides a NStack instance, type safe section key accessors and all bundled translations.
 class NstackBuilder implements Builder {
@@ -22,8 +23,7 @@ class NstackBuilder implements Builder {
     }
 
     /// Read the input source and parse it as JSON.
-    final AssetId outputId = buildStep.inputId.changeExtension('.dart');
-    final StringBuffer output = StringBuffer();
+    final outputId = buildStep.inputId.changeExtension('.dart');
 
     // Read nstack.json file
     final Map<String, dynamic> input =
@@ -31,250 +31,217 @@ class NstackBuilder implements Builder {
 
     final String projectId = input['nstack_project_id'] ?? '';
     final String apiKey = input['nstack_api_key'] ?? '';
+    final String env = input['nstack_env'] ?? 'production';
 
-    throwIf(projectId.isNullOrBlank, () {
-      return ArgumentError('"nstack_project_id" not set');
-    });
-
-    throwIf(apiKey.isNullOrBlank, () {
-      return ArgumentError('"nstack_api_key" not set');
-    });
-
-    final config = NStackConfig(
-      projectId: projectId,
-      apiKey: apiKey,
-    );
-
-    final repository = NStackRepository(config);
-
-    _writeHeader(output);
-
-    try {
-      print('Creating NStack...');
-      _writeNStack(output);
-      _writeNStackConfig(projectId, apiKey, output);
-
-      final languages = await repository.fetchAvailableLanguages();
-
-      // Find the default language
-      LocalizeIndex defaultLanguage =
-          languages.where((it) => it.language!.isDefault == true).first;
-      print('Found the default Language: ${defaultLanguage.language}');
-
-      // Fetch localization for default language
-      print('Fetching default localization from: ${defaultLanguage.url}');
-      final localizationResponse =
-          await repository.fetchLocalizationForLanguage(defaultLanguage);
-      final localizationData =
-          LocalizationData.fromJson(jsonDecode(localizationResponse));
-
-      print('Creating NStack language lists & bundled translations...');
-      _writeLanguageList(languages, output);
-      await _writeBundledTranslations(languages, repository, output);
-
-      print('Creating Localization class...');
-      _writeLocalization(localizationData, output);
-
-      print('Creating NStack section classes...');
-      _writeSections(localizationData, output);
-
-      print('Creating NStackWidget...');
-      _writeNStackWidget(output);
-    } catch (e, s) {
-      print(e);
-      print(s);
+    if (projectId.isNullOrBlank) {
+      throw ArgumentError('"nstack_project_id" not set');
     }
 
-    final outputFormatted = DartFormatter().format(output.toString());
+    if (apiKey.isNullOrBlank) {
+      throw ArgumentError('"nstack_api_key" not set');
+    }
+
+    final nstackConfig = NStackConfig(
+      projectId: projectId,
+      apiKey: apiKey,
+      env: NStackEnvironment.fromValue(env),
+    );
+
+    final configs = {
+      'projectId': projectId,
+      'apiKey': apiKey,
+      'env': env,
+    };
+
+    // Read the template of the file into a string.
+    final assetId = AssetId('nstack', 'lib/templates/nstack_template.txt');
+    final templateText = await buildStep.readAsString(assetId);
+
+    final repository = NStackRepository(nstackConfig);
+    final languages = await repository.fetchAvailableLanguages();
+
+    // Check the languages and generate the rendered text using the template
+    final renderedOutput;
+    if (languages.isEmpty) {
+      // There is no language rendering without the localization
+      renderedOutput = getRenderedResult(
+        templateText,
+        configs,
+        [],
+        [],
+        [],
+        [],
+      );
+    } else {
+      // Find the default language
+      final defaultLanguage = languages.firstWhere(
+        (e) => e.language.isDefault,
+      );
+
+      // Fetch localization for default language
+      final localizationResponse =
+          await repository.fetchLocalizationForLanguage(
+        defaultLanguage.url,
+      );
+
+      final localizationData = LocalizationData.fromJson(
+        jsonDecode(localizationResponse),
+      );
+
+      // Generate the data needed for the template
+      final languagesData = prepareLocalizeIndexData(
+        languages,
+      );
+
+      final translationsData = await prepareTranslationsData(
+        languages,
+        repository,
+      );
+
+      final localizationAssetData = prepareLocalizationAssetData(
+        localizationData.data,
+      );
+
+      final sectionsData = prepareSectionsData(
+        localizationData.data,
+      );
+
+      renderedOutput = getRenderedResult(
+        templateText,
+        configs,
+        languagesData,
+        translationsData,
+        localizationAssetData,
+        sectionsData,
+      );
+    }
+
+    final outputFormatted = DartFormatter().format(renderedOutput);
+
+    // Write the formatted output to the .dart file
     await buildStep.writeAsString(outputId, outputFormatted);
   }
 
-  void _writeHeader(StringBuffer output) {
-    output.writeln(
-      '''
-/*
- * ❌ GENERATED BY NSTACK, DO NOT MODIFY THIS FILE BY HAND!
- * 
- * To update this file, run
- * 
- * Flutter projects: 
- *    flutter pub run build_runner build
- * 
- * Dart projects:
- *    pub run build_runner build
- * 
- * 💡 FEATURES
- * 
- * To access the NStack features:
- * - Use the global `NStack` object;
- * - Use the BuildContext extension: `context.nstack`.
- * 
- * 🔤 LOCALIZATION
- * 
- * To access localization in your UI you can use an extension for BuildContexts:
- * `context.localization.yourSection.yourKey`.
- */
-
-import 'dart:async';
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
-import 'package:nstack/models/app_open_platform.dart';
-import 'package:nstack/models/language.dart';
-import 'package:nstack/models/localize_index.dart';
-import 'package:nstack/models/nstack_config.dart';
-import 'package:nstack/sdk/nstack_sdk.dart';
-import 'package:nstack/sdk/localization/nstack_localization.dart';
-import 'package:nstack/partial/section_key_delegate.dart';
-
-export 'package:nstack/models/app_open_platform.dart';
-      ''',
-    );
-  }
-
-  void _writeNStack(StringBuffer output) async {
-    output.writeln('''
-
-/*
- *
- * NStack Config
- * 
- */
-
-final NStack = NStackSdk<Localization>(
-  config: _config,
-  localization: _nstackLocalization,
-  isDebug: kDebugMode,
-);
-
-final _nstackLocalization = NStackLocalization<Localization>(
-  config: _config,
-  translations: const Localization(),
-  availableLanguages: _languages,
-  bundledTranslations: _bundledTranslations,
-  pickedLanguageLocale: '',
-  isDebug: kDebugMode,
-);
-''');
-  }
-
-  void _writeNStackConfig(
-    String? projectId,
-    String? apiKey,
-    StringBuffer output,
+  String getRenderedResult(
+    String templateText,
+    Map<String, String> configs,
+    List<Map<String, Object>> languagesData,
+    List<Map<String, Object>> translationsData,
+    List<Map<String, Object>> localizationAssetData,
+    List<Map<String, Object>> sectionsData,
   ) {
-    output.writeln('''
-const _config = NStackConfig(projectId: '$projectId', apiKey: '$apiKey',);
-    ''');
+    try {
+      final engine = TemplateEngine();
+      engine.functionGroups.add(
+        FunctionGroup('ListGenerator', [
+          LanguageListGenerator(values: languagesData),
+          BundledTranslationListGenerator(values: translationsData),
+          LocalizationAssetListGenerator(values: localizationAssetData),
+          SectionListGenerator(values: sectionsData),
+        ]),
+      );
+
+      final template = TextTemplate(templateText);
+      final parseResult = engine.parseTemplate(template);
+      final renderResult = engine.render(parseResult, configs);
+      final output = renderResult.text;
+      return output;
+    } catch (e) {
+      LogUtil.log(e);
+      return '';
+    }
   }
 
-  Future _writeBundledTranslations(
+  List<Map<String, Object>> prepareLocalizeIndexData(
+    List<LocalizeIndex> languages,
+  ) {
+    return languages.map((lang) {
+      // Construct the 'language' map and exclude all null values.
+      final languageData = <String, Object>{
+        'id': lang.language.id,
+        'name': lang.language.name,
+        'locale': lang.language.locale,
+        'direction': lang.language.direction,
+        'isDefault': lang.language.isDefault,
+        'isBestFit': lang.language.isBestFit,
+      };
+
+      // Construct the top-level map and exclude all null values.
+      final resultMap = <String, Object>{
+        'shouldUpdate': lang.shouldUpdate,
+        'id': lang.id,
+        'url': lang.url,
+        'lastUpdatedAt': lang.lastUpdatedAt.toIso8601String(),
+        'language': languageData,
+      };
+
+      return resultMap;
+    }).toList();
+  }
+
+  Future<List<Map<String, Object>>> prepareTranslationsData(
     List<LocalizeIndex> languages,
     NStackRepository repository,
-    StringBuffer output,
   ) async {
-    output.writeln('''
-const _bundledTranslations = {''');
+    final translations = <Map<String, Object>>[];
 
-    await Future.forEach<LocalizeIndex>(languages, (localizeIndex) async {
-      final locale = localizeIndex.language!.locale;
-      var content =
-          (await repository.fetchLocalizationForLanguage(localizeIndex));
-      output.writeln('\t\'$locale\': r\'\'\'$content\'\'\',');
-    });
+    for (final language in languages) {
+      final locale = language.language.locale;
+      final content =
+          await repository.fetchLocalizationForLanguage(language.url);
 
-    output.writeln('''
-};
-''');
+      translations.add({
+        'locale': locale,
+        'content': content,
+      });
+    }
+
+    return translations;
   }
 
-  void _writeLanguageList(List<LocalizeIndex> languages, StringBuffer output) {
-    output.writeln(''' 
-/*
- * 
- * Languages & Bundled translations
- * 
- */
-    
-    ''');
-    output.writeln('final _languages = [');
-
-    languages.forEach((localizeIndex) {
-      output.write(
-          "\tLocalizeIndex(id: ${localizeIndex.id}, url: null, lastUpdatedAt: null, shouldUpdate: false,  language: const ");
-      Language language = localizeIndex.language!;
-      output.write(
-        'Language(id: ${language.id}, name: \'${language.name}\', locale: \'${language.locale}\', direction: \'${language.direction}\', isDefault: ${language.isDefault}, isBestFit: ${language.isBestFit},),',
-      );
-      output.writeln('),');
-    });
-
-    output.writeln('''
-];
-''');
-  }
-
-  void _writeLocalization(LocalizationData localization, StringBuffer output) {
-    final languageJson = localization.data!;
-
-    output.writeln('''
-/*
- *
- * Localization & Localization Section Keys
- * 
- */
-''');
-
-    // Localization class
-    output.writeln('class Localization {');
-
-    // Create section fields
-    languageJson.forEach((sectionKey, keys) {
-      String className = _getClassNameFromSectionKey(sectionKey);
+  List<Map<String, Object>> prepareLocalizationAssetData(
+    Map<String, Map<String, String>> languageJson,
+  ) {
+    return languageJson.keys.map((sectionKey) {
+      final className = getClassNameFromSectionKey(
+        sectionKey,
+      ); // Implement this function based on your naming convention
       final variableName =
           '${className[0].toLowerCase()}${className.substring(1)}';
-      output.writeln('\tfinal $variableName = const _$className();');
-    });
-    output.writeln('');
-    output.writeln('\tconst Localization();');
-    output.writeln('''
-}
-''');
+      return {
+        'variableName': variableName,
+        'className': className,
+      };
+    }).toList();
   }
 
-  void _writeSections(LocalizationData localization, StringBuffer output) {
-    final languageJson = localization.data!;
+  List<Map<String, Object>> prepareSectionsData(
+    Map<String, Map<String, String>> languageJson,
+  ) {
+    final sections = <Map<String, Object>>[];
+
     languageJson.forEach((sectionKey, translations) {
-      String className = _getClassNameFromSectionKey(sectionKey);
+      final className = getClassNameFromSectionKey(sectionKey);
 
-      output.writeln('class _$className extends SectionKeyDelegate {');
-      output.writeln('\tconst _$className(): super(\'$sectionKey\');');
-      output.writeln('');
+      final translationsList = translations.entries.map((e) {
+        return {
+          'key': e.key,
+          'value': escapeSpecialCharacters(e.value),
+        };
+      }).toList();
 
-      (translations as Map)
-          .cast<String, String>()
-          .forEach((stringKey, stringValue) {
-        stringValue = _escapeSpecialCharacters(stringValue);
-        output.writeln(
-            '\tString get $stringKey => get(\'$stringKey\', \"$stringValue\");');
+      sections.add({
+        'className': className,
+        'sectionKey': sectionKey,
+        'translations': translationsList,
       });
-      output.writeln('''
-}
-''');
     });
-  }
 
-  /// Escapes single quote, double quote and dollar sign with \', \", \$
-  String _escapeSpecialCharacters(String stringValue) {
-    return stringValue
-        .replaceAll("'", "\\'")
-        .replaceAll('"', '\\"')
-        .replaceAll('\$', '\\\$')
-        .replaceAll('\n', '\\n');
+    return sections;
   }
 
   /// Returns a CamelCase class name from the Localization section key
-  String _getClassNameFromSectionKey(String sectionKey) {
+  String getClassNameFromSectionKey(String sectionKey) {
     // Check if the section key is using a reserved keyword
     final adjustedSectionKey = DartKeywords.isReserved(sectionKey)
         // Append 'Section' to the name of the original sectionKey
@@ -290,132 +257,208 @@ const _bundledTranslations = {''');
     );
   }
 
-  void _writeNStackWidget(StringBuffer output) async {
-    output.writeln('''
-/*
- *
- * NStack Flutter Widgets
- * 
- */
-class NStackScope extends InheritedWidget {
-  final NStackState state;
-  final String checksum;
-
-  const NStackScope({Key? key, required Widget child, required this.state, required this.checksum,})
-    : super(key: key, child: child);
-
-  static NStackState of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<NStackScope>()!.state;
-
-  @override
-  bool updateShouldNotify(NStackScope oldWidget) =>
-      checksum != oldWidget.checksum;
-}
-
-class NStackWidget extends StatefulWidget {
-  final Widget child;
-  final AppOpenPlatform? platformOverride;
-  final VoidCallback? onComplete;
-
-  const NStackWidget({Key? key, required this.child, this.platformOverride, this.onComplete,})
-      : super(key: key);
-
-  @override
-  NStackState createState() => NStackState();
-}
-
-class NStackState extends State<NStackWidget> {
-	final NStackSdk<Localization> _nstack = NStack;
-  bool _initializedNStack = false;
-
-  late Future<bool> _nstackInitFuture;
-
-  late final StreamSubscription _localeChangedSubscription;
-
-  @override
-  void initState() {
-    super.initState();
-    
-		_nstackInitFuture = _nstack.init();
-
-    _localeChangedSubscription = NStack.localization.onLocaleChanged.listen(_onLocaleChanged);
-  }
-
-  void _onLocaleChanged(Locale locale) {
-    setState(() {});
-  }
-
-  @Deprecated('Use `NStack.localization.changeLocalization` instead')
-	Future<void> changeLanguage(Locale locale) {
-		return _nstack.localization.changeLocalization(locale).whenComplete(() => setState(() {}));
-	}
-
-  @override
-  void dispose() {
-    _localeChangedSubscription.cancel();
-
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (!_initializedNStack) {
-      _nstack
-          .appOpen(Localizations.localeOf(context), platformOverride: widget.platformOverride)
-          .whenComplete(() => widget.onComplete?.call());
-      _initializedNStack = true;
-    }
-
-    return FutureBuilder(
-        future: _nstackInitFuture,
-        builder: (context, snapshot) {
-          if(snapshot.connectionState == ConnectionState.done) {
-            return NStackScope(
-              state: this,
-              checksum: _nstack.localization.checksum,
-              child: widget.child,
-            );
-          } else {
-            return const SizedBox();
-          }
-        },
-      );
-  }
-}
-
-/*
- *
- * NStack Flutter Extensions
- * 
- */
-
-/// Allows to access the NStack features using the BuildContext
-extension NStackWidgetExtension on BuildContext {
-  /// NStack SDK of this project.
-	NStackSdk<Localization> get nstack => NStackScope.of(this)._nstack;
-
-  /// Provides the localization for this NStack project.
-  /// 
-  /// Use `NStackScope.of(context).state.changeLanguage` to update language of the app.
-	Localization get localization => nstack.localization.translations;
-
-}
-
-/// Allows to access the NStack features from StatefulWidget's State
-extension NStackStateExtension<T extends StatefulWidget> on State<T> {
-  /// NStack SDK of this project.
-	NStackSdk<Localization> get nstack => context.nstack;
-
-  /// Provides the localization for this NStack project.
-  /// 
-  /// Use `NStackScope.of(context).state.changeLanguage` to update language of the app.
-	Localization get localization => context.localization;
-}
-''');
+  /// Escapes single quote, double quote and dollar sign with \', \", \$
+  String escapeSpecialCharacters(String stringValue) {
+    return stringValue
+        .replaceAll("'", "\\'")
+        .replaceAll('"', '\\"')
+        .replaceAll('\$', '\\\$')
+        .replaceAll('\n', '\\n');
   }
 
   @override
   Map<String, List<String>> get buildExtensions => const {
-        '.json': ['.dart']
+        '.json': ['.dart'],
       };
+}
+
+class LanguageListGenerator extends ExpressionFunction {
+  static const String templateText = '''LocalizeIndex(
+      id: {{id}},
+      url: {{'url}},
+      lastUpdatedAt: {{DlastUpdatedAt}},
+      shouldUpdate: {{shouldUpdate}},
+      language: const Language(
+        id: {{language.id}},
+        name: {{'language.name}},
+        locale: {{'language.locale}},
+        direction: {{'language.direction}},
+        isDefault: {{language.isDefault}},
+        isBestFit: {{language.isBestFit}},
+      ),
+    ),''';
+
+  LanguageListGenerator({required List<Map<String, Object?>> values})
+      : super(
+          name: 'generateLanguages',
+          description: 'This will generates the language list',
+          function: (position, renderContext, parameters) {
+            final output = [];
+            final engine = TemplateEngine();
+            engine.operatorGroups.add(
+              OperatorGroup('MakeStringOperation', [MakeStringOperator()]),
+            );
+            engine.operatorGroups.add(
+              OperatorGroup(
+                'MakeDateTimeOperation',
+                [MakeDateTimeOperator()],
+              ),
+            );
+            final template = TextTemplate(templateText);
+
+            final parseResult = engine.parseTemplate(template);
+
+            for (final element in values) {
+              final filteredElement = <String, Object>{
+                for (final entry in element.entries)
+                  if (entry.value != null) entry.key: entry.value!,
+              };
+              final renderContext = RenderContext(
+                engine: engine,
+                renderedError: 'null',
+                variables: filteredElement,
+                parsedTemplates: [],
+                templateBeingRendered: template,
+              );
+              final renderResult = parseResult.render(renderContext);
+              output.add(renderResult);
+            }
+
+            return output.map((entry) {
+              return entry;
+            }).join('\n');
+          },
+        );
+}
+
+class BundledTranslationListGenerator extends ExpressionFunction {
+  static const String templateText =
+      ''''{{locale}}': r\'\'\'{{content}}\'\'\',''';
+  BundledTranslationListGenerator({required List<Map<String, Object?>> values})
+      : super(
+          name: 'generateBundledTranslations',
+          description: 'This will generates the bundled translation list',
+          function: (position, renderContext, parameters) {
+            final output = [];
+            final engine = TemplateEngine();
+            final template = TextTemplate(templateText);
+
+            final parseResult = engine.parseTemplate(template);
+
+            for (final element in values) {
+              final filteredElement = <String, Object>{
+                for (final entry in element.entries)
+                  if (entry.value != null) entry.key: entry.value!,
+              };
+              final renderResult = engine.render(parseResult, filteredElement);
+              output.add(renderResult);
+            }
+
+            return output.map((entry) {
+              return entry;
+            }).join('\n');
+          },
+        );
+}
+
+class LocalizationAssetListGenerator extends ExpressionFunction {
+  static const String templateText =
+      '''final {{variableName}} = const _{{className}}();''';
+  LocalizationAssetListGenerator({required List<Map<String, Object?>> values})
+      : super(
+          name: 'generateLocalizationAssets',
+          description: 'This will generates the localization asset list',
+          function: (position, renderContext, parameters) {
+            final output = [];
+            final engine = TemplateEngine();
+            final template = TextTemplate(templateText);
+
+            final parseResult = engine.parseTemplate(template);
+
+            for (final element in values) {
+              final filteredElement = <String, Object>{
+                for (final entry in element.entries)
+                  if (entry.value != null) entry.key: entry.value!,
+              };
+              final renderResult = engine.render(parseResult, filteredElement);
+              output.add(renderResult);
+            }
+
+            return output.map((entry) {
+              return entry;
+            }).join('\n');
+          },
+        );
+}
+
+class SectionListGenerator extends ExpressionFunction {
+  static const String sectionListTemplateText =
+      '''class _{{className}} extends SectionKeyDelegate {
+        const _{{className}}() : super('{{sectionKey}}');
+        {{translations}}
+    }''';
+  static const String sectionAttributeListTemplateText =
+      '''String get {{key}} => get('{{key}}', '{{value}}');''';
+  SectionListGenerator({required List<Map<String, Object>> values})
+      : super(
+          name: 'generateSections',
+          description: 'This will generates the section list',
+          function: (position, renderContext, parameters) {
+            final output = [];
+            final engine = TemplateEngine();
+
+            final sectionListTemplate = TextTemplate(sectionListTemplateText);
+            final sectionListParseResult =
+                engine.parseTemplate(sectionListTemplate);
+
+            final sectionAttributListTemplate =
+                TextTemplate(sectionAttributeListTemplateText);
+            final sectionAttibuteListParseResult =
+                engine.parseTemplate(sectionAttributListTemplate);
+
+            for (final element in values) {
+              final sectionAttributListOutput = [];
+              final translations =
+                  element['translations'] as List<Map<String, Object>>;
+              for (final translation in translations) {
+                final renderResult =
+                    engine.render(sectionAttibuteListParseResult, translation);
+                sectionAttributListOutput.add(renderResult.text);
+              }
+              element['translations'] = sectionAttributListOutput.join('\n');
+
+              final renderResult =
+                  engine.render(sectionListParseResult, element);
+              output.add(renderResult);
+            }
+
+            return output.join('\n');
+          },
+        );
+}
+
+class MakeStringOperator extends PrefixOperator {
+  MakeStringOperator()
+      : super(
+          operator: '\'',
+          description: "Add '' around the tag",
+          function: (value) {
+            return '\'$value\'';
+          },
+          expressionExample: '{{\'tag}}',
+          expressionExampleResult: '\'tag\'',
+        );
+}
+
+class MakeDateTimeOperator extends PrefixOperator {
+  MakeDateTimeOperator()
+      : super(
+          operator: 'D',
+          description: 'Make DateTime.parse(tag)',
+          function: (value) {
+            return 'DateTime.parse(\'$value\')';
+          },
+          expressionExample: '{{Dtag}}',
+          expressionExampleResult: 'DateTime.parse(tag)',
+        );
 }

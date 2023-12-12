@@ -11,12 +11,11 @@ extension DartEx<T> on T {
 }
 
 extension MapEx<T, K> on Map<T, K> {
-  T? keyFromValue(K value) => entries
-      .firstWhereOrNull((entry) => entry.value == value)
-      ?.key;
+  T? keyFromValue(K value) =>
+      entries.firstWhereOrNull((entry) => entry.value == value)?.key;
 
   K? getOrNull(T key) {
-    if (!this.containsKey(key)) {
+    if (!containsKey(key)) {
       return null;
     } else {
       return this[key];
@@ -28,20 +27,11 @@ extension MapEx<T, K> on Map<T, K> {
   }
 }
 
-void throwIf(bool test, Error Function() errorFactoryFunc) {
-  return throwIfNot(!test, errorFactoryFunc);
-}
-
-void throwIfNot(bool test, Error Function() errorFactoryFunc) {
-  if (!test) {
-    throw errorFactoryFunc();
-  }
-}
-
 extension StringEx on String? {
   bool get isNullOrEmpty => this == null || this!.isEmpty;
 
-  bool get isNullOrBlank => this == null || this!.isEmpty || this!.trim().isEmpty;
+  bool get isNullOrBlank =>
+      this == null || this!.isEmpty || this!.trim().isEmpty;
 
   bool get isNotNullOrEmpty => this != null && this!.isNotEmpty;
 

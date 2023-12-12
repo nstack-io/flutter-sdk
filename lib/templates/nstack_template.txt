@@ -43,65 +43,35 @@ import 'package:nstack/partial/section_key_delegate.dart';
 export 'package:nstack/models/app_open_platform.dart';
 
 NStackSdk createNStackSdk() {
-  // Define your NStackConfig with hardcoded values
-  var config = NStackConfig(
-    projectId: 'h6wJremI2TGFM88gbLkdyljWQuwf2hxhxvCH',
-    apiKey: 'zp2S18H32b67eYAbRQh94tVw76ZzaKKXlHjd',
-    env: NStackEnvironment.fromValue('production'),
-  );
+    // Define your NStackConfig with hardcoded values
+    var config = NStackConfig(
+        projectId: '{{projectId}}',
+        apiKey: '{{apiKey}}',
+        env: NStackEnvironment.fromValue('{{env}}'),
+    );
 
-  final languages = [
-    LocalizeIndex(
-      id: 1216,
-      url: 'https://nstack.io/api/v2/content/localize/resources/1216',
-      lastUpdatedAt: DateTime.parse('2021-09-17T18:13:38.000Z'),
-      shouldUpdate: true,
-      language: const Language(
-        id: 56,
-        name: 'English',
-        locale: 'en-EN',
-        direction: 'LRM',
-        isDefault: true,
-        isBestFit: true,
-      ),
-    ),
-    LocalizeIndex(
-      id: 1270,
-      url: 'https://nstack.io/api/v2/content/localize/resources/1270',
-      lastUpdatedAt: DateTime.parse('2021-11-10T11:46:52.000Z'),
-      shouldUpdate: true,
-      language: const Language(
-        id: 7,
-        name: 'German (Austria)',
-        locale: 'de-AT',
-        direction: 'LRM',
-        isDefault: false,
-        isBestFit: false,
-      ),
-    ),
-  ];
+    final languages = [
+      {{generateLanguages()}}
+    ];
 
-  const bundledTranslations = {
-    'en-EN':
-        r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"$testing again new","testSingleQuotationMark":"'testing'","testDoubleQuotationMark":"\"testing\"","testMultipleLines":"testing\nmultiple\nlines\nupdated"}},"meta":{"language":{"id":56,"name":"English","locale":"en-EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
-    'de-AT':
-        r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"\u00a0","testSingleQuotationMark":"__testSingleQuotationMark","testDoubleQuotationMark":"__testDoubleQuotationMark","testMultipleLines":"__testMultipleLines"}},"meta":{"language":{"id":7,"name":"German (Austria)","locale":"de-AT","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
-  };
+    const bundledTranslations = {
+      {{generateBundledTranslations()}}
+    };
 
-  // Create an instance of NStackLocalization with the predefined values
-  final nstackLocalization = NStackLocalization<NStackLocalizationAsset>(
-    config: config,
-    assets: const NStackLocalizationAsset(),
-    availableLanguages: languages as List<LocalizeIndex>,
-    bundledTranslations: bundledTranslations as Map<String, String>,
-    pickedLanguageLocale: '',
-  );
+    // Create an instance of NStackLocalization with the predefined values
+    final nstackLocalization = NStackLocalization<NStackLocalizationAsset>(
+        config: config,
+        assets: const NStackLocalizationAsset(),
+        availableLanguages: languages as List<LocalizeIndex>,
+        bundledTranslations: bundledTranslations  as Map<String, String>,
+        pickedLanguageLocale: '',
+    );
 
-  // Return the NStackSdk instance
-  return NStackSdk(
-    config: config,
-    localization: nstackLocalization,
-  );
+    // Return the NStackSdk instance
+    return NStackSdk(
+        config: config,
+        localization: nstackLocalization,
+    );
 }
 
 /*
@@ -111,27 +81,11 @@ NStackSdk createNStackSdk() {
 */
 
 class NStackLocalizationAsset {
-  final defaultSection = const _DefaultSection();
-  final test = const _Test();
-  const NStackLocalizationAsset();
+    {{generateLocalizationAssets()}}
+    const NStackLocalizationAsset();
 }
 
-class _DefaultSection extends SectionKeyDelegate {
-  const _DefaultSection() : super('default');
-  String get title => get('title', 'NStack SDK Demo');
-  String get test => get('test', 'test');
-}
-
-class _Test extends SectionKeyDelegate {
-  const _Test() : super('test');
-  String get testDollarSign => get('testDollarSign', '\$testing again new');
-  String get testSingleQuotationMark =>
-      get('testSingleQuotationMark', '\'testing\'');
-  String get testDoubleQuotationMark =>
-      get('testDoubleQuotationMark', '\"testing\"');
-  String get testMultipleLines =>
-      get('testMultipleLines', 'testing\nmultiple\nlines\nupdated');
-}
+{{generateSections()}}
 
 /*
  *
@@ -200,8 +154,7 @@ class NStackState extends State<NStackWidget> {
   void initNStack() {
     _nstack = createNStackSdk();
     _nstackInitFuture = _nstack.init();
-    localization =
-        _nstack.localization as NStackLocalization<NStackLocalizationAsset>;
+    localization = _nstack.localization as NStackLocalization<NStackLocalizationAsset>;
     _localeChangedSubscription =
         _nstack.localization.onLocaleChanged.listen(_onLocaleChanged);
   }

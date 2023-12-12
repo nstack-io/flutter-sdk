@@ -1,8 +1,8 @@
 class Language {
-  final int? id;
-  final String? name;
-  final String? locale;
-  final String? direction;
+  final int id;
+  final String name;
+  final String locale;
+  final String direction;
   final bool isDefault;
   final bool isBestFit;
 
