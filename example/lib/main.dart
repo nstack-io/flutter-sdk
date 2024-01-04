@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:example/nstack.dart';
+import 'package:nstack/models/message.dart';
 
 void main() {
   runApp(const ExampleApp());
@@ -32,20 +33,29 @@ class MainScreen extends StatelessWidget {
     final localizationAsset = localization.assets;
     final activeLanguage = localization.activeLanguage;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(localizationAsset.test.testDollarSign),
-      ),
-      body: Center(
-        child: MaterialButton(
-          onPressed: () {
-            final locale = activeLanguage.locale == 'en-EN'
-                ? const Locale('de-DE')
-                : const Locale('en-EN');
-            localization.changeLocalization(locale);
-          },
-          child: Text(
-            'Selected locale: ${activeLanguage.name}',
+    void onMessage(Message message) {}
+
+    return NStackMessageWidget(
+      shouldShowDefaultDialog: true,
+      okButtonTitle: 'Done',
+      openUrlButtonTitle: 'Open',
+      dialogTitle: 'Message',
+      onMessage: onMessage,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(localizationAsset.test.testDollarSign),
+        ),
+        body: Center(
+          child: MaterialButton(
+            onPressed: () {
+              final locale = activeLanguage.locale == 'en-EN'
+                  ? const Locale('de-DE')
+                  : const Locale('en-EN');
+              localization.changeLocalization(locale);
+            },
+            child: Text(
+              'Selected locale: ${activeLanguage.name}',
+            ),
           ),
         ),
       ),
