@@ -19,6 +19,7 @@ dependencies:
   uuid: ^3.0.4
   dart_style: ^2.0.2
   collection: ^1.15.0
+  url_launcher: ^6.0.10
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

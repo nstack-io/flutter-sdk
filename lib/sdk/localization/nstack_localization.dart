@@ -6,7 +6,6 @@ import 'package:nstack/models/app_open.dart';
 import 'package:nstack/models/language.dart';
 import 'package:nstack/models/language_response.dart';
 import 'package:nstack/models/localize_index.dart';
-import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/src/nstack_repository.dart';
 import 'package:nstack/src/repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,9 +17,8 @@ class NStackLocalization<TLocalization> {
 
   final _onLocaleChanged = StreamController<Locale>.broadcast();
 
-  final NStackConfig config;
-  final TLocalization translations;
   final NStackRepository _repository;
+  final TLocalization translations;
   late List<Locale> supportedLocales;
 
   final bool isDebug;
@@ -39,13 +37,13 @@ class NStackLocalization<TLocalization> {
   Locale? clientLocale;
 
   NStackLocalization({
-    required this.config,
+    required NStackRepository repository,
     required this.translations,
     required List<LocalizeIndex> availableLanguages,
     required Map<String, String> bundledTranslations,
     required String pickedLanguageLocale,
     required this.isDebug,
-  }) : _repository = NStackRepository(config) {
+  }) : _repository = repository {
     supportedLocales = availableLanguages
         .map((e) => Locale(e.language?.locale?.split("-")[0] ?? "en",
             e.language?.locale?.split("-")[1].toUpperCase() ?? "US"))

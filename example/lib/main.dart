@@ -14,7 +14,6 @@ class ExampleApp extends StatelessWidget {
     return MaterialApp(
       builder: (context, child) {
         return NStackWidget(
-          platformOverride: AppOpenPlatform.android,
           child: child!,
         );
       },
@@ -30,21 +29,26 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final activeLanguage = context.nstack.localization.activeLanguage;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(context.localization.test.testDollarSign),
-      ),
-      body: Center(
-        child: MaterialButton(
-          onPressed: () {
-            final locale = activeLanguage.locale == 'en-EN'
-                ? const Locale('de-DE')
-                : const Locale('en-EN');
+    return NStackMessageListener(
+      onMessage: (message) {
+        NStackMessageDialog.show(context, message: message);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(context.localization.test.testDollarSign),
+        ),
+        body: Center(
+          child: MaterialButton(
+            onPressed: () {
+              final locale = activeLanguage.locale == 'en-EN'
+                  ? const Locale('de-DE')
+                  : const Locale('en-EN');
 
-            NStack.localization.changeLocalization(locale);
-          },
-          child: Text(
-            'Selected locale: ${activeLanguage.name}',
+              NStack.localization.changeLocalization(locale);
+            },
+            child: Text(
+              'Selected locale: ${activeLanguage.name}',
+            ),
           ),
         ),
       ),

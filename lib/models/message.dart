@@ -1,11 +1,11 @@
 import 'package:nstack/other/extensions.dart';
 
 class Message {
-  final int? id;
-  final int? applicationId;
+  final int id;
+  final int applicationId;
   final MessageShowSetting? showSetting;
   final int? viewCount;
-  final String? message;
+  final String message;
   final String? url;
   final DateTime? createdAt;
   final DateTime? updatedAt;
