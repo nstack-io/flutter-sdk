@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:nstack/exception/nstack_exception.dart';
 import 'package:nstack/models/app_open.dart';
 import 'package:nstack/models/message.dart';
 import 'package:nstack/models/nstack_appopen_data.dart';
