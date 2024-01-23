@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:example/nstack.dart';
-import 'package:nstack/models/message.dart';
 
 void main() {
   runApp(const ExampleApp());
@@ -33,14 +32,25 @@ class MainScreen extends StatelessWidget {
     final localizationAsset = localization.assets;
     final activeLanguage = localization.activeLanguage;
 
-    void onMessage(Message message) {}
+    // Message option for receiving the Message response, will not show the default dialog.
+    // void onMessage(Message message) {
+    //   if (kDebugMode) {
+    //     print(message.message);
+    //   }
+    // }
+    //
+    // final customNstackMessageOptions =
+    //     CustomNstackMessageOptions(onMessage: onMessage);
+
+    // Message option for showing default dialog.
+    final defaultNstackMessageOptions = DefaultNstackMessageOptions(
+      okButtonTitle: localizationAsset.test.okButtonTitle,
+      openUrlButtonTitle: localizationAsset.test.openUrlButtonTitle,
+      dialogTitle: localizationAsset.test.dialogTitle,
+    );
 
     return NStackMessageWidget(
-      shouldShowDefaultDialog: true,
-      okButtonTitle: 'Done',
-      openUrlButtonTitle: 'Open',
-      dialogTitle: 'Message',
-      onMessage: onMessage,
+      messageOptions: defaultNstackMessageOptions,
       child: Scaffold(
         appBar: AppBar(
           title: Text(localizationAsset.test.testDollarSign),
@@ -49,7 +59,7 @@ class MainScreen extends StatelessWidget {
           child: MaterialButton(
             onPressed: () {
               final locale = activeLanguage.locale == 'en-EN'
-                  ? const Locale('de-DE')
+                  ? const Locale('de-AT')
                   : const Locale('en-EN');
               localization.changeLocalization(locale);
             },

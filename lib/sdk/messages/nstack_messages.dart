@@ -8,7 +8,7 @@ import 'package:nstack/utils/log_util.dart';
 
 class NStackMessages {
   final NStackRepository _repository;
-  late final NStackAppOpenData _appOpenData;
+  NStackAppOpenData? _appOpenData;
 
   final _onMessage = StreamController<Message>.broadcast();
 
@@ -20,10 +20,14 @@ class NStackMessages {
 
   Future<void> setMessageViewed(int messageId) async {
     try {
-      await _repository.postMessageSeen(
-        appOpenData: _appOpenData,
-        messageId: messageId,
-      );
+      if (_appOpenData != null) {
+        await _repository.postMessageSeen(
+          appOpenData: _appOpenData!,
+          messageId: messageId,
+        );
+      } else {
+        LogUtil.log('NStack --> Could not post message seen.');
+      }
     } catch (e) {
       LogUtil.log('NStack --> Could not post message seen.');
     }

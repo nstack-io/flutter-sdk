@@ -57,16 +57,16 @@ export 'package:nstack/models/app_open_platform.dart';
 NStackSdk createNStackSdk() {
   // Define your NStackConfig with hardcoded values
   var config = NStackConfig(
-    projectId: 'y4JAcwOtDJ7udMvtA8WwQUKsb5DjIsQlaiW2',
-    apiKey: 'RdbMudmF4c3dmAhk677lTxlwtn1BlRsYSnP3',
+    projectId: 'h6wJremI2TGFM88gbLkdyljWQuwf2hxhxvCH',
+    apiKey: 'zp2S18H32b67eYAbRQh94tVw76ZzaKKXlHjd',
     env: NStackEnvironment.fromValue('production'),
   );
 
   final languages = [
     LocalizeIndex(
-      id: 1684,
-      url: 'https://nstack.io/api/v2/content/localize/resources/1684',
-      lastUpdatedAt: DateTime.parse('2024-01-03T23:38:35.000Z'),
+      id: 1216,
+      url: 'https://nstack.io/api/v2/content/localize/resources/1216',
+      lastUpdatedAt: DateTime.parse('2024-01-23T08:16:25.000Z'),
       shouldUpdate: true,
       language: const Language(
         id: 56,
@@ -78,14 +78,14 @@ NStackSdk createNStackSdk() {
       ),
     ),
     LocalizeIndex(
-      id: 1685,
-      url: 'https://nstack.io/api/v2/content/localize/resources/1685',
-      lastUpdatedAt: DateTime.parse('2024-01-04T22:24:37.000Z'),
+      id: 1270,
+      url: 'https://nstack.io/api/v2/content/localize/resources/1270',
+      lastUpdatedAt: DateTime.parse('2024-01-23T08:16:41.000Z'),
       shouldUpdate: true,
       language: const Language(
-        id: 9,
-        name: 'German (Germany)',
-        locale: 'de-DE',
+        id: 7,
+        name: 'German (Austria)',
+        locale: 'de-AT',
         direction: 'LRM',
         isDefault: false,
         isBestFit: false,
@@ -95,9 +95,9 @@ NStackSdk createNStackSdk() {
 
   const bundledTranslations = {
     'en-EN':
-        r'''{"data":{"test":{"testDollarSign":"$title","testSingleQuotationMark":"'title'","titleWithDoubleQuotationMarks":"\"title\""}},"meta":{"language":{"id":56,"name":"English","locale":"en-EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":681,"slug":"mobile"}}}''',
-    'de-DE':
-        r'''{"data":{"test":{"testDollarSign":"$title-german","testSingleQuotationMark":"'title-german'","titleWithDoubleQuotationMarks":"\"title-german\""}},"meta":{"language":{"id":9,"name":"German (Germany)","locale":"de-DE","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":681,"slug":"mobile"}}}''',
+        r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"$testing again new","testSingleQuotationMark":"'testing'","testDoubleQuotationMark":"\"testing\"","testMultipleLines":"testing\nmultiple\nlines\nupdated","okButtonTitle":"Done","openUrlButtonTitle":"Open","dialogTitle":"Message"}},"meta":{"language":{"id":56,"name":"English","locale":"en-EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
+    'de-AT':
+        r'''{"data":{"default":{"title":"NStack SDK Demo","test":"pr\u00fcfen"},"test":{"testDollarSign":"$Testen Sie noch einmal neu","testSingleQuotationMark":"'testen'","testDoubleQuotationMark":"\"testen\"","testMultipleLines":"testen\nmehrere\nLinien\nAktualisiert","okButtonTitle":"Erledigt","openUrlButtonTitle":"Offen","dialogTitle":"Nachricht"}},"meta":{"language":{"id":7,"name":"German (Austria)","locale":"de-AT","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
   };
 
   // Create an instance of NStackLocalization with the predefined values
@@ -123,17 +123,29 @@ NStackSdk createNStackSdk() {
 */
 
 class NStackLocalizationAsset {
+  final defaultSection = const _DefaultSection();
   final test = const _Test();
   const NStackLocalizationAsset();
 }
 
+class _DefaultSection extends SectionKeyDelegate {
+  const _DefaultSection() : super('default');
+  String get title => get('title', 'NStack SDK Demo');
+  String get test => get('test', 'test');
+}
+
 class _Test extends SectionKeyDelegate {
   const _Test() : super('test');
-  String get testDollarSign => get('testDollarSign', '\$title');
+  String get testDollarSign => get('testDollarSign', '\$testing again new');
   String get testSingleQuotationMark =>
-      get('testSingleQuotationMark', '\'title\'');
-  String get titleWithDoubleQuotationMarks =>
-      get('titleWithDoubleQuotationMarks', '\"title\"');
+      get('testSingleQuotationMark', '\'testing\'');
+  String get testDoubleQuotationMark =>
+      get('testDoubleQuotationMark', '\"testing\"');
+  String get testMultipleLines =>
+      get('testMultipleLines', 'testing\nmultiple\nlines\nupdated');
+  String get okButtonTitle => get('okButtonTitle', 'Done');
+  String get openUrlButtonTitle => get('openUrlButtonTitle', 'Open');
+  String get dialogTitle => get('dialogTitle', 'Message');
 }
 
 /*
@@ -245,21 +257,7 @@ class NStackState extends State<NStackWidget> {
   }
 }
 
-class NStackMessageWidget extends StatefulWidget {
-  const NStackMessageWidget({
-    super.key,
-    this.shouldShowDefaultDialog = true,
-    this.okButtonTitle,
-    this.openUrlButtonTitle,
-    this.dialogTitle,
-    this.onMessage,
-    this.child,
-  });
-
-  /// If true, the default dialog will be shown;
-  /// Otherwise, the Message will be provided using [onMessage] callback.
-  final bool shouldShowDefaultDialog;
-
+abstract class NStackMessageOptions {
   /// Title of the OK button.
   final String? okButtonTitle;
 
@@ -269,8 +267,43 @@ class NStackMessageWidget extends StatefulWidget {
   /// Title of the dialog.
   final String? dialogTitle;
 
-  /// Callback will be called when [shouldShowDefaultDialog] is set false.
+  /// Callback to customize the message UI.
   final void Function(Message message)? onMessage;
+
+  NStackMessageOptions({
+    this.okButtonTitle,
+    this.openUrlButtonTitle,
+    this.dialogTitle,
+    this.onMessage,
+  });
+}
+
+class DefaultNstackMessageOptions extends NStackMessageOptions {
+  DefaultNstackMessageOptions({
+    String? okButtonTitle,
+    String? openUrlButtonTitle,
+    String? dialogTitle,
+  }) : super(
+          okButtonTitle: okButtonTitle,
+          openUrlButtonTitle: openUrlButtonTitle,
+          dialogTitle: dialogTitle,
+        );
+}
+
+class CustomNstackMessageOptions extends NStackMessageOptions {
+  CustomNstackMessageOptions({
+    required void Function(Message message) onMessage,
+  }) : super(onMessage: onMessage);
+}
+
+class NStackMessageWidget extends StatefulWidget {
+  const NStackMessageWidget({
+    super.key,
+    required this.messageOptions,
+    this.child,
+  });
+
+  final NStackMessageOptions messageOptions;
 
   final Widget? child;
 
@@ -297,16 +330,16 @@ class _NStackMessageWidgetSate extends State<NStackMessageWidget> {
   }
 
   void _onMessage(Message message) {
-    if (widget.shouldShowDefaultDialog) {
+    if (widget.messageOptions.onMessage != null) {
+      widget.messageOptions.onMessage?.call(message);
+    } else {
       NStackMessageDialog.show(
         context,
         message: message,
-        okButtonTitle: widget.okButtonTitle,
-        openUrlButtonTitle: widget.openUrlButtonTitle,
-        dialogTitle: widget.dialogTitle,
+        okButtonTitle: widget.messageOptions.okButtonTitle,
+        openUrlButtonTitle: widget.messageOptions.openUrlButtonTitle,
+        dialogTitle: widget.messageOptions.dialogTitle,
       );
-    } else {
-      widget.onMessage?.call(message);
     }
   }
 

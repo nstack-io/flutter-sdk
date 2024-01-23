@@ -17,9 +17,8 @@
  * 💬 MESSAGES
  * 
  * To use messages, you can use `NStackMessageWidget`,
- * and if you want the default dialog set, `shouldShowDefaultDialog` to `true`.
- * Or you can set the `shouldShowDefaultDialog` flag to `false` and
- * provide an `onMessage` callback to get the `Message` object from the NStack.
+ * and if you want the default dialog, use `DefaultNstackMessageOptions`.
+ * Or you can use `CustomNstackMessageOptions` to get the `Message` object from the NStack.
  *
  * 🛠️ IMPORTANT NOTES FOR SDK USERS
  * 
@@ -207,21 +206,7 @@ class NStackState extends State<NStackWidget> {
   }
 }
 
-class NStackMessageWidget extends StatefulWidget {
-  const NStackMessageWidget({
-    super.key,
-    this.shouldShowDefaultDialog = true,
-    this.okButtonTitle,
-    this.openUrlButtonTitle,
-    this.dialogTitle,
-    this.onMessage,
-    this.child,
-  });
-
-  /// If true, the default dialog will be shown;
-  /// Otherwise, the Message will be provided using [onMessage] callback.
-  final bool shouldShowDefaultDialog;
-
+abstract class NStackMessageOptions {
   /// Title of the OK button.
   final String? okButtonTitle;
 
@@ -231,8 +216,43 @@ class NStackMessageWidget extends StatefulWidget {
   /// Title of the dialog.
   final String? dialogTitle;
 
-  /// Callback will be called when [shouldShowDefaultDialog] is set false.
+  /// Callback to customize the message UI.
   final void Function(Message message)? onMessage;
+
+  NStackMessageOptions({
+    this.okButtonTitle,
+    this.openUrlButtonTitle,
+    this.dialogTitle,
+    this.onMessage,
+  });
+}
+
+class DefaultNstackMessageOptions extends NStackMessageOptions {
+  DefaultNstackMessageOptions({
+    String? okButtonTitle,
+    String? openUrlButtonTitle,
+    String? dialogTitle,
+  }) : super(
+          okButtonTitle: okButtonTitle,
+          openUrlButtonTitle: openUrlButtonTitle,
+          dialogTitle: dialogTitle,
+        );
+}
+
+class CustomNstackMessageOptions extends NStackMessageOptions {
+  CustomNstackMessageOptions({
+    required void Function(Message message) onMessage,
+  }) : super(onMessage: onMessage);
+}
+
+class NStackMessageWidget extends StatefulWidget {
+  const NStackMessageWidget({
+    super.key,
+    required this.messageOptions,
+    this.child,
+  });
+
+  final NStackMessageOptions messageOptions;
 
   final Widget? child;
 
@@ -259,16 +279,16 @@ class _NStackMessageWidgetSate extends State<NStackMessageWidget> {
   }
 
   void _onMessage(Message message) {
-    if (widget.shouldShowDefaultDialog) {
+    if (widget.messageOptions.onMessage != null) {
+      widget.messageOptions.onMessage?.call(message);
+    } else {
       NStackMessageDialog.show(
         context,
         message: message,
-        okButtonTitle: widget.okButtonTitle,
-        openUrlButtonTitle: widget.openUrlButtonTitle,
-        dialogTitle: widget.dialogTitle,
+        okButtonTitle: widget.messageOptions.okButtonTitle,
+        openUrlButtonTitle: widget.messageOptions.openUrlButtonTitle,
+        dialogTitle: widget.messageOptions.dialogTitle,
       );
-    } else {
-      widget.onMessage?.call(message);
     }
   }
 
