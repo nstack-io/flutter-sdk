@@ -19,15 +19,18 @@ class NStackMessages {
   }) : _repository = repository;
 
   Future<void> setMessageViewed(int messageId) async {
+    final appOpenData = _appOpenData;
+
+    if (appOpenData == null) {
+      LogUtil.log('NStack --> Could not post message seen.');
+      return;
+    }
+
     try {
-      if (_appOpenData != null) {
-        await _repository.postMessageSeen(
-          appOpenData: _appOpenData!,
-          messageId: messageId,
-        );
-      } else {
-        LogUtil.log('NStack --> Could not post message seen.');
-      }
+      await _repository.postMessageSeen(
+        appOpenData: appOpenData,
+        messageId: messageId,
+      );
     } catch (e) {
       LogUtil.log('NStack --> Could not post message seen.');
     }

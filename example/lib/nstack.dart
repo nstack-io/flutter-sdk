@@ -15,10 +15,13 @@
  * `context.localization.assets.yourSection.yourKey`.
  *
  * 💬 MESSAGES
- * 
- * To use messages, you can use `NStackMessageWidget`,
- * and if you want the default dialog, use `DefaultNstackMessageOptions`.
- * Or you can use `CustomNstackMessageOptions` to get the `Message` object from the NStack.
+ *  
+ * Use `NStackMessageWidget` to access the Messages feature.
+ *
+ * [NStackMessageWidget.handlerConfiguration] allows you to configure how incoming messages are handled.
+ * - Use `DefaultNstackHandlerConfiguration` if you want to display a default adaptive dialog
+ * - Or use `CustomNstackHandlerConfiguration` if you want to handle the message yourself.
+ *   it has the `onMessage` callback that provides you with the received `Message` object.
  *
  * 🛠️ IMPORTANT NOTES FOR SDK USERS
  * 
@@ -256,9 +259,16 @@ class NStackState extends State<NStackWidget> {
   }
 }
 
-abstract class NStackMessageOptions {}
+/*
+ *
+ * NStack Message
+ * 
+ */
 
-class DefaultNstackMessageOptions implements NStackMessageOptions {
+sealed class NStackHandlerConfiguration {}
+
+final class DefaultNstackHandlerConfiguration
+    implements NStackHandlerConfiguration {
   /// Title of the OK button.
   final String? okButtonTitle;
 
@@ -268,18 +278,19 @@ class DefaultNstackMessageOptions implements NStackMessageOptions {
   /// Title of the dialog.
   final String? dialogTitle;
 
-  DefaultNstackMessageOptions({
+  DefaultNstackHandlerConfiguration({
     this.okButtonTitle,
     this.openUrlButtonTitle,
     this.dialogTitle,
   });
 }
 
-class CustomNstackMessageOptions implements NStackMessageOptions {
+final class CustomNstackHandlerConfiguration
+    implements NStackHandlerConfiguration {
   /// Callback to customize the message UI.
   final void Function(Message message) onMessage;
 
-  CustomNstackMessageOptions({
+  CustomNstackHandlerConfiguration({
     required this.onMessage,
   });
 }
@@ -287,11 +298,13 @@ class CustomNstackMessageOptions implements NStackMessageOptions {
 class NStackMessageWidget extends StatefulWidget {
   const NStackMessageWidget({
     super.key,
-    required this.messageOptions,
+    required this.handlerConfiguration,
     this.child,
   });
 
-  final NStackMessageOptions messageOptions;
+  /// Configuration of how the message will be handled.
+  /// It can be either `DefaultNstackHandlerConfiguration` or `CustomNstackHandlerConfiguration`.
+  final NStackHandlerConfiguration handlerConfiguration;
 
   final Widget? child;
 
@@ -318,20 +331,20 @@ class _NStackMessageWidgetSate extends State<NStackMessageWidget> {
   }
 
   void _onMessage(Message message) {
-    if (widget.messageOptions is CustomNstackMessageOptions) {
-      (widget.messageOptions as CustomNstackMessageOptions)
-          .onMessage
-          .call(message);
-    } else {
-      final messageOptions =
-          widget.messageOptions as DefaultNstackMessageOptions;
-      NStackMessageDialog.show(
-        context,
-        message: message,
-        okButtonTitle: messageOptions.okButtonTitle,
-        openUrlButtonTitle: messageOptions.openUrlButtonTitle,
-        dialogTitle: messageOptions.dialogTitle,
-      );
+    final messageOptions = widget.handlerConfiguration;
+    switch (messageOptions) {
+      case CustomNstackHandlerConfiguration():
+        messageOptions.onMessage(message);
+        break;
+      case DefaultNstackHandlerConfiguration():
+        NStackMessageDialog.show(
+          context,
+          message: message,
+          okButtonTitle: messageOptions.okButtonTitle,
+          openUrlButtonTitle: messageOptions.openUrlButtonTitle,
+          dialogTitle: messageOptions.dialogTitle,
+        );
+        break;
     }
   }
 

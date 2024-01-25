@@ -38,19 +38,19 @@ class MainScreen extends StatelessWidget {
     //     print(message.message);
     //   }
     // }
-    //
-    // final customNstackMessageOptions =
-    //     CustomNstackMessageOptions(onMessage: onMessage);
+
+    // final customNstackHandlerConfiguration =
+    //     CustomNstackHandlerConfiguration(onMessage: onMessage);
 
     // Message option for showing default dialog.
-    final defaultNstackMessageOptions = DefaultNstackMessageOptions(
+    final defaultHandlerConfiguration = DefaultNstackHandlerConfiguration(
       okButtonTitle: localizationAsset.test.okButtonTitle,
       openUrlButtonTitle: localizationAsset.test.openUrlButtonTitle,
       dialogTitle: localizationAsset.test.dialogTitle,
     );
 
     return NStackMessageWidget(
-      messageOptions: defaultNstackMessageOptions,
+      handlerConfiguration: defaultHandlerConfiguration,
       child: Scaffold(
         appBar: AppBar(
           title: Text(localizationAsset.test.testDollarSign),
