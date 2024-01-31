@@ -14,6 +14,15 @@
  * To access localization in your UI you can use an extension for BuildContexts:
  * `context.localization.assets.yourSection.yourKey`.
  *
+ * 💬 MESSAGES
+ *  
+ * Use `NStackMessageWidget` to access the Messages feature.
+ *
+ * [NStackMessageWidget.handlerConfiguration] allows you to configure how incoming messages are handled.
+ * - Use `DefaultNstackHandlerConfiguration` if you want to display a default adaptive dialog
+ * - Or use `CustomNstackHandlerConfiguration` if you want to handle the message yourself.
+ *   it has the `onMessage` callback that provides you with the received `Message` object.
+ *
  * 🛠️ IMPORTANT NOTES FOR SDK USERS
  * 
  * The default environment for the NStack SDK is `prod`.
@@ -30,15 +39,20 @@
 // ignore_for_file: unnecessary_cast
 
 import 'dart:async';
+import 'dart:io';
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:nstack/models/app_open_platform.dart';
 import 'package:nstack/models/language.dart';
 import 'package:nstack/models/localize_index.dart';
+import 'package:nstack/models/message.dart';
 import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/sdk/nstack_sdk.dart';
 import 'package:nstack/sdk/localization/nstack_localization.dart';
 import 'package:nstack/partial/section_key_delegate.dart';
+import 'package:flutter/cupertino.dart' as cupertino;
+import 'package:flutter/material.dart' as material;
+import 'package:url_launcher/url_launcher.dart';
 
 export 'package:nstack/models/app_open_platform.dart';
 
@@ -54,7 +68,7 @@ NStackSdk createNStackSdk() {
     LocalizeIndex(
       id: 1216,
       url: 'https://nstack.io/api/v2/content/localize/resources/1216',
-      lastUpdatedAt: DateTime.parse('2021-09-17T18:13:38.000Z'),
+      lastUpdatedAt: DateTime.parse('2024-01-23T08:16:25.000Z'),
       shouldUpdate: true,
       language: const Language(
         id: 56,
@@ -68,7 +82,7 @@ NStackSdk createNStackSdk() {
     LocalizeIndex(
       id: 1270,
       url: 'https://nstack.io/api/v2/content/localize/resources/1270',
-      lastUpdatedAt: DateTime.parse('2021-11-10T11:46:52.000Z'),
+      lastUpdatedAt: DateTime.parse('2024-01-23T08:16:41.000Z'),
       shouldUpdate: true,
       language: const Language(
         id: 7,
@@ -83,9 +97,9 @@ NStackSdk createNStackSdk() {
 
   const bundledTranslations = {
     'en-EN':
-        r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"$testing again new","testSingleQuotationMark":"'testing'","testDoubleQuotationMark":"\"testing\"","testMultipleLines":"testing\nmultiple\nlines\nupdated"}},"meta":{"language":{"id":56,"name":"English","locale":"en-EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
+        r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"$testing again new","testSingleQuotationMark":"'testing'","testDoubleQuotationMark":"\"testing\"","testMultipleLines":"testing\nmultiple\nlines\nupdated","okButtonTitle":"Done","openUrlButtonTitle":"Open","dialogTitle":"Message"}},"meta":{"language":{"id":56,"name":"English","locale":"en-EN","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
     'de-AT':
-        r'''{"data":{"default":{"title":"NStack SDK Demo","test":"test"},"test":{"testDollarSign":"\u00a0","testSingleQuotationMark":"__testSingleQuotationMark","testDoubleQuotationMark":"__testDoubleQuotationMark","testMultipleLines":"__testMultipleLines"}},"meta":{"language":{"id":7,"name":"German (Austria)","locale":"de-AT","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
+        r'''{"data":{"default":{"title":"NStack SDK Demo","test":"pr\u00fcfen"},"test":{"testDollarSign":"$Testen Sie noch einmal neu","testSingleQuotationMark":"'testen'","testDoubleQuotationMark":"\"testen\"","testMultipleLines":"testen\nmehrere\nLinien\nAktualisiert","okButtonTitle":"Erledigt","openUrlButtonTitle":"Offen","dialogTitle":"Nachricht"}},"meta":{"language":{"id":7,"name":"German (Austria)","locale":"de-AT","direction":"LRM","is_default":false,"is_best_fit":false},"platform":{"id":515,"slug":"mobile"}}}''',
   };
 
   // Create an instance of NStackLocalization with the predefined values
@@ -131,6 +145,9 @@ class _Test extends SectionKeyDelegate {
       get('testDoubleQuotationMark', '\"testing\"');
   String get testMultipleLines =>
       get('testMultipleLines', 'testing\nmultiple\nlines\nupdated');
+  String get okButtonTitle => get('okButtonTitle', 'Done');
+  String get openUrlButtonTitle => get('openUrlButtonTitle', 'Open');
+  String get dialogTitle => get('dialogTitle', 'Message');
 }
 
 /*
@@ -220,7 +237,6 @@ class NStackState extends State<NStackWidget> {
   @override
   void dispose() {
     _localeChangedSubscription.cancel();
-
     super.dispose();
   }
 
@@ -239,6 +255,210 @@ class NStackState extends State<NStackWidget> {
           return const SizedBox();
         }
       },
+    );
+  }
+}
+
+/*
+ *
+ * NStack Message
+ * 
+ */
+
+sealed class NStackHandlerConfiguration {}
+
+final class DefaultNstackHandlerConfiguration
+    implements NStackHandlerConfiguration {
+  /// Title of the OK button.
+  final String? okButtonTitle;
+
+  /// Title of the Open URL button.
+  final String? openUrlButtonTitle;
+
+  /// Title of the dialog.
+  final String? dialogTitle;
+
+  DefaultNstackHandlerConfiguration({
+    this.okButtonTitle,
+    this.openUrlButtonTitle,
+    this.dialogTitle,
+  });
+}
+
+final class CustomNstackHandlerConfiguration
+    implements NStackHandlerConfiguration {
+  /// Callback to customize the message UI.
+  final void Function(Message message) onMessage;
+
+  CustomNstackHandlerConfiguration({
+    required this.onMessage,
+  });
+}
+
+class NStackMessageWidget extends StatefulWidget {
+  const NStackMessageWidget({
+    super.key,
+    required this.handlerConfiguration,
+    this.child,
+  });
+
+  /// Configuration of how the message will be handled.
+  /// It can be either `DefaultNstackHandlerConfiguration` or `CustomNstackHandlerConfiguration`.
+  final NStackHandlerConfiguration handlerConfiguration;
+
+  final Widget? child;
+
+  @override
+  State<StatefulWidget> createState() => _NStackMessageWidgetSate();
+}
+
+class _NStackMessageWidgetSate extends State<NStackMessageWidget> {
+  late final StreamSubscription _messageSubscription;
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _messageSubscription =
+          context.nstack.messages.onMessage.listen(_onMessage);
+    });
+  }
+
+  @override
+  void dispose() {
+    _messageSubscription.cancel();
+    super.dispose();
+  }
+
+  void _onMessage(Message message) {
+    final messageOptions = widget.handlerConfiguration;
+    switch (messageOptions) {
+      case CustomNstackHandlerConfiguration():
+        messageOptions.onMessage(message);
+        break;
+      case DefaultNstackHandlerConfiguration():
+        NStackMessageDialog.show(
+          context,
+          message: message,
+          okButtonTitle: messageOptions.okButtonTitle,
+          openUrlButtonTitle: messageOptions.openUrlButtonTitle,
+          dialogTitle: messageOptions.dialogTitle,
+        );
+        break;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.child ?? const SizedBox();
+  }
+}
+
+class NStackMessageDialog extends StatelessWidget {
+  static const _okButtonTitleFallback = 'OK';
+  static const _openUrlButtonTitleFallback = 'Open URL';
+  static const _dialogTitleFallback = 'Message';
+
+  const NStackMessageDialog._({
+    Key? key,
+    required this.message,
+    this.okButtonTitle = _okButtonTitleFallback,
+    this.openUrlButtonTitle = _openUrlButtonTitleFallback,
+    this.dialogTitle = _dialogTitleFallback,
+  }) : super(key: key);
+
+  /// Message that was received.
+  final Message message;
+
+  /// Title of the OK button.
+  final String okButtonTitle;
+
+  /// Title of the Open URL button.
+  final String openUrlButtonTitle;
+
+  /// Title of the dialog.
+  final String? dialogTitle;
+
+  /// Displays the dialog.
+  static Future<void> show(
+    BuildContext context, {
+    required Message message,
+    String? okButtonTitle,
+    String? openUrlButtonTitle,
+    String? dialogTitle = _dialogTitleFallback,
+  }) {
+    Widget builder(BuildContext context) {
+      return NStackMessageDialog._(
+        message: message,
+        okButtonTitle: okButtonTitle ??
+            message.localization?.okBtn ??
+            _okButtonTitleFallback,
+        openUrlButtonTitle: openUrlButtonTitle ??
+            message.localization?.urlBtn ??
+            _openUrlButtonTitleFallback,
+        dialogTitle: dialogTitle,
+      );
+    }
+
+    final showDialog = Platform.isIOS
+        ? cupertino.showCupertinoDialog(context: context, builder: builder)
+        : material.showDialog(context: context, builder: builder);
+    return showDialog.whenComplete(() {
+      context.nstack.messages.setMessageViewed(message.id);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final titleWidget = dialogTitle != null ? Text(dialogTitle!) : null;
+    final messageWidget = Text(message.message);
+
+    final okWidget = Text(okButtonTitle);
+
+    final messageUrl = message.url;
+    final uri = messageUrl != null ? Uri.tryParse(messageUrl) : null;
+    final isUriValid = uri != null;
+
+    final urlLaunchAction = !isUriValid
+        ? null
+        : () {
+            launchUrl(uri);
+            Navigator.of(context).pop();
+          };
+
+    if (Platform.isIOS) {
+      return cupertino.CupertinoAlertDialog(
+        title: titleWidget,
+        content: messageWidget,
+        actions: [
+          cupertino.CupertinoDialogAction(
+            onPressed: Navigator.of(context).pop,
+            child: okWidget,
+          ),
+          if (isUriValid)
+            cupertino.CupertinoDialogAction(
+              isDefaultAction: true,
+              onPressed: urlLaunchAction,
+              child: Text(openUrlButtonTitle),
+            ),
+        ],
+      );
+    }
+
+    return material.AlertDialog(
+      title: titleWidget,
+      content: messageWidget,
+      actions: [
+        if (isUriValid)
+          material.TextButton(
+            onPressed: urlLaunchAction,
+            child: Text(openUrlButtonTitle),
+          ),
+        material.TextButton(
+          onPressed: Navigator.of(context).pop,
+          child: okWidget,
+        ),
+      ],
     );
   }
 }

@@ -32,20 +32,40 @@ class MainScreen extends StatelessWidget {
     final localizationAsset = localization.assets;
     final activeLanguage = localization.activeLanguage;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(localizationAsset.test.testDollarSign),
-      ),
-      body: Center(
-        child: MaterialButton(
-          onPressed: () {
-            final locale = activeLanguage.locale == 'en-EN'
-                ? const Locale('de-DE')
-                : const Locale('en-EN');
-            localization.changeLocalization(locale);
-          },
-          child: Text(
-            'Selected locale: ${activeLanguage.name}',
+    // Message option for receiving the Message response, will not show the default dialog.
+    // void onMessage(Message message) {
+    //   if (kDebugMode) {
+    //     print(message.message);
+    //   }
+    // }
+
+    // final customNstackHandlerConfiguration =
+    //     CustomNstackHandlerConfiguration(onMessage: onMessage);
+
+    // Message option for showing default dialog.
+    final defaultHandlerConfiguration = DefaultNstackHandlerConfiguration(
+      okButtonTitle: localizationAsset.test.okButtonTitle,
+      openUrlButtonTitle: localizationAsset.test.openUrlButtonTitle,
+      dialogTitle: localizationAsset.test.dialogTitle,
+    );
+
+    return NStackMessageWidget(
+      handlerConfiguration: defaultHandlerConfiguration,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(localizationAsset.test.testDollarSign),
+        ),
+        body: Center(
+          child: MaterialButton(
+            onPressed: () {
+              final locale = activeLanguage.locale == 'en-EN'
+                  ? const Locale('de-AT')
+                  : const Locale('en-EN');
+              localization.changeLocalization(locale);
+            },
+            child: Text(
+              'Selected locale: ${activeLanguage.name}',
+            ),
           ),
         ),
       ),

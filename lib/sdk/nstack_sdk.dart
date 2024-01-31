@@ -6,6 +6,7 @@ import 'package:nstack/models/app_open_platform.dart';
 import 'package:nstack/models/nstack_appopen_data.dart';
 import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/sdk/localization/nstack_localization.dart';
+import 'package:nstack/sdk/messages/nstack_messages.dart';
 import 'package:nstack/src/nstack_repository.dart';
 import 'package:nstack/src/repository.dart';
 import 'package:nstack/utils/log_util.dart';
@@ -20,17 +21,21 @@ class NStackSdk {
   final String _prefsKeyLastUpdated = 'nstack_last_updated';
   final String _prefsKeyGuid = 'nstack_guid';
 
-  final NStackRepository _repository;
+  late final NStackRepository _repository;
   late NStackAppOpenData _appOpenData;
 
   final NStackLocalization localization;
+  late final NStackMessages messages;
 
   var _appOpenCalled = false;
 
   NStackSdk({
     required this.config,
     required this.localization,
-  }) : _repository = NStackRepository(config);
+  }) {
+    _repository = NStackRepository(config);
+    messages = NStackMessages(repository: _repository);
+  }
 
   Future<void> _setupAppOpenData(AppOpenPlatform? platformOverride) async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -112,6 +117,8 @@ class NStackSdk {
       final appOpen = AppOpen.fromJson(result);
 
       await localization.updateOnAppOpen(appOpen);
+      messages.onAppOpen(appOpen, _appOpenData);
+
       LogUtil.log('NStack --> Updated localization.');
 
       _appOpenCalled = true;
