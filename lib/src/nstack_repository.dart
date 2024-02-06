@@ -70,9 +70,9 @@ class NStackRepository {
         ),
         headers: _headers,
       );
-      final Map languagesJson = json.decode(response.body);
-      final languagesList = (languagesJson['data'] as List<dynamic>)
-          .map((it) => LocalizeIndex.fromJson(it))
+      final Map<String, dynamic> languagesJson = json.decode(response.body);
+      final languagesList = (languagesJson['data'] as List)
+          .map((item) => LocalizeIndex.fromJson(item as Map<String, dynamic>))
           .toList();
       LogUtil.log('Fetched ${languagesList.length} languages.');
       return languagesList;
@@ -83,7 +83,7 @@ class NStackRepository {
   }
 
   Future<String> fetchLocalizationForLanguage(String url) async {
-    return await http
+    return http
         .get(Uri.parse(url), headers: _headers)
         .then((value) => value.body);
   }

@@ -31,21 +31,24 @@ class AppOpenData {
   factory AppOpenData.fromJson(Map json) {
     return AppOpenData(
       count: json['count'],
-      update: (json['update'] as Map<String, dynamic>?)
-          ?.let((item) => Update.fromJson(item)),
-      localize: (json['localize'] as List?)?.let(
-        (item) => item.map((e) => LocalizeIndex.fromJson(e)).toList(),
+      update: (json['update'] as Map<String, dynamic>?)?.let(Update.fromJson),
+      localize: (json['localize'] as List<dynamic>?)?.let(
+        (item) => item
+            .map(
+              (item) => LocalizeIndex.fromJson(item as Map<String, dynamic>),
+            )
+            .toList(),
       ),
       platform: json['platform'],
       createdAt: (json['created_at'] as String?)?.let(
-        (item) => DateTime.parse(item),
+        DateTime.parse,
       ),
       updatedAt: (json['last_updated'] as String?)?.let(
-        (item) => DateTime.parse(item),
+        DateTime.parse,
       ),
-      message: (json['message'] as Map?)?.let((item) => Message.fromJson(item)),
+      message: (json['message'] as Map?)?.let(Message.fromJson),
       rateReminder: json['rateReminder']?.let(
-        (item) => RateReminder.fromJson(item),
+        RateReminder.fromJson,
       ),
       terms: json['terms']?.let((item) => item),
     );

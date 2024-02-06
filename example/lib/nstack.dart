@@ -46,6 +46,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart' as cupertino;
+import 'package:flutter/material.dart' as material;
 import 'package:flutter/material.dart';
 import 'package:nstack/models/app_open_platform.dart';
 import 'package:nstack/models/language.dart';
@@ -54,11 +56,9 @@ import 'package:nstack/models/message.dart';
 import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/models/update.dart';
 import 'package:nstack/models/update_view_request.dart';
-import 'package:nstack/sdk/nstack_sdk.dart';
-import 'package:nstack/sdk/localization/nstack_localization.dart';
 import 'package:nstack/partial/section_key_delegate.dart';
-import 'package:flutter/cupertino.dart' as cupertino;
-import 'package:flutter/material.dart' as material;
+import 'package:nstack/sdk/localization/nstack_localization.dart';
+import 'package:nstack/sdk/nstack_sdk.dart';
 import 'package:nstack/utils/log_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -343,7 +343,6 @@ class _NStackMessageWidgetSate extends State<NStackMessageWidget> {
     switch (messageOptions) {
       case CustomNstackHandlerConfiguration():
         messageOptions.onMessage(message);
-        break;
       case DefaultNstackHandlerConfiguration():
         NStackMessageDialog.show(
           context,
@@ -352,7 +351,6 @@ class _NStackMessageWidgetSate extends State<NStackMessageWidget> {
           openUrlButtonTitle: messageOptions.openUrlButtonTitle,
           dialogTitle: messageOptions.dialogTitle,
         );
-        break;
     }
   }
 

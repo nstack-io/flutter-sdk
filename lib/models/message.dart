@@ -35,15 +35,12 @@ class Message {
       message: json['message'],
       viewCount: json['view_count'],
       url: json['url'],
-      createdAt:
-          (json['created_at'] as String?)?.let((it) => DateTime.parse(it)),
-      updatedAt:
-          (json['updated_at'] as String?)?.let((it) => DateTime.parse(it)),
-      deletedAt:
-          (json['deleted_at'] as String?)?.let((it) => DateTime.parse(it)),
+      createdAt: (json['created_at'] as String?)?.let(DateTime.parse),
+      updatedAt: (json['updated_at'] as String?)?.let(DateTime.parse),
+      deletedAt: (json['deleted_at'] as String?)?.let(DateTime.parse),
       projectId: json['project_id'],
       localization: json['localization']?.let(
-        (it) => MessageLocalization.fromJson(it),
+        MessageLocalization.fromJson,
       ),
     );
   }
