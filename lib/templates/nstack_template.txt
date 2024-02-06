@@ -23,6 +23,11 @@
  * - Or use `CustomNstackHandlerConfiguration` if you want to handle the message yourself.
  *   it has the `onMessage` callback that provides you with the received `Message` object.
  *
+ * 🔖 VERSION CONTROL
+ * 
+ * Use `NStackVersionControlWidget` to enable version control feature.
+ * You can configure the localization strings from the NStack console.
+ *
  * 🛠️ IMPORTANT NOTES FOR SDK USERS
  * 
  * The default environment for the NStack SDK is `prod`.
@@ -47,11 +52,14 @@ import 'package:nstack/models/language.dart';
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/message.dart';
 import 'package:nstack/models/nstack_config.dart';
+import 'package:nstack/models/update.dart';
+import 'package:nstack/models/update_view_request.dart';
 import 'package:nstack/sdk/nstack_sdk.dart';
 import 'package:nstack/sdk/localization/nstack_localization.dart';
 import 'package:nstack/partial/section_key_delegate.dart';
 import 'package:flutter/cupertino.dart' as cupertino;
 import 'package:flutter/material.dart' as material;
+import 'package:nstack/utils/log_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 export 'package:nstack/models/app_open_platform.dart';
@@ -408,6 +416,194 @@ class NStackMessageDialog extends StatelessWidget {
           onPressed: Navigator.of(context).pop,
           child: okWidget,
         ),
+      ],
+    );
+  }
+}
+
+/*
+ *
+ * NStack Version Control
+ * 
+ */
+
+class NStackVersionControlWidget extends StatefulWidget {
+  const NStackVersionControlWidget({
+    super.key,
+    this.child,
+  });
+
+  final Widget? child;
+
+  @override
+  State<StatefulWidget> createState() => _NStackVersionControlWidgetSate();
+}
+
+class _NStackVersionControlWidgetSate
+    extends State<NStackVersionControlWidget> {
+  late final StreamSubscription _versionInfoSubscription;
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _versionInfoSubscription = context
+          .nstack.appVersionControl.onVersionUpdateNotification
+          .listen(_onVersionUpdateNotification);
+    });
+  }
+
+  @override
+  void dispose() {
+    _versionInfoSubscription.cancel();
+    super.dispose();
+  }
+
+  void _onVersionUpdateNotification(Update update_info) {
+    NStackAppUpdateInfoDialog.show(context, update_info: update_info);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.child ?? const SizedBox();
+  }
+}
+
+class NStackAppUpdateInfoDialog extends StatelessWidget {
+  const NStackAppUpdateInfoDialog._({
+    Key? key,
+    required this.update_info,
+  }) : super(key: key);
+
+  /// App update info that was received.
+  final Update update_info;
+
+  /// Displays the dialog.
+  static Future<void> show(
+    BuildContext context, {
+    required Update update_info,
+  }) {
+    Widget builder(BuildContext context) {
+      return NStackAppUpdateInfoDialog._(
+        update_info: update_info,
+      );
+    }
+
+    final showDialog = Platform.isIOS
+        ? cupertino.showCupertinoDialog(context: context, builder: builder)
+        : material.showDialog(context: context, builder: builder);
+    return showDialog;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final titleWidget = update_info.newerVersion != null
+        ? Text(update_info.newerVersion!.localizations.title)
+        : update_info.newInThisVersion?.localizations != null
+            ? Text(update_info.newInThisVersion!.localizations.title)
+            : null;
+
+    final messageWidget = update_info.newerVersion != null
+        ? Text(update_info.newerVersion!.localizations.message)
+        : update_info.newInThisVersion?.localizations != null
+            ? Text(update_info.newInThisVersion!.localizations.message)
+            : null;
+
+    final dismissWidget =
+        update_info.newerVersion?.localizations.negativeBtn != null
+            ? Text(update_info.newerVersion!.localizations.negativeBtn!)
+            : update_info.newInThisVersion?.localizations.negativeBtn != null
+                ? Text(update_info.newInThisVersion!.localizations.negativeBtn!)
+                : const Text('OK');
+
+    final updateWidget =
+        update_info.newerVersion?.localizations.positiveBtn != null
+            ? Text(update_info.newerVersion!.localizations.positiveBtn!)
+            : const Text('Update');
+
+    final isUriValid = update_info.newerVersion?.link != null;
+
+    final urlLaunchAction = !isUriValid
+        ? null
+        : () async {
+            if (update_info.newerVersion?.lastId != null) {
+              await context.nstack.appVersionControl.setUpdateInfoViewed(
+                updateId: update_info.newerVersion!.lastId,
+                answer: UpdateViewAnswer.yes,
+                type: UpdateViewType.newer_version,
+              );
+            }
+            try {
+              await launchUrl(update_info.newerVersion!.link!);
+            } catch (e) {
+              LogUtil.log(
+                'NStackVersionControl --> Filed to open URL with error: ${e.toString()}',
+              );
+            }
+
+            if (context.mounted &&
+                update_info.newerVersion?.state != UpdateState.force) {
+              Navigator.of(context).pop();
+            }
+          };
+
+    final dismissAction = () async {
+      if (update_info.newInThisVersion != null) {
+        await context.nstack.appVersionControl.setUpdateInfoViewed(
+          updateId: update_info.newInThisVersion!.lastId,
+          answer: UpdateViewAnswer.yes,
+          type: UpdateViewType.new_in_version,
+        );
+      } else if (update_info.newerVersion?.lastId != null) {
+        await context.nstack.appVersionControl.setUpdateInfoViewed(
+          updateId: update_info.newerVersion!.lastId,
+          answer: UpdateViewAnswer.yes,
+          type: UpdateViewType.newer_version,
+        );
+      }
+      if (context.mounted) {
+        Navigator.of(context).pop();
+      }
+    };
+
+    if (Platform.isIOS) {
+      return cupertino.CupertinoAlertDialog(
+        title: titleWidget,
+        content: messageWidget,
+        actions: [
+          if (update_info.newerVersion?.state != UpdateState.force ||
+              update_info.newInThisVersion != null)
+            cupertino.CupertinoDialogAction(
+              onPressed: dismissAction,
+              child: dismissWidget,
+            ),
+          if (update_info.newerVersion?.state == UpdateState.remind ||
+              update_info.newerVersion?.state == UpdateState.force)
+            cupertino.CupertinoDialogAction(
+              isDefaultAction: true,
+              onPressed: urlLaunchAction,
+              child: updateWidget,
+            ),
+        ],
+      );
+    }
+
+    return material.AlertDialog(
+      title: titleWidget,
+      content: messageWidget,
+      actions: [
+        if (update_info.newerVersion?.state == UpdateState.remind ||
+            update_info.newerVersion?.state == UpdateState.force)
+          material.TextButton(
+            onPressed: urlLaunchAction,
+            child: updateWidget,
+          ),
+        if (update_info.newerVersion?.state != UpdateState.force ||
+            update_info.newInThisVersion != null)
+          material.TextButton(
+            onPressed: dismissAction,
+            child: dismissWidget,
+          ),
       ],
     );
   }

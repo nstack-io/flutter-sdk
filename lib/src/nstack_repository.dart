@@ -6,6 +6,7 @@ import 'package:nstack/models/app_open_platform.dart';
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/nstack_appopen_data.dart';
 import 'package:nstack/models/nstack_config.dart';
+import 'package:nstack/models/update_view_request.dart';
 import 'package:nstack/utils/log_util.dart';
 
 class NStackRepository {
@@ -114,6 +115,22 @@ class NStackRepository {
 
     if (response.statusCode != 200) {
       throw NStackException.updateFailed('Failed to update message seen.');
+    }
+  }
+
+  Future<void> postUpdateInfoSeen({
+    required UpdateViewRequest updateViewRequest,
+  }) async {
+    final url = Uri.parse('$_baseUrl/notify/updates/views');
+
+    final response = await http.post(
+      url,
+      headers: _headers,
+      body: updateViewRequest.toJson(),
+    );
+
+    if (response.statusCode != 200) {
+      throw NStackException.updateFailed('Failed to update change log seen.');
     }
   }
 }

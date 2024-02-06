@@ -1,13 +1,13 @@
-import 'package:nstack/models/app_update.dart';
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/message.dart';
 import 'package:nstack/models/rate_reminder.dart';
 import 'package:nstack/models/terms.dart';
+import 'package:nstack/models/update.dart';
 import 'package:nstack/other/extensions.dart';
 
 class AppOpenData {
   final int? count;
-  final AppUpdate? update;
+  final Update? update;
   final List<LocalizeIndex>? localize;
   final String? platform;
   final DateTime? createdAt;
@@ -31,22 +31,23 @@ class AppOpenData {
   factory AppOpenData.fromJson(Map json) {
     return AppOpenData(
       count: json['count'],
-      update: (json['update'] as Map?)?.let((it) => AppUpdate.fromJson(it)),
+      update: (json['update'] as Map<String, dynamic>?)
+          ?.let((item) => Update.fromJson(item)),
       localize: (json['localize'] as List?)?.let(
-        (it) => it.map((e) => LocalizeIndex.fromJson(e)).toList(),
+        (item) => item.map((e) => LocalizeIndex.fromJson(e)).toList(),
       ),
       platform: json['platform'],
       createdAt: (json['created_at'] as String?)?.let(
-        (it) => DateTime.parse(it),
+        (item) => DateTime.parse(item),
       ),
       updatedAt: (json['last_updated'] as String?)?.let(
-        (it) => DateTime.parse(it),
+        (item) => DateTime.parse(item),
       ),
-      message: (json['message'] as Map?)?.let((it) => Message.fromJson(it)),
+      message: (json['message'] as Map?)?.let((item) => Message.fromJson(item)),
       rateReminder: json['rateReminder']?.let(
-        (it) => RateReminder.fromJson(it),
+        (item) => RateReminder.fromJson(item),
       ),
-      terms: json['terms']?.let((it) => it),
+      terms: json['terms']?.let((item) => item),
     );
   }
 }
