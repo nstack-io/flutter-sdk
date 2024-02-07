@@ -46,8 +46,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart' as cupertino;
-import 'package:flutter/material.dart' as material;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nstack/models/app_open_platform.dart';
 import 'package:nstack/models/language.dart';
@@ -406,9 +405,10 @@ class NStackMessageDialog extends StatelessWidget {
       );
     }
 
-    final showDialog = Platform.isIOS
-        ? cupertino.showCupertinoDialog(context: context, builder: builder)
-        : material.showDialog(context: context, builder: builder);
+    final showDialog = showAdaptiveDialog(
+      context: context,
+      builder: builder,
+    );
     return showDialog.whenComplete(() {
       context.nstack.messages.setMessageViewed(message.id);
     });
@@ -425,42 +425,32 @@ class NStackMessageDialog extends StatelessWidget {
     final uri = messageUrl != null ? Uri.tryParse(messageUrl) : null;
     final isUriValid = uri != null;
 
-    final urlLaunchAction = !isUriValid
-        ? null
-        : () {
-            launchUrl(uri);
-            Navigator.of(context).pop();
-          };
+    final urlLaunchAction = () async {
+      try {
+        await launchUrl(uri!);
+      } catch (e) {
+        LogUtil.log(
+          'NStackMessage --> Filed to open URL with error: ${e.toString()}',
+        );
+      }
 
-    if (Platform.isIOS) {
-      return cupertino.CupertinoAlertDialog(
-        title: titleWidget,
-        content: messageWidget,
-        actions: [
-          cupertino.CupertinoDialogAction(
-            onPressed: Navigator.of(context).pop,
-            child: okWidget,
-          ),
-          if (isUriValid)
-            cupertino.CupertinoDialogAction(
-              isDefaultAction: true,
-              onPressed: urlLaunchAction,
-              child: Text(openUrlButtonTitle),
-            ),
-        ],
-      );
-    }
+      if (context.mounted) {
+        Navigator.of(context).pop();
+      }
+    };
 
-    return material.AlertDialog(
+    return AlertDialog.adaptive(
       title: titleWidget,
       content: messageWidget,
       actions: [
         if (isUriValid)
-          material.TextButton(
+          _adaptiveAction(
+            context: context,
             onPressed: urlLaunchAction,
             child: Text(openUrlButtonTitle),
           ),
-        material.TextButton(
+        _adaptiveAction(
+          context: context,
           onPressed: Navigator.of(context).pop,
           child: okWidget,
         ),
@@ -537,10 +527,10 @@ class NStackAppUpdateInfoDialog extends StatelessWidget {
       );
     }
 
-    final showDialog = Platform.isIOS
-        ? cupertino.showCupertinoDialog(context: context, builder: builder)
-        : material.showDialog(context: context, builder: builder);
-    return showDialog;
+    return showAdaptiveDialog(
+      context: context,
+      builder: builder,
+    );
   }
 
   @override
@@ -569,31 +559,27 @@ class NStackAppUpdateInfoDialog extends StatelessWidget {
             ? Text(update_info.newerVersion!.localizations.positiveBtn!)
             : const Text('Update');
 
-    final isUriValid = update_info.newerVersion?.link != null;
+    final urlLaunchAction = () async {
+      if (update_info.newerVersion?.lastId != null) {
+        await context.nstack.appVersionControl.setUpdateInfoViewed(
+          updateId: update_info.newerVersion!.lastId,
+          answer: UpdateViewAnswer.yes,
+          type: UpdateViewType.newer_version,
+        );
+      }
+      try {
+        await launchUrl(update_info.newerVersion!.link!);
+      } catch (e) {
+        LogUtil.log(
+          'NStackVersionControl --> Filed to open URL with error: ${e.toString()}',
+        );
+      }
 
-    final urlLaunchAction = !isUriValid
-        ? null
-        : () async {
-            if (update_info.newerVersion?.lastId != null) {
-              await context.nstack.appVersionControl.setUpdateInfoViewed(
-                updateId: update_info.newerVersion!.lastId,
-                answer: UpdateViewAnswer.yes,
-                type: UpdateViewType.newer_version,
-              );
-            }
-            try {
-              await launchUrl(update_info.newerVersion!.link!);
-            } catch (e) {
-              LogUtil.log(
-                'NStackVersionControl --> Filed to open URL with error: ${e.toString()}',
-              );
-            }
-
-            if (context.mounted &&
-                update_info.newerVersion?.state != UpdateState.force) {
-              Navigator.of(context).pop();
-            }
-          };
+      if (context.mounted &&
+          update_info.newerVersion?.state != UpdateState.force) {
+        Navigator.of(context).pop();
+      }
+    };
 
     final dismissAction = () async {
       if (update_info.newInThisVersion != null) {
@@ -614,47 +600,46 @@ class NStackAppUpdateInfoDialog extends StatelessWidget {
       }
     };
 
-    if (Platform.isIOS) {
-      return cupertino.CupertinoAlertDialog(
-        title: titleWidget,
-        content: messageWidget,
-        actions: [
-          if (update_info.newerVersion?.state != UpdateState.force ||
-              update_info.newInThisVersion != null)
-            cupertino.CupertinoDialogAction(
-              onPressed: dismissAction,
-              child: dismissWidget,
-            ),
-          if (update_info.newerVersion?.state == UpdateState.remind ||
-              update_info.newerVersion?.state == UpdateState.force)
-            cupertino.CupertinoDialogAction(
-              isDefaultAction: true,
-              onPressed: urlLaunchAction,
-              child: updateWidget,
-            ),
-        ],
-      );
-    }
+    final shouldShowUrlLaunchAction = update_info.newerVersion?.link != null;
+    final shouldShowDismissAction =
+        update_info.newerVersion?.state != UpdateState.force;
 
-    return material.AlertDialog(
+    return AlertDialog.adaptive(
       title: titleWidget,
       content: messageWidget,
       actions: [
-        if (update_info.newerVersion?.state == UpdateState.remind ||
-            update_info.newerVersion?.state == UpdateState.force)
-          material.TextButton(
+        if (shouldShowUrlLaunchAction)
+          _adaptiveAction(
+            context: context,
             onPressed: urlLaunchAction,
             child: updateWidget,
           ),
-        if (update_info.newerVersion?.state != UpdateState.force ||
-            update_info.newInThisVersion != null)
-          material.TextButton(
+        if (shouldShowDismissAction)
+          _adaptiveAction(
+            context: context,
             onPressed: dismissAction,
             child: dismissWidget,
           ),
       ],
     );
   }
+}
+
+/*
+ *
+ * NStack Utility Functions
+ * 
+ */
+
+Widget _adaptiveAction({
+  required BuildContext context,
+  required VoidCallback onPressed,
+  required Widget child,
+}) {
+  if (Platform.isIOS) {
+    return CupertinoDialogAction(onPressed: onPressed, child: child);
+  }
+  return TextButton(onPressed: onPressed, child: child);
 }
 
 /*
