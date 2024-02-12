@@ -6,8 +6,15 @@ enum UpdateViewAnswer {
 
 // Definition of UpdateViewType
 enum UpdateViewType {
-  newer_version,
-  new_in_version;
+  newerVersion,
+  newInVersion;
+
+  String toJson() {
+    return switch (this) {
+      newerVersion => 'newer_version',
+      newInVersion => 'new_in_version',
+    };
+  }
 }
 
 // Definition of UpdateViewRequest
@@ -30,7 +37,7 @@ class UpdateViewRequest {
       'guid': guid,
       'update_id': updateId,
       'answer': answer.name,
-      'type': type.name,
+      'type': type.toJson(),
     };
   }
 }

@@ -26,7 +26,9 @@
  * 🔖 VERSION CONTROL
  * 
  * Use `NStackVersionControlWidget` to enable version control feature.
- * You can configure the localization strings from the NStack console.
+ * - Pass the `onVersionUpdateNotification` function to get the `update` object and handle the update dialog yourself.
+ * - Or, to display a default adaptive dialog, set the `onVersionUpdateNotification` function to null
+ *   and configure the localization strings from the NStack console.
  *
  * 🛠️ IMPORTANT NOTES FOR SDK USERS
  * 
@@ -419,9 +421,11 @@ class NStackVersionControlWidget extends StatefulWidget {
   const NStackVersionControlWidget({
     super.key,
     this.child,
+    this.onVersionUpdateNotification,
   });
 
   final Widget? child;
+  final void Function(Update)? onVersionUpdateNotification;
 
   @override
   State<StatefulWidget> createState() => _NStackVersionControlWidgetSate();
@@ -448,6 +452,10 @@ class _NStackVersionControlWidgetSate
   }
 
   void _onVersionUpdateNotification(Update update_info) {
+    if (widget.onVersionUpdateNotification != null) {
+      widget.onVersionUpdateNotification!(update_info);
+      return;
+    }
     NStackAppUpdateInfoDialog.show(context, update_info: update_info);
   }
 
@@ -514,7 +522,7 @@ class NStackAppUpdateInfoDialog extends StatelessWidget {
         await context.nstack.appVersionControl.setUpdateInfoViewed(
           updateId: update_info.newerVersion!.lastId,
           answer: UpdateViewAnswer.yes,
-          type: UpdateViewType.newer_version,
+          type: UpdateViewType.newerVersion,
         );
       }
       try {
@@ -536,13 +544,13 @@ class NStackAppUpdateInfoDialog extends StatelessWidget {
         await context.nstack.appVersionControl.setUpdateInfoViewed(
           updateId: update_info.newInThisVersion!.lastId,
           answer: UpdateViewAnswer.yes,
-          type: UpdateViewType.new_in_version,
+          type: UpdateViewType.newInVersion,
         );
       } else if (update_info.newerVersion?.lastId != null) {
         await context.nstack.appVersionControl.setUpdateInfoViewed(
           updateId: update_info.newerVersion!.lastId,
           answer: UpdateViewAnswer.yes,
-          type: UpdateViewType.newer_version,
+          type: UpdateViewType.newerVersion,
         );
       }
       if (context.mounted) {
