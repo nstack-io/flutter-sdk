@@ -55,8 +55,8 @@ import 'package:nstack/models/language.dart';
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/message.dart';
 import 'package:nstack/models/nstack_config.dart';
-import 'package:nstack/models/update.dart';
-import 'package:nstack/models/update_view_request.dart';
+import 'package:nstack/models/nstack_version_update.dart';
+import 'package:nstack/models/nstack_version_update_view_request.dart';
 import 'package:nstack/partial/section_key_delegate.dart';
 import 'package:nstack/sdk/localization/nstack_localization.dart';
 import 'package:nstack/sdk/nstack_sdk.dart';
@@ -322,20 +322,17 @@ class NStackMessageWidget extends StatefulWidget {
 }
 
 class _NStackMessageWidgetSate extends State<NStackMessageWidget> {
-  late final StreamSubscription _messageSubscription;
-  @override
-  void initState() {
-    super.initState();
+  StreamSubscription? _messageSubscription;
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _messageSubscription =
-          context.nstack.messages.onMessage.listen(_onMessage);
-    });
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _messageSubscription = context.nstack.messages.onMessage.listen(_onMessage);
   }
 
   @override
   void dispose() {
-    _messageSubscription.cancel();
+    _messageSubscription?.cancel();
     super.dispose();
   }
 
@@ -345,7 +342,7 @@ class _NStackMessageWidgetSate extends State<NStackMessageWidget> {
       case CustomNstackHandlerConfiguration():
         messageOptions.onMessage(message);
       case DefaultNstackHandlerConfiguration():
-        NStackMessageDialog.show(
+        _NStackMessageDialog.show(
           context,
           message: message,
           okButtonTitle: messageOptions.okButtonTitle,
@@ -361,12 +358,70 @@ class _NStackMessageWidgetSate extends State<NStackMessageWidget> {
   }
 }
 
-class NStackMessageDialog extends StatelessWidget {
+/*
+ *
+ * NStack Version Control
+ * 
+ */
+
+class NStackVersionControlWidget extends StatefulWidget {
+  const NStackVersionControlWidget({
+    super.key,
+    this.child,
+    this.onVersionUpdateNotification,
+  });
+
+  final Widget? child;
+  final void Function(NStackVersionUpdate)? onVersionUpdateNotification;
+
+  @override
+  State<StatefulWidget> createState() => _NStackVersionControlWidgetSate();
+}
+
+class _NStackVersionControlWidgetSate
+    extends State<NStackVersionControlWidget> {
+  StreamSubscription? _versionInfoSubscription;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _versionInfoSubscription = context
+        .nstack.appVersionControl.onVersionUpdateNotification
+        .listen(_onVersionUpdateNotification);
+  }
+
+  @override
+  void dispose() {
+    _versionInfoSubscription?.cancel();
+    super.dispose();
+  }
+
+  void _onVersionUpdateNotification(NStackVersionUpdate update_info) {
+    if (widget.onVersionUpdateNotification != null) {
+      widget.onVersionUpdateNotification!(update_info);
+      return;
+    }
+    _NStackAppUpdateInfoDialog.show(context, update_info: update_info);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.child ?? const SizedBox();
+  }
+}
+
+/*
+ *
+ * NStack Private Widgets
+ * 
+ */
+
+class _NStackMessageDialog extends StatelessWidget {
   static const _okButtonTitleFallback = 'OK';
   static const _openUrlButtonTitleFallback = 'Open URL';
   static const _dialogTitleFallback = 'Message';
 
-  const NStackMessageDialog._({
+  const _NStackMessageDialog._({
     Key? key,
     required this.message,
     this.okButtonTitle = _okButtonTitleFallback,
@@ -395,7 +450,7 @@ class NStackMessageDialog extends StatelessWidget {
     String? dialogTitle = _dialogTitleFallback,
   }) {
     Widget builder(BuildContext context) {
-      return NStackMessageDialog._(
+      return _NStackMessageDialog._(
         message: message,
         okButtonTitle: okButtonTitle ??
             message.localization?.okBtn ??
@@ -432,7 +487,8 @@ class NStackMessageDialog extends StatelessWidget {
         await launchUrl(uri!);
       } catch (e) {
         LogUtil.log(
-          'NStackMessage --> Filed to open URL with error: ${e.toString()}',
+          'Filed to open URL with error: ${e.toString()}',
+          'NStackMessage',
         );
       }
 
@@ -446,13 +502,11 @@ class NStackMessageDialog extends StatelessWidget {
       content: messageWidget,
       actions: [
         if (isUriValid)
-          _adaptiveAction(
-            context: context,
+          _AdaptiveDialogAction(
             onPressed: urlLaunchAction,
             child: Text(openUrlButtonTitle),
           ),
-        _adaptiveAction(
-          context: context,
+        _AdaptiveDialogAction(
           onPressed: Navigator.of(context).pop,
           child: okWidget,
         ),
@@ -461,76 +515,22 @@ class NStackMessageDialog extends StatelessWidget {
   }
 }
 
-/*
- *
- * NStack Version Control
- * 
- */
-
-class NStackVersionControlWidget extends StatefulWidget {
-  const NStackVersionControlWidget({
-    super.key,
-    this.child,
-    this.onVersionUpdateNotification,
-  });
-
-  final Widget? child;
-  final void Function(Update)? onVersionUpdateNotification;
-
-  @override
-  State<StatefulWidget> createState() => _NStackVersionControlWidgetSate();
-}
-
-class _NStackVersionControlWidgetSate
-    extends State<NStackVersionControlWidget> {
-  late final StreamSubscription _versionInfoSubscription;
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _versionInfoSubscription = context
-          .nstack.appVersionControl.onVersionUpdateNotification
-          .listen(_onVersionUpdateNotification);
-    });
-  }
-
-  @override
-  void dispose() {
-    _versionInfoSubscription.cancel();
-    super.dispose();
-  }
-
-  void _onVersionUpdateNotification(Update update_info) {
-    if (widget.onVersionUpdateNotification != null) {
-      widget.onVersionUpdateNotification!(update_info);
-      return;
-    }
-    NStackAppUpdateInfoDialog.show(context, update_info: update_info);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.child ?? const SizedBox();
-  }
-}
-
-class NStackAppUpdateInfoDialog extends StatelessWidget {
-  const NStackAppUpdateInfoDialog._({
+class _NStackAppUpdateInfoDialog extends StatelessWidget {
+  const _NStackAppUpdateInfoDialog._({
     Key? key,
     required this.update_info,
   }) : super(key: key);
 
   /// App update info that was received.
-  final Update update_info;
+  final NStackVersionUpdate update_info;
 
   /// Displays the dialog.
   static Future<void> show(
     BuildContext context, {
-    required Update update_info,
+    required NStackVersionUpdate update_info,
   }) {
     Widget builder(BuildContext context) {
-      return NStackAppUpdateInfoDialog._(
+      return _NStackAppUpdateInfoDialog._(
         update_info: update_info,
       );
     }
@@ -571,20 +571,21 @@ class NStackAppUpdateInfoDialog extends StatelessWidget {
       if (update_info.newerVersion?.lastId != null) {
         await context.nstack.appVersionControl.setUpdateInfoViewed(
           updateId: update_info.newerVersion!.lastId,
-          answer: UpdateViewAnswer.yes,
-          type: UpdateViewType.newerVersion,
+          answer: NStackVersionUpdateViewAnswer.yes,
+          type: NStackVersionUpdateViewType.newerVersion,
         );
       }
       try {
         await launchUrl(update_info.newerVersion!.link!);
       } catch (e) {
         LogUtil.log(
-          'NStackVersionControl --> Filed to open URL with error: ${e.toString()}',
+          'Filed to open URL with error: ${e.toString()}',
+          'NStackVersionControl',
         );
       }
 
       if (context.mounted &&
-          update_info.newerVersion?.state != UpdateState.force) {
+          update_info.newerVersion?.state != NStackVersionUpdateState.force) {
         Navigator.of(context).pop();
       }
     };
@@ -593,14 +594,14 @@ class NStackAppUpdateInfoDialog extends StatelessWidget {
       if (update_info.newInThisVersion != null) {
         await context.nstack.appVersionControl.setUpdateInfoViewed(
           updateId: update_info.newInThisVersion!.lastId,
-          answer: UpdateViewAnswer.yes,
-          type: UpdateViewType.newInVersion,
+          answer: NStackVersionUpdateViewAnswer.yes,
+          type: NStackVersionUpdateViewType.newInVersion,
         );
       } else if (update_info.newerVersion?.lastId != null) {
         await context.nstack.appVersionControl.setUpdateInfoViewed(
           updateId: update_info.newerVersion!.lastId,
-          answer: UpdateViewAnswer.yes,
-          type: UpdateViewType.newerVersion,
+          answer: NStackVersionUpdateViewAnswer.yes,
+          type: NStackVersionUpdateViewType.newerVersion,
         );
       }
       if (context.mounted) {
@@ -610,21 +611,19 @@ class NStackAppUpdateInfoDialog extends StatelessWidget {
 
     final shouldShowUrlLaunchAction = update_info.newerVersion?.link != null;
     final shouldShowDismissAction =
-        update_info.newerVersion?.state != UpdateState.force;
+        update_info.newerVersion?.state != NStackVersionUpdateState.force;
 
     return AlertDialog.adaptive(
       title: titleWidget,
       content: messageWidget,
       actions: [
         if (shouldShowUrlLaunchAction)
-          _adaptiveAction(
-            context: context,
+          _AdaptiveDialogAction(
             onPressed: urlLaunchAction,
             child: updateWidget,
           ),
         if (shouldShowDismissAction)
-          _adaptiveAction(
-            context: context,
+          _AdaptiveDialogAction(
             onPressed: dismissAction,
             child: dismissWidget,
           ),
@@ -633,21 +632,31 @@ class NStackAppUpdateInfoDialog extends StatelessWidget {
   }
 }
 
-/*
- *
- * NStack Utility Functions
- * 
- */
+class _AdaptiveDialogAction extends StatelessWidget {
+  final VoidCallback onPressed;
+  final Widget child;
 
-Widget _adaptiveAction({
-  required BuildContext context,
-  required VoidCallback onPressed,
-  required Widget child,
-}) {
-  if (Platform.isIOS) {
-    return CupertinoDialogAction(onPressed: onPressed, child: child);
+  const _AdaptiveDialogAction({
+    Key? key,
+    required this.onPressed,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Detecting the platform and choosing the appropriate widget
+    if (Platform.isIOS) {
+      return CupertinoDialogAction(
+        onPressed: onPressed,
+        child: child,
+      );
+    }
+    // Defaulting to Material design for other platforms
+    return TextButton(
+      onPressed: onPressed,
+      child: child,
+    );
   }
-  return TextButton(onPressed: onPressed, child: child);
 }
 
 /*

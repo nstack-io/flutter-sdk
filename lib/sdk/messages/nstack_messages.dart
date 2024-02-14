@@ -7,22 +7,22 @@ import 'package:nstack/src/nstack_repository.dart';
 import 'package:nstack/utils/log_util.dart';
 
 class NStackMessages {
-  final NStackRepository _repository;
-  NStackAppOpenData? _appOpenData;
-
-  final _onMessage = StreamController<Message>.broadcast();
-
-  Stream<Message> get onMessage => _onMessage.stream;
-
   NStackMessages({
     required NStackRepository repository,
   }) : _repository = repository;
+
+  final NStackRepository _repository;
+  NStackAppOpenData? _appOpenData;
+
+  final _onMessageController = StreamController<Message>.broadcast();
+
+  Stream<Message> get onMessage => _onMessageController.stream;
 
   Future<void> setMessageViewed(int messageId) async {
     final appOpenData = _appOpenData;
 
     if (appOpenData == null) {
-      LogUtil.log('NStack --> Could not post message seen.');
+      LogUtil.log('Could not post message seen.');
       return;
     }
 
@@ -32,7 +32,7 @@ class NStackMessages {
         messageId: messageId,
       );
     } catch (e) {
-      LogUtil.log('NStack --> Could not post message seen.');
+      LogUtil.log('Could not post message seen.');
     }
   }
 
@@ -45,7 +45,7 @@ class NStackMessages {
     final message = appOpen.data.message;
 
     if (message != null) {
-      _onMessage.add(message);
+      _onMessageController.add(message);
     }
   }
 }

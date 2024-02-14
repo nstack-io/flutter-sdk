@@ -1,13 +1,13 @@
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/message.dart';
+import 'package:nstack/models/nstack_version_update.dart';
 import 'package:nstack/models/rate_reminder.dart';
 import 'package:nstack/models/terms.dart';
-import 'package:nstack/models/update.dart';
 import 'package:nstack/other/extensions.dart';
 
 class AppOpenData {
   final int? count;
-  final Update? update;
+  final NStackVersionUpdate? update;
   final List<LocalizeIndex>? localize;
   final String? platform;
   final DateTime? createdAt;
@@ -31,7 +31,8 @@ class AppOpenData {
   factory AppOpenData.fromJson(Map json) {
     return AppOpenData(
       count: json['count'],
-      update: (json['update'] as Map<String, dynamic>?)?.let(Update.fromJson),
+      update: (json['update'] as Map<String, dynamic>?)
+          ?.let(NStackVersionUpdate.fromJson),
       localize: (json['localize'] as List<dynamic>?)?.let(
         (item) => item
             .map(

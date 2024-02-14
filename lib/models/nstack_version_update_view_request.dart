@@ -1,11 +1,11 @@
-// Definition of UpdateViewAnswer
-enum UpdateViewAnswer {
+// Definition of NStackVersionUpdateViewAnswer
+enum NStackVersionUpdateViewAnswer {
   yes,
   no,
 }
 
-// Definition of UpdateViewType
-enum UpdateViewType {
+// Definition of NStackVersionUpdateViewType
+enum NStackVersionUpdateViewType {
   newerVersion,
   newInVersion;
 
@@ -21,8 +21,8 @@ enum UpdateViewType {
 class UpdateViewRequest {
   final String guid;
   final String updateId;
-  final UpdateViewAnswer answer;
-  final UpdateViewType type;
+  final NStackVersionUpdateViewAnswer answer;
+  final NStackVersionUpdateViewType type;
 
   UpdateViewRequest({
     required this.guid,

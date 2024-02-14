@@ -14,29 +14,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 /// The localization feature of NStack.
 class NStackLocalization<TLocalization> {
-  static const _prefsKeyLastUpdated = 'nstack_last_updated';
-  static const _prefsSelectedLocale = 'nstack_selected_locale';
-
-  final _onLocaleChanged = StreamController<Locale>.broadcast();
-
-  final NStackConfig config;
-  final TLocalization assets;
-  final NStackRepository _repository;
-  late List<Locale> supportedLocales;
-
-  List<Language> get availableLanguages =>
-      LocalizationRepository().availableLanguages;
-
-  Language get activeLanguage => LocalizationRepository().pickedLanguage;
-
-  Locale get activeLocale => Locale(activeLanguage.locale);
-
-  String get checksum => LocalizationRepository().checksum;
-
-  Stream<Locale> get onLocaleChanged => _onLocaleChanged.stream;
-
-  Locale? clientLocale;
-
   NStackLocalization({
     required this.config,
     required this.assets,
@@ -59,6 +36,29 @@ class NStackLocalization<TLocalization> {
       pickedLanguageLocale,
     );
   }
+
+  static const _prefsKeyLastUpdated = 'nstack_last_updated';
+  static const _prefsSelectedLocale = 'nstack_selected_locale';
+
+  final _onLocaleChanged = StreamController<Locale>.broadcast();
+
+  final NStackConfig config;
+  final TLocalization assets;
+  final NStackRepository _repository;
+  late List<Locale> supportedLocales;
+
+  List<Language> get availableLanguages =>
+      LocalizationRepository().availableLanguages;
+
+  Language get activeLanguage => LocalizationRepository().pickedLanguage;
+
+  Locale get activeLocale => Locale(activeLanguage.locale);
+
+  String get checksum => LocalizationRepository().checksum;
+
+  Stream<Locale> get onLocaleChanged => _onLocaleChanged.stream;
+
+  Locale? clientLocale;
 
   Future<void> _updateLocaleAndNotify({
     required Map<String, dynamic> translationData,
@@ -190,7 +190,7 @@ class NStackLocalization<TLocalization> {
     if (bestFitLanguage.shouldUpdate == true || !prefs.containsKey(nstackKey)) {
       // Fetch best fit language from the server
       LogUtil.log(
-        'NStack --> Fetching best fit language: ${bestFitLanguage.language.locale}',
+        'Fetching best fit language: ${bestFitLanguage.language.locale}',
       );
 
       // Fetch localization for default language
@@ -222,7 +222,7 @@ class NStackLocalization<TLocalization> {
       // Using best fit language from the cache
       if (prefs.containsKey(nstackKey)) {
         LogUtil.log(
-          'NStack --> Using cache for best fit language: ${bestFitLanguage.language.locale}',
+          'Using cache for best fit language: ${bestFitLanguage.language.locale}',
         );
         final cachedResponse = json.decode(prefs.getString(nstackKey)!);
         final languageResponse = LocalizationData.fromJson(cachedResponse);
@@ -233,7 +233,7 @@ class NStackLocalization<TLocalization> {
         // No cache, default values (this shouldn't happen, should_update should be true)
       } else {
         LogUtil.log(
-          'NStack --> WARNING: No cache found for best fit language: ${bestFitLanguage.language.locale}',
+          'WARNING: No cache found for best fit language: ${bestFitLanguage.language.locale}',
         );
         LocalizationRepository().switchBundledLocalization(
           bestFitLanguage.language.locale,
@@ -250,7 +250,7 @@ class NStackLocalization<TLocalization> {
 
     if (languageTag != null) {
       LogUtil.log(
-        'NStack --> User has overwritten device locale to: $languageTag',
+        'User has overwritten device locale to: $languageTag',
       );
       LocalizationRepository().overridePickedLanguage(languageTag);
     }

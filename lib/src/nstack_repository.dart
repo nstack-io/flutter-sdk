@@ -6,7 +6,7 @@ import 'package:nstack/models/app_open_platform.dart';
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/nstack_appopen_data.dart';
 import 'package:nstack/models/nstack_config.dart';
-import 'package:nstack/models/update_view_request.dart';
+import 'package:nstack/models/nstack_version_update_view_request.dart';
 import 'package:nstack/utils/log_util.dart';
 
 class NStackRepository {
@@ -44,7 +44,7 @@ class NStackRepository {
       'last_updated': appOpenData.lastUpdated,
     };
 
-    LogUtil.log('NStack --> App Open sending: ${requestBody.toString()}');
+    LogUtil.log('App Open sending: ${requestBody.toString()}');
 
     final appOpenResponse = await http.post(
       Uri.parse('$_baseUrl/open?dev=$devMode&test=$testMode'),
@@ -53,11 +53,11 @@ class NStackRepository {
     );
 
     if (appOpenResponse.statusCode == 200) {
-      LogUtil.log('NStack --> App Open fetched: ${appOpenResponse.body}');
+      LogUtil.log('App Open fetched: ${appOpenResponse.body}');
       return json.decode(appOpenResponse.body);
     } else {
       LogUtil.log(
-        'NStack --> App Open failed: ${appOpenResponse.reasonPhrase} - ${appOpenResponse.body} - ${requestBody.toString()}',
+        'App Open failed: ${appOpenResponse.reasonPhrase} - ${appOpenResponse.body} - ${requestBody.toString()}',
       );
     }
   }

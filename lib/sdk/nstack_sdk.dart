@@ -109,7 +109,7 @@ class NStackSdk {
           await localization.getUserSelectedLanguageTag() ??
               defaultLocale.toLanguageTag();
 
-      LogUtil.log('NStack --> Calling App Open...');
+      LogUtil.log('Calling App Open...');
       final result = await _repository.postAppOpen(
         acceptHeader: selectedLanguageTag,
         appOpenData: _appOpenData,
@@ -123,7 +123,7 @@ class NStackSdk {
       messages.onAppOpen(appOpen, _appOpenData);
       appVersionControl.onAppOpen(appOpen, _appOpenData);
 
-      LogUtil.log('NStack --> Updated localization.');
+      LogUtil.log('Updated localization.');
 
       _appOpenCalled = true;
 
@@ -133,7 +133,7 @@ class NStackSdk {
       LocalizationRepository().switchBundledLocalization(
         defaultLocale.toLanguageTag(),
       );
-      LogUtil.log('NStack --> App Open failed because of: ${e.toString()}');
+      LogUtil.log('App Open failed because of: ${e.toString()}');
       LogUtil.log(s.toString());
       return AppOpenResult.failed;
     }
