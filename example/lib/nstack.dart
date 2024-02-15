@@ -327,6 +327,7 @@ class _NStackMessageWidgetSate extends State<NStackMessageWidget> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _messageSubscription?.cancel();
     _messageSubscription = context.nstack.messages.onMessage.listen(_onMessage);
   }
 
@@ -385,6 +386,7 @@ class _NStackVersionControlWidgetSate
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _versionInfoSubscription?.cancel();
     _versionInfoSubscription = context
         .nstack.appVersionControl.onVersionUpdateNotification
         .listen(_onVersionUpdateNotification);
