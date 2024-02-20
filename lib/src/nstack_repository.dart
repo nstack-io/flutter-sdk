@@ -6,6 +6,7 @@ import 'package:nstack/models/app_open_platform.dart';
 import 'package:nstack/models/localize_index.dart';
 import 'package:nstack/models/nstack_appopen_data.dart';
 import 'package:nstack/models/nstack_config.dart';
+import 'package:nstack/models/nstack_version_update_view_request.dart';
 import 'package:nstack/utils/log_util.dart';
 
 class NStackRepository {
@@ -43,7 +44,7 @@ class NStackRepository {
       'last_updated': appOpenData.lastUpdated,
     };
 
-    LogUtil.log('NStack --> App Open sending: ${requestBody.toString()}');
+    LogUtil.log('App Open sending: ${requestBody.toString()}');
 
     final appOpenResponse = await http.post(
       Uri.parse('$_baseUrl/open?dev=$devMode&test=$testMode'),
@@ -52,11 +53,11 @@ class NStackRepository {
     );
 
     if (appOpenResponse.statusCode == 200) {
-      LogUtil.log('NStack --> App Open fetched: ${appOpenResponse.body}');
+      LogUtil.log('App Open fetched: ${appOpenResponse.body}');
       return json.decode(appOpenResponse.body);
     } else {
       LogUtil.log(
-        'NStack --> App Open failed: ${appOpenResponse.reasonPhrase} - ${appOpenResponse.body} - ${requestBody.toString()}',
+        'App Open failed: ${appOpenResponse.reasonPhrase} - ${appOpenResponse.body} - ${requestBody.toString()}',
       );
     }
   }
@@ -69,9 +70,9 @@ class NStackRepository {
         ),
         headers: _headers,
       );
-      final Map languagesJson = json.decode(response.body);
-      final languagesList = (languagesJson['data'] as List<dynamic>)
-          .map((it) => LocalizeIndex.fromJson(it))
+      final Map<String, dynamic> languagesJson = json.decode(response.body);
+      final languagesList = (languagesJson['data'] as List)
+          .map((item) => LocalizeIndex.fromJson(item as Map<String, dynamic>))
           .toList();
       LogUtil.log('Fetched ${languagesList.length} languages.');
       return languagesList;
@@ -82,7 +83,7 @@ class NStackRepository {
   }
 
   Future<String> fetchLocalizationForLanguage(String url) async {
-    return await http
+    return http
         .get(Uri.parse(url), headers: _headers)
         .then((value) => value.body);
   }
@@ -114,6 +115,22 @@ class NStackRepository {
 
     if (response.statusCode != 200) {
       throw NStackException.updateFailed('Failed to update message seen.');
+    }
+  }
+
+  Future<void> postUpdateInfoSeen({
+    required UpdateViewRequest updateViewRequest,
+  }) async {
+    final url = Uri.parse('$_baseUrl/notify/updates/views');
+
+    final response = await http.post(
+      url,
+      headers: _headers,
+      body: updateViewRequest.toJson(),
+    );
+
+    if (response.statusCode != 200) {
+      throw NStackException.updateFailed('Failed to update change log seen.');
     }
   }
 }

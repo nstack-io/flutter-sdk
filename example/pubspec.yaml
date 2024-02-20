@@ -22,7 +22,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  monstarlab_lints: ^1.0.2
+  monstarlab_lints: ^1.0.3
 
 flutter:
   uses-material-design: true

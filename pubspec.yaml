@@ -23,7 +23,7 @@ dependencies:
   url_launcher: ^6.2.2
 
 dev_dependencies:
-  monstarlab_lints: ^1.0.2
+  monstarlab_lints: ^1.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

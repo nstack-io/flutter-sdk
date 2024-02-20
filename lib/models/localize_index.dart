@@ -16,15 +16,14 @@ class LocalizeIndex {
     required this.language,
   });
 
-  factory LocalizeIndex.fromJson(Map json) {
+  factory LocalizeIndex.fromJson(Map<String, dynamic> json) {
     return LocalizeIndex(
       id: json['id'],
       url: json['url'],
-      lastUpdatedAt:
-          (json['last_updated_at'] as String).let((it) => DateTime.parse(it)),
+      lastUpdatedAt: (json['last_updated_at'] as String).let(DateTime.parse),
       shouldUpdate: json['should_update'],
-      language: (json['language'] as Map)
-          .let((it) => Language.fromJson(it as Map<String, dynamic>)),
+      language:
+          (json['language'] as Map<String, dynamic>).let(Language.fromJson),
     );
   }
 

@@ -7,6 +7,7 @@ import 'package:nstack/models/nstack_appopen_data.dart';
 import 'package:nstack/models/nstack_config.dart';
 import 'package:nstack/sdk/localization/nstack_localization.dart';
 import 'package:nstack/sdk/messages/nstack_messages.dart';
+import 'package:nstack/sdk/version_control/nstack_version_control.dart';
 import 'package:nstack/src/nstack_repository.dart';
 import 'package:nstack/src/repository.dart';
 import 'package:nstack/utils/log_util.dart';
@@ -26,6 +27,7 @@ class NStackSdk {
 
   final NStackLocalization localization;
   late final NStackMessages messages;
+  late final NStackVersionControl appVersionControl;
 
   var _appOpenCalled = false;
 
@@ -35,6 +37,7 @@ class NStackSdk {
   }) {
     _repository = NStackRepository(config);
     messages = NStackMessages(repository: _repository);
+    appVersionControl = NStackVersionControl(repository: _repository);
   }
 
   Future<void> _setupAppOpenData(AppOpenPlatform? platformOverride) async {
@@ -106,7 +109,7 @@ class NStackSdk {
           await localization.getUserSelectedLanguageTag() ??
               defaultLocale.toLanguageTag();
 
-      LogUtil.log('NStack --> Calling App Open...');
+      LogUtil.log('Calling App Open...');
       final result = await _repository.postAppOpen(
         acceptHeader: selectedLanguageTag,
         appOpenData: _appOpenData,
@@ -118,8 +121,9 @@ class NStackSdk {
 
       await localization.updateOnAppOpen(appOpen);
       messages.onAppOpen(appOpen, _appOpenData);
+      appVersionControl.onAppOpen(appOpen, _appOpenData);
 
-      LogUtil.log('NStack --> Updated localization.');
+      LogUtil.log('Updated localization.');
 
       _appOpenCalled = true;
 
@@ -129,7 +133,7 @@ class NStackSdk {
       LocalizationRepository().switchBundledLocalization(
         defaultLocale.toLanguageTag(),
       );
-      LogUtil.log('NStack --> App Open failed because of: ${e.toString()}');
+      LogUtil.log('App Open failed because of: ${e.toString()}');
       LogUtil.log(s.toString());
       return AppOpenResult.failed;
     }
